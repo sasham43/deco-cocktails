@@ -20,7 +20,15 @@ export default class CocktailList extends React.Component {
         function List(){
             // console.log('cocktails', cocktails)
             return cocktails.map(cocktail=>
-                (<AppText style={styles.cocktail} key={cocktail.id}>{cocktail.name}</AppText>)
+                (
+                    <View style={styles.cocktail} key={cocktail.id}>
+                        <AppText>
+                            <Text style={styles.cocktail_text}>
+                                {cocktail.name}
+                            </Text>
+                        </AppText>
+                    </View>
+                )
             )
         }
         return (
@@ -42,5 +50,9 @@ const styles = StyleSheet.create({
     cocktail: {
         marginTop: 10,
         marginLeft: 10
+    },
+    cocktail_text: {
+        fontSize: 20,
+        marginTop: 10
     }
 })
