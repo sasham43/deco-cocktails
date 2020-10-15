@@ -9,7 +9,7 @@ import Main from './components/Main'
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Crump Cocktails</Text>
+      {/* <Text>Crump Cocktails</Text> */}
       <StatusBar style="auto" />
       <Main></Main>
     </View>
