@@ -5,17 +5,33 @@ import {
     PoiretOne_400Regular
 } from '@expo-google-fonts/poiret-one'
 
+// export default props => {
+//     let [fontsLoaded] = useFonts({
+//         PoiretOne_400Regular,
+//     })
+
+//     if (!fontsLoaded) {
+//         return (<Text></Text>)
+//     } else {
+//         return (
+//             <Text style={{ fontFamily: 'PoiretOne_400Regular' }}>
+//                 {this.props.children}
+//             </Text>
+//         );
+//     }
+// }
+
 class AppText extends React.Component {
    
     render() {
-        // let [fontsLoaded] = useFonts({
-        //     PoiretOne_400Regular,
-        // });
+
+       
         return (
             <Text style={{ fontFamily: 'PoiretOne_400Regular' }}>
                 {this.props.children}
             </Text>
         );
+        
     }
 }
 

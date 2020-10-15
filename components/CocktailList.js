@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import AppText from './AppText'
 
 export default class CocktailList extends React.Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            cocktails: [
+                {
+                    id: 0,
+                    name: 'Manhattan'
+                },
+                {
+                    id: 1,
+                    name: 'Old Fashioned'
+                }
+            ]
+        };
+    }
 
 
     render(){
@@ -18,7 +32,7 @@ export default class CocktailList extends React.Component {
             }
         ]
         function List(){
-            // console.log('cocktails', cocktails)
+            console.log('cocktails', this.state)
             return cocktails.map(cocktail=>
                 (
                     <View style={styles.cocktail} key={cocktail.id}>
