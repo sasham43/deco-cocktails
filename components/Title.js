@@ -7,7 +7,7 @@ export default class Title extends React.Component {
     render(){
         return (
             <View style={styles.title}>
-                <Text>Crump Cocktails!</Text>
+                <Text style={styles.text}>Crump Cocktails!</Text>
             </View>
         )
     }
@@ -20,5 +20,8 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderBottomWidth: 1,
         borderStyle: 'solid'
+    },
+    text: {
+        fontSize: 35
     }
 })
