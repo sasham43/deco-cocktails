@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import AppText from './AppText'
 
 export default class CocktailList extends React.Component {
 
@@ -17,9 +18,9 @@ export default class CocktailList extends React.Component {
             }
         ]
         function List(){
-            console.log('cocktails', cocktails)
+            // console.log('cocktails', cocktails)
             return cocktails.map(cocktail=>
-                (<Text style={styles.cocktail} key={cocktail.id}>{cocktail.name}</Text>)
+                (<AppText style={styles.cocktail} key={cocktail.id}>{cocktail.name}</AppText>)
             )
         }
         return (

@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import AppText from './AppText'
 
 
 export default class Title extends React.Component {
@@ -7,7 +8,12 @@ export default class Title extends React.Component {
     render(){
         return (
             <View style={styles.title}>
-                <Text style={styles.text}>Crump Cocktails!</Text>
+                <AppText>
+                    <Text style={styles.text}>
+                        Crump Cocktails!
+                    </Text>
+                </AppText>
+                {/* <Text style={styles.text}>Crump Cocktails!</Text> */}
             </View>
         )
     }
