@@ -7,6 +7,7 @@ import {
   useFonts,
   PoiretOne_400Regular
 } from '@expo-google-fonts/poiret-one'
+
 // components
 import Main from './components/Main'
 
