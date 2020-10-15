@@ -2,26 +2,26 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import AppText from './AppText'
 
-export default class CocktailList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            cocktails: [
-                {
-                    id: 0,
-                    name: 'Manhattan'
-                },
-                {
-                    id: 1,
-                    name: 'Old Fashioned'
-                }
-            ]
-        };
-    }
+function ClassList() {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         cocktails: [
+    //             {
+    //                 id: 0,
+    //                 name: 'Manhattan'
+    //             },
+    //             {
+    //                 id: 1,
+    //                 name: 'Old Fashioned'
+    //             }
+    //         ]
+    //     };
+    // }
 
 
-    render(){
-        const cocktails = [
+    // render(){
+        const [cocktails] = useState([
             {
                 id: 0,
                 name: 'Manhattan'
@@ -30,29 +30,50 @@ export default class CocktailList extends React.Component {
                 id: 1,
                 name: 'Old Fashioned'
             }
-        ]
-        function List(){
-            console.log('cocktails', this.state)
-            return cocktails.map(cocktail=>
-                (
-                    <View style={styles.cocktail} key={cocktail.id}>
-                        <AppText>
-                            <Text style={styles.cocktail_text}>
-                                {cocktail.name}
-                            </Text>
-                        </AppText>
-                    </View>
-                )
-            )
-        }
-        return (
-            <View style={styles.list}>
-                <View>
-                    <List />
+        ])
+        // const cocktails = [
+        //     {
+        //         id: 0,
+        //         name: 'Manhattan'
+        //     },
+        //     {
+        //         id: 1,
+        //         name: 'Old Fashioned'
+        //     }
+        // ]
+        return cocktails.map(cocktail=>
+            (
+                <View style={styles.cocktail} key={cocktail.id}>
+                    <AppText>
+                        <Text style={styles.cocktail_text}>
+                            {cocktail.name}
+                        </Text>
+                    </AppText>
                 </View>
-            </View>
+            )
         )
-    }
+        // function List(){
+        //     // console.log('cocktails', this.state)
+        //     return cocktails.map(cocktail=>
+        //         (
+        //             <View style={styles.cocktail} key={cocktail.id}>
+        //                 <AppText>
+        //                     <Text style={styles.cocktail_text}>
+        //                         {cocktail.name}
+        //                     </Text>
+        //                 </AppText>
+        //             </View>
+        //         )
+        //     )
+        // }
+        // return (
+        //     <View style={styles.list}>
+        //         <View>
+        //             <List />
+        //         </View>
+        //     </View>
+        // )
+    // }
 }
 
 const styles = StyleSheet.create({
@@ -70,3 +91,5 @@ const styles = StyleSheet.create({
         marginTop: 10
     }
 })
+
+export default ClassList
