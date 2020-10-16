@@ -8,15 +8,21 @@ export default class Menu extends React.Component {
     render(){
         return (
             <View style={styles.menu}>
-                <Link to="/about">
-                    <AppText>About</AppText>
-                </Link>
-                <Link to="/">
-                    <AppText>Cocktails</AppText>
-                </Link>
-                <Link to="/stock">
-                    <AppText>Stock</AppText>
-                </Link>
+                <View style={styles.link}>
+                    <Link to="/about">
+                        <AppText>About</AppText>
+                    </Link>
+                </View>
+                <View style={styles.link}>
+                    <Link to="/">
+                        <AppText>Cocktails</AppText>
+                    </Link>
+                </View>
+                <View style={styles.link}>
+                    <Link to="/stock">
+                        <AppText>Stock</AppText>
+                    </Link>
+                </View>
             </View>
         )
     }
@@ -30,5 +36,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignContent: 'flex-start',
         // height: 1
+    },
+    link: {
+        paddingTop: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingBottom: 10,
     }
 })
