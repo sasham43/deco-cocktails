@@ -14,7 +14,10 @@ export const useCocktails = () => {
     }
 
     useEffect(()=>{
-        if(cocktails.length) return
+        if(cocktails.length) {
+            setCocktails([]) 
+            return
+        }
         loadCocktails()
     }, [])
 
