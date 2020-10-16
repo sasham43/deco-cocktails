@@ -8,6 +8,7 @@ import AppText from './AppText'
 import About from './About'
 import Stock from './Stock'
 import Menu from './Menu'
+import Add from './AddCocktail'
 
 export default class Main extends React.Component {
 
@@ -16,30 +17,22 @@ export default class Main extends React.Component {
                 <NativeRouter>
                     <View style={styles.container}>
                         <Title></Title>
-                        {/* <View> */}
-                            <Menu></Menu>
-                            {/* <Link to="/about">
-                                <AppText>About</AppText>
-                            </Link>
-                            <Link to="/">
-                                <AppText>Cocktails</AppText>
-                            </Link>
-                            <Link to="/stock">
-                                <AppText>Stock</AppText>
-                            </Link> */}
-                        {/* </View> */}
+
+                        <Menu></Menu>
+
 
                         <Route exact path="/">
                             <CocktailList style={styles.view} />
                         </Route>
-                    <Route style={styles.view} exact path="/about">
+                        <Route exact path="/about">
                             <About />
                         </Route>
                         <Route exact path="/stock">
                             <Stock style={styles.view} />
                         </Route>
-                        {/* <Route exact path="/" component={CocktailList} />
-                        <Route path="/about" component={About} /> */}
+                        <Route exact path="/add-cocktail">
+                            <Add style={styles.view} />
+                        </Route>
                     </View>
                 </NativeRouter>
         )

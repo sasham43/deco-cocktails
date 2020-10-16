@@ -18,18 +18,11 @@ export default class Menu extends React.Component {
 
 
     render(){
-        // const match = matchPath('/:page')
-        // console.log('match', match)
-        // console.log('match ', withRouter(({match})=>{
-        //     console.log('insdie match', match)
-        // }))
+
         var currentPage = 'cocktails'
         return (
             <View>
-                {/* <ShowTheLocationWithRouter /> */}
                 <Route render={(routeProps)=>{
-                    // const match = routeProps.match
-                    // console.log('menu match', routeProps.match, routeProps.location)
                     var currentPage = ''
                     switch (routeProps.location.pathname){
                         case '/stock':
@@ -38,6 +31,9 @@ export default class Menu extends React.Component {
                         case '/about':
                             currentPage = 'about'
                             break;
+                        case '/add-cocktail':
+                            currentPage = 'add-cocktail'
+                            break;
                         case '/':
                             currentPage = 'cocktails'
                             break;
@@ -45,60 +41,39 @@ export default class Menu extends React.Component {
                         //     currentPage = 'cocktails'
                     }
 
-                    console.log('current page', currentPage == 'about')
-
-                    // this.setState({
-                    //     currentPage
-                    // })
                     return (
                         <View style={styles.menu}>
-                        <View style={[styles.link, ]}>
-                            <Link to="/about">
-                                <View style={currentPage == 'about' ? styles.selected : null}>
-                                    <AppText>About</AppText>
-                                </View>
-                            </Link>
-                        </View>
-                        <View style={styles.link}>
-                            <Link to="/">
-                                <View style={currentPage == 'cocktails' ? styles.selected : null}>
-                                    <AppText>Cocktails</AppText>
-                                </View>
-                            </Link>
-                        </View>
-                        <View style={styles.link}>
-                            <Link to="/stock">
-                                <View style={currentPage == 'stock' ? styles.selected : null}>
-                                <AppText>Stock</AppText>
-                                </View>
-                            </Link>
-                        </View>
+                            <View style={[styles.link, ]}>
+                                <Link to="/about">
+                                    <View style={currentPage == 'about' ? styles.selected : null}>
+                                        <AppText>About</AppText>
+                                    </View>
+                                </Link>
+                            </View>
+                            <View style={styles.link}>
+                                <Link to="/">
+                                    <View style={currentPage == 'cocktails' ? styles.selected : null}>
+                                        <AppText>Cocktails</AppText>
+                                    </View>
+                                </Link>
+                            </View>
+                            <View style={styles.link}>
+                                <Link to="/stock">
+                                    <View style={currentPage == 'stock' ? styles.selected : null}>
+                                    <AppText>Stock</AppText>
+                                    </View>
+                                </Link>
+                            </View>
+                            <View style={styles.link}>
+                                <Link to="/add-cocktail">
+                                    <View style={currentPage == 'add-cocktail' ? styles.selected : null}>
+                                    <AppText>Add</AppText>
+                                    </View>
+                                </Link>
+                            </View>
                         </View>
                     )
                 }} />
-                {/* <View style={[styles.link, ]}>
-                    <Link to="/about">
-                        <View style={currentPage == 'cocktails' ? styles.selected : null}>
-
-
-                            <AppText>About</AppText>
-                        </View>
-                    </Link>
-                </View>
-                <View style={styles.link}>
-                    <Link to="/">
-                        <View style={currentPage == 'cocktails' ? styles.selected : null}>
-                            <AppText>Cocktails</AppText>
-                        </View>
-                    </Link>
-                </View>
-                <View style={styles.link}>
-                    <Link to="/stock">
-                        <View style={currentPage == 'stock' ? styles.selected : null}>
-                        <AppText>Stock</AppText>
-                        </View>
-                    </Link>
-                </View> */}
             </View>
         )
     }
