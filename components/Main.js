@@ -7,6 +7,7 @@ import CocktailList from './CocktailList'
 import AppText from './AppText'
 import About from './About'
 import Stock from './Stock'
+import Menu from './Menu'
 
 export default class Main extends React.Component {
 
@@ -15,8 +16,9 @@ export default class Main extends React.Component {
                 <NativeRouter>
                     <View style={styles.container}>
                         <Title></Title>
-                        <View>
-                            <Link to="/about">
+                        {/* <View> */}
+                            <Menu></Menu>
+                            {/* <Link to="/about">
                                 <AppText>About</AppText>
                             </Link>
                             <Link to="/">
@@ -24,17 +26,17 @@ export default class Main extends React.Component {
                             </Link>
                             <Link to="/stock">
                                 <AppText>Stock</AppText>
-                            </Link>
-                        </View>
+                            </Link> */}
+                        {/* </View> */}
 
                         <Route exact path="/">
-                            <CocktailList />
+                            <CocktailList style={styles.view} />
                         </Route>
-                        <Route exact path="/about">
+                    <Route style={styles.view} exact path="/about">
                             <About />
                         </Route>
                         <Route exact path="/stock">
-                            <Stock />
+                            <Stock style={styles.view} />
                         </Route>
                         {/* <Route exact path="/" component={CocktailList} />
                         <Route path="/about" component={About} /> */}
@@ -52,5 +54,5 @@ const styles = StyleSheet.create({
         marginTop: 50,
         marginLeft: 50,
         marginRight: 50
-    }
+    },
 })
