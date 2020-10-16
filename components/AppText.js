@@ -6,15 +6,25 @@ import {
 } from '@expo-google-fonts/poiret-one'
 
 
-class AppText extends React.Component {
+// class AppText extends React.Component {
    
-    render() {
-        return (
-            <Text style={{ fontFamily: 'PoiretOne_400Regular' }}>
-                {this.props.children}
+//     render() {
+//         return (
+//             <Text style={{ fontFamily: 'PoiretOne_400Regular' }}>
+//                 {this.props.children}
+//             </Text>
+//         )
+//     }
+// }
+
+function AppText(props){
+    // console.log('app text props', props)
+
+            return (
+            <Text style={[props.style, { fontFamily: 'PoiretOne_400Regular' }]}>
+                {props.children}
             </Text>
         )
-    }
 }
 
 export default AppText
