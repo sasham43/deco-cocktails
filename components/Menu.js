@@ -1,64 +1,10 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Route, Link, matchPath } from 'react-router-native'
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 
 import AppText from './AppText'
 
-
-// export default function Menu(){
-//     return (
-//         <View style={styles.menu}>
-//             {/* <Route path="/:page" render={(routeProps)=>{
-//                     // const match = routeProps.match
-//                     console.log('menu match', routeProps.location)
-//                 }} /> */}
-//             <View style={styles.link}>
-//                 <Link to="/about">
-//                     <AppText>About</AppText>
-//                 </Link>
-//             </View>
-//             <View style={styles.link}>
-//                 <Link to="/cocktails">
-//                     <AppText>Cocktails</AppText>
-//                 </Link>
-//             </View>
-//             <View style={styles.link}>
-//                 <Link to="/stock">
-//                     <AppText>Stock</AppText>
-//                 </Link>
-//             </View>
-//         </View>
-//     )
-// }
-
-// class ShowTheLocation extends React.Component {
-//     static propTypes = {
-//         match: PropTypes.object.isRequired,
-//         location: PropTypes.object.isRequired,
-//         history: PropTypes.object.isRequired
-//     };
-
-//     render() {
-//         const { match, location, history } = this.props;
-
-//         return <AppText>You are now at {location.pathname}</AppText>;
-//     }
-// }
-
-function ShowTheLocation(props){
-    // const propTypes = {
-    //     match: PropTypes.object.isRequired,
-    //     location: PropTypes.object.isRequired,
-    //     history: PropTypes.object.isRequired
-    // };
-
-    return props
-}
-
-// Create a new component that is "connected" (to borrow redux
-// terminology) to the router.
-// const ShowTheLocationWithRouter = withRouter(ShowTheLocation)
 
 export default class Menu extends React.Component {
 

@@ -2,17 +2,38 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import AppText from './AppText'
 
+import {useCocktails} from '../utils/hooks'
+
 function ClassListMap() {
-        const [cocktails] = useState([
-            {
-                id: 0,
-                name: 'Manhattan'
-            },
-            {
-                id: 1,
-                name: 'Old Fashioned'
-            }
-        ])
+        // const [cocktails] = useState([
+        //     {
+        //         id: 0,
+        //         name: 'Manhattan'
+        //     },
+        //     {
+        //         id: 1,
+        //         name: 'Old Fashioned'
+        //     }
+        // ])
+
+        const { cocktails, addCocktail } = useCocktails()
+
+    // console.log(cocktails, addCocktail)
+
+        // setTimeout(()=>{
+        //     console.log(addCocktail)
+        //     addCocktail({
+        //         id: 0, 
+        //         name: 'Manhattan'
+        //     })
+        //     setTimeout(() => {
+        //         console.log(addCocktail)
+        //         addCocktail({
+        //             id: 1,
+        //             name: 'Old Fashioned'
+        //         })
+        //     }, 3000)
+        // }, 3000)
         
         return cocktails.map(cocktail=>
             (
