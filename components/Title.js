@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
         // borderBottom: 'solid 1px black'
         borderColor: 'black',
         borderBottomWidth: 1,
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        alignSelf: 'center'
     },
     text: {
         fontSize: 35
