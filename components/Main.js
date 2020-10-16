@@ -6,6 +6,7 @@ import Title from './Title'
 import CocktailList from './CocktailList'
 import AppText from './AppText'
 import About from './About'
+import Stock from './Stock'
 
 export default class Main extends React.Component {
 
@@ -21,6 +22,9 @@ export default class Main extends React.Component {
                             <Link to="/">
                                 <AppText>Cocktails</AppText>
                             </Link>
+                            <Link to="/stock">
+                                <AppText>Stock</AppText>
+                            </Link>
                         </View>
 
                         <Route exact path="/">
@@ -28,6 +32,9 @@ export default class Main extends React.Component {
                         </Route>
                         <Route exact path="/about">
                             <About />
+                        </Route>
+                        <Route exact path="/stock">
+                            <Stock />
                         </Route>
                         {/* <Route exact path="/" component={CocktailList} />
                         <Route path="/about" component={About} /> */}
