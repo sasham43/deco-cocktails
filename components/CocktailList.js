@@ -21,7 +21,7 @@ function ClassListMap() {
             } else {
                 if(props.parts == 0.25){
                     return (
-                        <QuarterCircle />
+                        <QuarterCircle width={50} height={50} />
                     )
                 }
                 if(props.parts == 0.5){
@@ -31,7 +31,7 @@ function ClassListMap() {
                 }
                 if(props.parts == 0.75){
                     return (
-                        <ThreeQuarterCircle />
+                        <ThreeQuarterCircle scale={0.15} />
                     )
                 }
                 if(props.parts == 1){
@@ -48,7 +48,7 @@ function ClassListMap() {
             return (
                 <View style={styles.part_container}>
                     {props.ingredients.map((ingredient, i) => (
-                        <View key={`part-${i}`}>
+                        <View style={{width:25, height:25}} key={`part-${i}`}>
                             <Part parts={ingredient.parts} last={(i + 1 == props.ingredients.length)} />
                         </View>
                     )
