@@ -11,11 +11,31 @@ function ClassListMap() {
         return cocktails.map(cocktail=>
             (
                 <View style={styles.cocktail} key={cocktail.id}>
-                    <AppText>
-                        <Text style={styles.cocktail_text}>
-                            {cocktail.name}
-                        </Text>
-                    </AppText>
+                    <View>
+                        <AppText>
+                            <Text style={styles.cocktail_text}>
+                                {cocktail.name}
+                            </Text>
+                        </AppText>
+                    </View>
+                    <View>
+                        {cocktail.ingredients.map(ingredient=>(
+                            <View>
+                                {/* <AppText>{ingredient.ingredient_name}</AppText> */}
+                                <AppText>{ingredient.parts}</AppText>
+                            </View>
+                            )
+                        )}
+                    </View>
+                    <View>
+                        {cocktail.ingredients.map((ingredient, i)=>(
+                            <View>
+                                <AppText>{ingredient.ingredient_name}</AppText>
+                                {/* <AppText>{ingredient.parts}</AppText> */}
+                            </View>
+                            )
+                        )}
+                    </View>
                 </View>
             )
         )

@@ -131,7 +131,8 @@ export default function Add(){
                 <TouchableOpacity onPress={() => {
                     addCocktail({
                         id: generate(),
-                        name: newCocktailName
+                        name: newCocktailName,
+                        ingredients: addedCocktailIngredients
                     })
                     setNewCocktailName('')
                     setNewCocktailIngredientName('')
