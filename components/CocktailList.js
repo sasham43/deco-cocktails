@@ -9,7 +9,7 @@ function ClassListMap() {
         const { cocktails, addCocktail } = useCocktails()
 
         function Part(props){
-            console.log('last', props.last)
+            // console.log('last', props.last)
             if(props.last){
                 return (
                     <AppText> {props.parts}</AppText>
@@ -19,6 +19,19 @@ function ClassListMap() {
                     <AppText> {props.parts} |</AppText>
                 )
             }
+        }
+        function PartMap(props){
+            console.log('props', props)
+            return (
+                <View style={styles.part_container}>
+                    {props.ingredients.map((ingredient, i) => (
+                        <View key={`part-${i}`}>
+                            <Part parts={ingredient.parts} last={(i + 1 == props.ingredients.length)} />
+                        </View>
+                    )
+                    )}
+                </View>
+            )
         } 
         
         return cocktails.map(cocktail=>
@@ -31,16 +44,8 @@ function ClassListMap() {
                             </Text>
                         </AppText>
                     </View>
-                    <View style={styles.part_container}>
-                        {cocktail.ingredients.map((ingredient, i)=>(
-                            <View key={`part-${i}`}>
-                                {/* <AppText>{ingredient.ingredient_name}</AppText> */}
-                                {/* <AppText>{ingredient.parts}</AppText> */}
-                                <Part parts={ingredient.parts} last={(i+1 == cocktail.ingredients.length)} />
-                            </View>
-                            )
-                        )}
-                    </View>
+                    <PartMap ingredients={cocktail.ingredients} />
+                    
                     <View>
                         {cocktail.ingredients.map((ingredient, i)=>(
                             <View key={`ingredient-${i}`}>
