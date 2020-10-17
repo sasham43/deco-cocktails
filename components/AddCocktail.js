@@ -5,20 +5,22 @@ import { generate } from 'shortid'
 import RNPickerSelect from 'react-native-picker-select'
 
 import AppText from './AppText'
-import { useCocktails } from '../utils/hooks'
+import { useCocktails, newCocktail } from '../utils/hooks'
 
 export default function Add(){
-    const [ newCocktailName, setNewCocktailName ] = useState('')
-    const [ newCocktailIngredientName, setNewCocktailIngredientName ] = useState('')
-    const [ newCocktailIngredientParts, setNewCocktailIngredientParts ] = useState(0)
-    const [ addedCocktailIngredients, setAddedCocktailIngredients ] = useState([])
+    // const [ newCocktailName, setNewCocktailName ] = useState('')
+    // const [ newCocktailIngredientName, setNewCocktailIngredientName ] = useState('')
+    // const [ newCocktailIngredientParts, setNewCocktailIngredientParts ] = useState(0)
+    // const [ addedCocktailIngredients, setAddedCocktailIngredients ] = useState([])
     // const [ newCocktailIngredients, setNewCocktailIngredients ] = useState([{
     //     id: generate(),
     //     ingredient_name: '',
     //     parts: 0
     // }])
 
-    const { cocktails, addCocktail } = useCocktails([])
+    // const { newCocktailIngredientName, newCocktailIngredientParts, addedCocktailIngredients, setName, setParts, addIngredientToCocktail, resetNewCocktail } = newCocktail()
+
+    const { setFlag, newCocktailName, setNewCocktailName, cocktails, addCocktail, newCocktailIngredientName, newCocktailIngredientParts, addedCocktailIngredients, setName, setParts, addIngredientToCocktail, resetNewCocktail } = useCocktails([])
 
     function AddedIngredient(props){
         return (
@@ -36,35 +38,47 @@ export default function Add(){
         })
     }
 
-    function NewIngredient(props) {
-        const placeholder = {
-            label: 'Parts...',
-            value: null,
-            color: '#9EA0A4',
-        };
-        return (
-            <View style={styles.new_ingredient} key={props.id}>
-                <RNPickerSelect
-                    placeholder={placeholder}
-                    useNativeAndroidPickerStyle={false}
-                style={styles} onValueChange={(val)=>console.log(val)} items={[
-                    {
-                        label: '1',
-                        value: 1
-                    },
-                    {
-                        label: '2',
-                        value: 2
-                    },
-                    {
-                        label: '3',
-                        value: 3
-                    },
-                ]} />
-                <TextInput key={`newCocktailIngredientName`} value={newCocktailIngredientName} onChangeText={text=>setNewCocktailIngredientName(text)} style={styles.input} placeholder="Ingredient..." />
-            </View>
-        )
-    }
+    // function NewIngredient(props) {
+    //     const placeholder = {
+    //         label: 'Parts...',
+    //         value: null,
+    //         color: '#9EA0A4',
+    //     };
+    //     return (
+    //         <View style={styles.new_ingredient} key={props.id}>
+    //             <RNPickerSelect
+    //                 placeholder={placeholder}
+    //                 useNativeAndroidPickerStyle={false}
+    //             style={styles} onValueChange={(val)=>console.log(val)} items={[
+    //                 {
+    //                     label: '1',
+    //                     value: 1
+    //                 },
+    //                 {
+    //                     label: '2',
+    //                     value: 2
+    //                 },
+    //                 {
+    //                     label: '3',
+    //                     value: 3
+    //                 },
+    //             ]} />
+    //             <TextInput key={`newCocktailIngredientName`} value={newCocktailIngredientName} onChangeText={text=>setNewCocktailIngredientName(text)} style={styles.input} placeholder="Ingredient..." />
+    //         </View>
+    //     )
+    // }
+
+    // function addIngredientToCocktail(){
+    //     var added = [{
+    //         id: generate(),
+    //         ingredient_name: newCocktailIngredientName,
+    //         parts: newCocktailIngredientParts
+    //     }, ...addedCocktailIngredients]
+
+    //     setAddedCocktailIngredients(added)
+    //     setNewCocktailIngredientName('')
+    //     setNewCocktailIngredientParts(0)
+    // }
 
     // function NewIngredientMap(){
     //     return newCocktailIngredients.map(ingredient=>{
@@ -75,7 +89,7 @@ export default function Add(){
     // }
     const placeholder = {
         label: 'Parts...',
-        value: null,
+        // value: null,
         color: '#9EA0A4',
     };
     return (
@@ -91,11 +105,12 @@ export default function Add(){
                 <AddedIngredientMap />
                 <View style={styles.new_ingredient}>
                     <RNPickerSelect
+                        key={newCocktailIngredientParts}
                         placeholder={placeholder}
                         useNativeAndroidPickerStyle={false}
                         style={styles} 
                         value={newCocktailIngredientParts}
-                        onValueChange={(val) => setNewCocktailIngredientParts(val)} 
+                        onValueChange={(val) => setParts(val)} 
                         items={[
                             {
                                 label: '1',
@@ -111,33 +126,44 @@ export default function Add(){
                             },
                         ]} 
                     />
-                    <TextInput key={`newCocktailIngredientName`} value={newCocktailIngredientName} onChangeText={text => setNewCocktailIngredientName(text)} style={styles.input} placeholder="Ingredient..." />
+                    <TextInput key={`newCocktailIngredientName`} value={newCocktailIngredientName} onChangeText={text => setName(text)} style={styles.input} placeholder="Ingredient..." />
                 </View>
                 {/* <NewIngredient /> */}
                 <TouchableOpacity onPress={()=>{
-                    var added = [{
-                        id: generate(),
-                        ingredient_name: newCocktailIngredientName,
-                        parts: newCocktailIngredientParts
-                    }, ...addedCocktailIngredients]
+                    addIngredientToCocktail()
+                    // var added = [{
+                    //     id: generate(),
+                    //     ingredient_name: newCocktailIngredientName,
+                    //     parts: newCocktailIngredientParts
+                    // }, ...addedCocktailIngredients]
 
-                    setAddedCocktailIngredients(added)
-                    setNewCocktailIngredientName('')
-                    setNewCocktailIngredientParts(0)
+                    // setAddedCocktailIngredients(added)
+                    // setNewCocktailIngredientName('')
+                    // setNewCocktailIngredientParts(0)
                 }}>
                     <AppText style={styles.add_ingredient_button}>+</AppText>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => {
-                    addCocktail({
-                        id: generate(),
-                        name: newCocktailName,
-                        ingredients: addedCocktailIngredients
-                    })
+                <TouchableOpacity onPress={async() => {
+                    console.log(newCocktailIngredientName, newCocktailIngredientParts, newCocktailIngredientName != '' && newCocktailIngredientParts != null)
+                    if(newCocktailIngredientName != '' && newCocktailIngredientParts != null){
+                        console.log('addingingredient')
+                        await addIngredientToCocktail()
+                    }
+
+                    console.log('setting flag', addedCocktailIngredients)
+                    // addCocktail({
+                    //     id: generate(),
+                    //     name: newCocktailName,
+                    //     ingredients: addedCocktailIngredients
+                    // })
+                    setFlag(true)
                     setNewCocktailName('')
-                    setNewCocktailIngredientName('')
-                    setNewCocktailIngredientParts(0)
-                    setAddedCocktailIngredients([])
+
+                    resetNewCocktail()
+                    // setNewCocktailIngredientName('')
+                    // setNewCocktailIngredientParts(0)
+                    // setAddedCocktailIngredients([])
                 }}>
                     <AppText style={styles.add_button}>Add Cocktail</AppText>
                 </TouchableOpacity>

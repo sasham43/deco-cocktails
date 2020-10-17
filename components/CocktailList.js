@@ -19,8 +19,8 @@ function ClassListMap() {
                         </AppText>
                     </View>
                     <View>
-                        {cocktail.ingredients.map(ingredient=>(
-                            <View>
+                        {cocktail.ingredients.map((ingredient, i)=>(
+                            <View key={`part-${i}`}>
                                 {/* <AppText>{ingredient.ingredient_name}</AppText> */}
                                 <AppText>{ingredient.parts}</AppText>
                             </View>
@@ -29,7 +29,7 @@ function ClassListMap() {
                     </View>
                     <View>
                         {cocktail.ingredients.map((ingredient, i)=>(
-                            <View>
+                            <View key={`ingredient-${i}`}>
                                 <AppText>{ingredient.ingredient_name}</AppText>
                                 {/* <AppText>{ingredient.parts}</AppText> */}
                             </View>

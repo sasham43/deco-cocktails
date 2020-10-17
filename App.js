@@ -16,6 +16,8 @@ export default function App() {
     PoiretOne_400Regular,
   })
 
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nloading...')
+
   if(!fontsLoaded){
     return <AppLoading />
   } else {
