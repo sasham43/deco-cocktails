@@ -21,7 +21,7 @@ function ClassListMap() {
             } else {
                 if(props.parts == 0.25){
                     return (
-                        <QuarterCircle width={50} height={50} />
+                        <QuarterCircle />
                     )
                 }
                 if(props.parts == 0.5){
