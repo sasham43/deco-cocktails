@@ -1,4 +1,4 @@
-<svg class="pie" width="50" height="50" viewBox="0 0 500 500">
+<svg class="pie" width="50" height="50" viewBox="0 0 230 230">
   <!-- <circle cx="115" cy="115" r="110"></circle> -->
   <path fill="black" d="M115,115 L115,5 A110,110 1 0,1 225,115 z"></path>
 </svg>
