@@ -5,6 +5,7 @@ import AppText from './AppText'
 import HalfCircle from '../assets/half-circle.svg'
 import QuarterCircle from '../assets/quarter-circle.svg'
 import ThreeQuarterCircle from '../assets/three-quarter-circle.svg'
+import Circle from '../assets/circle.svg'
 
 import {useCocktails} from '../utils/hooks'
 
@@ -18,6 +19,26 @@ function ClassListMap() {
                     <AppText> {props.parts}</AppText>
                 )
             } else {
+                if(props.parts == 0.25){
+                    return (
+                        <QuarterCircle />
+                    )
+                }
+                if(props.parts == 0.5){
+                    return (
+                        <HalfCircle />
+                    )
+                }
+                if(props.parts == 0.75){
+                    return (
+                        <ThreeQuarterCircle />
+                    )
+                }
+                if(props.parts == 1){
+                    return (
+                        <Circle />
+                    )
+                }
                 return (
                     <AppText> {props.parts} |</AppText>
                 )
@@ -38,14 +59,14 @@ function ClassListMap() {
         function Name(props){
             if(props.last){
                 return (
-                    // <AppText> {props.parts}</AppText>
+                    <AppText> {props.ingredient_name}</AppText>
                     // <HalfCircle />
-                    <ThreeQuarterCircle />
+                    // <ThreeQuarterCircle />
                 )
             } else {
                 return (
-                    // <AppText> {props.parts} |</AppText>
-                    <QuarterCircle />
+                    <AppText> {props.ingredient_name} |</AppText>
+                    // <QuarterCircle />
                 )
             }
         }

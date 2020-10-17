@@ -52,6 +52,18 @@ export default function Add(){
                         onValueChange={(val) => setParts(val)} 
                         items={[
                             {
+                                label: '0.25',
+                                value: 0.25
+                            },
+                            {
+                                label: '0.5',
+                                value: 0.5
+                            },
+                            {
+                                label: '0.75',
+                                value: 0.75
+                            },
+                            {
                                 label: '1',
                                 value: 1
                             },
@@ -81,9 +93,9 @@ export default function Add(){
                     }
 
                     setFlag(true)
-                    setNewCocktailName('')
+                    // setNewCocktailName('')
 
-                    resetNewCocktail()
+                    // resetNewCocktail()
                 }}>
                     <AppText style={styles.add_button}>Add Cocktail</AppText>
                 </TouchableOpacity>
