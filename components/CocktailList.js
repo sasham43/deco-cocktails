@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { generate } from 'shortid'
 
 import AppText from './AppText'
 import HalfCircle from '../assets/half-circle.svg'
@@ -13,34 +14,67 @@ function ClassListMap() {
 
         const { cocktails, addCocktail } = useCocktails()
 
+        function buildPartArray(parts){
+            var part_array = []
+
+            var remainder = parts.toString().split('.')[1]
+
+            for (var i = 0; i <= parts; i++){
+                part_array.push(1)
+            }
+            if(remainder != undefined){
+                remainder = Number("." + remainder)
+                part_array.push(remainder)
+            }
+
+            return part_array
+        }
+
+        function Shape(props){
+            // console.log("Shape props", props)
+            if (props.parts == 0.25) {
+                return (
+                    <QuarterCircle />
+                )
+            }
+            if (props.parts == 0.5) {
+                return (
+                    <HalfCircle />
+                )
+            }
+            if (props.parts == 0.75) {
+                return (
+                    <ThreeQuarterCircle scale={0.15} />
+                )
+            }
+            if (props.parts == 1) {
+                return (
+                    <Circle />
+                )
+            }
+            return null
+        }
+        function ShapeMap(props){
+            var shape_array = buildPartArray(props.parts)
+            return shape_array.map((part, i)=>{
+                var key = generate()
+                return (
+                    <Shape key={key} parts={part} />
+                )
+            })
+        }
+
         function Part(props){
             if(props.last){
                 return (
-                    <AppText> {props.parts}</AppText>
+                    // <AppText> {props.parts}</AppText>
+                    <ShapeMap parts={props.parts} />
                 )
             } else {
-                if(props.parts == 0.25){
-                    return (
-                        <QuarterCircle />
-                    )
-                }
-                if(props.parts == 0.5){
-                    return (
-                        <HalfCircle />
-                    )
-                }
-                if(props.parts == 0.75){
-                    return (
-                        <ThreeQuarterCircle scale={0.15} />
-                    )
-                }
-                if(props.parts == 1){
-                    return (
-                        <Circle />
-                    )
-                }
+                
                 return (
-                    <AppText> {props.parts} |</AppText>
+                    // <AppText> {props.parts} |</AppText>
+                    <ShapeMap parts={props.parts} />
                 )
             }
         }
