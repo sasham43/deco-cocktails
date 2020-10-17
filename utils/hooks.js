@@ -23,7 +23,7 @@ export const useCocktails = () => {
     // load cocktails from storage
     useEffect(()=>{
         if(cocktails.length) {
-            setCocktails([]) // if cocktails exist on render, reset to empty for testing 
+            // setCocktails([]) // if cocktails exist on render, reset to empty for testing 
             return
         }
         loadCocktails()

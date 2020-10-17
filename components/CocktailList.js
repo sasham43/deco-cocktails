@@ -9,7 +9,6 @@ function ClassListMap() {
         const { cocktails, addCocktail } = useCocktails()
 
         function Part(props){
-            // console.log('last', props.last)
             if(props.last){
                 return (
                     <AppText> {props.parts}</AppText>
@@ -21,12 +20,34 @@ function ClassListMap() {
             }
         }
         function PartMap(props){
-            console.log('props', props)
             return (
                 <View style={styles.part_container}>
                     {props.ingredients.map((ingredient, i) => (
                         <View key={`part-${i}`}>
                             <Part parts={ingredient.parts} last={(i + 1 == props.ingredients.length)} />
+                        </View>
+                    )
+                    )}
+                </View>
+            )
+        } 
+        function Name(props){
+            if(props.last){
+                return (
+                    <AppText> {props.parts}</AppText>
+                )
+            } else {
+                return (
+                    <AppText> {props.parts} |</AppText>
+                )
+            }
+        }
+        function NameMap(props){
+            return (
+                <View style={styles.part_container}>
+                    {props.ingredients.map((ingredient, i) => (
+                        <View key={`part-${i}`}>
+                            <Name parts={ingredient.ingredient_name} last={(i + 1 == props.ingredients.length)} />
                         </View>
                     )
                     )}
@@ -45,16 +66,15 @@ function ClassListMap() {
                         </AppText>
                     </View>
                     <PartMap ingredients={cocktail.ingredients} />
-                    
-                    <View>
+                    <NameMap ingredients={cocktail.ingredients} />
+                    {/* <View>
                         {cocktail.ingredients.map((ingredient, i)=>(
                             <View key={`ingredient-${i}`}>
                                 <AppText>{ingredient.ingredient_name}</AppText>
-                                {/* <AppText>{ingredient.parts}</AppText> */}
                             </View>
                             )
                         )}
-                    </View>
+                    </View> */}
                 </View>
             )
         )
