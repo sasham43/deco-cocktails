@@ -64,7 +64,7 @@ function ClassListMap() {
                 var key = generate()
                 return (
                     <View key={key} style={[styles.shape_container, getShapeMargin(part)]}>
-                        <Shape height={12} width={12} part={part} />
+                        <Shape height={9} width={9} part={part} />
                     </View>
                 )
             })
@@ -199,6 +199,7 @@ const styles = StyleSheet.create({
     shape_container: {
         flexDirection: 'row',
         marginRight: 10,
+        alignItems: 'center'
         // width: 100
         // flex: 3
     }
