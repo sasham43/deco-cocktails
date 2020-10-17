@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, Dimensions } from 'react-native'
 import { generate } from 'shortid'
 
 import AppText from './AppText'
@@ -9,6 +9,10 @@ import ThreeQuarterCircle from '../assets/three-quarter-circle.svg'
 import Circle from '../assets/circle.svg'
 
 import {useCocktails} from '../utils/hooks'
+
+
+const windowWidth = Dimensions.get('window').width
+const windowHeight = Dimensions.get('window').height
 
 function ClassListMap() {
 
@@ -150,9 +154,9 @@ function ClassListMap() {
 
 function ClassList(){
     return (
-        <View style={styles.view}>
+        <ScrollView style={styles.view}>
             <ClassListMap></ClassListMap>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -173,7 +177,8 @@ const styles = StyleSheet.create({
     view: {
         paddingTop: 10,
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
+        height: windowHeight - 100
     },
     part_map_container: {
         // flex: 1,
