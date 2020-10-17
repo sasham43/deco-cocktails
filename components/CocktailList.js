@@ -20,7 +20,7 @@ function ClassListMap() {
             var remainder = parts.toString().split('.')[1]
 
             if(parts >= 1){
-                for (var i = 0; i < parts; i++){
+                for (var i = 1; i < parts; i++){
                     part_array.push(1)
                 }
             }
@@ -29,7 +29,7 @@ function ClassListMap() {
                 part_array.push(remainder)
             }
 
-            console.log('part array', part_array, parts)
+            // console.log('part array', part_array, parts)
 
             return part_array
         }
@@ -63,9 +63,18 @@ function ClassListMap() {
             return shape_array.map((part, i)=>{
                 var key = generate()
                 return (
-                    <Shape height={25} width={25} key={key} part={part} />
+                    <View key={key}  style={styles.shape_container}>
+                        <Shape height={12} width={12} part={part} />
+                    </View>
                 )
             })
+        }
+        function getShapeWidth(part){
+            console.log('width for part', part)
+            if(part == 0.25 || part == 0.25){
+                return 12
+            }
+            return 25
         }
 
         function Part(props){
@@ -84,9 +93,9 @@ function ClassListMap() {
         }
         function PartMap(props){
             return (
-                <View style={styles.part_container}>
+                <View style={styles.part_map_container}>
                     {props.ingredients.map((ingredient, i) => (
-                        <View style={{width:25, height:25}} key={`part-${i}`}>
+                        <View style={styles.part_container} key={`part-${i}`}>
                             <Part parts={ingredient.parts} last={(i + 1 == props.ingredients.length)} />
                         </View>
                     )
@@ -166,17 +175,31 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10
     },
+    part_map_container: {
+        // flex: 1,
+        flexDirection: 'row',
+        // width: 100,
+        // height:100
+    },
     part_container: {
-        flex: 1,
-        flexDirection: 'row'
+        // flex: 1,
+        flexDirection: 'row',
+        // width: 100,
+        // height:100
     },
     cocktail_name_container: {
         // flex: 1
     },
     name_container: {
         // flex: 1
-        marginTop: 50,
+        marginTop: 10,
         flexDirection: 'row'
+    },
+    shape_container: {
+        flexDirection: 'row',
+        marginRight: 10,
+        // width: 100
+        // flex: 3
     }
 })
 

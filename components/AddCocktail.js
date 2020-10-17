@@ -68,12 +68,48 @@ export default function Add(){
                                 value: 1
                             },
                             {
+                                label: '1.25',
+                                value: 1.25
+                            },
+                            {
+                                label: '1.5',
+                                value: 1.5
+                            },
+                            {
+                                label: '1.75',
+                                value: 1.75
+                            },
+                            {
                                 label: '2',
                                 value: 2
                             },
                             {
+                                label: '2.25',
+                                value: 2.25
+                            },
+                            {
+                                label: '2.5',
+                                value: 2.5
+                            },
+                            {
+                                label: '2.75',
+                                value: 2.75
+                            },
+                            {
                                 label: '3',
                                 value: 3
+                            },
+                            {
+                                label: '3.25',
+                                value: 3.25
+                            },
+                            {
+                                label: '3.5',
+                                value: 3.5
+                            },
+                            {
+                                label: '3.75',
+                                value: 3.75
                             },
                         ]} 
                     />
