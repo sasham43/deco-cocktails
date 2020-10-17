@@ -3,7 +3,13 @@ import { AsyncStorage } from 'react-native'
 import { generate } from 'shortid'
 
 export const useCocktails = () => {
+    // set up all the variables in state
     const [cocktails, setCocktails] = useState([])
+    const [newCocktailIngredientName, setNewCocktailIngredientName] = useState('')
+    const [newCocktailIngredientParts, setNewCocktailIngredientParts] = useState(0)
+    const [addedCocktailIngredients, setAddedCocktailIngredients] = useState([])
+    const [newCocktailName, setNewCocktailName] = useState('')
+    const [addFlag, setFlag] = useState(false)
 
     const loadCocktails = async () => {
         const data = await AsyncStorage.getItem('cocktails')
@@ -14,73 +20,51 @@ export const useCocktails = () => {
         }
     }
 
+    // load cocktails from storage
     useEffect(()=>{
         if(cocktails.length) {
-            setCocktails([]) 
+            // setCocktails([]) // if cocktails exist on render, reset to empty for testing 
             return
         }
         loadCocktails()
     }, [])
 
+    // save cocktails to storage when array changes
     useEffect(()=>{
         AsyncStorage.setItem('cocktails', JSON.stringify(cocktails))
     }, [cocktails])
 
     const addCocktail = (cocktail) => {
-        console.log('adding cocktail')
+        // console.log('adding cocktail')
         setCocktails([cocktail, ...cocktails])
     }
 
-    const [newCocktailIngredientName, setNewCocktailIngredientName] = useState('')
-    const [newCocktailIngredientParts, setNewCocktailIngredientParts] = useState(0)
-    const [addedCocktailIngredients, setAddedCocktailIngredients] = useState([])
-    const [newCocktailName, setNewCocktailName] = useState('')
-
-    const [addFlag, setFlag] = useState(false)
-
+    // addFlag is triggered when we want to add a cocktail, wait for ingredients to change before adding
     useEffect(()=>{
         if(addFlag){
-
-            console.log('effect', addedCocktailIngredients)
             addCocktail({
-                        id: generate(),
-                        name: newCocktailName,
-                        ingredients: addedCocktailIngredients
-                    })
+                id: generate(),
+                name: newCocktailName,
+                ingredients: addedCocktailIngredients
+            })
         } else {
-            console.log('no add flag')
+            // console.log('no add flag')
         }
     }, [addFlag,addedCocktailIngredients])
 
-
-
-    // jank AF    
-    // useEffect(()=>{
-    //     console.log('add flag')
-    // }, [addFlag])
-
     async function addIngredientToCocktail() {
-        // return new Promise((resolve)=>{
-
         var added = [{
             id: generate(),
             ingredient_name: newCocktailIngredientName,
             parts: newCocktailIngredientParts
         }, ...addedCocktailIngredients]
 
-        console.log('adding in hook', added, addedCocktailIngredients)
-
         setAddedCocktailIngredients(added)
         setNewCocktailIngredientName('')
         setNewCocktailIngredientParts(0)
-
-        console.log('finished adding', addedCocktailIngredients)
-        // resolve()
-        // })
-
     }
     function resetNewCocktail() {
-        console.log('resetting')
+        // console.log('resetting')
         setNewCocktailIngredientName('')
         setNewCocktailIngredientParts(0)
         setAddedCocktailIngredients([])
@@ -96,53 +80,35 @@ export const useCocktails = () => {
     return { setFlag, newCocktailName, setNewCocktailName, cocktails, addCocktail, newCocktailIngredientName, newCocktailIngredientParts, addedCocktailIngredients, addIngredientToCocktail, setName, setParts, resetNewCocktail}
 }
 
-export const newCocktail = () => {
-    const [newCocktailIngredientName, setNewCocktailIngredientName] = useState('')
-    const [newCocktailIngredientParts, setNewCocktailIngredientParts] = useState(0)
-    const [addedCocktailIngredients, setAddedCocktailIngredients] = useState([])
+// export const newCocktail = () => {
+//     const [newCocktailIngredientName, setNewCocktailIngredientName] = useState('')
+//     const [newCocktailIngredientParts, setNewCocktailIngredientParts] = useState(0)
+//     const [addedCocktailIngredients, setAddedCocktailIngredients] = useState([])
 
-    async function addIngredientToCocktail() {
-        // return new Promise((resolve)=>{
-
-            var added = [{
-                id: generate(),
-                ingredient_name: newCocktailIngredientName,
-                parts: newCocktailIngredientParts
-            }, ...addedCocktailIngredients]
+//     async function addIngredientToCocktail() {
+//             var added = [{
+//                 id: generate(),
+//                 ingredient_name: newCocktailIngredientName,
+//                 parts: newCocktailIngredientParts
+//             }, ...addedCocktailIngredients]
     
-            console.log('adding in hook', added, addedCocktailIngredients)
+//             setAddedCocktailIngredients(added)
+//             setNewCocktailIngredientName('')
+//             setNewCocktailIngredientParts(0)
+//     }
+//     function resetNewCocktail(){
+//         // console.log('resetting')
+//         setNewCocktailIngredientName('')
+//         setNewCocktailIngredientParts(0)
+//         setAddedCocktailIngredients([])
+//     }
 
-            // setAddedCocktailIngredients(state=>{
-            //     var added = [{
-            //         id: generate(),
-            //         ingredient_name: state.newCocktailIngredientName,
-            //         parts: state.newCocktailIngredientParts
-            //     }, ...state.addedCocktailIngredients]
-            //     return {addedCocktailIngredients: added}
-            // })
-    
-            setAddedCocktailIngredients(added)
-            setNewCocktailIngredientName('')
-            setNewCocktailIngredientParts(0)
+//     function setName(name){
+//         setNewCocktailIngredientName(name)
+//     }
+//     function setParts(parts){
+//         setNewCocktailIngredientParts(parts)
+//     }
 
-            console.log('finished adding', addedCocktailIngredients)
-            // resolve()
-        // })
-
-    }
-    function resetNewCocktail(){
-        console.log('resetting')
-        setNewCocktailIngredientName('')
-        setNewCocktailIngredientParts(0)
-        setAddedCocktailIngredients([])
-    }
-
-    function setName(name){
-        setNewCocktailIngredientName(name)
-    }
-    function setParts(parts){
-        setNewCocktailIngredientParts(parts)
-    }
-
-    return {  setFlag, newCocktailIngredientName, newCocktailIngredientParts, addedCocktailIngredients, addIngredientToCocktail, setName, setParts, resetNewCocktail }
-}
+//     return {  setFlag, newCocktailIngredientName, newCocktailIngredientParts, addedCocktailIngredients, addIngredientToCocktail, setName, setParts, resetNewCocktail }
+// }

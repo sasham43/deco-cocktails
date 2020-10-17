@@ -7,6 +7,19 @@ import {useCocktails} from '../utils/hooks'
 function ClassListMap() {
 
         const { cocktails, addCocktail } = useCocktails()
+
+        function Part(props){
+            console.log('last', props.last)
+            if(props.last){
+                return (
+                    <AppText> {props.parts}</AppText>
+                )
+            } else {
+                return (
+                    <AppText> {props.parts} |</AppText>
+                )
+            }
+        } 
         
         return cocktails.map(cocktail=>
             (
@@ -18,11 +31,12 @@ function ClassListMap() {
                             </Text>
                         </AppText>
                     </View>
-                    <View>
+                    <View style={styles.part_container}>
                         {cocktail.ingredients.map((ingredient, i)=>(
                             <View key={`part-${i}`}>
                                 {/* <AppText>{ingredient.ingredient_name}</AppText> */}
-                                <AppText>{ingredient.parts}</AppText>
+                                {/* <AppText>{ingredient.parts}</AppText> */}
+                                <Part parts={ingredient.parts} last={(i+1 == cocktail.ingredients.length)} />
                             </View>
                             )
                         )}
@@ -67,6 +81,10 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingLeft: 10,
         paddingRight: 10
+    },
+    part_container: {
+        // flex: 1,
+        flexDirection: 'row'
     }
 })
 
