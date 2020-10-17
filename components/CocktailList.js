@@ -29,7 +29,7 @@ function ClassListMap() {
                 part_array.push(remainder)
             }
 
-            console.log('part array', part_array, parts)
+            // console.log('part array', part_array, parts)
 
             return part_array
         }
@@ -68,26 +68,6 @@ function ClassListMap() {
                     </View>
                 )
             })
-            // if(!props.last) {
-            //     return shape_array.map((part, i)=>{
-            //         var key = generate()
-            //         return (
-            //             <View key={key}  style={[styles.shape_container, getShapeMargin(part)]}>
-            //                 <Shape height={12} width={12} part={part} />
-            //             </View>
-            //         )
-            //     })
-            // } else {
-            //     return shape_array.map((part, i) => {
-            //         var key = generate()
-            //         return (
-            //             <View key={key} style={[styles.shape_container, getShapeMargin(part)]}>
-            //                 <Shape height={12} width={12} part={part} />
-            //                 <AppText>|</AppText>
-            //             </View>
-            //         )
-            //     })
-            // }
         }
         function getShapeMargin(part){
             // console.log('width for part', part)
@@ -102,15 +82,12 @@ function ClassListMap() {
         function Part(props){
             if(props.last){
                 return (
-                    // <AppText> {props.parts}</AppText>
                     <View style={{flexDirection:'row'}}>
                         <ShapeMap parts={props.parts} last={props.last} />
                     </View>
                 )
             } else {
-                
                 return (
-                    // <AppText> {props.parts} |</AppText>
                     <View style={{ flexDirection: 'row', marginRight: 10 }}>
                         <ShapeMap parts={props.parts} last={props.last} />
                         <AppText>|</AppText>
@@ -133,13 +110,10 @@ function ClassListMap() {
             if(props.last){
                 return (
                     <AppText> {props.ingredient_name}</AppText>
-                    // <HalfCircle />
-                    // <ThreeQuarterCircle />
                 )
             } else {
                 return (
                     <AppText> {props.ingredient_name} |</AppText>
-                    // <QuarterCircle />
                 )
             }
         }
@@ -204,6 +178,7 @@ const styles = StyleSheet.create({
     part_map_container: {
         // flex: 1,
         flexDirection: 'row',
+        justifyContent: 'flex-end'
         // width: 100,
         // height:100
     },
