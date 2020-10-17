@@ -20,7 +20,7 @@ function ClassListMap() {
             var remainder = parts.toString().split('.')[1]
 
             if(parts >= 1){
-                for (var i = 1; i < parts; i++){
+                for (var i = 1; i <= parts; i++){
                     part_array.push(1)
                 }
             }
@@ -29,7 +29,7 @@ function ClassListMap() {
                 part_array.push(remainder)
             }
 
-            // console.log('part array', part_array, parts)
+            console.log('part array', part_array, parts)
 
             return part_array
         }
@@ -60,19 +60,41 @@ function ClassListMap() {
         }
         function ShapeMap(props){
             var shape_array = buildPartArray(props.parts)
-            return shape_array.map((part, i)=>{
+            return shape_array.map((part, i) => {
                 var key = generate()
                 return (
-                    <View key={key}  style={styles.shape_container}>
+                    <View key={key} style={[styles.shape_container, getShapeMargin(part)]}>
                         <Shape height={12} width={12} part={part} />
                     </View>
                 )
             })
+            // if(!props.last) {
+            //     return shape_array.map((part, i)=>{
+            //         var key = generate()
+            //         return (
+            //             <View key={key}  style={[styles.shape_container, getShapeMargin(part)]}>
+            //                 <Shape height={12} width={12} part={part} />
+            //             </View>
+            //         )
+            //     })
+            // } else {
+            //     return shape_array.map((part, i) => {
+            //         var key = generate()
+            //         return (
+            //             <View key={key} style={[styles.shape_container, getShapeMargin(part)]}>
+            //                 <Shape height={12} width={12} part={part} />
+            //                 <AppText>|</AppText>
+            //             </View>
+            //         )
+            //     })
+            // }
         }
-        function getShapeWidth(part){
-            console.log('width for part', part)
+        function getShapeMargin(part){
+            // console.log('width for part', part)
             if(part == 0.25 || part == 0.25){
-                return 12
+                return {
+                    marginLeft: -10
+                }
             }
             return 25
         }
@@ -81,13 +103,18 @@ function ClassListMap() {
             if(props.last){
                 return (
                     // <AppText> {props.parts}</AppText>
-                    <ShapeMap parts={props.parts} />
+                    <View style={{flexDirection:'row'}}>
+                        <ShapeMap parts={props.parts} last={props.last} />
+                    </View>
                 )
             } else {
                 
                 return (
                     // <AppText> {props.parts} |</AppText>
-                    <ShapeMap parts={props.parts} />
+                    <View style={{ flexDirection: 'row', marginRight: 10 }}>
+                        <ShapeMap parts={props.parts} last={props.last} />
+                        <AppText>|</AppText>
+                    </View>
                 )
             }
         }
@@ -98,8 +125,7 @@ function ClassListMap() {
                         <View style={styles.part_container} key={`part-${i}`}>
                             <Part parts={ingredient.parts} last={(i + 1 == props.ingredients.length)} />
                         </View>
-                    )
-                    )}
+                    ))}
                 </View>
             )
         } 
