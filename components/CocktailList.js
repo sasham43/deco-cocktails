@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+
 import AppText from './AppText'
+import HalfCircle from '../assets/half-circle.svg'
+import QuarterCircle from '../assets/quarter-circle.svg'
+import ThreeQuarterCircle from '../assets/three-quarter-circle.svg'
 
 import {useCocktails} from '../utils/hooks'
 
@@ -34,11 +38,14 @@ function ClassListMap() {
         function Name(props){
             if(props.last){
                 return (
-                    <AppText> {props.parts}</AppText>
+                    // <AppText> {props.parts}</AppText>
+                    // <HalfCircle />
+                    <ThreeQuarterCircle />
                 )
             } else {
                 return (
-                    <AppText> {props.parts} |</AppText>
+                    // <AppText> {props.parts} |</AppText>
+                    <QuarterCircle />
                 )
             }
         }

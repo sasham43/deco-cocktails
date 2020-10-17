@@ -1,0 +1,4 @@
+<svg class="pie">
+  <circle cx="115" cy="115" r="110"></circle>
+  <path fill="green" d="M115,115 L115,5 A110,110 1 0,1 115,225 A110,110 1 0,1 115,230 z"></path>
+</svg>
