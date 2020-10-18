@@ -104,12 +104,24 @@ export const useStock = () => {
         {
             id: generate(),
             label: 'Rum',
-            in_stock: true
+            in_stock: false
         },
     ]
 
     const [stock, setStock] = useState(default_stock)
-    // const [stock, setStock] = useState([])
+    
+    
+    function setInStock(bottle, value){
+        var updated_stock = stock.map(b=>{
+            if(b.id == bottle.id){
+                b.in_stock = value
+            }
 
-    return {stock, setStock}
+            return b
+        })
+
+        setStock(updated_stock)
+    }
+
+    return {stock, setStock, setInStock}
 }

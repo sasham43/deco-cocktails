@@ -1,8 +1,8 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import { View, StyleSheet, Switch } from 'react-native'
 
 import AppText from './AppText'
-import {useStock} from '../utils/hooks'
+import { useStock } from '../utils/hooks'
 
 // export default class Stock extends React.Component {
 
@@ -16,11 +16,12 @@ import {useStock} from '../utils/hooks'
 // }
 
 export default function Stock(){
-    const { stock, setStock } = useStock()
+    const { stock, setStock, setInStock } = useStock()
 
     function StockBottle(props){
         return (
             <View>
+                <Switch value={props.bottle.in_stock} trackColor={{false: 'grey', true: 'black'}}  onValueChange={(val)=>setInStock(props.bottle, val)} />
                 <AppText>{props.bottle.label}</AppText>
             </View>
         )
