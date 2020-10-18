@@ -138,7 +138,7 @@ export const useStock = () => {
         var updated_stock = stock.map(b=>{
             if(b.id == bottle.id){
                 b.in_stock = value
-                console.log('updated', b, bottle, value)
+                // console.log('updated', b, bottle, value)
             }
 
             return b
