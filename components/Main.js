@@ -9,6 +9,7 @@ import About from './About'
 import Stock from './Stock'
 import Menu from './Menu'
 import Add from './AddCocktail'
+import AddStock from './AddStock'
 
 export default class Main extends React.Component {
 
@@ -32,6 +33,9 @@ export default class Main extends React.Component {
                     </Route>
                     <Route exact path="/add-cocktail">
                         <Add style={styles.view} />
+                    </Route>
+                    <Route exact path="/add-stock">
+                        <AddStock style={styles.view} />
                     </Route>
                 </View>
             </NativeRouter>

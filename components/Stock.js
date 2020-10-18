@@ -1,8 +1,11 @@
 import React from 'react'
-import { View, StyleSheet, Switch } from 'react-native'
+import { View, StyleSheet, Switch, Dimensions } from 'react-native'
+import { Route, Link, matchPath } from 'react-router-native'
 
 import AppText from './AppText'
 import { useStock } from '../utils/hooks'
+
+const windowHeight = Dimensions.get('window').height
 
 // export default class Stock extends React.Component {
 
@@ -44,6 +47,13 @@ export default function Stock(){
         <View style={[styles.stock, styles.view]}>
             {/* <AppText>Stock page yeah yeah</AppText> */}
             <StockMap />
+            <View style={styles.link_container}>
+                <Link to="/add-stock">
+                    <View style={styles.link_container}>
+                        <AppText style={styles.link_text}>Add Stock</AppText>
+                    </View>
+                </Link>
+            </View>
         </View>
     )
 }
@@ -55,7 +65,8 @@ const styles = StyleSheet.create({
     view: {
         paddingTop: 10,
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
+        height: windowHeight - 100
     },
     stock_bottle: {
         // flex: 1,
@@ -72,5 +83,16 @@ const styles = StyleSheet.create({
     },
     label_text: {
         fontSize: 22,
+    },
+    link_container: {
+        // flexDirection: 'column',
+        // justifyContent: 'flex-end',
+        alignSelf: 'center',
+        // justifySelf: 'center'
+    },
+    link_text: {
+        fontSize: 22,
+        // color: 'red',
+        textAlign: 'center'
     }
 })
