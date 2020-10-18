@@ -109,6 +109,8 @@ export const useStock = () => {
     // ]
 
     const [stock, setStock] = useState([])
+    const [newStockName, setNewStockName] = useState('')
+    const [newStockIn, setNewStockIn] = useState(true)
     // const [stock, setStock] = useState(default_stock)
 
     // load stock from storage
@@ -159,5 +161,22 @@ export const useStock = () => {
         }
     }
 
-    return {stock, setStock, setInStock, isInStock}
+    function addToStock(){
+        var added = [{
+            id: generate(),
+            label: newStockName,
+            in_stock: newStockIn
+        }, ...stock]
+
+        setStock(added)
+
+        resetNewStock()
+    }
+
+    function resetNewStock(){
+        setNewStockName('')
+        setNewStockIn(true)
+    }
+
+    return {stock, setStock, setInStock, isInStock, newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock}
 }
