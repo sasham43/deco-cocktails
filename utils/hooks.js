@@ -172,11 +172,14 @@ export const useStock = () => {
 
         resetNewStock()
     }
+    function toggleStockIn(){
+        setNewStockIn(!newStockIn)
+    }
 
     function resetNewStock(){
         setNewStockName('')
         setNewStockIn(true)
     }
 
-    return {stock, setStock, setInStock, isInStock, newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock}
+    return {stock, setStock, setInStock, isInStock, newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock, toggleStockIn}
 }

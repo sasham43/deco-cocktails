@@ -3,19 +3,23 @@ import { View, StyleSheet, Text, Switch, TextInput, Dimensions, TouchableOpacity
 
 import AppText from './AppText'
 import { useStock } from '../utils/hooks'
+import InStockIcon from '../assets/in-stock'
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
 
 export default function AddStock(){
 
-    const { newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock } = useStock()
+    const { newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock, toggleStockIn } = useStock()
   
     return (
         <View style={styles.view}>
             <View style={styles.stock_form}>
                 <View style={styles.switch_container}>
-                    <Switch value={newStockIn} trackColor={{ false: 'grey', true: 'black' }} onValueChange={(val) => setNewStockIn(val)} />
+                    <TouchableOpacity onPress={()=>toggleStockIn()}>
+                        <InStockIcon transform={[{rotate: '-45deg'}]} width={65} height={65} fill={newStockIn ? 'black' : 'grey'} />
+                    </TouchableOpacity>
+                    {/* <Switch value={newStockIn} trackColor={{ false: 'grey', true: 'black' }} onValueChange={(val) => setNewStockIn(val)} /> */}
                 </View>
                 <View style={styles.input_container}>
                     <TextInput style={styles.input} value={newStockName} onChangeText={text => setNewStockName(text)} placeholder="New stock..." />
