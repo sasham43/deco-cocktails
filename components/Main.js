@@ -14,27 +14,27 @@ export default class Main extends React.Component {
 
     render() {
         return (
-                <NativeRouter>
-                    <View style={styles.container}>
-                        <Title></Title>
+            <NativeRouter>
+                <View style={styles.container}>
+                    <Title></Title>
 
-                        <Menu></Menu>
+                    <Menu></Menu>
 
 
-                        <Route exact path="/">
-                            <CocktailList style={styles.view} />
-                        </Route>
-                        <Route exact path="/about">
-                            <About />
-                        </Route>
-                        <Route exact path="/stock">
-                            <Stock style={styles.view} />
-                        </Route>
-                        <Route exact path="/add-cocktail">
-                            <Add style={styles.view} />
-                        </Route>
-                    </View>
-                </NativeRouter>
+                    <Route exact path="/">
+                        <CocktailList style={styles.view} />
+                    </Route>
+                    <Route exact path="/about">
+                        <About />
+                    </Route>
+                    <Route exact path="/stock">
+                        <Stock style={styles.view} />
+                    </Route>
+                    <Route exact path="/add-cocktail">
+                        <Add style={styles.view} />
+                    </Route>
+                </View>
+            </NativeRouter>
         )
     }
 }

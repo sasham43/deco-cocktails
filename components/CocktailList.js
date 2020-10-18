@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { ScrollView, View, Text, StyleSheet, Dimensions } from 'react-native'
 import { generate } from 'shortid'
+import _ from 'lodash'
 
 import AppText from './AppText'
 import HalfCircle from '../assets/half-circle.svg'
@@ -16,7 +17,7 @@ const windowHeight = Dimensions.get('window').height
 
 function ClassListMap() {
 
-        const { cocktails, addCocktail } = useCocktails()
+        const { cocktails } = useCocktails()
 
         function buildPartArray(parts){
             var part_array = []
@@ -122,18 +123,20 @@ function ClassListMap() {
             }
         }
         function NameMap(props){
-            // console.log('name', props.ingredients)
             return (
                 <View style={styles.name_container}>
                     {props.ingredients.map((ingredient, i) => (
                         <View key={`part-${i}`}>
                             <Name ingredient_name={ingredient.ingredient_name} last={(i + 1 == props.ingredients.length)} />
                         </View>
-                    )
-                    )}
+                    ))}
                 </View>
             )
         } 
+
+        function sortedIngredients(ingredients){
+            return _.orderBy(ingredients, 'parts', 'desc')
+        }
         
         return cocktails.map(cocktail=>
             (
@@ -145,8 +148,8 @@ function ClassListMap() {
                             </Text>
                         </AppText>
                     </View>
-                    <PartMap ingredients={cocktail.ingredients} />
-                    <NameMap ingredients={cocktail.ingredients} />
+                    <PartMap ingredients={sortedIngredients(cocktail.ingredients)} />
+                    <NameMap ingredients={sortedIngredients(cocktail.ingredients)} />
                 </View>
             )
         )
