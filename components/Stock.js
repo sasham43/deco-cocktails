@@ -2,16 +2,45 @@ import React from 'react'
 import {View, StyleSheet} from 'react-native'
 
 import AppText from './AppText'
+import {useStock} from '../utils/hooks'
 
-export default class Stock extends React.Component {
+// export default class Stock extends React.Component {
 
-    render(){
+//     render(){
+//         return (
+//             <View style={[styles.stock, styles.view]}>
+//                 <AppText>Stock page yeah yeah</AppText>
+//             </View>
+//         )
+//     }
+// }
+
+export default function Stock(){
+    const { stock, setStock } = useStock()
+
+    function StockBottle(props){
         return (
-            <View style={[styles.stock, styles.view]}>
-                <AppText>Stock page yeah yeah</AppText>
+            <View>
+                <AppText>{props.bottle.label}</AppText>
             </View>
         )
     }
+
+    function StockMap() {
+        return stock.map(bottle=>{
+            return (
+                <StockBottle key={bottle.id} bottle={bottle} />
+            )
+        })
+    }
+
+
+    return (
+        <View style={[styles.stock, styles.view]}>
+            {/* <AppText>Stock page yeah yeah</AppText> */}
+            <StockMap />
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
