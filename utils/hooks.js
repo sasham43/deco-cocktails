@@ -82,3 +82,34 @@ export const useCocktails = () => {
 
     return { setFlag, newCocktailName, setNewCocktailName, cocktails, addCocktail, newCocktailIngredientName, newCocktailIngredientParts, addedCocktailIngredients, addIngredientToCocktail, setName, setParts, resetNewCocktail}
 }
+
+export const useStock = () => {
+    // for testing
+    var default_stock = [
+        {
+            id: generate(),
+            label: 'Rye',
+            in_stock: true
+        },
+        {
+            id: generate(),
+            label: 'Gin',
+            in_stock: true
+        },
+        {
+            id: generate(),
+            label: 'Sweet Vermouth',
+            in_stock: true
+        },
+        {
+            id: generate(),
+            label: 'Rum',
+            in_stock: true
+        },
+    ]
+
+    const [stock, setStock] = useState(default_stock)
+    // const [stock, setStock] = useState([])
+
+    return {stock, setStock}
+}
