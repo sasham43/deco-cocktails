@@ -20,9 +20,13 @@ export default function Stock(){
 
     function StockBottle(props){
         return (
-            <View>
-                <Switch value={props.bottle.in_stock} trackColor={{false: 'grey', true: 'black'}}  onValueChange={(val)=>setInStock(props.bottle, val)} />
-                <AppText>{props.bottle.label}</AppText>
+            <View style={styles.stock_bottle}>
+                <View style={styles.switch_container}>
+                    <Switch value={props.bottle.in_stock} trackColor={{false: 'grey', true: 'black'}}  onValueChange={(val)=>setInStock(props.bottle, val)} />
+                </View>
+                <View style={styles.label_container}>
+                    <AppText style={styles.label_text}>{props.bottle.label}</AppText>
+                </View>
             </View>
         )
     }
@@ -52,5 +56,21 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingLeft: 10,
         paddingRight: 10
+    },
+    stock_bottle: {
+        // flex: 1,
+        flexDirection: 'row',
+        marginBottom: 10
+    },  
+    label_container: {
+        // flex: 6
+        alignSelf: 'center'
+    },
+    switch_container: {
+        // flex: 1
+        marginRight: 10
+    },
+    label_text: {
+        fontSize: 22,
     }
 })
