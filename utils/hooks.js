@@ -85,36 +85,60 @@ export const useCocktails = () => {
 
 export const useStock = () => {
     // for testing
-    var default_stock = [
-        {
-            id: generate(),
-            label: 'Rye',
-            in_stock: true
-        },
-        {
-            id: generate(),
-            label: 'Gin',
-            in_stock: true
-        },
-        {
-            id: generate(),
-            label: 'Sweet Vermouth',
-            in_stock: true
-        },
-        {
-            id: generate(),
-            label: 'Rum',
-            in_stock: false
-        },
-    ]
+    // var default_stock = [
+    //     {
+    //         id: generate(),
+    //         label: 'Rye',
+    //         in_stock: true
+    //     },
+    //     {
+    //         id: generate(),
+    //         label: 'Gin',
+    //         in_stock: true
+    //     },
+    //     {
+    //         id: generate(),
+    //         label: 'Sweet Vermouth',
+    //         in_stock: true
+    //     },
+    //     {
+    //         id: generate(),
+    //         label: 'Rum',
+    //         in_stock: false
+    //     },
+    // ]
 
-    const [stock, setStock] = useState(default_stock)
-    
+    const [stock, setStock] = useState([])
+    // const [stock, setStock] = useState(default_stock)
+
+    // load stock from storage
+    useEffect(() => {
+        if (stock.length) {
+            // setStock([]) // if stock exist on render, reset to empty for testing 
+            return
+        }
+        loadStock()
+    }, [])
+
+    // save stock to storage when array changes
+    useEffect(() => {
+        AsyncStorage.setItem('stock', JSON.stringify(stock))
+    }, [stock])
+
+    const loadStock = async () => {
+        const data = await AsyncStorage.getItem('stock')
+
+        if (data) {
+            var stock = JSON.parse(data)
+            setStock(stock)
+        }
+    }    
     
     function setInStock(bottle, value){
         var updated_stock = stock.map(b=>{
             if(b.id == bottle.id){
                 b.in_stock = value
+                console.log('updated', b, bottle, value)
             }
 
             return b
@@ -123,5 +147,17 @@ export const useStock = () => {
         setStock(updated_stock)
     }
 
-    return {stock, setStock, setInStock}
+    function isInStock(name){
+        var found = stock.find(bottle=>{
+            return bottle.label.toLowerCase() == name.toLowerCase()
+        })
+
+        if(found && found.in_stock == true){
+            return true
+        } else {
+            return false
+        }
+    }
+
+    return {stock, setStock, setInStock, isInStock}
 }
