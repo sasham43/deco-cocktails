@@ -9,7 +9,7 @@ import QuarterCircle from '../assets/quarter-circle.svg'
 import ThreeQuarterCircle from '../assets/three-quarter-circle.svg'
 import Circle from '../assets/circle.svg'
 
-import {useCocktails} from '../utils/hooks'
+import { useCocktails, useStock } from '../utils/hooks'
 
 
 const windowWidth = Dimensions.get('window').width
@@ -18,6 +18,7 @@ const windowHeight = Dimensions.get('window').height
 function ClassListMap() {
 
         const { cocktails } = useCocktails()
+        const { isInStock } = useStock()
 
         function buildPartArray(parts){
             var part_array = []
@@ -114,11 +115,11 @@ function ClassListMap() {
         function Name(props){
             if(props.last){
                 return (
-                    <AppText> {props.ingredient_name}</AppText>
+                    <AppText style={{color: isInStock(props.ingredient_name) ? 'black' : 'grey'}}> {props.ingredient_name}</AppText>
                 )
             } else {
                 return (
-                    <AppText> {props.ingredient_name} |</AppText>
+                    <AppText style={{color: isInStock(props.ingredient_name) ? 'black' : 'grey'}}> {props.ingredient_name} |</AppText>
                 )
             }
         }
