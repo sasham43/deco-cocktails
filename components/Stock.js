@@ -1,8 +1,9 @@
-import React from 'react'
-import { View, StyleSheet, Switch, Dimensions } from 'react-native'
+import React, { useState } from 'react'
+import { View, StyleSheet, Switch, Dimensions, Modal, TouchableOpacity } from 'react-native'
 import { Route, Link, matchPath } from 'react-router-native'
 
 import AppText from './AppText'
+import AddStock from './AddStock'
 import { useStock } from '../utils/hooks'
 
 const windowHeight = Dimensions.get('window').height
@@ -19,7 +20,9 @@ const windowHeight = Dimensions.get('window').height
 // }
 
 export default function Stock(){
-    const { stock, setStock, setInStock } = useStock()
+    const { stock, setStock, setInStock, modalVisible, setModalVisible } = useStock() 
+
+    // const [modalVisible, setModalVisible] = useState(false);
 
     function StockBottle(props){
         return (
@@ -47,12 +50,21 @@ export default function Stock(){
         <View style={[styles.stock, styles.view]}>
             {/* <AppText>Stock page yeah yeah</AppText> */}
             <StockMap />
-            <View style={styles.link_container}>
+            {/* <View style={styles.link_container}>
                 <Link to="/add-stock">
                     <View style={styles.link_container}>
                         <AppText style={styles.link_text}>Add Stock</AppText>
                     </View>
                 </Link>
+            </View> */}
+            <View>
+                <TouchableOpacity onPress={()=>setModalVisible(true)}>
+                    <AppText>Add Stock</AppText>
+                </TouchableOpacity>
+                <Modal visible={modalVisible} animationType="slide" presentationStyle="formSheet">
+                    <AppText>{modalVisible}</AppText>
+                    <AddStock />
+                </Modal>
             </View>
         </View>
     )

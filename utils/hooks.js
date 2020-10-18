@@ -111,6 +111,8 @@ export const useStock = () => {
     const [stock, setStock] = useState([])
     const [newStockName, setNewStockName] = useState('')
     const [newStockIn, setNewStockIn] = useState(true)
+
+    const [modalVisible, setModalVisible] = useState(false);
     // const [stock, setStock] = useState(default_stock)
 
     // load stock from storage
@@ -170,7 +172,33 @@ export const useStock = () => {
 
         setStock(added)
 
+        setModalVisible(false)
+        console.log('modal visible?', modalVisible)
+
         resetNewStock()
+    }
+
+    useEffect(()=>{
+        console.log('setting modal', modalVisible)
+        AsyncStorage.setItem('stock_modal_visible', JSON.stringify({visible: modalVisible}))
+    }, [modalVisible])
+
+    useEffect(()=>{
+        loadModalVisible()
+    }, [])
+    const loadModalVisible = async () => {
+        const data = await AsyncStorage.getItem('stock_modal_visible')
+        console.log('getting modal', data)
+
+        if (data) {
+            var parsed = JSON.parse(data)
+            setModalVisible(parsed.visible)
+        }
+    }  
+
+    function closeModal(){
+        console.log('closing', modalVisible)
+        setModalVisible(false)
     }
 
     function resetNewStock(){
@@ -178,5 +206,5 @@ export const useStock = () => {
         setNewStockIn(true)
     }
 
-    return {stock, setStock, setInStock, isInStock, newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock}
+    return {stock, setStock, setInStock, isInStock, newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock, modalVisible, setModalVisible, closeModal}
 }

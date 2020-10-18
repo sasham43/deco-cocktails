@@ -8,7 +8,9 @@ const windowHeight = Dimensions.get('window').height
 
 export default function AddStock(){
 
-    const { newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock } = useStock()
+    const { newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock, modalVisible, setModalVisible, closeModal } = useStock()
+
+    console.log('addstock', modalVisible)
   
     return (
         <View style={styles.view}>
@@ -23,6 +25,15 @@ export default function AddStock(){
                     addToStock()
                 }}>
                     <AppText style={styles.add_button}>Add Bottle To Stock</AppText>
+                </TouchableOpacity>
+            </View>
+            <View>
+                <AppText>{modalVisible}</AppText>
+                <TouchableOpacity onPress={() => {
+                    // setModalVisible(false)
+                    closeModal()
+                }}>
+                    <AppText style={styles.add_button}>Close</AppText>
                 </TouchableOpacity>
             </View>
         </View>
