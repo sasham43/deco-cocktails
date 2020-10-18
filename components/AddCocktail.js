@@ -8,7 +8,20 @@ import AppText from './AppText'
 import { useCocktails, newCocktail } from '../utils/hooks'
 
 export default function Add(){
-    const { setFlag, newCocktailName, setNewCocktailName, cocktails, addCocktail, newCocktailIngredientName, newCocktailIngredientParts, addedCocktailIngredients, setName, setParts, addIngredientToCocktail, resetNewCocktail } = useCocktails([])
+    const {  
+        setFlag,
+        newCocktailName,
+        setNewCocktailName, 
+        cocktails, 
+        addCocktail, 
+        newCocktailIngredientName, 
+        newCocktailIngredientParts, 
+        addedCocktailIngredients, 
+        setName, 
+        setParts, 
+        addIngredientToCocktail, 
+        resetNewCocktail 
+    } = useCocktails([])
 
     function AddedIngredient(props){
         return (

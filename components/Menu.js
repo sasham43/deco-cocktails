@@ -60,14 +60,14 @@ export default class Menu extends React.Component {
                             <View style={styles.link}>
                                 <Link to="/stock">
                                     <View style={currentPage == 'stock' ? styles.selected : null}>
-                                    <AppText>Stock</AppText>
+                                        <AppText>Stock</AppText>
                                     </View>
                                 </Link>
                             </View>
                             <View style={styles.link}>
                                 <Link to="/add-cocktail">
                                     <View style={currentPage == 'add-cocktail' ? styles.selected : null}>
-                                    <AppText>Add</AppText>
+                                        <AppText>Add</AppText>
                                     </View>
                                 </Link>
                             </View>
