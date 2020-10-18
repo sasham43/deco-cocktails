@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         flexDirection: 'row',
         alignSelf: 'stretch',
+        fontSize: 22
         // width: windowWidth - 150
     },
     add_container: {

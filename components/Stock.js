@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, StyleSheet, Switch, Dimensions } from 'react-native'
+import { View, StyleSheet, Switch, Dimensions, TouchableOpacity } from 'react-native'
 import { Route, Link, matchPath } from 'react-router-native'
 
 import AppText from './AppText'
 import { useStock } from '../utils/hooks'
+import InStockIcon from '../assets/in-stock'
 
 const windowHeight = Dimensions.get('window').height
 
@@ -25,7 +26,10 @@ export default function Stock(){
         return (
             <View style={styles.stock_bottle}>
                 <View style={styles.switch_container}>
-                    <Switch value={props.bottle.in_stock} trackColor={{false: 'grey', true: 'black'}}  onValueChange={(val)=>setInStock(props.bottle, val)} />
+                    <TouchableOpacity onPress={() => setInStock(props.bottle, !props.bottle.in_stock)}>
+                        <InStockIcon transform={[{ rotate: '-45deg' }]} width={65} height={65} fill={props.bottle.in_stock ? 'black' : 'grey'} />
+                    </TouchableOpacity>
+                    {/* <Switch value={props.bottle.in_stock} trackColor={{false: 'grey', true: 'black'}}  onValueChange={(val)=>setInStock(props.bottle, val)} /> */}
                 </View>
                 <View style={styles.label_container}>
                     <AppText style={styles.label_text}>{props.bottle.label}</AppText>
