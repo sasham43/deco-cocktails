@@ -10,6 +10,7 @@ export const useCocktails = () => {
     const [addedCocktailIngredients, setAddedCocktailIngredients] = useState([])
     const [newCocktailName, setNewCocktailName] = useState('')
     const [addFlag, setFlag] = useState(false)
+    const [editIngredientId, setEditIngredientId] = useState('')
 
     const loadCocktails = async () => {
         const data = await AsyncStorage.getItem('cocktails')
@@ -55,15 +56,32 @@ export const useCocktails = () => {
     }, [addFlag,addedCocktailIngredients])
 
     async function addIngredientToCocktail() {
-        var added = [{
-            id: generate(),
-            ingredient_name: newCocktailIngredientName,
-            parts: newCocktailIngredientParts
-        }, ...addedCocktailIngredients]
+        if (editIngredientId){
+            var added = addedCocktailIngredients.map(a=>{
+                if(a.id == editIngredientId){
+                    console.log('yo', newCocktailIngredientParts)
+                    return {
+                        id: editIngredientId,
+                        ingredient_name: newCocktailIngredientName,
+                        parts: newCocktailIngredientParts
+                    }
+                } else {
+                    console.log('no map', a, editIngredientId)
+                    return a
+                }
+            })
+        } else {
+            var added = [{
+                id: generate(),
+                ingredient_name: newCocktailIngredientName,
+                parts: newCocktailIngredientParts
+            }, ...addedCocktailIngredients]
+        }
 
         setAddedCocktailIngredients(added)
         setNewCocktailIngredientName('')
         setNewCocktailIngredientParts(0)
+        setEditIngredientId('')
     }
     function resetNewCocktail() {
         // console.log('resetting')
@@ -80,7 +98,17 @@ export const useCocktails = () => {
         setNewCocktailIngredientParts(parts)
     }
 
-    return { setFlag, newCocktailName, setNewCocktailName, cocktails, addCocktail, newCocktailIngredientName, newCocktailIngredientParts, addedCocktailIngredients, addIngredientToCocktail, setName, setParts, resetNewCocktail}
+
+
+    function editCocktailIngredient(id) {
+        var ingredient = addedCocktailIngredients.find(a=>a.id == id)
+        console.log('ingredient, id', ingredient, id)
+        setNewCocktailIngredientName(ingredient.ingredient_name)
+        setNewCocktailIngredientParts(ingredient.parts)
+        setEditIngredientId(id)
+    }
+
+    return { setFlag, newCocktailName, setNewCocktailName, cocktails, addCocktail, newCocktailIngredientName, newCocktailIngredientParts, addedCocktailIngredients, addIngredientToCocktail, setName, setParts, resetNewCocktail, editCocktailIngredient}
 }
 
 export const useStock = () => {

@@ -20,21 +20,22 @@ export default function Add(){
         setName, 
         setParts, 
         addIngredientToCocktail, 
-        resetNewCocktail 
+        resetNewCocktail ,
+        editCocktailIngredient
     } = useCocktails([])
 
     function AddedIngredient(props){
         return (
-            <View>
+            <TouchableOpacity onPress={()=>editCocktailIngredient(props.id)}>
                 <AppText>{props.ingredient_name}</AppText>
                 <AppText>{props.parts}</AppText>
-            </View>
+            </TouchableOpacity>
         )
     }
     function AddedIngredientMap(){
         return addedCocktailIngredients.map(a=>{
             return (
-                <AddedIngredient key={a.id} ingredient_name={a.ingredient_name} parts={a.parts} />
+                <AddedIngredient key={a.id} id={a.id} ingredient_name={a.ingredient_name} parts={a.parts} />
             )
         })
     }
