@@ -56,17 +56,18 @@ export const useCocktails = () => {
     }, [addFlag,addedCocktailIngredients])
 
     async function addIngredientToCocktail() {
+        // check if we're editing an ingredient or adding a new one
         if (editIngredientId){
             var added = addedCocktailIngredients.map(a=>{
                 if(a.id == editIngredientId){
-                    console.log('yo', newCocktailIngredientParts)
+                    // console.log('yo', newCocktailIngredientParts)
                     return {
                         id: editIngredientId,
                         ingredient_name: newCocktailIngredientName,
                         parts: newCocktailIngredientParts
                     }
                 } else {
-                    console.log('no map', a, editIngredientId)
+                    // console.log('no map', a, editIngredientId)
                     return a
                 }
             })
@@ -102,7 +103,7 @@ export const useCocktails = () => {
 
     function editCocktailIngredient(id) {
         var ingredient = addedCocktailIngredients.find(a=>a.id == id)
-        console.log('ingredient, id', ingredient, id)
+        // console.log('ingredient, id', ingredient, id)
         setNewCocktailIngredientName(ingredient.ingredient_name)
         setNewCocktailIngredientParts(ingredient.parts)
         setEditIngredientId(id)
