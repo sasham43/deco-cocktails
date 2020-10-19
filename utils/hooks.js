@@ -108,7 +108,7 @@ export const useCocktails = () => {
         setEditIngredientId(id)
     }
 
-    return { setFlag, newCocktailName, setNewCocktailName, cocktails, addCocktail, newCocktailIngredientName, newCocktailIngredientParts, addedCocktailIngredients, addIngredientToCocktail, setName, setParts, resetNewCocktail, editCocktailIngredient}
+    return { setFlag, newCocktailName, setNewCocktailName, cocktails, addCocktail, newCocktailIngredientName, newCocktailIngredientParts, addedCocktailIngredients, addIngredientToCocktail, setName, setParts, resetNewCocktail, editCocktailIngredient, editIngredientId}
 }
 
 export const useStock = () => {

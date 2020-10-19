@@ -21,12 +21,13 @@ export default function Add(){
         setParts, 
         addIngredientToCocktail, 
         resetNewCocktail ,
-        editCocktailIngredient
+        editCocktailIngredient,
+        editIngredientId
     } = useCocktails([])
 
     function AddedIngredient(props){
         return (
-            <TouchableOpacity onPress={()=>editCocktailIngredient(props.id)}>
+            <TouchableOpacity style={[styles.added_ingredient, editIngredientId == props.id ? styles.selected_ingredient : null]} onPress={()=>editCocktailIngredient(props.id)}>
                 <AppText>{props.ingredient_name}</AppText>
                 <AppText>{props.parts}</AppText>
             </TouchableOpacity>
@@ -187,5 +188,15 @@ const styles = StyleSheet.create({
     },
     new_ingredient: {
         marginTop: 15
+    },
+    selected_ingredient: {
+        borderWidth: 1,
+        borderStyle: 'dashed'
+    },
+    added_ingredient: {
+        paddingTop: 3,
+        paddingBottom: 3,
+        paddingLeft: 3,
+        paddingRight: 3,
     }
 })
