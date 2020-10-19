@@ -142,7 +142,20 @@ export const useCocktails = () => {
         resetNewCocktail, 
         editCocktailIngredient,
         editIngredientId, 
-        toggleEditIngredient
+        toggleEditIngredient,
+    }
+}
+
+export const useFunctionScreen = () =>{
+    const [showFunctionScreen, setShowFunctionScreen] = useState(false)
+
+    function toggleFunctionScreen(){
+        setShowFunctionScreen(!showFunctionScreen)
+    }
+
+    return {
+        toggleFunctionScreen,
+        showFunctionScreen
     }
 }
 

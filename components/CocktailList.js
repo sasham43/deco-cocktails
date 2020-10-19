@@ -1,18 +1,14 @@
 import React, { useState } from 'react'
 import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
-import { generate } from 'shortid'
+import { Link } from 'react-router-native'
 import _ from 'lodash'
 
 import AppText from './AppText'
-import { Part, PartMap } from './Parts'
-// import HalfCircle from '../assets/half-circle.svg'
-// import QuarterCircle from '../assets/quarter-circle.svg'
-// import ThreeQuarterCircle from '../assets/three-quarter-circle.svg'
-// import Circle from '../assets/circle.svg'
+import { PartMap } from './Parts'
 import FunctionButtonIcon from '../assets/function-button.svg'
 
 
-import { useCocktails, useStock } from '../utils/hooks'
+import { useCocktails, useStock, useFunctionScreen } from '../utils/hooks'
 
 
 const windowWidth = Dimensions.get('window').width
@@ -66,14 +62,46 @@ function ClassListMap() {
         )
 }
 
+
+// function toggleFunctionScreen(){
+//     set
+// }
+
 function ClassList(){
+    const { toggleFunctionScreen, showFunctionScreen } = useFunctionScreen()
+
+
+    function FunctionScreen() {
+        if (showFunctionScreen) {
+            return (
+                <View>
+                    <AppText>Functions</AppText>
+
+                    <TouchableOpacity>
+                        <AppText>Edit A Cocktail</AppText>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <AppText>Remove Cocktails</AppText>
+                    </TouchableOpacity>
+                    <Link to="/add-cocktail">
+                        <AppText>Add A Cocktail</AppText>
+                    </Link>
+                </View>
+            )
+        } else {
+            return null
+        }
+    }
+
     return (
         <View style={styles.view}>
             <ScrollView style={styles.scroll_view}>
                 <ClassListMap></ClassListMap>
             </ScrollView>
 
-            <TouchableOpacity style={styles.function_button_container}>
+            <FunctionScreen />
+
+            <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionScreen()}>
 
                 <FunctionButtonIcon width={100} height={75} />
             </TouchableOpacity>
@@ -131,9 +159,6 @@ const styles = StyleSheet.create({
     },
     function_button_container: {
         height: 100,
-        // width: 1000,
-        // height: 20,
-        // justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center'
         
