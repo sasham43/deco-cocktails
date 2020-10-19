@@ -8,7 +8,7 @@ import { ShapeMap } from './Shapes'
 export function Part(props) {
     if (props.last) {
         return (
-            <View style={{ flexDirection: 'row' }}>
+            <View style={[props.style, { flexDirection: 'row' }]}>
                 <ShapeMap parts={props.parts} last={props.last} />
             </View>
         )

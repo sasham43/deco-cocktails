@@ -3,8 +3,10 @@ import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { generate } from 'shortid'
 // import { Picker } from '@react-native-community/picker'
 import RNPickerSelect from 'react-native-picker-select'
+import _ from 'lodash'
 
 import AppText from './AppText'
+import { Part } from './Parts'
 import { useCocktails, newCocktail } from '../utils/hooks'
 
 export default function Add(){
@@ -25,16 +27,21 @@ export default function Add(){
         editIngredientId
     } = useCocktails([])
 
+    function sortedIngredients(ingredients) {
+        return _.orderBy(ingredients, 'parts', 'desc')
+    }
+
     function AddedIngredient(props){
         return (
             <TouchableOpacity style={[styles.added_ingredient, editIngredientId == props.id ? styles.selected_ingredient : null]} onPress={()=>editCocktailIngredient(props.id)}>
                 <AppText>{props.ingredient_name}</AppText>
                 <AppText>{props.parts}</AppText>
+                <Part style={styles.added_parts} parts={props.parts} last={true} />
             </TouchableOpacity>
         )
     }
     function AddedIngredientMap(){
-        return addedCocktailIngredients.map(a=>{
+        return sortedIngredients(addedCocktailIngredients).map(a=>{
             return (
                 <AddedIngredient key={a.id} id={a.id} ingredient_name={a.ingredient_name} parts={a.parts} />
             )
@@ -198,5 +205,11 @@ const styles = StyleSheet.create({
         paddingBottom: 3,
         paddingLeft: 3,
         paddingRight: 3,
+    },
+    added_parts: {
+        marginTop: 8,
+        marginBottom: 4
+        // alignSelf: 'center'
+        // justifyContent: 'center'
     }
 })
