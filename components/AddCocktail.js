@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native'
 import { generate } from 'shortid'
 // import { Picker } from '@react-native-community/picker'
 import RNPickerSelect from 'react-native-picker-select'
@@ -8,6 +8,8 @@ import _ from 'lodash'
 import AppText from './AppText'
 import { Part } from './Parts'
 import { useCocktails, newCocktail } from '../utils/hooks'
+
+const windowHeight = Dimensions.get('window').height
 
 export default function Add(){
     const {  
@@ -49,15 +51,18 @@ export default function Add(){
         color: '#9EA0A4',
     };
     return (
-        <View>
-            <View>
-                <TextInput
-                    value={newCocktailName}
-                    onChangeText={text => setNewCocktailName(text)}
-                    style={styles.input}
-                    placeholder="New cocktail name..."
-                />
-                <AddedIngredientMap />
+        <View style={styles.view}>
+            <View style={styles.new_ingredient_container}>
+                <View>
+                    <TextInput
+                        value={newCocktailName}
+                        onChangeText={text => setNewCocktailName(text)}
+                        style={styles.input}
+                        placeholder="New cocktail name..."
+                    />
+
+                    <AddedIngredientMap />
+                </View>
                 <View style={styles.new_ingredient}>
                     <TextInput key={`newCocktailIngredientName`} value={newCocktailIngredient.ingredient_name} onChangeText={text => setName(text)} style={styles.input} placeholder="Ingredient..." />
                     <RNPickerSelect
@@ -130,30 +135,36 @@ export default function Add(){
                             },
                         ]} 
                     />
+
+                    <TouchableOpacity onPress={() => {
+                        addIngredientToCocktail()
+                    }}>
+                        <AppText style={styles.add_ingredient_button}>+</AppText>
+                    </TouchableOpacity>
                     
+                    <TouchableOpacity onPress={async() => {
+                        if(newCocktailIngredient.ingredient_name != '' && newCocktailIngredient.parts != null){
+                            await addIngredientToCocktail()
+                        }
+
+                        setFlag(true)
+                    }}>
+                        <AppText style={styles.add_button}>Add Cocktail</AppText>
+                    </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity onPress={()=>{
-                    addIngredientToCocktail()
-                }}>
-                    <AppText style={styles.add_ingredient_button}>+</AppText>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={async() => {
-                    if(newCocktailIngredient.ingredient_name != '' && newCocktailIngredient.parts != null){
-                        await addIngredientToCocktail()
-                    }
-
-                    setFlag(true)
-                }}>
-                    <AppText style={styles.add_button}>Add Cocktail</AppText>
-                </TouchableOpacity>
             </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    view: {
+        paddingTop: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        height: windowHeight - 100
+    },
     input: {
         fontFamily: 'PoiretOne_400Regular',
         paddingTop: 10,
@@ -196,11 +207,21 @@ const styles = StyleSheet.create({
         paddingBottom: 3,
         paddingLeft: 3,
         paddingRight: 3,
+        marginLeft: 8
     },
     added_parts: {
         marginTop: 8,
         marginBottom: 4
         // alignSelf: 'center'
         // justifyContent: 'center'
+    },
+    new_ingredient_container: {
+        flexDirection: 'column',
+        // alignContent: 'flex-end',
+        // justifyContent: 'flex-end',
+        justifyContent: 'space-between',
+        flexWrap: 'nowrap',
+
+        height: windowHeight - 180
     }
 })
