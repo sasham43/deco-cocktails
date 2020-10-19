@@ -40,7 +40,6 @@ export const useCocktails = () => {
     }, [cocktails])
 
     const addCocktail = (cocktail) => {
-        // console.log('adding cocktail')
         setCocktails([cocktail, ...cocktails])
         
         resetNewCocktail()
@@ -59,23 +58,17 @@ export const useCocktails = () => {
         }
     }, [addFlag,addedCocktailIngredients])
 
-    useEffect(()=>{
-        console.log('id changed')
-    }, [editIngredientId])
-
     async function addIngredientToCocktail() {
         // check if we're editing an ingredient or adding a new one
         if (editIngredientId){
             var added = addedCocktailIngredients.map(a=>{
                 if(a.id == editIngredientId){
-                    // console.log('yo', newCocktailIngredientParts)
                     return {
                         id: editIngredientId,
                         ingredient_name: newCocktailIngredient.ingredient_name,
                         parts: newCocktailIngredient.parts
                     }
                 } else {
-                    // console.log('no map', a, editIngredientId)
                     return a
                 }
             })
@@ -88,8 +81,6 @@ export const useCocktails = () => {
         }
 
         setAddedCocktailIngredients(added)
-        // setNewCocktailIngredientName('')
-        // setNewCocktailIngredientParts(0)
         setNewCocktailIngredient({
             ingredient_name: '',
             parts: 0
@@ -99,8 +90,6 @@ export const useCocktails = () => {
     function resetNewCocktail() {
         // console.log('resetting')
         setNewCocktailName('')
-        // setNewCocktailIngredientName('')
-        // setNewCocktailIngredientParts(0)
         setNewCocktailIngredient({
             ingredient_name: '',
             parts: 0
@@ -109,7 +98,6 @@ export const useCocktails = () => {
     }
 
     function setName(name) {
-        // setNewCocktailIngredientName(name)
         setNewCocktailIngredient({
             ingredient_name:name,
             parts: newCocktailIngredient.parts
@@ -125,8 +113,6 @@ export const useCocktails = () => {
     function toggleEditIngredient(id){
         if(editIngredientId == id){
             setEditIngredientId('')
-            // setNewCocktailIngredientName('')
-            // setNewCocktailIngredientParts(0)
             setNewCocktailIngredient({
                 ingredient_name: '',
                 parts: 0
@@ -138,14 +124,8 @@ export const useCocktails = () => {
 
     function editCocktailIngredient(id) {
         var ingredient = addedCocktailIngredients.find(a=>a.id == id)
-        console.log('ingredient, id', ingredient, id)
-        // setNewCocktailIngredient({ingredient_name: ingredient.ingredient_name})
         setNewCocktailIngredient(ingredient)
-        // setNewCocktailIngredientName(ingredient.ingredient_name)
-        // setNewCocktailIngredientParts(ingredient.parts)
         setEditIngredientId(id)
-        // setEditIngredientId(state=> state.editIngredientId = id)
-        console.log('edit ingredient id', editIngredientId)
     }
 
     return { 
@@ -154,8 +134,6 @@ export const useCocktails = () => {
         setNewCocktailName, 
         cocktails, 
         addCocktail, 
-        // newCocktailIngredientName, 
-        // newCocktailIngredientParts, 
         newCocktailIngredient, 
         addedCocktailIngredients, 
         addIngredientToCocktail, 

@@ -14,16 +14,11 @@ export default function Add(){
         setFlag,
         newCocktailName,
         setNewCocktailName, 
-        cocktails, 
-        addCocktail, 
-        // newCocktailIngredientName, 
-        // newCocktailIngredientParts, 
         newCocktailIngredient, 
         addedCocktailIngredients, 
         setName, 
         setParts, 
         addIngredientToCocktail, 
-        resetNewCocktail ,
         toggleEditIngredient,
         editIngredientId
     } = useCocktails([])
@@ -51,7 +46,6 @@ export default function Add(){
 
     const placeholder = {
         label: 'Parts...',
-        // value: null,
         color: '#9EA0A4',
     };
     return (
@@ -146,15 +140,11 @@ export default function Add(){
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={async() => {
-                    // console.log(newCocktailIngredientName, newCocktailIngredientParts, newCocktailIngredientName != '' && newCocktailIngredientParts != null)
                     if(newCocktailIngredient.ingredient_name != '' && newCocktailIngredient.parts != null){
                         await addIngredientToCocktail()
                     }
 
                     setFlag(true)
-                    // setNewCocktailName('')
-
-                    // resetNewCocktail()
                 }}>
                     <AppText style={styles.add_button}>Add Cocktail</AppText>
                 </TouchableOpacity>
