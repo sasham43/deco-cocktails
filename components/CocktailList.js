@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ScrollView, View, Text, StyleSheet, Dimensions } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
 import { generate } from 'shortid'
 import _ from 'lodash'
 
@@ -9,6 +9,7 @@ import { Part, PartMap } from './Parts'
 // import QuarterCircle from '../assets/quarter-circle.svg'
 // import ThreeQuarterCircle from '../assets/three-quarter-circle.svg'
 // import Circle from '../assets/circle.svg'
+import FunctionButtonIcon from '../assets/function-button.svg'
 
 
 import { useCocktails, useStock } from '../utils/hooks'
@@ -67,9 +68,16 @@ function ClassListMap() {
 
 function ClassList(){
     return (
-        <ScrollView style={styles.view}>
-            <ClassListMap></ClassListMap>
-        </ScrollView>
+        <View style={styles.view}>
+            <ScrollView style={styles.scroll_view}>
+                <ClassListMap></ClassListMap>
+            </ScrollView>
+
+            <TouchableOpacity style={styles.function_button_container}>
+
+                <FunctionButtonIcon width={100} height={75} />
+            </TouchableOpacity>
+        </View>
     )
 }
 
@@ -120,6 +128,18 @@ const styles = StyleSheet.create({
         alignItems: 'center'
         // width: 100
         // flex: 3
+    },
+    function_button_container: {
+        height: 100,
+        // width: 1000,
+        // height: 20,
+        // justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center'
+        
+    },
+    scroll_view: {
+        height: windowHeight - 200
     }
 })
 
