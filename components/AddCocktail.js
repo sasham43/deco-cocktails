@@ -16,14 +16,15 @@ export default function Add(){
         setNewCocktailName, 
         cocktails, 
         addCocktail, 
-        newCocktailIngredientName, 
-        newCocktailIngredientParts, 
+        // newCocktailIngredientName, 
+        // newCocktailIngredientParts, 
+        newCocktailIngredient, 
         addedCocktailIngredients, 
         setName, 
         setParts, 
         addIngredientToCocktail, 
         resetNewCocktail ,
-        editCocktailIngredient,
+        toggleEditIngredient,
         editIngredientId
     } = useCocktails([])
 
@@ -33,7 +34,7 @@ export default function Add(){
 
     function AddedIngredient(props){
         return (
-            <TouchableOpacity style={[styles.added_ingredient, editIngredientId == props.id ? styles.selected_ingredient : null]} onPress={()=>editCocktailIngredient(props.id)}>
+            <TouchableOpacity style={[styles.added_ingredient, editIngredientId == props.id ? styles.selected_ingredient : null]} onPress={()=>toggleEditIngredient(props.id)}>
                 <AppText>{props.ingredient_name}</AppText>
                 <AppText>{props.parts}</AppText>
                 <Part style={styles.added_parts} parts={props.parts} last={true} />
@@ -64,13 +65,13 @@ export default function Add(){
                 />
                 <AddedIngredientMap />
                 <View style={styles.new_ingredient}>
-                    <TextInput key={`newCocktailIngredientName`} value={newCocktailIngredientName} onChangeText={text => setName(text)} style={styles.input} placeholder="Ingredient..." />
+                    <TextInput key={`newCocktailIngredientName`} value={newCocktailIngredient.ingredient_name} onChangeText={text => setName(text)} style={styles.input} placeholder="Ingredient..." />
                     <RNPickerSelect
-                        key={newCocktailIngredientParts}
+                        key={newCocktailIngredient.parts}
                         placeholder={placeholder}
                         useNativeAndroidPickerStyle={false}
                         style={styles} 
-                        value={newCocktailIngredientParts}
+                        value={newCocktailIngredient.parts}
                         onValueChange={(val) => setParts(val)} 
                         items={[
                             {
@@ -146,7 +147,7 @@ export default function Add(){
 
                 <TouchableOpacity onPress={async() => {
                     // console.log(newCocktailIngredientName, newCocktailIngredientParts, newCocktailIngredientName != '' && newCocktailIngredientParts != null)
-                    if(newCocktailIngredientName != '' && newCocktailIngredientParts != null){
+                    if(newCocktailIngredient.ingredient_name != '' && newCocktailIngredient.parts != null){
                         await addIngredientToCocktail()
                     }
 

@@ -5,8 +5,12 @@ import { generate } from 'shortid'
 export const useCocktails = () => {
     // set up all the variables in state
     const [cocktails, setCocktails] = useState([])
-    const [newCocktailIngredientName, setNewCocktailIngredientName] = useState('')
-    const [newCocktailIngredientParts, setNewCocktailIngredientParts] = useState(0)
+    // const [newCocktailIngredientName, setNewCocktailIngredientName] = useState('')
+    // const [newCocktailIngredientParts, setNewCocktailIngredientParts] = useState(0)
+    const [newCocktailIngredient, setNewCocktailIngredient] = useState({
+        ingredient_name: '',
+        parts: 0
+    })
     const [addedCocktailIngredients, setAddedCocktailIngredients] = useState([])
     const [newCocktailName, setNewCocktailName] = useState('')
     const [addFlag, setFlag] = useState(false)
@@ -55,6 +59,10 @@ export const useCocktails = () => {
         }
     }, [addFlag,addedCocktailIngredients])
 
+    useEffect(()=>{
+        console.log('id changed')
+    }, [editIngredientId])
+
     async function addIngredientToCocktail() {
         // check if we're editing an ingredient or adding a new one
         if (editIngredientId){
@@ -63,8 +71,8 @@ export const useCocktails = () => {
                     // console.log('yo', newCocktailIngredientParts)
                     return {
                         id: editIngredientId,
-                        ingredient_name: newCocktailIngredientName,
-                        parts: newCocktailIngredientParts
+                        ingredient_name: newCocktailIngredient.ingredient_name,
+                        parts: newCocktailIngredient.parts
                     }
                 } else {
                     // console.log('no map', a, editIngredientId)
@@ -74,42 +82,90 @@ export const useCocktails = () => {
         } else {
             var added = [{
                 id: generate(),
-                ingredient_name: newCocktailIngredientName,
-                parts: newCocktailIngredientParts
+                ingredient_name: newCocktailIngredient.ingredient_name,
+                parts: newCocktailIngredient.parts
             }, ...addedCocktailIngredients]
         }
 
         setAddedCocktailIngredients(added)
-        setNewCocktailIngredientName('')
-        setNewCocktailIngredientParts(0)
+        // setNewCocktailIngredientName('')
+        // setNewCocktailIngredientParts(0)
+        setNewCocktailIngredient({
+            ingredient_name: '',
+            parts: 0
+        })
         setEditIngredientId('')
     }
     function resetNewCocktail() {
         // console.log('resetting')
         setNewCocktailName('')
-        setNewCocktailIngredientName('')
-        setNewCocktailIngredientParts(0)
+        // setNewCocktailIngredientName('')
+        // setNewCocktailIngredientParts(0)
+        setNewCocktailIngredient({
+            ingredient_name: '',
+            parts: 0
+        })
         setAddedCocktailIngredients([])
     }
 
     function setName(name) {
-        setNewCocktailIngredientName(name)
+        // setNewCocktailIngredientName(name)
+        setNewCocktailIngredient({
+            ingredient_name:name,
+            parts: newCocktailIngredient.parts
+        })
     }
     function setParts(parts) {
-        setNewCocktailIngredientParts(parts)
+        setNewCocktailIngredient({
+            ingredient_name: newCocktailIngredient.ingredient_name,
+            parts
+        })
     }
 
-
+    function toggleEditIngredient(id){
+        if(editIngredientId == id){
+            setEditIngredientId('')
+            // setNewCocktailIngredientName('')
+            // setNewCocktailIngredientParts(0)
+            setNewCocktailIngredient({
+                ingredient_name: '',
+                parts: 0
+            })
+        } else {
+            editCocktailIngredient(id)
+        }
+    }
 
     function editCocktailIngredient(id) {
         var ingredient = addedCocktailIngredients.find(a=>a.id == id)
-        // console.log('ingredient, id', ingredient, id)
-        setNewCocktailIngredientName(ingredient.ingredient_name)
-        setNewCocktailIngredientParts(ingredient.parts)
+        console.log('ingredient, id', ingredient, id)
+        // setNewCocktailIngredient({ingredient_name: ingredient.ingredient_name})
+        setNewCocktailIngredient(ingredient)
+        // setNewCocktailIngredientName(ingredient.ingredient_name)
+        // setNewCocktailIngredientParts(ingredient.parts)
         setEditIngredientId(id)
+        // setEditIngredientId(state=> state.editIngredientId = id)
+        console.log('edit ingredient id', editIngredientId)
     }
 
-    return { setFlag, newCocktailName, setNewCocktailName, cocktails, addCocktail, newCocktailIngredientName, newCocktailIngredientParts, addedCocktailIngredients, addIngredientToCocktail, setName, setParts, resetNewCocktail, editCocktailIngredient, editIngredientId}
+    return { 
+        setFlag, 
+        newCocktailName, 
+        setNewCocktailName, 
+        cocktails, 
+        addCocktail, 
+        // newCocktailIngredientName, 
+        // newCocktailIngredientParts, 
+        newCocktailIngredient, 
+        addedCocktailIngredients, 
+        addIngredientToCocktail, 
+        setName, 
+        setParts, 
+        resetNewCocktail, 
+        editCocktailIngredient,
+        editIngredientId, 
+        toggleEditIngredient
+    }
 }
 
 export const useStock = () => {
