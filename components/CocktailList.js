@@ -14,40 +14,27 @@ import { useCocktails, useStock, useFunctionMenu } from '../utils/hooks'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-function ClassListMap() {
 
-        const { cocktails } = useCocktails()
-        const { isInStock } = useStock()
-        function Name(props){
-            if(props.last){
-                return (
-                    <AppText style={{color: isInStock(props.ingredient_name) ? 'black' : 'grey'}}> {props.ingredient_name}</AppText>
-                )
-            } else {
-                return (
-                    <AppText style={{color: isInStock(props.ingredient_name) ? 'black' : 'grey'}}> {props.ingredient_name} |</AppText>
-                )
-            }
-        }
-        function NameMap(props){
-            return (
-                <View style={styles.name_container}>
-                    {props.ingredients.map((ingredient, i) => (
-                        <View key={`part-${i}`}>
-                            <Name ingredient_name={ingredient.ingredient_name} last={(i + 1 == props.ingredients.length)} />
-                        </View>
-                    ))}
-                </View>
-            )
-        } 
 
-        function sortedIngredients(ingredients){
-            return _.orderBy(ingredients, 'parts', 'desc')
-        }
-        
-        return cocktails.map(cocktail=>
+
+// function toggleFunctionScreen(){
+//     set
+// }
+
+function ClassList(){
+    const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
+    const { cocktails } = useCocktails()
+    const { isInStock } = useStock()
+
+    function ClassListMap() {
+
+        // const { currentMode } = useFunctionMenu()
+
+
+
+        return cocktails.map(cocktail =>
             (
-                <View style={styles.cocktail} key={cocktail.id}>
+                <TouchableOpacity onPress={selectCocktail} style={styles.cocktail} key={cocktail.id}>
                     <View style={styles.cocktail_name_container}>
                         <AppText>
                             <Text style={styles.cocktail_text}>
@@ -57,18 +44,41 @@ function ClassListMap() {
                     </View>
                     <PartMap ingredients={sortedIngredients(cocktail.ingredients)} />
                     <NameMap ingredients={sortedIngredients(cocktail.ingredients)} />
-                </View>
+                </TouchableOpacity>
             )
         )
-}
+    }
 
+    function Name(props) {
+        if (props.last) {
+            return (
+                <AppText style={{ color: isInStock(props.ingredient_name) ? 'black' : 'grey' }}> {props.ingredient_name}</AppText>
+            )
+        } else {
+            return (
+                <AppText style={{ color: isInStock(props.ingredient_name) ? 'black' : 'grey' }}> {props.ingredient_name} |</AppText>
+            )
+        }
+    }
+    function NameMap(props) {
+        return (
+            <View style={styles.name_container}>
+                {props.ingredients.map((ingredient, i) => (
+                    <View key={`part-${i}`}>
+                        <Name ingredient_name={ingredient.ingredient_name} last={(i + 1 == props.ingredients.length)} />
+                    </View>
+                ))}
+            </View>
+        )
+    }
 
-// function toggleFunctionScreen(){
-//     set
-// }
+    function sortedIngredients(ingredients) {
+        return _.orderBy(ingredients, 'parts', 'desc')
+    }
 
-function ClassList(){
-    const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
+    function selectCocktail() {
+        console.log('selecting', currentMode)
+    }
 
 
     function FunctionMenu() {
