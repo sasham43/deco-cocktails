@@ -31,7 +31,7 @@ export default class Main extends React.Component {
                     <Route exact path="/stock">
                         <Stock style={styles.view} />
                     </Route>
-                    <Route exact path="/add-cocktail">
+                    <Route path="/add-cocktail/:name/:ingredients">
                         <Add style={styles.view} />
                     </Route>
                     <Route exact path="/add-stock">

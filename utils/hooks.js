@@ -25,8 +25,14 @@ export const useCocktails = () => {
         }
     }
 
+    // debugging
+    useEffect(()=>{
+        console.log('cocktail changes', newCocktailName, addedCocktailIngredients)
+    }, [newCocktailName])
+
     // load cocktails from storage
     useEffect(()=>{
+        console.log('loading cocktails')
         if(cocktails.length) {
             // setCocktails([]) // if cocktails exist on render, reset to empty for testing 
             return
@@ -136,6 +142,7 @@ export const useCocktails = () => {
         addCocktail, 
         newCocktailIngredient, 
         addedCocktailIngredients, 
+        setAddedCocktailIngredients,
         addIngredientToCocktail, 
         setName, 
         setParts, 
@@ -162,9 +169,9 @@ export const useFunctionMenu = () =>{
         }
     }
 
-    useEffect(()=>{
-        console.log('whats the current mode', currentMode)
-    })
+    // useEffect(()=>{
+    //     console.log('whats the current mode', currentMode)
+    // })
 
     return {
         toggleFunctionMenu,

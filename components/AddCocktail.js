@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native'
 import { generate } from 'shortid'
 // import { Picker } from '@react-native-community/picker'
 import RNPickerSelect from 'react-native-picker-select'
 import _ from 'lodash'
+import { useParams } from 'react-router-native'
 
 import AppText from './AppText'
 import { Part } from './Parts'
@@ -20,10 +21,26 @@ export default function Add(){
         addedCocktailIngredients, 
         setName, 
         setParts, 
-        addIngredientToCocktail, 
+        addIngredientToCocktail,
+        setAddedCocktailIngredients, 
         toggleEditIngredient,
         editIngredientId
     } = useCocktails([])
+
+    const params = useParams()
+    // console.log('params', params)
+    useEffect(()=>{
+        loadParams(params)
+    },[])
+
+    function loadParams(params){
+        if(params.name){
+            setNewCocktailName(params.name)
+        }
+        if(params.ingredients){
+            setAddedCocktailIngredients(JSON.parse(params.ingredients))
+        }
+    }
 
     function sortedIngredients(ingredients) {
         return _.orderBy(ingredients, 'parts', 'desc')
