@@ -31,9 +31,12 @@ export default class Main extends React.Component {
                     <Route exact path="/stock">
                         <Stock style={styles.view} />
                     </Route>
-                    <Route path="/add-cocktail/:name/:ingredients">
+                    <Route path="/add-cocktail/:id">
                         <Add style={styles.view} />
                     </Route>
+                    {/* <Route path="/add-cocktail/:name/:ingredients">
+                        <Add style={styles.view} />
+                    </Route> */}
                     <Route exact path="/add-stock">
                         <AddStock style={styles.view} />
                     </Route>
