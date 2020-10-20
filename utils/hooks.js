@@ -146,16 +146,27 @@ export const useCocktails = () => {
     }
 }
 
-export const useFunctionScreen = () =>{
-    const [showFunctionScreen, setShowFunctionScreen] = useState(false)
+export const useFunctionMenu = () =>{
+    const [showFunctionMenu, setShowFunctionMenu] = useState(false)
+    const [currentMode, setCurrentMode] = useState('')
 
-    function toggleFunctionScreen(){
-        setShowFunctionScreen(!showFunctionScreen)
+    function toggleFunctionMenu(){
+        setShowFunctionMenu(!showFunctionMenu)
+    }
+
+    function switchMode(mode){
+        if(currentMode == mode){
+            setCurrentMode('')
+        } else {
+            setCurrentMode(mode)
+        }
     }
 
     return {
-        toggleFunctionScreen,
-        showFunctionScreen
+        toggleFunctionMenu,
+        showFunctionMenu,
+        switchMode,
+        currentMode
     }
 }
 
