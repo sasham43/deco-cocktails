@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
-import { Link } from 'react-router-native'
+import { Link, useHistory } from 'react-router-native'
 import _ from 'lodash'
 
 import AppText from './AppText'
@@ -23,8 +23,9 @@ const windowHeight = Dimensions.get('window').height
 
 function ClassList(){
     const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
-    const { cocktails } = useCocktails()
+    const { cocktails, setNewCocktailName, setAddedCocktailIngredients } = useCocktails()
     const { isInStock } = useStock()
+    const  history  = useHistory()
 
     function ClassListMap() {
 
@@ -34,7 +35,7 @@ function ClassList(){
 
         return cocktails.map(cocktail =>
             (
-                <TouchableOpacity onPress={selectCocktail} style={styles.cocktail} key={cocktail.id}>
+                <TouchableOpacity onPress={()=>selectCocktail(cocktail)} style={styles.cocktail} key={cocktail.id}>
                     <View style={styles.cocktail_name_container}>
                         <AppText>
                             <Text style={styles.cocktail_text}>
@@ -76,8 +77,20 @@ function ClassList(){
         return _.orderBy(ingredients, 'parts', 'desc')
     }
 
-    function selectCocktail() {
-        console.log('selecting', currentMode)
+    function selectCocktail(cocktail) {
+        console.log('selecting', currentMode, cocktail)
+
+        if(currentMode == 'edit'){
+            // move location
+            history.push(`/add-cocktail/${cocktail.name}/${JSON.stringify(cocktail.ingredients)}`)
+            // set vars
+            // setTimeout(()=>{
+
+                setNewCocktailName(cocktail.name)
+                setAddedCocktailIngredients([...cocktail.ingredients])
+            // })
+
+        }
     }
 
 
