@@ -8,12 +8,13 @@ import { useParams } from 'react-router-native'
 
 import AppText from './AppText'
 import { Part } from './Parts'
-import { useCocktails, newCocktail } from '../utils/hooks'
+import { useCocktails, newCocktail, useFunctionMenu } from '../utils/hooks'
 
 const windowHeight = Dimensions.get('window').height
 
 export default function Add(){
     const {  
+        cocktails,
         setFlag,
         newCocktailName,
         setNewCocktailName, 
@@ -28,17 +29,30 @@ export default function Add(){
     } = useCocktails([])
 
     const params = useParams()
-    // console.log('params', params)
+    const { currentMode, switchMode } = useFunctionMenu()
+    
+    // when cocktails load, check params and set
     useEffect(()=>{
         loadParams(params)
-    },[])
+    },[cocktails])
 
     function loadParams(params){
-        if(params.name){
-            setNewCocktailName(params.name)
-        }
-        if(params.ingredients){
-            setAddedCocktailIngredients(JSON.parse(params.ingredients))
+        // if(params.name){
+        //     setNewCocktailName(params.name)
+        // }
+        // if(params.ingredients){
+        //     setAddedCocktailIngredients(JSON.parse(params.ingredients))
+        // }
+        console.log('params', params)
+        if(params.id){
+            var cocktail = cocktails.find(c=>c.id == params.id)
+            if(cocktail){
+                setNewCocktailName(cocktail.name)
+                setAddedCocktailIngredients(cocktail.ingredients)
+            }
+            console.log('cocktail', cocktail, cocktails)
+
+            switchMode('edit')
         }
     }
 

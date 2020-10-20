@@ -81,15 +81,9 @@ function ClassList(){
         console.log('selecting', currentMode, cocktail)
 
         if(currentMode == 'edit'){
-            // move location
-            history.push(`/add-cocktail/${cocktail.name}/${JSON.stringify(cocktail.ingredients)}`)
-            // set vars
-            // setTimeout(()=>{
-
-                setNewCocktailName(cocktail.name)
-                setAddedCocktailIngredients([...cocktail.ingredients])
-            // })
-
+            // move location, pass data in through route params (defined in Route component in Main)
+            history.push(`/add-cocktail/${cocktail.id}`)
+            // history.push(`/add-cocktail/${cocktail.name}/${JSON.stringify(cocktail.ingredients)}`)
         }
     }
 

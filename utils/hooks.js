@@ -18,7 +18,7 @@ export const useCocktails = () => {
 
     const loadCocktails = async () => {
         const data = await AsyncStorage.getItem('cocktails')
-
+        console.log('data', data)
         if(data){
             var cocktails = JSON.parse(data)
             setCocktails(cocktails)
@@ -32,7 +32,7 @@ export const useCocktails = () => {
 
     // load cocktails from storage
     useEffect(()=>{
-        console.log('loading cocktails')
+        console.log('loading cocktails', cocktails)
         if(cocktails.length) {
             // setCocktails([]) // if cocktails exist on render, reset to empty for testing 
             return
