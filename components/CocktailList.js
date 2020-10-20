@@ -8,7 +8,7 @@ import { PartMap } from './Parts'
 import FunctionButtonIcon from '../assets/function-button.svg'
 
 
-import { useCocktails, useStock, useFunctionScreen } from '../utils/hooks'
+import { useCocktails, useStock, useFunctionMenu } from '../utils/hooks'
 
 
 const windowWidth = Dimensions.get('window').width
@@ -68,23 +68,23 @@ function ClassListMap() {
 // }
 
 function ClassList(){
-    const { toggleFunctionScreen, showFunctionScreen } = useFunctionScreen()
+    const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
 
 
-    function FunctionScreen() {
-        if (showFunctionScreen) {
+    function FunctionMenu() {
+        if (showFunctionMenu) {
             return (
                 <View>
-                    <AppText>Functions</AppText>
+                    <AppText>Functions - {currentMode}</AppText>
 
-                    <TouchableOpacity>
-                        <AppText>Edit A Cocktail</AppText>
+                    <TouchableOpacity onPress={()=>switchMode('edit')}>
+                        <AppText style={styles.action_buttons}>Edit A Cocktail</AppText>
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                        <AppText>Remove Cocktails</AppText>
+                    <TouchableOpacity onPress={()=>switchMode('delete')}>
+                        <AppText style={styles.action_buttons}>Remove Cocktails</AppText>
                     </TouchableOpacity>
                     <Link to="/add-cocktail">
-                        <AppText>Add A Cocktail</AppText>
+                        <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
                     </Link>
                 </View>
             )
@@ -99,9 +99,9 @@ function ClassList(){
                 <ClassListMap></ClassListMap>
             </ScrollView>
 
-            <FunctionScreen />
+            <FunctionMenu />
 
-            <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionScreen()}>
+            <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionMenu()}>
 
                 <FunctionButtonIcon width={100} height={75} />
             </TouchableOpacity>
@@ -165,6 +165,9 @@ const styles = StyleSheet.create({
     },
     scroll_view: {
         height: windowHeight - 200
+    },
+    action_buttons: {
+        fontSize: 22
     }
 })
 
