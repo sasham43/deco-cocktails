@@ -4,7 +4,7 @@ import { generate } from 'shortid'
 // import { Picker } from '@react-native-community/picker'
 import RNPickerSelect from 'react-native-picker-select'
 import _ from 'lodash'
-import { useParams } from 'react-router-native'
+import { useParams, useHistory } from 'react-router-native'
 
 import AppText from './AppText'
 import { Part } from './Parts'
@@ -15,6 +15,7 @@ const windowHeight = Dimensions.get('window').height
 export default function Add(){
     const {  
         cocktails,
+        addCocktail,
         setFlag,
         newCocktailName,
         setNewCocktailName, 
@@ -24,17 +25,35 @@ export default function Add(){
         setParts, 
         addIngredientToCocktail,
         setAddedCocktailIngredients, 
+        setNewCocktailIngredient, 
         toggleEditIngredient,
-        editIngredientId
+        editIngredientId,
+        setEditCocktailId,
     } = useCocktails([])
 
     const params = useParams()
+    const history = useHistory()
     const { currentMode, switchMode } = useFunctionMenu()
     
     // when cocktails load, check params and set
     useEffect(()=>{
+        // resetNewCocktail()
         loadParams(params)
     },[cocktails])
+
+    // useEffect(()=>{
+    //     resetNewCocktail()
+    // }, [cocktails])
+
+    // function resetNewCocktail() {
+    //     console.log('resetting')
+    //     setNewCocktailName('')
+    //     setNewCocktailIngredient({
+    //         ingredient_name: '',
+    //         parts: 0
+    //     })
+    //     setAddedCocktailIngredients([])
+    // }
 
     function loadParams(params){
         // if(params.name){
@@ -49,8 +68,10 @@ export default function Add(){
             if(cocktail){
                 setNewCocktailName(cocktail.name)
                 setAddedCocktailIngredients(cocktail.ingredients)
+                setEditCocktailId(params.id)
             }
-            console.log('cocktail', cocktail, cocktails)
+            // console.log('cocktail', cocktail, cocktails)
+
 
             switchMode('edit')
         }
@@ -174,11 +195,13 @@ export default function Add(){
                     </TouchableOpacity>
                     
                     <TouchableOpacity onPress={async() => {
-                        if(newCocktailIngredient.ingredient_name != '' && newCocktailIngredient.parts != null){
-                            await addIngredientToCocktail()
-                        }
+                        // if(newCocktailIngredient.ingredient_name != '' && newCocktailIngredient.parts != null){
+                        //     addIngredientToCocktail()
+                        // }
 
-                        setFlag(true)
+                        // setFlag(true)
+                        addCocktail()
+                        history.push('/add-cocktail') // to refresh
                     }}>
                         <AppText style={styles.add_button}>Add Cocktail</AppText>
                     </TouchableOpacity>

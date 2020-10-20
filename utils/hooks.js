@@ -15,10 +15,14 @@ export const useCocktails = () => {
     const [newCocktailName, setNewCocktailName] = useState('')
     const [addFlag, setFlag] = useState(false)
     const [editIngredientId, setEditIngredientId] = useState('')
+    const [editCocktailId, setEditCocktailId] = useState('')
+
+    // i guess let's see
+    // const {currentMode} = useFunctionMenu()
 
     const loadCocktails = async () => {
         const data = await AsyncStorage.getItem('cocktails')
-        console.log('data', data)
+        // console.log('data', data)
         if(data){
             var cocktails = JSON.parse(data)
             setCocktails(cocktails)
@@ -32,7 +36,7 @@ export const useCocktails = () => {
 
     // load cocktails from storage
     useEffect(()=>{
-        console.log('loading cocktails', cocktails)
+        // console.log('loading cocktails', cocktails)
         if(cocktails.length) {
             // setCocktails([]) // if cocktails exist on render, reset to empty for testing 
             return
@@ -46,23 +50,51 @@ export const useCocktails = () => {
     }, [cocktails])
 
     const addCocktail = (cocktail) => {
-        setCocktails([cocktail, ...cocktails])
+        console.log('adding cocktail', editCocktailId)
+        if(!editCocktailId){
+            var cocktail = {
+                id: generate(),
+                name: newCocktailName,
+                ingredients: addedCocktailIngredients
+            }
+            setCocktails([cocktail, ...cocktails])
+        } else {
+            var updated = cocktails.map(c=>{
+                if(c.id == editCocktailId){
+                    return {
+                        id: editCocktailId,
+                        name: newCocktailName,
+                        ingredients: addedCocktailIngredients
+                    }
+                } else {
+                    return c
+                }
+            })
+            // resetNewCocktail()
+
+            setCocktails([...updated])
+        }
         
         resetNewCocktail()
     }
 
+    // useEffect(()=>{
+    //     resetNewCocktail()
+    // }, [cocktails])
+
     // addFlag is triggered when we want to add a cocktail, wait for ingredients to change before adding
-    useEffect(()=>{
-        if (addFlag && addedCocktailIngredients.length){
-            addCocktail({
-                id: generate(),
-                name: newCocktailName,
-                ingredients: addedCocktailIngredients
-            })
-        } else {
-            // console.log('no add flag')
-        }
-    }, [addFlag,addedCocktailIngredients])
+    // useEffect(()=>{
+    //     console.log('saving', addFlag)
+    //     if (addFlag && addedCocktailIngredients.length){
+    //         addCocktail({
+    //             id: generate(),
+    //             name: newCocktailName,
+    //             ingredients: addedCocktailIngredients
+    //         })
+    //     } else {
+    //         // console.log('no add flag')
+    //     }
+    // }, [addFlag,addedCocktailIngredients])
 
     async function addIngredientToCocktail() {
         // check if we're editing an ingredient or adding a new one
@@ -94,7 +126,8 @@ export const useCocktails = () => {
         setEditIngredientId('')
     }
     function resetNewCocktail() {
-        // console.log('resetting')
+        console.log('resetting')
+        setEditCocktailId('')
         setNewCocktailName('')
         setNewCocktailIngredient({
             ingredient_name: '',
@@ -146,10 +179,12 @@ export const useCocktails = () => {
         addIngredientToCocktail, 
         setName, 
         setParts, 
-        resetNewCocktail, 
+        // resetNewCocktail, 
+        setNewCocktailIngredient,
         editCocktailIngredient,
         editIngredientId, 
         toggleEditIngredient,
+        setEditCocktailId,
     }
 }
 
