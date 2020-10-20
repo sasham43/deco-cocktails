@@ -162,6 +162,10 @@ export const useFunctionMenu = () =>{
         }
     }
 
+    useEffect(()=>{
+        console.log('whats the current mode', currentMode)
+    })
+
     return {
         toggleFunctionMenu,
         showFunctionMenu,
