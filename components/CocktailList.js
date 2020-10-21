@@ -6,6 +6,7 @@ import _ from 'lodash'
 import AppText from './AppText'
 import { PartMap } from './Parts'
 import FunctionButtonIcon from '../assets/function-button.svg'
+import InStockIcon from '../assets/in-stock'
 
 
 import { useCocktails, useStock, useFunctionMenu } from '../utils/hooks'
@@ -129,17 +130,23 @@ function FunctionMenu(props) {
         return (
             <View style={styles.function_menu}>
                 <AppText>Functions - {props.currentMode}</AppText>
-                <View>
-                    <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} placeholder="Search cocktails..." clearButtonMode={true} style={styles.input} />
+                <View style={styles.function_menu_button}>
+                    <View style={{ opacity: 'search' == props.currentMode ? 1 : 0 }}>
+                        <InStockIcon transform={[{ rotate: '-45deg' }]} width={25} height={25} />
+                    </View>
+                    <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} onFocus={()=>props.switchMode('search')} placeholder="Search cocktails..." clearButtonMode={true} style={styles.input} />
                 </View>
 
-                <TouchableOpacity onPress={() => props.switchMode('edit')}>
+                {/* <TouchableOpacity style={{flexDirection: 'row', marginLeft: -20}} onPress={() => props.switchMode('edit')}>
+                    <InStockIcon transform={[{ rotate: '-45deg' }]} width={25} height={25} />
                     <AppText style={styles.action_buttons}>Edit A Cocktail</AppText>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => props.switchMode('delete')}>
+                </TouchableOpacity> */}
+                <FunctionMenuButton label={"Edit A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} />
+                <FunctionMenuButton label={"Remove Cocktails"} mode="delete" switchMode={props.switchMode} currentMode={props.currentMode} />
+                {/* <TouchableOpacity onPress={() => props.switchMode('delete')}>
                     <AppText style={styles.action_buttons}>Remove Cocktails</AppText>
-                </TouchableOpacity>
-                <Link to="/add-cocktail">
+                </TouchableOpacity> */}
+                <Link style={{marginLeft: 5}} to="/add-cocktail">
                     <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
                 </Link>
             </View>
@@ -147,6 +154,17 @@ function FunctionMenu(props) {
     } else {
         return null
     }
+}
+
+function FunctionMenuButton(props){
+    return (
+        <TouchableOpacity style={styles.function_menu_button} onPress={() => props.switchMode(props.mode)}>
+            <View style={{ opacity: props.mode == props.currentMode ? 1 : 0 }}>
+                <InStockIcon  transform={[{ rotate: '-45deg' }]} width={25} height={25} />
+            </View>
+            <AppText style={styles.action_buttons}>{props.label}</AppText>
+        </TouchableOpacity>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -186,7 +204,8 @@ const styles = StyleSheet.create({
         height: windowHeight - 200
     },
     action_buttons: {
-        fontSize: 22
+        fontSize: 22,
+        marginLeft: 10
     },
     input: {
         fontFamily: 'PoiretOne_400Regular',
@@ -197,11 +216,18 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#eee',
         borderStyle: 'solid',
-        fontSize: 18
+        fontSize: 18,
+        width: windowWidth - 125,
+        marginLeft: 10
     },
     function_menu: {
         justifyContent: 'space-between',
         height: 200
+    },
+    function_menu_button: { 
+        flexDirection: 'row', 
+        marginLeft: -20,
+        alignItems: 'center'
     }
 })
 
