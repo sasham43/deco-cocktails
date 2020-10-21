@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity, Animated } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity, Animated, Image } from 'react-native'
 import { Link, useHistory } from 'react-router-native'
 import _ from 'lodash'
 
@@ -132,6 +132,12 @@ function CocktailList(){
             <ScrollView style={styles.scroll_view}>
                 <CocktailListMap></CocktailListMap>
             </ScrollView>
+
+            <View>
+                <AppText>ink</AppText>
+                <Image style={{ height: 100, width: 2500 }} source={require('../assets/ink.png')} />
+                <AppText>/ink</AppText>
+            </View>
 
             <FunctionMenu />
 
