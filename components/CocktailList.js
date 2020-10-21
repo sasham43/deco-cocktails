@@ -127,7 +127,7 @@ function CocktailList(){
 function FunctionMenu(props) {
     if (props.showFunctionMenu) {
         return (
-            <View>
+            <View style={styles.function_menu}>
                 <AppText>Functions - {props.currentMode}</AppText>
                 <View>
                     <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} placeholder="Search cocktails..." clearButtonMode={true} style={styles.input} />
@@ -196,8 +196,13 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         borderWidth: 1,
         borderColor: '#eee',
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        fontSize: 18
     },
+    function_menu: {
+        justifyContent: 'space-between',
+        height: 200
+    }
 })
 
 export default CocktailList
