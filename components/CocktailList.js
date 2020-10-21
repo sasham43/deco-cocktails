@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
+import React, { useState, useRef } from 'react'
+import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity, Animated } from 'react-native'
 import { Link, useHistory } from 'react-router-native'
 import _ from 'lodash'
 
@@ -77,11 +77,28 @@ function CocktailList(){
         }
     }
 
+    const slideAnim = useRef(new Animated.Value(0)).current
+    function slideUp(){
+        Animated.timing(slideAnim, {
+            toValue: 100,
+            duration: 500,
+            useNativeDriver: false
+        }).start();
+    }
+    function slideDown(){
+        Animated.timing(slideAnim, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: false
+        }).start();
+    }
+
 
     function FunctionMenu() {
-        if (showFunctionMenu) {
+        // if (showFunctionMenu) {
+            console.log('slide', slideAnim)
             return (
-                <View>
+                <Animated.View style={{height: slideAnim}}>
                     <AppText>Functions - {currentMode}</AppText>
 
                     <TouchableOpacity onPress={()=>switchMode('edit')}>
@@ -93,10 +110,20 @@ function CocktailList(){
                     <Link to="/add-cocktail">
                         <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
                     </Link>
-                </View>
+                </Animated.View>
             )
+        // } else {
+        //     return null
+        // }
+    }
+
+    function toggle(){
+        toggleFunctionMenu()
+        if(showFunctionMenu){
+
+            slideUp()
         } else {
-            return null
+            slideDown()
         }
     }
 
@@ -108,7 +135,8 @@ function CocktailList(){
 
             <FunctionMenu />
 
-            <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionMenu()}>
+            <TouchableOpacity style={styles.function_button_container} onPress={()=>toggle()}>
+            {/* <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionMenu()}> */}
 
                 <FunctionButtonIcon width={100} height={75} />
             </TouchableOpacity>
