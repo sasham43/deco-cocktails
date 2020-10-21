@@ -9,6 +9,7 @@ import AppText from './AppText'
 import { Part } from './Parts'
 import { useCocktails, newCocktail, useFunctionMenu } from '../utils/hooks'
 
+const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
 export default function Add(){
@@ -218,6 +219,16 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         height: windowHeight - 100
     },
+    // input: {
+    //     fontFamily: 'PoiretOne_400Regular',
+    //     paddingTop: 10,
+    //     paddingBottom: 10,
+    //     paddingLeft: 10,
+    //     paddingRight: 10,
+    //     borderWidth: 1,
+    //     borderColor: '#eee',
+    //     borderStyle: 'solid'
+    // },
     input: {
         fontFamily: 'PoiretOne_400Regular',
         paddingTop: 10,
@@ -225,8 +236,15 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         borderWidth: 1,
-        borderColor: '#eee',
-        borderStyle: 'solid'
+        borderColor: '#aaa',
+        borderStyle: 'solid',
+        fontSize: 18,
+        width: windowWidth - 125,
+        // marginLeft: 10,
+        borderRightWidth: 0,
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
+        marginBottom: 5
     },
     add_button: {
         marginTop: 45,
@@ -242,11 +260,16 @@ const styles = StyleSheet.create({
     },
     inputIOS: {
         fontFamily: 'PoiretOne_400Regular',
-        borderColor: '#eee',
+        borderColor: '#aaa',
         borderWidth: 1,
         // borderRadius: 5,
         paddingVertical: 12,
         paddingHorizontal: 10,
+        fontSize: 18,
+        // borderRightWidth: 0,
+        // borderLeftWidth: 0,
+        // borderTopWidth: 0,
+        marginBottom: 5
     },
     new_ingredient: {
         marginTop: 15

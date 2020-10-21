@@ -214,11 +214,14 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         borderWidth: 1,
-        borderColor: '#eee',
+        borderColor: '#aaa',
         borderStyle: 'solid',
         fontSize: 18,
         width: windowWidth - 125,
-        marginLeft: 10
+        marginLeft: 10,
+        borderRightWidth: 0,
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
     },
     function_menu: {
         justifyContent: 'space-between',
