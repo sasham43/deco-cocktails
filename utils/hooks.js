@@ -5,8 +5,6 @@ import { generate } from 'shortid'
 export const useCocktails = () => {
     // set up all the variables in state
     const [cocktails, setCocktails] = useState([])
-    // const [newCocktailIngredientName, setNewCocktailIngredientName] = useState('')
-    // const [newCocktailIngredientParts, setNewCocktailIngredientParts] = useState(0)
     const [newCocktailIngredient, setNewCocktailIngredient] = useState({
         ingredient_name: '',
         parts: 0
@@ -16,9 +14,6 @@ export const useCocktails = () => {
     const [addFlag, setFlag] = useState(false)
     const [editIngredientId, setEditIngredientId] = useState('')
     const [editCocktailId, setEditCocktailId] = useState('')
-
-    // i guess let's see
-    // const {currentMode} = useFunctionMenu()
 
     const loadCocktails = async () => {
         const data = await AsyncStorage.getItem('cocktails')
@@ -30,9 +25,9 @@ export const useCocktails = () => {
     }
 
     // debugging
-    useEffect(()=>{
-        console.log('cocktail changes', newCocktailName, addedCocktailIngredients)
-    }, [newCocktailName])
+    // useEffect(()=>{
+    //     console.log('cocktail changes', newCocktailName, addedCocktailIngredients)
+    // }, [newCocktailName])
 
     // load cocktails from storage
     useEffect(()=>{
@@ -50,7 +45,7 @@ export const useCocktails = () => {
     }, [cocktails])
 
     const addCocktail = (cocktail) => {
-        console.log('adding cocktail', editCocktailId)
+        // console.log('adding cocktail', editCocktailId)
         if(!editCocktailId){
             var cocktail = {
                 id: generate(),
@@ -70,31 +65,12 @@ export const useCocktails = () => {
                     return c
                 }
             })
-            // resetNewCocktail()
 
             setCocktails([...updated])
         }
         
         resetNewCocktail()
     }
-
-    // useEffect(()=>{
-    //     resetNewCocktail()
-    // }, [cocktails])
-
-    // addFlag is triggered when we want to add a cocktail, wait for ingredients to change before adding
-    // useEffect(()=>{
-    //     console.log('saving', addFlag)
-    //     if (addFlag && addedCocktailIngredients.length){
-    //         addCocktail({
-    //             id: generate(),
-    //             name: newCocktailName,
-    //             ingredients: addedCocktailIngredients
-    //         })
-    //     } else {
-    //         // console.log('no add flag')
-    //     }
-    // }, [addFlag,addedCocktailIngredients])
 
     async function addIngredientToCocktail() {
         // check if we're editing an ingredient or adding a new one
@@ -125,8 +101,10 @@ export const useCocktails = () => {
         })
         setEditIngredientId('')
     }
+
+    // maybe not needed...
     function resetNewCocktail() {
-        console.log('resetting')
+        // console.log('resetting')
         setEditCocktailId('')
         setNewCocktailName('')
         setNewCocktailIngredient({

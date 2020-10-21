@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native'
 import { generate } from 'shortid'
-// import { Picker } from '@react-native-community/picker'
 import RNPickerSelect from 'react-native-picker-select'
 import _ from 'lodash'
 import { useParams, useHistory } from 'react-router-native'
@@ -41,28 +40,7 @@ export default function Add(){
         loadParams(params)
     },[cocktails])
 
-    // useEffect(()=>{
-    //     resetNewCocktail()
-    // }, [cocktails])
-
-    // function resetNewCocktail() {
-    //     console.log('resetting')
-    //     setNewCocktailName('')
-    //     setNewCocktailIngredient({
-    //         ingredient_name: '',
-    //         parts: 0
-    //     })
-    //     setAddedCocktailIngredients([])
-    // }
-
     function loadParams(params){
-        // if(params.name){
-        //     setNewCocktailName(params.name)
-        // }
-        // if(params.ingredients){
-        //     setAddedCocktailIngredients(JSON.parse(params.ingredients))
-        // }
-        console.log('params', params)
         if(params.id){
             var cocktail = cocktails.find(c=>c.id == params.id)
             if(cocktail){
@@ -70,8 +48,6 @@ export default function Add(){
                 setAddedCocktailIngredients(cocktail.ingredients)
                 setEditCocktailId(params.id)
             }
-            // console.log('cocktail', cocktail, cocktails)
-
 
             switchMode('edit')
         }
@@ -222,11 +198,6 @@ export default function Add(){
                     </TouchableOpacity>
                     
                     <TouchableOpacity onPress={async() => {
-                        // if(newCocktailIngredient.ingredient_name != '' && newCocktailIngredient.parts != null){
-                        //     addIngredientToCocktail()
-                        // }
-
-                        // setFlag(true)
                         addCocktail()
                         history.push('/add-cocktail') // to refresh
                     }}>
