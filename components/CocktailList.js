@@ -15,24 +15,13 @@ const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
 
-
-
-// function toggleFunctionScreen(){
-//     set
-// }
-
-function ClassList(){
+function CocktailList(){
     const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
     const { cocktails, deleteCocktail } = useCocktails()
     const { isInStock } = useStock()
     const  history  = useHistory()
 
-    function ClassListMap() {
-
-        // const { currentMode } = useFunctionMenu()
-
-
-
+    function CocktailListMap() {
         return cocktails.map(cocktail =>
             (
                 <TouchableOpacity onPress={()=>selectCocktail(cocktail)} style={styles.cocktail} key={cocktail.id}>
@@ -114,7 +103,7 @@ function ClassList(){
     return (
         <View style={styles.view}>
             <ScrollView style={styles.scroll_view}>
-                <ClassListMap></ClassListMap>
+                <CocktailListMap></CocktailListMap>
             </ScrollView>
 
             <FunctionMenu />
@@ -189,4 +178,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ClassList
+export default CocktailList
