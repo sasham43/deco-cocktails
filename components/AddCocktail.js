@@ -114,12 +114,13 @@ export default function Add(){
                         onChangeText={text => setNewCocktailName(text)}
                         style={styles.input}
                         placeholder="New cocktail name..."
+                        clearButtonMode={true} 
                     />
 
                     <AddedIngredientMap />
                 </View>
                 <View style={styles.new_ingredient}>
-                    <TextInput key={`newCocktailIngredientName`} value={newCocktailIngredient.ingredient_name} onChangeText={text => setName(text)} style={styles.input} placeholder="Ingredient..." />
+                    <TextInput key={`newCocktailIngredientName`} clearButtonMode={true}  value={newCocktailIngredient.ingredient_name} onChangeText={text => setName(text)} style={styles.input} placeholder="Ingredient..." />
                     <RNPickerSelect
                         key={newCocktailIngredient.parts}
                         placeholder={placeholder}

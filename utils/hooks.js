@@ -14,6 +14,8 @@ export const useCocktails = () => {
     const [addFlag, setFlag] = useState(false)
     const [editIngredientId, setEditIngredientId] = useState('')
     const [editCocktailId, setEditCocktailId] = useState('')
+    const [cocktailSearch, setCocktailSearch] = useState('')
+    const [filteredCocktails, setFilteredCocktails] = useState([])
 
     const loadCocktails = async () => {
         const data = await AsyncStorage.getItem('cocktails')
@@ -43,6 +45,33 @@ export const useCocktails = () => {
     useEffect(()=>{
         AsyncStorage.setItem('cocktails', JSON.stringify(cocktails))
     }, [cocktails])
+
+    useEffect(()=>{
+        filterCocktails()
+    }, [cocktailSearch])
+
+    function filterCocktails(){
+        if(cocktailSearch == ''){
+            return setFilteredCocktails([...cocktails])
+        }
+        var filtered = cocktails.filter(c=>{
+            var match
+            if(c.ingredients && c.ingredients.length > 0){
+                c.ingredients.forEach(i=>{
+                    if(i.ingredient_name.toLowerCase().includes(cocktailSearch.toLowerCase)){
+                        match = true
+                    }
+                })
+            }
+            if(c.name.toLowerCase().includes(cocktailSearch.toLowerCase())){
+                match = true
+            }
+
+            return match
+        })
+
+        setFilteredCocktails(filtered)
+    }
 
     const addCocktail = (cocktail) => {
         // console.log('adding cocktail', editCocktailId)
@@ -170,6 +199,9 @@ export const useCocktails = () => {
         toggleEditIngredient,
         setEditCocktailId,
         deleteCocktail,
+        cocktailSearch, 
+        setCocktailSearch,
+        filteredCocktails
     }
 }
 
