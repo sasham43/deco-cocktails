@@ -23,7 +23,7 @@ const windowHeight = Dimensions.get('window').height
 
 function ClassList(){
     const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
-    const { cocktails, setNewCocktailName, setAddedCocktailIngredients } = useCocktails()
+    const { cocktails, deleteCocktail } = useCocktails()
     const { isInStock } = useStock()
     const  history  = useHistory()
 
@@ -83,7 +83,8 @@ function ClassList(){
         if(currentMode == 'edit'){
             // move location, pass data in through route params (defined in Route component in Main)
             history.push(`/add-cocktail/${cocktail.id}`)
-            // history.push(`/add-cocktail/${cocktail.name}/${JSON.stringify(cocktail.ingredients)}`)
+        } else if (currentMode == 'delete'){
+            deleteCocktail(cocktail.id)
         }
     }
 
