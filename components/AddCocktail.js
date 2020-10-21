@@ -81,11 +81,38 @@ export default function Add(){
         return _.orderBy(ingredients, 'parts', 'desc')
     }
 
+    function translateParts(parts){
+        var split = parts.toString().split('.')
+        if(split[1]){
+            var fraction = ''
+            switch (split[1]) {
+                case '25':
+                    fraction = '1/4'
+                    break;
+                case '5':
+                    fraction = '1/2'
+                    break;
+                case '75':
+                    fraction = '3/4'
+                    break;
+            }
+
+            if(split[0] != '0'){
+                return `${split[0]} ${fraction}`
+            } else {
+                return fraction
+            }
+        }
+        return split[0]
+    }
+
     function AddedIngredient(props){
+        var fractions = translateParts(props.parts)
         return (
             <TouchableOpacity style={[styles.added_ingredient, editIngredientId == props.id ? styles.selected_ingredient : null]} onPress={()=>toggleEditIngredient(props.id)}>
                 <AppText>{props.ingredient_name}</AppText>
-                <AppText>{props.parts}</AppText>
+                <AppText>{fractions}</AppText>
+                {/* <AppText>{props.parts}</AppText> */}
                 <Part style={styles.added_parts} parts={props.parts} last={true} />
             </TouchableOpacity>
         )
@@ -126,15 +153,15 @@ export default function Add(){
                         onValueChange={(val) => setParts(val)} 
                         items={[
                             {
-                                label: '0.25',
+                                label: '1/4',
                                 value: 0.25
                             },
                             {
-                                label: '0.5',
+                                label: '1/2',
                                 value: 0.5
                             },
                             {
-                                label: '0.75',
+                                label: '3/4',
                                 value: 0.75
                             },
                             {
@@ -142,15 +169,15 @@ export default function Add(){
                                 value: 1
                             },
                             {
-                                label: '1.25',
+                                label: '1 1/4',
                                 value: 1.25
                             },
                             {
-                                label: '1.5',
+                                label: '1 1/2',
                                 value: 1.5
                             },
                             {
-                                label: '1.75',
+                                label: '1 3/4',
                                 value: 1.75
                             },
                             {
@@ -158,15 +185,15 @@ export default function Add(){
                                 value: 2
                             },
                             {
-                                label: '2.25',
+                                label: '2 1/4',
                                 value: 2.25
                             },
                             {
-                                label: '2.5',
+                                label: '2 1/2',
                                 value: 2.5
                             },
                             {
-                                label: '2.75',
+                                label: '2 3/4',
                                 value: 2.75
                             },
                             {
@@ -174,15 +201,15 @@ export default function Add(){
                                 value: 3
                             },
                             {
-                                label: '3.25',
+                                label: '3 1/4',
                                 value: 3.25
                             },
                             {
-                                label: '3.5',
+                                label: '3 1/2',
                                 value: 3.5
                             },
                             {
-                                label: '3.75',
+                                label: '3 3/4',
                                 value: 3.75
                             },
                         ]} 
