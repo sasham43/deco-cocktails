@@ -145,6 +145,12 @@ export const useCocktails = () => {
         setEditIngredientId(id)
     }
 
+    function deleteCocktail(id){
+        var updated = cocktails.filter(c=>c.id != id)
+
+        setCocktails(updated)
+    }
+
     return { 
         setFlag, 
         newCocktailName, 
@@ -163,6 +169,7 @@ export const useCocktails = () => {
         editIngredientId, 
         toggleEditIngredient,
         setEditCocktailId,
+        deleteCocktail,
     }
 }
 
