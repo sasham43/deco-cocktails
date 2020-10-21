@@ -17,12 +17,12 @@ const windowHeight = Dimensions.get('window').height
 
 function CocktailList(){
     const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
-    const { cocktails, deleteCocktail } = useCocktails()
+    const { cocktails, deleteCocktail, cocktailSearch, setCocktailSearch, filteredCocktails } = useCocktails()
     const { isInStock } = useStock()
     const  history  = useHistory()
 
     function CocktailListMap() {
-        return cocktails.map(cocktail =>
+        return filteredCocktails.map(cocktail =>
             (
                 <TouchableOpacity onPress={()=>selectCocktail(cocktail)} style={styles.cocktail} key={cocktail.id}>
                     <View style={styles.cocktail_name_container}>
@@ -78,30 +78,30 @@ function CocktailList(){
     }
 
 
-    function FunctionMenu() {
-        if (showFunctionMenu) {
-            return (
-                <View>
-                    <AppText>Functions - {currentMode}</AppText>
-                    <View>
-                        <TextInput placeholder="Search cocktails..." style={styles.input} />
-                    </View>
+    // function FunctionMenu() {
+    //     if (showFunctionMenu) {
+    //         return (
+    //             <View>
+    //                 <AppText>Functions - {currentMode}</AppText>
+    //                 <View>
+    //                     <TextInput value={cocktailSearch} onChangeText={(text)=>setCocktailSearch(text)} placeholder="Search cocktails..." style={styles.input} />
+    //                 </View>
 
-                    <TouchableOpacity onPress={()=>switchMode('edit')}>
-                        <AppText style={styles.action_buttons}>Edit A Cocktail</AppText>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>switchMode('delete')}>
-                        <AppText style={styles.action_buttons}>Remove Cocktails</AppText>
-                    </TouchableOpacity>
-                    <Link to="/add-cocktail">
-                        <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
-                    </Link>
-                </View>
-            )
-        } else {
-            return null
-        }
-    }
+    //                 <TouchableOpacity onPress={()=>switchMode('edit')}>
+    //                     <AppText style={styles.action_buttons}>Edit A Cocktail</AppText>
+    //                 </TouchableOpacity>
+    //                 <TouchableOpacity onPress={()=>switchMode('delete')}>
+    //                     <AppText style={styles.action_buttons}>Remove Cocktails</AppText>
+    //                 </TouchableOpacity>
+    //                 <Link to="/add-cocktail">
+    //                     <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
+    //                 </Link>
+    //             </View>
+    //         )
+    //     } else {
+    //         return null
+    //     }
+    // }
 
     return (
         <View style={styles.view}>
@@ -109,14 +109,44 @@ function CocktailList(){
                 <CocktailListMap></CocktailListMap>
             </ScrollView>
 
-            <FunctionMenu />
+            <FunctionMenu 
+                showFunctionMenu={showFunctionMenu}
+                currentMode={currentMode}
+                cocktailSearch={cocktailSearch}
+                setCocktailSearch={setCocktailSearch}
+                switchMode={switchMode}
+            />
 
             <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionMenu()}>
-
                 <FunctionButtonIcon width={100} height={75} />
             </TouchableOpacity>
         </View>
     )
+}
+
+function FunctionMenu(props) {
+    if (props.showFunctionMenu) {
+        return (
+            <View>
+                <AppText>Functions - {props.currentMode}</AppText>
+                <View>
+                    <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} placeholder="Search cocktails..." clearButtonMode={true} style={styles.input} />
+                </View>
+
+                <TouchableOpacity onPress={() => props.switchMode('edit')}>
+                    <AppText style={styles.action_buttons}>Edit A Cocktail</AppText>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => props.switchMode('delete')}>
+                    <AppText style={styles.action_buttons}>Remove Cocktails</AppText>
+                </TouchableOpacity>
+                <Link to="/add-cocktail">
+                    <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
+                </Link>
+            </View>
+        )
+    } else {
+        return null
+    }
 }
 
 const styles = StyleSheet.create({
@@ -127,7 +157,6 @@ const styles = StyleSheet.create({
     },
     cocktail: {
         marginBottom: 60,
-        // marginLeft: 10
     },
     cocktail_text: {
         fontSize: 20,
@@ -139,30 +168,18 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         height: windowHeight - 100
     },
-    // part_map_container: {
-    //     flexDirection: 'row',
-    //     justifyContent: 'flex-end'
-    // },
-    // part_container: {
-    //     flexDirection: 'row',
-    // },
     cocktail_name_container: {
         // flex: 1
     },
     name_container: {
-        // flex: 1
         marginTop: 10,
         flexDirection: 'row'
     },
-    // shape_container: {
-    //     flexDirection: 'row',
-    //     marginRight: 10,
-    //     alignItems: 'center'
-    // },
     function_button_container: {
-        height: 100,
+        height: 120,
         alignContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        // paddingBottom: 50
         
     },
     scroll_view: {
