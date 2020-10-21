@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity, TextInput } from 'react-native'
 import { Link, useHistory } from 'react-router-native'
 import _ from 'lodash'
 
@@ -83,6 +83,9 @@ function CocktailList(){
             return (
                 <View>
                     <AppText>Functions - {currentMode}</AppText>
+                    <View>
+                        <TextInput placeholder="Search cocktails..." style={styles.input} />
+                    </View>
 
                     <TouchableOpacity onPress={()=>switchMode('edit')}>
                         <AppText style={styles.action_buttons}>Edit A Cocktail</AppText>
@@ -136,19 +139,13 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         height: windowHeight - 100
     },
-    part_map_container: {
-        // flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-end'
-        // width: 100,
-        // height:100
-    },
-    part_container: {
-        // flex: 1,
-        flexDirection: 'row',
-        // width: 100,
-        // height:100
-    },
+    // part_map_container: {
+    //     flexDirection: 'row',
+    //     justifyContent: 'flex-end'
+    // },
+    // part_container: {
+    //     flexDirection: 'row',
+    // },
     cocktail_name_container: {
         // flex: 1
     },
@@ -157,13 +154,11 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: 'row'
     },
-    shape_container: {
-        flexDirection: 'row',
-        marginRight: 10,
-        alignItems: 'center'
-        // width: 100
-        // flex: 3
-    },
+    // shape_container: {
+    //     flexDirection: 'row',
+    //     marginRight: 10,
+    //     alignItems: 'center'
+    // },
     function_button_container: {
         height: 100,
         alignContent: 'center',
@@ -175,7 +170,17 @@ const styles = StyleSheet.create({
     },
     action_buttons: {
         fontSize: 22
-    }
+    },
+    input: {
+        fontFamily: 'PoiretOne_400Regular',
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderWidth: 1,
+        borderColor: '#eee',
+        borderStyle: 'solid'
+    },
 })
 
 export default CocktailList
