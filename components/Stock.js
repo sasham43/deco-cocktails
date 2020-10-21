@@ -8,17 +8,6 @@ import InStockIcon from '../assets/in-stock'
 
 const windowHeight = Dimensions.get('window').height
 
-// export default class Stock extends React.Component {
-
-//     render(){
-//         return (
-//             <View style={[styles.stock, styles.view]}>
-//                 <AppText>Stock page yeah yeah</AppText>
-//             </View>
-//         )
-//     }
-// }
-
 export default function Stock(){
     const { stock, setStock, setInStock } = useStock()
 
