@@ -98,7 +98,7 @@ function CocktailList(){
         // if (showFunctionMenu) {
             console.log('slide', slideAnim)
             return (
-                <Animated.View style={{height: slideAnim}}>
+                <Animated.View style={[styles.function_menu, {transform: [{translateY: slideAnim}]}]}>
                     <AppText>Functions - {currentMode}</AppText>
 
                     <TouchableOpacity onPress={()=>switchMode('edit')}>
@@ -135,11 +135,13 @@ function CocktailList(){
 
             <FunctionMenu />
 
-            <TouchableOpacity style={styles.function_button_container} onPress={()=>toggle()}>
-            {/* <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionMenu()}> */}
+            <View style={styles.footer}>
+                <TouchableOpacity style={styles.function_button_container} onPress={()=>toggle()}>
+                {/* <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionMenu()}> */}
 
-                <FunctionButtonIcon width={100} height={75} />
-            </TouchableOpacity>
+                    <FunctionButtonIcon width={100} height={75} />
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
@@ -192,17 +194,33 @@ const styles = StyleSheet.create({
         // width: 100
         // flex: 3
     },
+    // function_menu_container: {
+    //     width: windowWidth,
+    //     alignContent: 'center',
+    //     alignItems: 'center',
+    //     zIndex: 3
+    // },  
     function_button_container: {
         height: 100,
         alignContent: 'center',
-        alignItems: 'center'
-        
+        alignItems: 'center',
+        zIndex: 2
     },
     scroll_view: {
         height: windowHeight - 200
     },
     action_buttons: {
         fontSize: 22
+    },
+    function_menu: {
+        zIndex: 1,
+        // xPos: slideAnim
+    },
+    footer: {
+        width: windowWidth - 120, // because padding
+        alignContent: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 1)',
+        zIndex: 10
     }
 })
 
