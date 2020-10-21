@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity, Animated, Image } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity, Animated, Image, Button } from 'react-native'
 import { Link, useHistory } from 'react-router-native'
 import _ from 'lodash'
 
@@ -120,11 +120,32 @@ function CocktailList(){
     function toggle(){
         toggleFunctionMenu()
         if(showFunctionMenu){
-
             slideUp()
         } else {
             slideDown()
         }
+    }
+
+    // const inkAnim = useRef(new Animated.Value(10)).current
+    const slideAnim2 = useRef(new Animated.Value(0)).current
+    var ink_bool = true
+    function slideInk(){
+        if(ink_bool){
+
+            Animated.timing(slideAnim2, {
+                toValue: -2500,
+                duration: 5000,
+                useNativeDriver: false
+            }).start();
+        } else {
+            Animated.timing(slideAnim2, {
+                toValue: 0,
+                duration: 5000,
+                useNativeDriver: false
+            }).start();
+        }
+        ink_bool = !ink_bool
+        console.log('fun')
     }
 
     return (
@@ -134,8 +155,11 @@ function CocktailList(){
             </ScrollView>
 
             <View>
+                <Button onPress={()=>slideInk()} title="Ink">Ink</Button>
                 <AppText>ink</AppText>
-                <Image style={{ height: 100, width: 2500 }} source={require('../assets/ink.png')} />
+                {/* <Animated.View style={{ transform: [{ translateY: slideAnim2 }] }}> */}
+                <Animated.Image style={{ height: 100, width: 2500, transform: [{ translateX: slideAnim2 }] }} source={require('../assets/ink.png')} />
+                {/* </Animated.View> */}
                 <AppText>/ink</AppText>
             </View>
 
@@ -227,6 +251,10 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         backgroundColor: 'rgba(255, 255, 255, 1)',
         zIndex: 10
+    },
+    ink_container: {
+        width: 100,
+        
     }
 })
 
