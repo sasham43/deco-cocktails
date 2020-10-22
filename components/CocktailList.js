@@ -77,7 +77,7 @@ function CocktailList(){
         }
     }
 
-    const slideAnim = useRef(new Animated.Value(0)).current
+    const slideAnim = useRef(new Animated.Value(100)).current
     function slideUp(){
         Animated.timing(slideAnim, {
             toValue: 100,
@@ -220,7 +220,8 @@ const styles = StyleSheet.create({
         width: windowWidth - 120, // because padding
         alignContent: 'center',
         backgroundColor: 'rgba(255, 255, 255, 1)',
-        zIndex: 10
+        zIndex: 10,
+        marginBottom: 10
     }
 })
 
