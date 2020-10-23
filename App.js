@@ -7,6 +7,18 @@ import {
   useFonts,
   PoiretOne_400Regular
 } from '@expo-google-fonts/poiret-one'
+import GestureRecognzier, {swipeDirections} from 'react-native-swipe-gestures';
+
+class Swipes extends Component {
+  onSwipeLeft(gestureState) {
+    this.setState({'pageswitching'})
+  }
+  onSwipeRight(gestureState) {
+    this.setState({'next page'})
+  }
+
+
+}
 
 // components
 import Main from './components/Main'
