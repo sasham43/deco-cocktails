@@ -1,5 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity, TextInput, Animated, Pressable, KeyboardAvoidingView } from 'react-native'
+import { 
+    ScrollView, 
+    View, 
+    Text, 
+    StyleSheet, 
+    Dimensions, 
+    TouchableOpacity, 
+    TextInput, 
+    Animated, 
+    Pressable, 
+    KeyboardAvoidingView,
+    Keyboard
+} from 'react-native'
 import { Link, useHistory } from 'react-router-native'
 import _ from 'lodash'
 
@@ -8,8 +20,7 @@ import { PartMap } from './Parts'
 import FunctionButtonIcon from '../assets/function-button.svg'
 import InStockIcon from '../assets/in-stock'
 
-
-import { useCocktails, useStock, useFunctionMenu } from '../utils/hooks'
+import { useCocktails,  useStock, useFunctionMenu } from '../utils/hooks'
 
 
 const windowWidth = Dimensions.get('window').width
@@ -150,6 +161,7 @@ function CocktailList(){
 }
 
 function FunctionMenu(props) {
+    const { keyboardShowing, setKeyboardShowing } = useFunctionMenu()
     const slideAnim = useRef(new Animated.Value(0)).current
     function slideUp() {
         Animated.timing(slideAnim, {
@@ -166,6 +178,14 @@ function FunctionMenu(props) {
         }).start();
     }
 
+    // listen for keyboard events for search
+    Keyboard.addListener('keyboardWillShow', ()=>{
+        setKeyboardShowing(true)
+    })
+    Keyboard.addListener('keyboardWillHide', ()=>{
+        setKeyboardShowing(false)
+    })
+
     useEffect(()=>{
         // function toggle() {
             // toggleFunctionMenu()
@@ -179,15 +199,16 @@ function FunctionMenu(props) {
         // }
     }, [props.showFunctionMenu])
     // if (props.showFunctionMenu) {
+        console.log('keyboard', keyboardShowing)
         return (
-            <Animated.View style={[styles.function_menu, { transform: [{ translateY: slideAnim }] }]}>
+            <Animated.View style={[keyboardShowing ? styles.function_menu_visible : styles.function_menu, { transform: [{ translateY: slideAnim }] }]}>
                 {/* <AppText>Functions - {props.currentMode}</AppText> */}
-                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.function_menu_button}>
+                <View behavior={Platform.OS == "ios" ? "padding" : "height"} style={[ null, styles.function_menu_button]}>
                     <View style={{ opacity: 'search' == props.currentMode ? 1 : 0 }}>
                         <InStockIcon transform={[{ rotate: '-45deg' }]} width={25} height={25} />
                     </View>
                     <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} onFocus={()=>props.switchMode('search')} placeholder="Search cocktails..." clearButtonMode={"always"} style={styles.input} />
-                </KeyboardAvoidingView>
+                </View>
 
                 {/* <TouchableOpacity style={{flexDirection: 'row', marginLeft: -20}} onPress={() => props.switchMode('edit')}>
                     <InStockIcon transform={[{ rotate: '-45deg' }]} width={25} height={25} />
@@ -284,6 +305,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         // bottom: 100,
         top: windowHeight - 430, // hacky...
+    },
+    function_menu_visible: {
+        justifyContent: 'space-between',
+        // height: 200,
+        // top: 400,
+        zIndex: 1,
+        position: 'absolute',
+        backgroundColor: '#fff',
+        // bottom: 100,
+        top: windowHeight - 600, // hacky...
+        height: 1000, transform: [{ translateY: 1000 }] 
     },
     function_menu_button: { 
         flexDirection: 'row', 
