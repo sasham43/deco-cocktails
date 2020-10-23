@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity, TextInput } from 'react-native'
+import React, { useEffect, useState, useRef } from 'react'
+import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity, TextInput, Animated } from 'react-native'
 import { Link, useHistory } from 'react-router-native'
 import _ from 'lodash'
 
@@ -78,29 +78,48 @@ function CocktailList(){
         }
     }
 
+    // const slideAnim = useRef(new Animated.Value(100)).current
+    // function slideUp(){
+    //     Animated.timing(slideAnim, {
+    //         toValue: 100,
+    //         duration: 500,
+    //         useNativeDriver: false
+    //     }).start();
+    // }
+    // function slideDown(){
+    //     Animated.timing(slideAnim, {
+    //         toValue: 0,
+    //         duration: 500,
+    //         useNativeDriver: false
+    //     }).start();
+    // }
+
 
     // function FunctionMenu() {
-    //     if (showFunctionMenu) {
-    //         return (
-    //             <View>
-    //                 <AppText>Functions - {currentMode}</AppText>
-    //                 <View>
-    //                     <TextInput value={cocktailSearch} onChangeText={(text)=>setCocktailSearch(text)} placeholder="Search cocktails..." style={styles.input} />
-    //                 </View>
+    //     return (
+    //         <Animated.View style={[styles.function_menu, {transform: [{translateY: slideAnim}]}]}>
+    //             <AppText>Functions - {currentMode}</AppText>
 
-    //                 <TouchableOpacity onPress={()=>switchMode('edit')}>
-    //                     <AppText style={styles.action_buttons}>Edit A Cocktail</AppText>
-    //                 </TouchableOpacity>
-    //                 <TouchableOpacity onPress={()=>switchMode('delete')}>
-    //                     <AppText style={styles.action_buttons}>Remove Cocktails</AppText>
-    //                 </TouchableOpacity>
-    //                 <Link to="/add-cocktail">
-    //                     <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
-    //                 </Link>
-    //             </View>
-    //         )
+    //             <TouchableOpacity onPress={()=>switchMode('edit')}>
+    //                 <AppText style={styles.action_buttons}>Edit A Cocktail</AppText>
+    //             </TouchableOpacity>
+    //             <TouchableOpacity onPress={()=>switchMode('delete')}>
+    //                 <AppText style={styles.action_buttons}>Remove Cocktails</AppText>
+    //             </TouchableOpacity>
+    //             <Link to="/add-cocktail">
+    //                 <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
+    //             </Link>
+    //         </Animated.View>
+    //     )
+    // }
+
+    // function toggle(){
+    //     toggleFunctionMenu()
+    //     if(showFunctionMenu){
+
+    //         slideUp()
     //     } else {
-    //         return null
+    //         slideDown()
     //     }
     // }
 
@@ -118,23 +137,55 @@ function CocktailList(){
                 switchMode={switchMode}
             />
 
-            <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionMenu()}>
-                <FunctionButtonIcon width={100} height={75} />
-            </TouchableOpacity>
+            <View style={styles.footer}>
+                {/* <TouchableOpacity style={styles.function_button_container} onPress={()=>toggle()}> */}
+                <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionMenu()}>
+
+                    <FunctionButtonIcon width={100} height={75} />
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
 
 function FunctionMenu(props) {
-    if (props.showFunctionMenu) {
+    const slideAnim = useRef(new Animated.Value(200)).current
+    function slideUp() {
+        Animated.timing(slideAnim, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: false
+        }).start();
+    }
+    function slideDown() {
+        Animated.timing(slideAnim, {
+            toValue: 200,
+            duration: 500,
+            useNativeDriver: false
+        }).start();
+    }
+
+    useEffect(()=>{
+        // function toggle() {
+            // toggleFunctionMenu()
+            if (props.showFunctionMenu) {
+                console.log('props')
+
+                slideUp()
+            } else {
+                slideDown()
+            }
+        // }
+    }, [props.showFunctionMenu])
+    // if (props.showFunctionMenu) {
         return (
-            <View style={styles.function_menu}>
+            <Animated.View style={[styles.function_menu, { transform: [{ translateY: slideAnim }] }]}>
                 <AppText>Functions - {props.currentMode}</AppText>
                 <View style={styles.function_menu_button}>
                     <View style={{ opacity: 'search' == props.currentMode ? 1 : 0 }}>
                         <InStockIcon transform={[{ rotate: '-45deg' }]} width={25} height={25} />
                     </View>
-                    <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} onFocus={()=>props.switchMode('search')} placeholder="Search cocktails..." clearButtonMode={true} style={styles.input} />
+                    <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} onFocus={()=>props.switchMode('search')} placeholder="Search cocktails..." clearButtonMode={"always"} style={styles.input} />
                 </View>
 
                 {/* <TouchableOpacity style={{flexDirection: 'row', marginLeft: -20}} onPress={() => props.switchMode('edit')}>
@@ -149,11 +200,11 @@ function FunctionMenu(props) {
                 <Link style={{marginLeft: 5}} to="/add-cocktail">
                     <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
                 </Link>
-            </View>
+            </Animated.View>
         )
-    } else {
-        return null
-    }
+    // } else {
+    //     return null
+    // }
 }
 
 function FunctionMenuButton(props){
@@ -197,8 +248,7 @@ const styles = StyleSheet.create({
         height: 120,
         alignContent: 'center',
         alignItems: 'center',
-        // paddingBottom: 50
-        
+        zIndex: 2
     },
     scroll_view: {
         height: windowHeight - 200
@@ -225,12 +275,20 @@ const styles = StyleSheet.create({
     },
     function_menu: {
         justifyContent: 'space-between',
-        height: 200
+        height: 200,
+        zIndex: 1,
     },
     function_menu_button: { 
         flexDirection: 'row', 
         marginLeft: -20,
         alignItems: 'center'
+    }, 
+    footer: {
+        width: windowWidth - 120, // because padding
+        alignContent: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 1)',
+        zIndex: 10,
+        marginBottom: 10
     }
 })
 
