@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity, TextInput, Animated, Pressable } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity, TextInput, Animated, Pressable, KeyboardAvoidingView } from 'react-native'
 import { Link, useHistory } from 'react-router-native'
 import _ from 'lodash'
 
@@ -23,7 +23,7 @@ function CocktailList(){
     const  history  = useHistory()
 
     function CocktailListMap(props) {
-        console.log('disabled', props.currentMode != 'edit' && props.currentMode != 'delete')
+        // console.log('disabled', props.currentMode != 'edit' && props.currentMode != 'delete')
         return filteredCocktails.map(cocktail =>
             (
                 <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete'} onPress={()=>selectCocktail(cocktail)} style={styles.cocktail} key={cocktail.id}>
@@ -182,12 +182,12 @@ function FunctionMenu(props) {
         return (
             <Animated.View style={[styles.function_menu, { transform: [{ translateY: slideAnim }] }]}>
                 {/* <AppText>Functions - {props.currentMode}</AppText> */}
-                <View style={styles.function_menu_button}>
+                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.function_menu_button}>
                     <View style={{ opacity: 'search' == props.currentMode ? 1 : 0 }}>
                         <InStockIcon transform={[{ rotate: '-45deg' }]} width={25} height={25} />
                     </View>
                     <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} onFocus={()=>props.switchMode('search')} placeholder="Search cocktails..." clearButtonMode={"always"} style={styles.input} />
-                </View>
+                </KeyboardAvoidingView>
 
                 {/* <TouchableOpacity style={{flexDirection: 'row', marginLeft: -20}} onPress={() => props.switchMode('edit')}>
                     <InStockIcon transform={[{ rotate: '-45deg' }]} width={25} height={25} />

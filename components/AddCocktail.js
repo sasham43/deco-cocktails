@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native'
+import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions, KeyboardAvoidingView } from 'react-native'
 import { generate } from 'shortid'
 import RNPickerSelect from 'react-native-picker-select'
 import _ from 'lodash'
@@ -120,7 +120,7 @@ export default function Add(){
 
                     <AddedIngredientMap />
                 </View>
-                <View style={styles.new_ingredient}>
+                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.new_ingredient}>
                     <TextInput key={`newCocktailIngredientName`} clearButtonMode={"always"}  value={newCocktailIngredient.ingredient_name} onChangeText={text => setName(text)} style={styles.input} placeholder="Ingredient..." />
                     <RNPickerSelect
                         key={newCocktailIngredient.parts}
@@ -205,7 +205,7 @@ export default function Add(){
                     }}>
                         <AppText style={styles.add_button}>Add Cocktail</AppText>
                     </TouchableOpacity>
-                </View>
+                </KeyboardAvoidingView>
 
             </View>
         </View>
