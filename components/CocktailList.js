@@ -95,26 +95,21 @@ function CocktailList(){
 
 
     function FunctionMenu() {
-        // if (showFunctionMenu) {
-            console.log('slide', slideAnim)
-            return (
-                <Animated.View style={[styles.function_menu, {transform: [{translateY: slideAnim}]}]}>
-                    <AppText>Functions - {currentMode}</AppText>
+        return (
+            <Animated.View style={[styles.function_menu, {transform: [{translateY: slideAnim}]}]}>
+                <AppText>Functions - {currentMode}</AppText>
 
-                    <TouchableOpacity onPress={()=>switchMode('edit')}>
-                        <AppText style={styles.action_buttons}>Edit A Cocktail</AppText>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>switchMode('delete')}>
-                        <AppText style={styles.action_buttons}>Remove Cocktails</AppText>
-                    </TouchableOpacity>
-                    <Link to="/add-cocktail">
-                        <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
-                    </Link>
-                </Animated.View>
-            )
-        // } else {
-        //     return null
-        // }
+                <TouchableOpacity onPress={()=>switchMode('edit')}>
+                    <AppText style={styles.action_buttons}>Edit A Cocktail</AppText>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>switchMode('delete')}>
+                    <AppText style={styles.action_buttons}>Remove Cocktails</AppText>
+                </TouchableOpacity>
+                <Link to="/add-cocktail">
+                    <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
+                </Link>
+            </Animated.View>
+        )
     }
 
     function toggle(){
