@@ -115,7 +115,7 @@ export default function Add(){
                         onChangeText={text => setNewCocktailName(text)}
                         style={styles.input}
                         placeholder="New cocktail name..."
-                        clearButtonMode={true} 
+                        clearButtonMode={"always"} 
                     />
 
                     <AddedIngredientMap />
