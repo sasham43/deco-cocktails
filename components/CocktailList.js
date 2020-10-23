@@ -90,51 +90,6 @@ function CocktailList(){
         }
     }
 
-    // const slideAnim = useRef(new Animated.Value(100)).current
-    // function slideUp(){
-    //     Animated.timing(slideAnim, {
-    //         toValue: 100,
-    //         duration: 500,
-    //         useNativeDriver: false
-    //     }).start();
-    // }
-    // function slideDown(){
-    //     Animated.timing(slideAnim, {
-    //         toValue: 0,
-    //         duration: 500,
-    //         useNativeDriver: false
-    //     }).start();
-    // }
-
-
-    // function FunctionMenu() {
-    //     return (
-    //         <Animated.View style={[styles.function_menu, {transform: [{translateY: slideAnim}]}]}>
-    //             <AppText>Functions - {currentMode}</AppText>
-
-    //             <TouchableOpacity onPress={()=>switchMode('edit')}>
-    //                 <AppText style={styles.action_buttons}>Edit A Cocktail</AppText>
-    //             </TouchableOpacity>
-    //             <TouchableOpacity onPress={()=>switchMode('delete')}>
-    //                 <AppText style={styles.action_buttons}>Remove Cocktails</AppText>
-    //             </TouchableOpacity>
-    //             <Link to="/add-cocktail">
-    //                 <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
-    //             </Link>
-    //         </Animated.View>
-    //     )
-    // }
-
-    // function toggle(){
-    //     toggleFunctionMenu()
-    //     if(showFunctionMenu){
-
-    //         slideUp()
-    //     } else {
-    //         slideDown()
-    //     }
-    // }
-
     return (
         <View style={styles.view}>
             <ScrollView style={styles.scroll_view}>
@@ -187,46 +142,30 @@ function FunctionMenu(props) {
     })
 
     useEffect(()=>{
-        // function toggle() {
-            // toggleFunctionMenu()
-            if (props.showFunctionMenu) {
-                // console.log('props')
-
-                slideUp()
-            } else {
-                slideDown()
-            }
-        // }
+        if (props.showFunctionMenu) {
+            slideUp()
+        } else {
+            slideDown()
+        }
     }, [props.showFunctionMenu])
-    // if (props.showFunctionMenu) {
-        console.log('keyboard', keyboardShowing)
-        return (
-            <Animated.View style={[keyboardShowing ? styles.function_menu_visible : styles.function_menu, { transform: [{ translateY: slideAnim }] }]}>
-                {/* <AppText>Functions - {props.currentMode}</AppText> */}
-                <View behavior={Platform.OS == "ios" ? "padding" : "height"} style={[ null, styles.function_menu_button]}>
-                    <View style={{ opacity: 'search' == props.currentMode ? 1 : 0 }}>
-                        <InStockIcon transform={[{ rotate: '-45deg' }]} width={25} height={25} />
-                    </View>
-                    <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} onFocus={()=>props.switchMode('search')} placeholder="Search cocktails..." clearButtonMode={"always"} style={styles.input} />
-                </View>
-
-                {/* <TouchableOpacity style={{flexDirection: 'row', marginLeft: -20}} onPress={() => props.switchMode('edit')}>
+    
+    return (
+        <Animated.View style={[keyboardShowing ? styles.function_menu_visible : styles.function_menu, { transform: [{ translateY: slideAnim }] }]}>
+            {/* <AppText>Functions - {props.currentMode}</AppText> */}
+            <View behavior={Platform.OS == "ios" ? "padding" : "height"} style={[ null, styles.function_menu_button]}>
+                <View style={{ opacity: 'search' == props.currentMode ? 1 : 0 }}>
                     <InStockIcon transform={[{ rotate: '-45deg' }]} width={25} height={25} />
-                    <AppText style={styles.action_buttons}>Edit A Cocktail</AppText>
-                </TouchableOpacity> */}
-                <FunctionMenuButton label={"Edit A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} />
-                <FunctionMenuButton label={"Remove Cocktails"} mode="delete" switchMode={props.switchMode} currentMode={props.currentMode} />
-                {/* <TouchableOpacity onPress={() => props.switchMode('delete')}>
-                    <AppText style={styles.action_buttons}>Remove Cocktails</AppText>
-                </TouchableOpacity> */}
-                <Link style={{marginLeft: 5}} to="/add-cocktail">
-                    <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
-                </Link>
-            </Animated.View>
-        )
-    // } else {
-    //     return null
-    // }
+                </View>
+                <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} onFocus={()=>props.switchMode('search')} placeholder="Search cocktails..." clearButtonMode={"always"} style={styles.input} />
+            </View>
+
+            <FunctionMenuButton label={"Edit A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} />
+            <FunctionMenuButton label={"Remove Cocktails"} mode="delete" switchMode={props.switchMode} currentMode={props.currentMode} />
+            <Link style={{marginLeft: 5}} to="/add-cocktail">
+                <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
+            </Link>
+        </Animated.View>
+    )
 }
 
 function FunctionMenuButton(props){
