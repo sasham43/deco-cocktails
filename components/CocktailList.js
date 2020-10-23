@@ -45,7 +45,7 @@ function CocktailList(){
                             </Text>
                         </AppText>
                     </View>
-                    <PartMap ingredients={sortedIngredients(cocktail.ingredients)} />
+                    <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(i => i.parts != 0))} />
                     <NameMap ingredients={sortedIngredients(cocktail.ingredients)} />
                 </Pressable>
             )
