@@ -215,6 +215,7 @@ export const useCocktails = () => {
 export const useFunctionMenu = () =>{
     const [showFunctionMenu, setShowFunctionMenu] = useState(false)
     const [currentMode, setCurrentMode] = useState('')
+    const [keyboardShowing, setKeyboardShowing] = useState(false)
 
     function toggleFunctionMenu(){
         setShowFunctionMenu(!showFunctionMenu)
@@ -236,7 +237,9 @@ export const useFunctionMenu = () =>{
         toggleFunctionMenu,
         showFunctionMenu,
         switchMode,
-        currentMode
+        currentMode,
+        keyboardShowing,
+        setKeyboardShowing
     }
 }
 
