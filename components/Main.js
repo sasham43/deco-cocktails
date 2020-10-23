@@ -11,12 +11,19 @@ import Menu from './Menu'
 import Add from './AddCocktail'
 import AddStock from './AddStock'
 
+import CornerIcon from '../assets/corner.svg'
+
 export default class Main extends React.Component {
 
     render() {
         return (
             <NativeRouter>
                 <View style={styles.container}>
+                    <CornerIcon style={{position: 'absolute', top: -10, right: -30}} width={60} height={60} />
+                    <CornerIcon style={{position: 'absolute', top: -10, left: -30, transform:[{rotate: '-90deg'}]}} width={60} height={60} />
+                    <CornerIcon style={{position: 'absolute', bottom: 30, right: -30,transform:[{rotate: '90deg'}]}} width={60} height={60} />
+                    <CornerIcon style={{position: 'absolute', bottom: 30, left: -30,transform:[{rotate: '180deg'}]}} width={60} height={60} />
+
                     <Title></Title>
 
                     <Menu></Menu>
