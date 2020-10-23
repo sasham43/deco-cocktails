@@ -48,7 +48,7 @@ export const useCocktails = () => {
 
     useEffect(()=>{
         filterCocktails()
-    }, [cocktailSearch])
+    }, [cocktailSearch, cocktails])
 
     function filterCocktails(){
         if(cocktailSearch == ''){
@@ -58,7 +58,7 @@ export const useCocktails = () => {
             var match
             if(c.ingredients && c.ingredients.length > 0){
                 c.ingredients.forEach(i=>{
-                    if(i.ingredient_name.toLowerCase().includes(cocktailSearch.toLowerCase)){
+                    if(i.ingredient_name.toLowerCase().includes(cocktailSearch.toLowerCase())){
                         match = true
                     }
                 })
