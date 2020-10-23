@@ -20,17 +20,17 @@ export const useCocktails = () => {
     const loadCocktails = async () => {
 
         // for debugging, load list of default cocktails
-        var cocktails = defaultCocktails()
-        return setCocktails(cocktails)
+        var default_cocktails = defaultCocktails()
+        // return setCocktails(cocktails)
 
 
 
-        // const data = await AsyncStorage.getItem('cocktails')
-        // // console.log('data', data)
-        // if(data){
-        //     var cocktails = JSON.parse(data)
-        //     setCocktails(cocktails)
-        // }
+        const data = await AsyncStorage.getItem('cocktails')
+        // console.log('data', data)
+        if(data){
+            var cocktails = JSON.parse(data)
+            setCocktails([...cocktails, ...default_cocktails])
+        }
     }
 
     // debugging
