@@ -203,7 +203,8 @@ const styles = StyleSheet.create({
     },
     name_container: {
         marginTop: 10,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        flexWrap: "wrap"
     },
     function_button_container: {
         height: 120,
