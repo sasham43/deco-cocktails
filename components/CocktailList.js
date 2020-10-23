@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity, TextInput, Animated } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, Dimensions, TouchableOpacity, TextInput, Animated, Pressable } from 'react-native'
 import { Link, useHistory } from 'react-router-native'
 import _ from 'lodash'
 
@@ -22,10 +22,11 @@ function CocktailList(){
     const { isInStock } = useStock()
     const  history  = useHistory()
 
-    function CocktailListMap() {
+    function CocktailListMap(props) {
+        console.log('disabled', props.currentMode != 'edit' && props.currentMode != 'delete')
         return filteredCocktails.map(cocktail =>
             (
-                <TouchableOpacity onPress={()=>selectCocktail(cocktail)} style={styles.cocktail} key={cocktail.id}>
+                <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete'} onPress={()=>selectCocktail(cocktail)} style={styles.cocktail} key={cocktail.id}>
                     <View style={styles.cocktail_name_container}>
                         <AppText>
                             <Text style={styles.cocktail_text}>
@@ -35,7 +36,7 @@ function CocktailList(){
                     </View>
                     <PartMap ingredients={sortedIngredients(cocktail.ingredients)} />
                     <NameMap ingredients={sortedIngredients(cocktail.ingredients)} />
-                </TouchableOpacity>
+                </Pressable>
             )
         )
     }
@@ -126,7 +127,7 @@ function CocktailList(){
     return (
         <View style={styles.view}>
             <ScrollView style={styles.scroll_view}>
-                <CocktailListMap></CocktailListMap>
+                <CocktailListMap currentMode={currentMode}></CocktailListMap>
             </ScrollView>
 
             <FunctionMenu 
@@ -169,7 +170,7 @@ function FunctionMenu(props) {
         // function toggle() {
             // toggleFunctionMenu()
             if (props.showFunctionMenu) {
-                console.log('props')
+                // console.log('props')
 
                 slideUp()
             } else {
@@ -209,12 +210,12 @@ function FunctionMenu(props) {
 
 function FunctionMenuButton(props){
     return (
-        <TouchableOpacity style={styles.function_menu_button} onPress={() => props.switchMode(props.mode)}>
+        <Pressable style={styles.function_menu_button} onPress={() => props.switchMode(props.mode)}>
             <View style={{ opacity: props.mode == props.currentMode ? 1 : 0 }}>
                 <InStockIcon  transform={[{ rotate: '-45deg' }]} width={25} height={25} />
             </View>
             <AppText style={styles.action_buttons}>{props.label}</AppText>
-        </TouchableOpacity>
+        </Pressable>
     )
 }
 
