@@ -149,7 +149,7 @@ function CocktailList(){
 }
 
 function FunctionMenu(props) {
-    const slideAnim = useRef(new Animated.Value(200)).current
+    const slideAnim = useRef(new Animated.Value(0)).current
     function slideUp() {
         Animated.timing(slideAnim, {
             toValue: 0,
@@ -159,7 +159,7 @@ function FunctionMenu(props) {
     }
     function slideDown() {
         Animated.timing(slideAnim, {
-            toValue: 200,
+            toValue: 600,
             duration: 500,
             useNativeDriver: false
         }).start();
@@ -180,7 +180,7 @@ function FunctionMenu(props) {
     // if (props.showFunctionMenu) {
         return (
             <Animated.View style={[styles.function_menu, { transform: [{ translateY: slideAnim }] }]}>
-                <AppText>Functions - {props.currentMode}</AppText>
+                {/* <AppText>Functions - {props.currentMode}</AppText> */}
                 <View style={styles.function_menu_button}>
                     <View style={{ opacity: 'search' == props.currentMode ? 1 : 0 }}>
                         <InStockIcon transform={[{ rotate: '-45deg' }]} width={25} height={25} />
@@ -251,7 +251,9 @@ const styles = StyleSheet.create({
         zIndex: 2
     },
     scroll_view: {
-        height: windowHeight - 200
+        height: windowHeight - 0
+        // height: windowHeight - 120
+        // height: windowHeight - 200
     },
     action_buttons: {
         fontSize: 22,
@@ -277,6 +279,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         height: 200,
         zIndex: 1,
+        position: 'absolute',
+        backgroundColor: '#fff',
+        // bottom: 100,
+        top: windowHeight - 430, // hacky...
     },
     function_menu_button: { 
         flexDirection: 'row', 
