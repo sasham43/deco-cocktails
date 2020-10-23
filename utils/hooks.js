@@ -48,7 +48,7 @@ export const useCocktails = () => {
 
     useEffect(()=>{
         filterCocktails()
-    }, [cocktailSearch])
+    }, [cocktailSearch, cocktails])
 
     function filterCocktails(){
         if(cocktailSearch == ''){
