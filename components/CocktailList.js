@@ -154,7 +154,7 @@ function FunctionMenu(props) {
 
                 <FunctionMenuButton label={"Edit A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} />
                 <FunctionMenuButton label={"Remove Cocktails"} mode="delete" switchMode={props.switchMode} currentMode={props.currentMode} />
-                <Pressable style={[{marginLeft: 5, marginTop: 20}]} onPress={()=>navigation.navigate('AddCocktail')}>
+                <Pressable style={[{marginLeft: 25, marginTop: 20}]} onPress={()=>navigation.navigate('AddCocktail')}>
                     <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
                 </Pressable>
             </View>
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
         flexWrap: "wrap"
     },
     function_button_container: {
-        height: 120,
+        // height: 120,
         alignContent: 'center',
         alignItems: 'center',
         zIndex: 2
@@ -258,16 +258,21 @@ const styles = StyleSheet.create({
     },
     function_menu_button: { 
         flexDirection: 'row', 
-        marginLeft: -20,
+        // marginLeft: -20,
         alignItems: 'center',
         marginTop: 20
     }, 
     footer: {
-        width: windowWidth - 120, // because padding
+        width: windowWidth, // because padding
+        // width: windowWidth - 120, // because padding
         alignContent: 'center',
         backgroundColor: 'rgba(255, 255, 255, 1)',
         zIndex: 10,
-        marginBottom: 10
+        // marginBottom: -10
+        // alignItems: 'center'
+        height: 80,
+        position: 'absolute',
+        bottom: 0
     },
     panel_container: {
         flex: 1,
