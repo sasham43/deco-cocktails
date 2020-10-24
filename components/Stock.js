@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingLeft: 10,
         paddingRight: 10,
-        height: windowHeight - 100
+        height: windowHeight - 100,
+        backgroundColor: '#fff'
     },
     stock_bottle: {
         // flex: 1,
