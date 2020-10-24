@@ -6,9 +6,15 @@ import { useNavigation } from '@react-navigation/native'
 
 import AppText from './AppText'
 
-function LilMenu(routeProps) {
-    const navigation = useNavigation()
-    var currentPage = ''
+export default function Menu(data) {
+    var props = data.props // it's nested for some reason, idk
+    console.log('menu props', props)
+    const navigation = props.navigation
+    const route = props.scene.route
+    // const navigation = useNavigation()
+
+    console.log('scrren', route)
+    var currentPage = route.name
     // switch (routeProps.location.pathname) {
     //     case '/stock':
     //         currentPage = 'stock'
@@ -30,28 +36,28 @@ function LilMenu(routeProps) {
         <View style={styles.menu}>
             <View style={[styles.link,]}>
                 <Pressable onPress={()=>navigation.navigate('About')}>
-                    <View style={currentPage == 'about' ? styles.selected : null}>
+                    <View style={currentPage == 'About' ? styles.selected : null}>
                         <AppText>About</AppText>
                     </View>
                 </Pressable>
             </View>
             <View style={styles.link}>
                 <Pressable onPress={() => navigation.navigate('CocktailList')}>
-                    <View style={currentPage == 'cocktails' ? styles.selected : null}>
+                    <View style={currentPage == 'CocktailList' ? styles.selected : null}>
                         <AppText>Cocktails</AppText>
                     </View>
                 </Pressable>
             </View>
             <View style={styles.link}>
                 <Pressable onPress={() => navigation.navigate('Stock')}>
-                    <View style={currentPage == 'stock' ? styles.selected : null}>
+                    <View style={currentPage == 'Stock' ? styles.selected : null}>
                         <AppText>Stock</AppText>
                     </View>
                 </Pressable>
             </View>
             <View style={styles.link}>
                 <Pressable onPress={() => navigation.navigate('AddCocktail')}>
-                    <View style={currentPage == 'add-cocktail' ? styles.selected : null}>
+                    <View style={currentPage == 'AddCocktail' ? styles.selected : null}>
                         <AppText>Add</AppText>
                     </View>
                 </Pressable>
@@ -60,79 +66,79 @@ function LilMenu(routeProps) {
     )
 }
 
-export default class Menu extends React.Component {
+// export default class Menu extends React.Component {
 
-    constructor(props){
-        super(props)
+//     constructor(props){
+//         super(props)
 
-        this.state = {
-            currentPage: ''
-        }
-    }
+//         this.state = {
+//             currentPage: ''
+//         }
+//     }
 
 
-    render(){
+//     render(){
 
-        var currentPage = 'cocktails'
-        return (<LilMenu />)
-    //     return (
-    //         <View>
-    //             <Route render={(routeProps)=>{
-    //                 var currentPage = ''
-    //                 switch (routeProps.location.pathname){
-    //                     case '/stock':
-    //                         currentPage = 'stock'
-    //                         break;
-    //                     case '/about':
-    //                         currentPage = 'about'
-    //                         break;
-    //                     case '/add-cocktail':
-    //                         currentPage = 'add-cocktail'
-    //                         break;
-    //                     case '/':
-    //                         currentPage = 'cocktails'
-    //                         break;
-    //                     // default:
-    //                     //     currentPage = 'cocktails'
-    //                 }
+//         var currentPage = 'cocktails'
+//         return (<LilMenu />)
+//     //     return (
+//     //         <View>
+//     //             <Route render={(routeProps)=>{
+//     //                 var currentPage = ''
+//     //                 switch (routeProps.location.pathname){
+//     //                     case '/stock':
+//     //                         currentPage = 'stock'
+//     //                         break;
+//     //                     case '/about':
+//     //                         currentPage = 'about'
+//     //                         break;
+//     //                     case '/add-cocktail':
+//     //                         currentPage = 'add-cocktail'
+//     //                         break;
+//     //                     case '/':
+//     //                         currentPage = 'cocktails'
+//     //                         break;
+//     //                     // default:
+//     //                     //     currentPage = 'cocktails'
+//     //                 }
 
-    //                 return (
-    //                     <View style={styles.menu}>
-    //                         <View style={[styles.link, ]}>
-    //                             <Link to="/about">
-    //                                 <View style={currentPage == 'about' ? styles.selected : null}>
-    //                                     <AppText>About</AppText>
-    //                                 </View>
-    //                             </Link>
-    //                         </View>
-    //                         <View style={styles.link}>
-    //                             <Link to="/">
-    //                                 <View style={currentPage == 'cocktails' ? styles.selected : null}>
-    //                                     <AppText>Cocktails</AppText>
-    //                                 </View>
-    //                             </Link>
-    //                         </View>
-    //                         <View style={styles.link}>
-    //                             <Link to="/stock">
-    //                                 <View style={currentPage == 'stock' ? styles.selected : null}>
-    //                                     <AppText>Stock</AppText>
-    //                                 </View>
-    //                             </Link>
-    //                         </View>
-    //                         <View style={styles.link}>
-    //                             <Link to="/add-cocktail">
-    //                                 <View style={currentPage == 'add-cocktail' ? styles.selected : null}>
-    //                                     <AppText>Add</AppText>
-    //                                 </View>
-    //                             </Link>
-    //                         </View>
-    //                     </View>
-    //                 )
-    //             }} />
-    //         </View>
-    //     )
-    }
-}
+//     //                 return (
+//     //                     <View style={styles.menu}>
+//     //                         <View style={[styles.link, ]}>
+//     //                             <Link to="/about">
+//     //                                 <View style={currentPage == 'about' ? styles.selected : null}>
+//     //                                     <AppText>About</AppText>
+//     //                                 </View>
+//     //                             </Link>
+//     //                         </View>
+//     //                         <View style={styles.link}>
+//     //                             <Link to="/">
+//     //                                 <View style={currentPage == 'cocktails' ? styles.selected : null}>
+//     //                                     <AppText>Cocktails</AppText>
+//     //                                 </View>
+//     //                             </Link>
+//     //                         </View>
+//     //                         <View style={styles.link}>
+//     //                             <Link to="/stock">
+//     //                                 <View style={currentPage == 'stock' ? styles.selected : null}>
+//     //                                     <AppText>Stock</AppText>
+//     //                                 </View>
+//     //                             </Link>
+//     //                         </View>
+//     //                         <View style={styles.link}>
+//     //                             <Link to="/add-cocktail">
+//     //                                 <View style={currentPage == 'add-cocktail' ? styles.selected : null}>
+//     //                                     <AppText>Add</AppText>
+//     //                                 </View>
+//     //                             </Link>
+//     //                         </View>
+//     //                     </View>
+//     //                 )
+//     //             }} />
+//     //         </View>
+//     //     )
+//     }
+// }
 
 
 const styles = StyleSheet.create({

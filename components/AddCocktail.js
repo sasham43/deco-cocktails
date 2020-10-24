@@ -219,6 +219,7 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         height: windowHeight - 100,
         backgroundColor: '#fff',
+        alignItems: 'center'
     },
     // input: {
     //     fontFamily: 'PoiretOne_400Regular',
