@@ -119,30 +119,7 @@ function CocktailList(){
 }
 
 function FunctionMenu(props) {
-    const { keyboardShowing, setKeyboardShowing, panel, setPanel } = useFunctionMenu()
-    // const slideAnim = useRef(new Animated.Value(0)).current
-    // function slideUp() {
-    //     Animated.timing(slideAnim, {
-    //         toValue: 0,
-    //         duration: 500,
-    //         useNativeDriver: false
-    //     }).start();
-    // }
-    // function slideDown() {
-    //     Animated.timing(slideAnim, {
-    //         toValue: 600,
-    //         duration: 500,
-    //         useNativeDriver: false
-    //     }).start();
-    // }
-
-    // // listen for keyboard events for search
-    // Keyboard.addListener('keyboardWillShow', ()=>{
-    //     setKeyboardShowing(true)
-    // })
-    // Keyboard.addListener('keyboardWillHide', ()=>{
-    //     setKeyboardShowing(false)
-    // })
+    const { panel, setPanel } = useFunctionMenu()
 
     useEffect(()=>{
         if (props.showFunctionMenu) {
@@ -226,7 +203,9 @@ const styles = StyleSheet.create({
         zIndex: 2
     },
     scroll_view: {
-        height: windowHeight - 0
+        height: windowHeight - 0,
+        // paddingTop: 100
+        // paddingBottom: 100
         // height: windowHeight - 120
         // height: windowHeight - 200
     },
@@ -293,6 +272,7 @@ const styles = StyleSheet.create({
     },
     tab_icon_container: {
         alignItems: 'center',
+        marginBottom: -20
     }
 })
 
