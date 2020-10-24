@@ -21,6 +21,7 @@ import AppText from './AppText'
 import { PartMap } from './Parts'
 import FunctionButtonIcon from '../assets/function-button.svg'
 import InStockIcon from '../assets/in-stock'
+import TabIcon from '../assets/tab'
 
 import { useCocktails,  useStock, useFunctionMenu } from '../utils/hooks'
 
@@ -159,6 +160,9 @@ function FunctionMenu(props) {
     return (
         <SlidingUpPanel showBackdrop={false} ref={c=> setPanel(c)}>
             <View style={ styles.panel_container }>
+                <View style={styles.tab_icon_container}>
+                    <TabIcon height={65} width={65} />
+                </View>
                 <View style={[ null, styles.function_menu_button]}>
                     <View style={{ opacity: 'search' == props.currentMode ? 1 : 0 }}>
                         <InStockIcon transform={[{ rotate: '-45deg' }]} width={25} height={25} />
@@ -283,8 +287,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         // alignItems: 'center',
-        
+        // borderTopWidth: 1,
+        backgroundColor: '#fff',
         justifyContent: 'flex-start'
+    },
+    tab_icon_container: {
+        alignItems: 'center',
     }
 })
 
