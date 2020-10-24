@@ -119,29 +119,29 @@ function CocktailList(){
 
 function FunctionMenu(props) {
     const { keyboardShowing, setKeyboardShowing, panel, setPanel } = useFunctionMenu()
-    const slideAnim = useRef(new Animated.Value(0)).current
-    function slideUp() {
-        Animated.timing(slideAnim, {
-            toValue: 0,
-            duration: 500,
-            useNativeDriver: false
-        }).start();
-    }
-    function slideDown() {
-        Animated.timing(slideAnim, {
-            toValue: 600,
-            duration: 500,
-            useNativeDriver: false
-        }).start();
-    }
+    // const slideAnim = useRef(new Animated.Value(0)).current
+    // function slideUp() {
+    //     Animated.timing(slideAnim, {
+    //         toValue: 0,
+    //         duration: 500,
+    //         useNativeDriver: false
+    //     }).start();
+    // }
+    // function slideDown() {
+    //     Animated.timing(slideAnim, {
+    //         toValue: 600,
+    //         duration: 500,
+    //         useNativeDriver: false
+    //     }).start();
+    // }
 
-    // listen for keyboard events for search
-    Keyboard.addListener('keyboardWillShow', ()=>{
-        setKeyboardShowing(true)
-    })
-    Keyboard.addListener('keyboardWillHide', ()=>{
-        setKeyboardShowing(false)
-    })
+    // // listen for keyboard events for search
+    // Keyboard.addListener('keyboardWillShow', ()=>{
+    //     setKeyboardShowing(true)
+    // })
+    // Keyboard.addListener('keyboardWillHide', ()=>{
+    //     setKeyboardShowing(false)
+    // })
 
     useEffect(()=>{
         if (props.showFunctionMenu) {
@@ -172,22 +172,7 @@ function FunctionMenu(props) {
                     <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
                 </Link>
             </View>
-        </SlidingUpPanel>
-        // <Animated.View style={[keyboardShowing ? styles.function_menu_visible : styles.function_menu, { transform: [{ translateY: slideAnim }] }]}>
-            
-            // <View behavior={Platform.OS == "ios" ? "padding" : "height"} style={[ null, styles.function_menu_button]}>
-            //     <View style={{ opacity: 'search' == props.currentMode ? 1 : 0 }}>
-            //         <InStockIcon transform={[{ rotate: '-45deg' }]} width={25} height={25} />
-            //     </View>
-            //     <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} onFocus={()=>props.switchMode('search')} placeholder="Search cocktails..." clearButtonMode={"always"} style={styles.input} />
-            // </View>
-
-            // <FunctionMenuButton label={"Edit A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} />
-            // <FunctionMenuButton label={"Remove Cocktails"} mode="delete" switchMode={props.switchMode} currentMode={props.currentMode} />
-            // <Link style={{marginLeft: 5}} to="/add-cocktail">
-            //     <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
-            // </Link>
-        
+        </SlidingUpPanel>        
     )
 }
 
