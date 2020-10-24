@@ -202,6 +202,7 @@ export default function Add(){
                     <TouchableOpacity onPress={async() => {
                         addCocktail()
                         // history.push('/add-cocktail') // to refresh
+                        // navi
                     }}>
                         <AppText style={styles.add_button}>Add Cocktail</AppText>
                     </TouchableOpacity>

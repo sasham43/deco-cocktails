@@ -29,6 +29,7 @@ export default class Main extends React.Component {
                     <Stack.Screen options={{headerShown: true}} name="About" style={styles.screen} component={About}></Stack.Screen>
                     <Stack.Screen options={{headerShown: true}} name="Stock" style={styles.screen} component={Stock}></Stack.Screen>
                     <Stack.Screen options={{headerShown: true}} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
+                    <Stack.Screen options={{headerShown: true}} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
                 </Stack.Navigator>
             </NavigationContainer>
 

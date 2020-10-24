@@ -8,13 +8,13 @@ import AppText from './AppText'
 
 export default function Menu(data) {
     var props = data.props // it's nested for some reason, idk
-    console.log('menu props', props)
+    // console.log('menu props', props)
     const navigation = props.navigation
     const route = props.scene.route
     // const navigation = useNavigation()
-
-    console.log('scrren', route)
+    
     var currentPage = route.name
+    console.log('scrren', currentPage) // this doesn't quite work
     // switch (routeProps.location.pathname) {
     //     case '/stock':
     //         currentPage = 'stock'

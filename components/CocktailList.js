@@ -13,7 +13,8 @@ import {
     Keyboard,
     Platform
 } from 'react-native'
-import { Link, useHistory } from 'react-router-native'
+// import { Link, useHistory } from 'react-router-native'
+import { useNavigation } from '@react-navigation/native'
 import _ from 'lodash'
 import SlidingUpPanel from 'rn-sliding-up-panel'
 
@@ -30,11 +31,11 @@ const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
 
-function CocktailList(){
+function CocktailList({navigation}){
     const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
     const { cocktails, deleteCocktail, cocktailSearch, setCocktailSearch, filteredCocktails } = useCocktails()
     const { isInStock } = useStock()
-    const  history  = useHistory()
+    // const  history  = useHistory()
 
     function CocktailListMap(props) {
         // console.log('disabled', props.currentMode != 'edit' && props.currentMode != 'delete')
@@ -87,7 +88,10 @@ function CocktailList(){
 
         if(currentMode == 'edit'){
             // move location, pass data in through route params (defined in Route component in Main)
-            history.push(`/add-cocktail/${cocktail.id}`)
+            // history.push(`/add-cocktail/${cocktail.id}`)
+            navigation.navigate('AddCocktail', {
+                id: cocktail.id
+            })
         } else if (currentMode == 'delete'){
             deleteCocktail(cocktail.id)
         }
@@ -120,6 +124,7 @@ function CocktailList(){
 
 function FunctionMenu(props) {
     const { panel, setPanel } = useFunctionMenu()
+    const navigation = useNavigation()
 
     useEffect(()=>{
         if (props.showFunctionMenu) {
@@ -149,9 +154,9 @@ function FunctionMenu(props) {
 
                 <FunctionMenuButton label={"Edit A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} />
                 <FunctionMenuButton label={"Remove Cocktails"} mode="delete" switchMode={props.switchMode} currentMode={props.currentMode} />
-                <Link style={[{marginLeft: 5, marginTop: 20}]} to="/add-cocktail">
+                <Pressable style={[{marginLeft: 5, marginTop: 20}]} onPress={()=>navigation.navigate('AddCocktail')}>
                     <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
-                </Link>
+                </Pressable>
             </View>
         </SlidingUpPanel>        
     )
