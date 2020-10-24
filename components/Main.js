@@ -22,10 +22,10 @@ export default class Main extends React.Component {
     render() {
         return (
             <NavigationContainer style={styles.container}>
-                    <CornerIcon style={{position: 'absolute', top: 20, right: 10}} width={60} height={60} />
-                    <CornerIcon style={{position: 'absolute', top: 20, left: 10, transform:[{rotate: '-90deg'}]}} width={60} height={60} />
-                    <CornerIcon style={{zIndex: 10, position: 'absolute', bottom: 10, right: 10,transform:[{rotate: '90deg'}]}} width={60} height={60} />
-                <CornerIcon style={{ zIndex: 10, position: 'absolute', bottom: 10, left: 10,transform:[{rotate: '180deg'}]}} width={60} height={60} />
+                    <CornerIcon style={styles.top_right} width={60} height={60} />
+                    <CornerIcon style={styles.top_left} width={60} height={60} />
+                    <CornerIcon style={styles.bottom_right} width={60} height={60} />
+                <CornerIcon style={styles.bottom_left} width={60} height={60} />
                 <Title></Title>
                 <Stack.Navigator  screenOptions={{ header: (props) => <Menu props={{...props}} /> }}>
                     {/* <Menu></Menu> */}
@@ -95,5 +95,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         paddingLeft: 50,
         paddingRight: 50,
-    }
+    },
+    top_right: { position: 'absolute', top: 20, right: 10 },
+    top_left: { position: 'absolute', top: 20, left: 10, transform: [{ rotate: '-90deg' }] },
+    bottom_right: { zIndex: 10, position: 'absolute', bottom: 10, right: 10, transform: [{ rotate: '90deg' }] },
+    bottom_left: { zIndex: 10, position: 'absolute', bottom: 10, left: 10, transform: [{ rotate: '180deg' }] }
 })
