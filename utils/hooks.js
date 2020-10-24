@@ -30,7 +30,8 @@ export const useCocktails = () => {
         // console.log('data', data)
         if(data){
             var cocktails = JSON.parse(data)
-            setCocktails([...cocktails, ...default_cocktails]) // change to _.uniq or something
+            var unique = _.uniqBy([...cocktails, ...default_cocktails], 'name')
+            setCocktails(unique) // change to _.uniq or something
         }
     }
 
