@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Switch, Dimensions, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Switch, Dimensions, TouchableOpacity, Pressable } from 'react-native'
 import { Route, Link, matchPath } from 'react-router-native'
 
 import AppText from './AppText'
@@ -8,7 +8,7 @@ import InStockIcon from '../assets/in-stock'
 
 const windowHeight = Dimensions.get('window').height
 
-export default function Stock(){
+export default function Stock({navigation}){
     const { stock, setStock, setInStock } = useStock()
 
     function StockBottle(props){
@@ -41,11 +41,11 @@ export default function Stock(){
             {/* <AppText>Stock page yeah yeah</AppText> */}
             <StockMap />
             <View style={styles.link_container}>
-                <Link to="/add-stock">
+                <Pressable onPress={()=>navigation.navigate('AddStock')}>
                     <View style={styles.link_container}>
                         <AppText style={styles.link_text}>Add Stock</AppText>
                     </View>
-                </Link>
+                </Pressable>
             </View>
         </View>
     )

@@ -1,7 +1,9 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Dimensions } from 'react-native'
 
 import AppText from './AppText'
+
+const windowWidth = Dimensions.get('window').width
 
 
 export default function About (){
@@ -24,11 +26,16 @@ export default function About (){
 const styles = StyleSheet.create({
     about: {
         flex: 1,
-        alignSelf: 'center'
+        alignSelf: 'center',
+
+        backgroundColor: '#fff'
     },
     view: {
         paddingTop: 10,
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
+        width: windowWidth,
+        backgroundColor: '#fff',
+        alignItems: 'center'
     }
 })

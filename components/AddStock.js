@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         height: windowHeight - 100,
+        backgroundColor: '#fff'
         // flexDirection: 'row'
     },
     stock_form: {
