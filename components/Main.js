@@ -22,6 +22,10 @@ export default class Main extends React.Component {
     render() {
         return (
             <NavigationContainer style={styles.container}>
+                    <CornerIcon style={{position: 'absolute', top: 20, right: 10}} width={60} height={60} />
+                    <CornerIcon style={{position: 'absolute', top: 20, left: 10, transform:[{rotate: '-90deg'}]}} width={60} height={60} />
+                    <CornerIcon style={{zIndex: 10, position: 'absolute', bottom: 10, right: 10,transform:[{rotate: '90deg'}]}} width={60} height={60} />
+                <CornerIcon style={{ zIndex: 10, position: 'absolute', bottom: 10, left: 10,transform:[{rotate: '180deg'}]}} width={60} height={60} />
                 <Title></Title>
                 <Stack.Navigator  screenOptions={{ header: (props) => <Menu props={{...props}} /> }}>
                     {/* <Menu></Menu> */}
@@ -77,6 +81,8 @@ const styles = StyleSheet.create({
         marginTop: 50,
         marginLeft: 50,
         marginRight: 50,
+        // paddingLeft: 50,
+        // paddingRight: 50,
         backgroundColor: '#fff'
     },
     screen: {
@@ -84,8 +90,10 @@ const styles = StyleSheet.create({
         // width: 1000,
         marginTop: 20,
         paddingTop: 40,
-        paddingLeft: 20,
-        paddingRight: 20,
-        backgroundColor: '#fff'
+        // paddingLeft: 20,
+        // paddingRight: 20,
+        backgroundColor: '#fff',
+        paddingLeft: 50,
+        paddingRight: 50,
     }
 })

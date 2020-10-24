@@ -147,6 +147,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignContent: 'flex-start',
+        paddingLeft: 50,
+        paddingRight: 50,
         // height: 1
     },
     link: {
