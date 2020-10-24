@@ -189,8 +189,8 @@ const styles = StyleSheet.create({
     },
     view: {
         paddingTop: 10,
-        paddingLeft: 10,
-        paddingRight: 10,
+        paddingLeft: 40,
+        paddingRight: 40,
         height: windowHeight - 100,
         backgroundColor: '#fff',
         // width: windowWidth,flex:1

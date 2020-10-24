@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderStyle: 'solid',
         alignSelf: 'center',
-        marginTop: 20
+        marginTop: 30
     },
     text: {
         fontSize: 35
