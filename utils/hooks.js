@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { AsyncStorage } from 'react-native'
 import { generate } from 'shortid'
+import _ from 'lodash'
 
 export const useCocktails = () => {
     // set up all the variables in state
@@ -29,7 +30,7 @@ export const useCocktails = () => {
         // console.log('data', data)
         if(data){
             var cocktails = JSON.parse(data)
-            setCocktails([...cocktails, ...default_cocktails])
+            setCocktails([...cocktails, ...default_cocktails]) // change to _.uniq or something
         }
     }
 
@@ -216,6 +217,7 @@ export const useFunctionMenu = () =>{
     const [showFunctionMenu, setShowFunctionMenu] = useState(false)
     const [currentMode, setCurrentMode] = useState('')
     const [keyboardShowing, setKeyboardShowing] = useState(false)
+    const [panel, setPanel] = useState(null)
 
     function toggleFunctionMenu(){
         setShowFunctionMenu(!showFunctionMenu)
@@ -239,7 +241,8 @@ export const useFunctionMenu = () =>{
         switchMode,
         currentMode,
         keyboardShowing,
-        setKeyboardShowing
+        setKeyboardShowing,
+        panel, setPanel
     }
 }
 
