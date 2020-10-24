@@ -43,14 +43,14 @@ function LilMenu(routeProps) {
                 </Pressable>
             </View>
             <View style={styles.link}>
-                <Pressable to="/stock">
+                <Pressable onPress={() => navigation.navigate('Stock')}>
                     <View style={currentPage == 'stock' ? styles.selected : null}>
                         <AppText>Stock</AppText>
                     </View>
                 </Pressable>
             </View>
             <View style={styles.link}>
-                <Pressable to="/add-cocktail">
+                <Pressable onPress={() => navigation.navigate('AddCocktail')}>
                     <View style={currentPage == 'add-cocktail' ? styles.selected : null}>
                         <AppText>Add</AppText>
                     </View>

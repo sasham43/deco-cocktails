@@ -3,7 +3,7 @@ import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions, KeyboardAvoi
 import { generate } from 'shortid'
 import RNPickerSelect from 'react-native-picker-select'
 import _ from 'lodash'
-import { useParams, useHistory } from 'react-router-native'
+// import { useParams, useHistory } from 'react-router-native'
 
 import AppText from './AppText'
 import { Part } from './Parts'
@@ -31,14 +31,14 @@ export default function Add(){
         setEditCocktailId,
     } = useCocktails([])
 
-    const params = useParams()
-    const history = useHistory()
+    // const params = useParams()
+    // const history = useHistory()
     const { currentMode, switchMode } = useFunctionMenu()
     
     // when cocktails load, check params and set
     useEffect(()=>{
         // resetNewCocktail()
-        loadParams(params)
+        // loadParams(params)
     },[cocktails])
 
     function loadParams(params){
@@ -201,7 +201,7 @@ export default function Add(){
                     
                     <TouchableOpacity onPress={async() => {
                         addCocktail()
-                        history.push('/add-cocktail') // to refresh
+                        // history.push('/add-cocktail') // to refresh
                     }}>
                         <AppText style={styles.add_button}>Add Cocktail</AppText>
                     </TouchableOpacity>
@@ -217,7 +217,8 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingLeft: 10,
         paddingRight: 10,
-        height: windowHeight - 100
+        height: windowHeight - 100,
+        backgroundColor: '#fff',
     },
     // input: {
     //     fontFamily: 'PoiretOne_400Regular',
