@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     }, 
     footer: {
-        width: windowWidth, // because padding
+        width: windowWidth,
         // width: windowWidth - 120, // because padding
         alignContent: 'center',
         backgroundColor: 'rgba(255, 255, 255, 1)',
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
         // alignItems: 'center'
         height: 80,
         position: 'absolute',
-        bottom: 0
+        bottom: 10
     },
     panel_container: {
         flex: 1,
