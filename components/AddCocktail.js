@@ -39,8 +39,8 @@ export default function Add({navigation, route}){
     useEffect(()=>{
         // resetNewCocktail()
         loadParams(route.params)
-        console.log('navigation', navigation)
-        console.log('route', route)
+        // console.log('navigation', navigation)
+        // console.log('route', route)
     },[cocktails])
 
     function loadParams(params){
