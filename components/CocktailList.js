@@ -101,6 +101,7 @@ function CocktailList({navigation}){
         <View style={styles.view}>
             <ScrollView style={styles.scroll_view}>
                 <CocktailListMap currentMode={currentMode}></CocktailListMap>
+                <View style={{marginTop:10, height: 20}}></View>
             </ScrollView>
 
             <FunctionMenu 
@@ -182,6 +183,7 @@ const styles = StyleSheet.create({
     },
     cocktail: {
         marginBottom: 60,
+        // marginTop: 60
     },
     cocktail_text: {
         fontSize: 20,
@@ -210,7 +212,7 @@ const styles = StyleSheet.create({
         zIndex: 2
     },
     scroll_view: {
-        height: windowHeight - 0,
+        height: windowHeight - 120,
         // paddingTop: 100
         // paddingBottom: 100
         // height: windowHeight - 120
