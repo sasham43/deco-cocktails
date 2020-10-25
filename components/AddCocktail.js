@@ -12,7 +12,7 @@ import { useCocktails, newCocktail, useFunctionMenu } from '../utils/hooks'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-export default function Add(){
+export default function Add({navigation, route}){
     const {  
         cocktails,
         addCocktail,
@@ -38,11 +38,13 @@ export default function Add(){
     // when cocktails load, check params and set
     useEffect(()=>{
         // resetNewCocktail()
-        // loadParams(params)
+        loadParams(route.params)
+        console.log('navigation', navigation)
+        console.log('route', route)
     },[cocktails])
 
     function loadParams(params){
-        if(params.id){
+        if(params && params.id){
             var cocktail = cocktails.find(c=>c.id == params.id)
             if(cocktail){
                 setNewCocktailName(cocktail.name)
@@ -201,6 +203,7 @@ export default function Add(){
                     
                     <TouchableOpacity onPress={async() => {
                         addCocktail()
+                        navigation.push('AddCocktail')
                         // history.push('/add-cocktail') // to refresh
                         // navi
                     }}>

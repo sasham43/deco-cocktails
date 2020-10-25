@@ -14,23 +14,7 @@ export default function Menu(data) {
     // const navigation = useNavigation()
     
     var currentPage = route.name
-    console.log('scrren', currentPage) // this doesn't quite work
-    // switch (routeProps.location.pathname) {
-    //     case '/stock':
-    //         currentPage = 'stock'
-    //         break;
-    //     case '/about':
-    //         currentPage = 'about'
-    //         break;
-    //     case '/add-cocktail':
-    //         currentPage = 'add-cocktail'
-    //         break;
-    //     case '/':
-    //         currentPage = 'cocktails'
-    //         break;
-    //     // default:
-    //     //     currentPage = 'cocktails'
-    // }
+    console.log('scrren', currentPage) // this doesn't quite work, styles aren't updating
 
     return (
         <View style={styles.menu}>
