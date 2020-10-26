@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
         zIndex: 10,
         height: 80,
         position: 'absolute',
-        bottom: 10
+        bottom: 20
     },
     panel_container: {
         flex: 1,
