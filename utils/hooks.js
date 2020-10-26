@@ -295,7 +295,7 @@ export const useStock = () => {
         const data = await AsyncStorage.getItem('stock')
         // console.log('stock', data)
 
-        if (data) {
+        if (data && data.length) {
             var stock = JSON.parse(data)
             setStock(stock)
         } else {

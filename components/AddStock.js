@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, Switch, TextInput, Dimensions, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Text, Switch, TextInput, Dimensions, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
 
 import AppText from './AppText'
 import { useStock } from '../utils/hooks'
@@ -13,7 +13,7 @@ export default function AddStock(){
     const { newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock, toggleStockIn } = useStock()
   
     return (
-        <View style={styles.view}>
+        <KeyboardAvoidingView contentContainerStyle={styles.content_container} behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.view}>
             <View style={styles.stock_form}>
                 <View style={styles.switch_container}>
                     <TouchableOpacity onPress={()=>toggleStockIn()}>
@@ -32,7 +32,7 @@ export default function AddStock(){
                     <AppText style={styles.link_text}>Add Bottle To Stock</AppText>
                 </TouchableOpacity>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -46,12 +46,19 @@ const styles = StyleSheet.create({
         // backgroundColor: '#fff'
         // flexDirection: 'row',
         // flex: 1,
+        position: 'absolute',
+        left: 20,
+        bottom: 30,
         width: windowWidth - 40,
         // width: windowWidth,
         // alignItems: 'center'
         // alignContent: 'flex-start',
         // alignItems: 'flex-start'
         paddingRight: 20,
+        marginBottom: 20,
+    },
+    content_container: {
+        // marginBottom: 200,
     },
     stock_form: {
         flexDirection: 'row',
