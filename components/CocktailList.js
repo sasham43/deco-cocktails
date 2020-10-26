@@ -265,13 +265,13 @@ const styles = StyleSheet.create({
         marginTop: 20
     }, 
     footer: {
-        width: windowWidth,
+        // width: windowWidth,
+        width: windowWidth - 40,
+        marginLeft: 20,
         // width: windowWidth - 120, // because padding
         alignContent: 'center',
         backgroundColor: 'rgba(255, 255, 255, 1)',
         zIndex: 10,
-        // marginBottom: -10
-        // alignItems: 'center'
         height: 80,
         position: 'absolute',
         bottom: 10
@@ -282,7 +282,12 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         // borderTopWidth: 1,
         backgroundColor: '#fff',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        shadowOffset: { width: 0, height: -5, },
+        shadowColor: 'rgba(150,150,150,.5)',
+        shadowOpacity: 1.0,
+        width: windowWidth - 40,
+        marginLeft: 20,
     },
     tab_icon_container: {
         alignItems: 'center',
