@@ -26,7 +26,7 @@ export default class Main extends React.Component {
             headerShown: true, 
             transitionSpec: {
                 open: TransitionSpecs.TransitionIOSSpec,
-                    close: TransitionSpecs.TransitionIOSSpec,
+                close: TransitionSpecs.TransitionIOSSpec,
             },            
             cardStyleInterpolator: ({ current, next, layouts }) => {
                 console.log('current, next ', current, next, layouts)
@@ -43,18 +43,18 @@ export default class Main extends React.Component {
         }
         return (
             <NavigationContainer style={styles.container}>
-                    <CornerIcon style={styles.top_right} width={60} height={60} />
-                    <CornerIcon style={styles.top_left} width={60} height={60} />
-                    <CornerIcon style={styles.bottom_right} width={60} height={60} />
+                <CornerIcon style={styles.top_right} width={60} height={60} />
+                <CornerIcon style={styles.top_left} width={60} height={60} />
+                <CornerIcon style={styles.bottom_right} width={60} height={60} />
                 <CornerIcon style={styles.bottom_left} width={60} height={60} />
                 <Title></Title>
                 <Stack.Navigator  screenOptions={{ header: (props) => <Menu props={{...props}} /> }}>
                     {/* <Menu></Menu> */}
                     <Stack.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Stack.Screen>
                     <Stack.Screen options={screen_options} name="About" style={styles.screen} component={About}></Stack.Screen>
-                    <Stack.Screen options={{headerShown: true}} name="Stock" style={styles.screen} component={Stock}></Stack.Screen>
-                    <Stack.Screen options={{headerShown: true}} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
-                    <Stack.Screen options={{headerShown: true}} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
+                    <Stack.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Stack.Screen>
+                    <Stack.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
+                    <Stack.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
                 </Stack.Navigator>
             </NavigationContainer>
 
