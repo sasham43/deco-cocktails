@@ -24,7 +24,7 @@ export default function App() {
     return (
       <View style={[styles.container, { fontFamily: 'PoiretOne_400Regular' }]}>
         {/* <Text>Crump Cocktails</Text> */}
-        <StatusBar style="auto" />
+        <StatusBar style={{color: '#000'}} />
         <Main></Main>
       </View>
     );
