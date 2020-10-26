@@ -29,7 +29,7 @@ export default class Main extends React.Component {
                 close: TransitionSpecs.TransitionIOSSpec,
             },            
             cardStyleInterpolator: ({ current, next, layouts }) => {
-                console.log('current, next ', current, next, layouts)
+                // console.log('current, next ', current, next, layouts)
                 return {
                     cardStyle: {
                         opacity: current.progress.interpolate({

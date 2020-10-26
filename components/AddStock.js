@@ -17,7 +17,7 @@ export default function AddStock(){
             <View style={styles.stock_form}>
                 <View style={styles.switch_container}>
                     <TouchableOpacity onPress={()=>toggleStockIn()}>
-                        <InStockIcon transform={[{rotate: '-45deg'}]} width={65} height={65} fill={newStockIn ? 'black' : 'grey'} />
+                        <InStockIcon transform={[{rotate: '-45deg'}]} width={45} height={45} fill={newStockIn ? 'black' : 'grey'} />
                     </TouchableOpacity>
                     {/* <Switch value={newStockIn} trackColor={{ false: 'grey', true: 'black' }} onValueChange={(val) => setNewStockIn(val)} /> */}
                 </View>
@@ -39,17 +39,24 @@ export default function AddStock(){
 const styles = StyleSheet.create({
 
     view: {
-        paddingTop: 10,
-        paddingLeft: 10,
-        paddingRight: 10,
-        height: windowHeight - 100,
-        backgroundColor: '#fff'
-        // flexDirection: 'row'
+        // paddingTop: 10,
+        // paddingLeft: 10,
+        // paddingRight: 10,
+        // height: windowHeight - 100,
+        // backgroundColor: '#fff'
+        // flexDirection: 'row',
+        // flex: 1,
+        width: windowWidth - 40,
+        // width: windowWidth,
+        // alignItems: 'center'
+        // alignContent: 'flex-start',
+        // alignItems: 'flex-start'
+        paddingRight: 20,
     },
     stock_form: {
         flexDirection: 'row',
         // flexDirection: 'column',
-        alignContent: 'center',
+        // alignContent: 'center',
         // justifyContent: 'flex-end'
         // flex: 1
     },  
