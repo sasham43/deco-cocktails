@@ -49,7 +49,6 @@ export default class Main extends React.Component {
                 <CornerIcon style={styles.bottom_left} width={60} height={60} />
                 <Title></Title>
                 <Stack.Navigator  screenOptions={{ header: (props) => <Menu props={{...props}} /> }}>
-                    {/* <Menu></Menu> */}
                     <Stack.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Stack.Screen>
                     <Stack.Screen options={screen_options} name="About" style={styles.screen} component={About}></Stack.Screen>
                     <Stack.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Stack.Screen>
@@ -57,39 +56,6 @@ export default class Main extends React.Component {
                     <Stack.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
                 </Stack.Navigator>
             </NavigationContainer>
-
-            // <NativeRouter>
-            //     <View style={styles.container}>
-            //         <CornerIcon style={{position: 'absolute', top: -10, right: -30}} width={60} height={60} />
-            //         <CornerIcon style={{position: 'absolute', top: -10, left: -30, transform:[{rotate: '-90deg'}]}} width={60} height={60} />
-            //         <CornerIcon style={{position: 'absolute', bottom: 30, right: -30,transform:[{rotate: '90deg'}]}} width={60} height={60} />
-            //         <CornerIcon style={{position: 'absolute', bottom: 30, left: -30,transform:[{rotate: '180deg'}]}} width={60} height={60} />
-
-            //         <Title></Title>
-
-            //         <Menu></Menu>
-
-
-            //         <Route exact path="/">
-            //             <CocktailList style={styles.view} />
-            //         </Route>
-            //         <Route exact path="/about">
-            //             <About />
-            //         </Route>
-            //         <Route exact path="/stock">
-            //             <Stock style={styles.view} />
-            //         </Route>
-            //         <Route path={["/add-cocktail/:id", "/add-cocktail"]}>
-            //             <Add style={styles.view} />
-            //         </Route>
-            //         {/* <Route path="/add-cocktail/:name/:ingredients">
-            //             <Add style={styles.view} />
-            //         </Route> */}
-            //         <Route exact path="/add-stock">
-            //             <AddStock style={styles.view} />
-            //         </Route>
-            //     </View>
-            // </NativeRouter>
         )
     }
 }
