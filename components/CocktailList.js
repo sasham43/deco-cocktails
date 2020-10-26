@@ -11,7 +11,8 @@ import {
     Pressable, 
     KeyboardAvoidingView,
     Keyboard,
-    Platform
+    Platform,
+    Alert
 } from 'react-native'
 // import { Link, useHistory } from 'react-router-native'
 import { useNavigation } from '@react-navigation/native'
@@ -93,7 +94,21 @@ function CocktailList({navigation}){
                 id: cocktail.id
             })
         } else if (currentMode == 'delete'){
-            deleteCocktail(cocktail.id)
+            var title = `Remove ${cocktail.name}?`
+            var msg = ''
+            var buttons = [
+                {
+                    text: 'Cancel',
+                    // onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel'
+                },
+                { 
+                    text: 'OK', 
+                    onPress: () => deleteCocktail(cocktail.id) 
+                }
+            ]
+            Alert.alert(title, msg, buttons)
+            // deleteCocktail(cocktail.id)
         }
     }
 
