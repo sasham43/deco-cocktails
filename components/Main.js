@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 // import { NativeRouter, Route, Link } from "react-router-native"
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator, TransitionSpecs } from '@react-navigation/stack'
 
 import Title from './Title'
 import CocktailList from './CocktailList'
@@ -19,7 +19,28 @@ const Stack = createStackNavigator()
 
 export default class Main extends React.Component {
 
+    
     render() {
+        // console.log("transition spects", TransitionSpecs)
+        var screen_options = {
+            headerShown: true, 
+            transitionSpec: {
+                open: TransitionSpecs.TransitionIOSSpec,
+                    close: TransitionSpecs.TransitionIOSSpec,
+            },            
+            cardStyleInterpolator: ({ current, next, layouts }) => {
+                console.log('current, next ', current, next, layouts)
+                return {
+                    cardStyle: {
+                        opacity: current.progress.interpolate({
+                            inputRange: [0,1],
+                            outputRange: [0,1]
+                        })
+                    },
+                    overlayStyle: {}
+                }
+            }
+        }
         return (
             <NavigationContainer style={styles.container}>
                     <CornerIcon style={styles.top_right} width={60} height={60} />
@@ -29,8 +50,8 @@ export default class Main extends React.Component {
                 <Title></Title>
                 <Stack.Navigator  screenOptions={{ header: (props) => <Menu props={{...props}} /> }}>
                     {/* <Menu></Menu> */}
-                    <Stack.Screen options={{ headerShown: true, }} name="CocktailList" style={styles.screen} component={CocktailList}></Stack.Screen>
-                    <Stack.Screen options={{headerShown: true}} name="About" style={styles.screen} component={About}></Stack.Screen>
+                    <Stack.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Stack.Screen>
+                    <Stack.Screen options={screen_options} name="About" style={styles.screen} component={About}></Stack.Screen>
                     <Stack.Screen options={{headerShown: true}} name="Stock" style={styles.screen} component={Stock}></Stack.Screen>
                     <Stack.Screen options={{headerShown: true}} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
                     <Stack.Screen options={{headerShown: true}} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
