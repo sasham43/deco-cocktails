@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Switch, Dimensions, TouchableOpacity, Pressable } from 'react-native'
+import { View, StyleSheet, Switch, Dimensions, TouchableOpacity, Pressable, ScrollView } from 'react-native'
 import { Route, Link, matchPath } from 'react-router-native'
 
 import AppText from './AppText'
@@ -10,46 +10,50 @@ import InStockIcon from '../assets/in-stock'
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
 
+
+function StockBottle(props) {
+    return (
+        <View style={styles.stock_bottle}>
+            <View style={styles.switch_container}>
+                <TouchableOpacity onPress={() => setInStock(props.bottle, !props.bottle.in_stock)}>
+                    <InStockIcon transform={[{ rotate: '-45deg' }]} width={45} height={45} fill={props.bottle.in_stock ? 'black' : 'grey'} />
+                </TouchableOpacity>
+                {/* <Switch value={props.bottle.in_stock} trackColor={{false: 'grey', true: 'black'}}  onValueChange={(val)=>setInStock(props.bottle, val)} /> */}
+            </View>
+            <View style={styles.label_container}>
+                <AppText style={styles.label_text}>{props.bottle.label}</AppText>
+            </View>
+        </View>
+    )
+}
+
+function StockMap(props) {
+    return props.stock.map(bottle => {
+        return (
+            <StockBottle key={bottle.id} bottle={bottle} />
+        )
+    })
+}
+
 export default function Stock({navigation}){
     const { stock, setStock, setInStock } = useStock()
 
-    function StockBottle(props){
-        return (
-            <View style={styles.stock_bottle}>
-                <View style={styles.switch_container}>
-                    <TouchableOpacity onPress={() => setInStock(props.bottle, !props.bottle.in_stock)}>
-                        <InStockIcon transform={[{ rotate: '-45deg' }]} width={45} height={45} fill={props.bottle.in_stock ? 'black' : 'grey'} />
-                    </TouchableOpacity>
-                    {/* <Switch value={props.bottle.in_stock} trackColor={{false: 'grey', true: 'black'}}  onValueChange={(val)=>setInStock(props.bottle, val)} /> */}
-                </View>
-                <View style={styles.label_container}>
-                    <AppText style={styles.label_text}>{props.bottle.label}</AppText>
-                </View>
-            </View>
-        )
-    }
-
-    function StockMap() {
-        return stock.map(bottle=>{
-            return (
-                <StockBottle key={bottle.id} bottle={bottle} />
-            )
-        })
-    }
 
 
     return (
         <View style={[styles.stock, styles.view]}>
             {/* <AppText>Stock page yeah yeah</AppText> */}
-            <StockMap />
-            <View style={styles.link_container}>
+            <ScrollView style={styles.scroll_view}>
+                <StockMap stock={stock} />
+            </ScrollView>
+            {/* <View style={styles.link_container}> */}
                 <AddStock />
                 {/* <Pressable onPress={()=>navigation.navigate('AddStock')}>
                     <View style={styles.link_container}>
                         <AppText style={styles.link_text}>Add Stock</AppText>
                     </View>
                 </Pressable> */}
-            </View>
+            {/* </View> */}
         </View>
     )
 }
@@ -67,7 +71,11 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         height: windowHeight - 100,
         backgroundColor: '#fff',
+        // justifyContent: 'space-between'
         // width: windowWidth - 100
+    },
+    scroll_view: {
+        height: windowHeight - 120,
     },
     stock_bottle: {
         // flex: 1,
