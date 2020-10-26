@@ -249,28 +249,28 @@ export const useFunctionMenu = () =>{
 
 export const useStock = () => {
     // for testing
-    // var default_stock = [
-    //     {
-    //         id: generate(),
-    //         label: 'Rye',
-    //         in_stock: true
-    //     },
-    //     {
-    //         id: generate(),
-    //         label: 'Gin',
-    //         in_stock: true
-    //     },
-    //     {
-    //         id: generate(),
-    //         label: 'Sweet Vermouth',
-    //         in_stock: true
-    //     },
-    //     {
-    //         id: generate(),
-    //         label: 'Rum',
-    //         in_stock: false
-    //     },
-    // ]
+    var default_stock = [
+        {
+            id: generate(),
+            label: 'Rye',
+            in_stock: true
+        },
+        {
+            id: generate(),
+            label: 'Gin',
+            in_stock: true
+        },
+        {
+            id: generate(),
+            label: 'Sweet Vermouth',
+            in_stock: true
+        },
+        {
+            id: generate(),
+            label: 'Rum',
+            in_stock: false
+        },
+    ]
 
     const [stock, setStock] = useState([])
     const [newStockName, setNewStockName] = useState('')
@@ -293,10 +293,13 @@ export const useStock = () => {
 
     const loadStock = async () => {
         const data = await AsyncStorage.getItem('stock')
+        // console.log('stock', data)
 
         if (data) {
             var stock = JSON.parse(data)
             setStock(stock)
+        } else {
+            setStock(default_stock)
         }
     }    
     

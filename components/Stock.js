@@ -3,10 +3,12 @@ import { View, StyleSheet, Switch, Dimensions, TouchableOpacity, Pressable } fro
 import { Route, Link, matchPath } from 'react-router-native'
 
 import AppText from './AppText'
+import AddStock from './AddStock'
 import { useStock } from '../utils/hooks'
 import InStockIcon from '../assets/in-stock'
 
 const windowHeight = Dimensions.get('window').height
+const windowWidth = Dimensions.get('window').width
 
 export default function Stock({navigation}){
     const { stock, setStock, setInStock } = useStock()
@@ -16,7 +18,7 @@ export default function Stock({navigation}){
             <View style={styles.stock_bottle}>
                 <View style={styles.switch_container}>
                     <TouchableOpacity onPress={() => setInStock(props.bottle, !props.bottle.in_stock)}>
-                        <InStockIcon transform={[{ rotate: '-45deg' }]} width={65} height={65} fill={props.bottle.in_stock ? 'black' : 'grey'} />
+                        <InStockIcon transform={[{ rotate: '-45deg' }]} width={45} height={45} fill={props.bottle.in_stock ? 'black' : 'grey'} />
                     </TouchableOpacity>
                     {/* <Switch value={props.bottle.in_stock} trackColor={{false: 'grey', true: 'black'}}  onValueChange={(val)=>setInStock(props.bottle, val)} /> */}
                 </View>
@@ -41,11 +43,12 @@ export default function Stock({navigation}){
             {/* <AppText>Stock page yeah yeah</AppText> */}
             <StockMap />
             <View style={styles.link_container}>
-                <Pressable onPress={()=>navigation.navigate('AddStock')}>
+                <AddStock />
+                {/* <Pressable onPress={()=>navigation.navigate('AddStock')}>
                     <View style={styles.link_container}>
                         <AppText style={styles.link_text}>Add Stock</AppText>
                     </View>
-                </Pressable>
+                </Pressable> */}
             </View>
         </View>
     )
@@ -53,14 +56,18 @@ export default function Stock({navigation}){
 
 const styles = StyleSheet.create({
     stock: {
-        justifyContent: 'flex-start'
+        // justifyContent: 'flex-start'
+        // alignItems: 'center'
+        // marginLeft: 20
+        paddingLeft: 40
     },
     view: {
         paddingTop: 10,
-        paddingLeft: 10,
+        paddingLeft: 30,
         paddingRight: 10,
         height: windowHeight - 100,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        // width: windowWidth - 100
     },
     stock_bottle: {
         // flex: 1,
