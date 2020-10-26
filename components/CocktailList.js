@@ -220,12 +220,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: "wrap"
     },
-    function_button_container: {
-        // height: 120,
-        alignContent: 'center',
-        alignItems: 'center',
-        zIndex: 2
-    },
     scroll_view: {
         height: windowHeight - 120,
         // paddingTop: 100
@@ -279,6 +273,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 20
     }, 
+    function_button_container: {
+        // height: 120,
+        alignContent: 'center',
+        alignItems: 'center',
+        zIndex: 2,
+        justifyContent: 'flex-start'
+    },
     footer: {
         // width: windowWidth,
         width: windowWidth - 40,
@@ -287,9 +288,11 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         backgroundColor: 'rgba(255, 255, 255, 1)',
         zIndex: 10,
-        height: 80,
+        height: 90,
         position: 'absolute',
-        bottom: 20
+        bottom: 10,
+        // borderColor: '#000',
+        // borderWidth: 2
     },
     panel_container: {
         flex: 1,
