@@ -10,7 +10,7 @@ import AppText from './AppText'
 import { Part } from './Parts'
 import { useCocktails, newCocktail, useFunctionMenu } from '../utils/hooks'
 
-import { addCocktail } from '../utils/CocktailActions'
+import { addCocktail, updateCocktails } from '../utils/CocktailActions'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
@@ -18,6 +18,7 @@ const windowHeight = Dimensions.get('window').height
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
         addCocktail,
+        updateCocktails
     }, dispatch)
 )
 const mapStateToProps = (state) => {
@@ -43,9 +44,9 @@ function Add(props){
         // addIngredientToCocktail,
         // setAddedCocktailIngredients, 
         // setNewCocktailIngredient, 
-        toggleEditIngredient,
-        editIngredientId,
-        setEditCocktailId,
+        // toggleEditIngredient,
+        // editIngredientId,
+        // setEditCocktailId,
         // newCocktailIngredients,
         // resetNewCocktail,
     } = useCocktails([])
@@ -57,6 +58,20 @@ function Add(props){
     })
     const [addedCocktailIngredients, setAddedCocktailIngredients] = useState([])
     const [newCocktailName, setNewCocktailName] = useState('')
+    const [editIngredientId, setEditIngredientId] = useState('')
+    const [editCocktailId, setEditCocktailId] = useState('')
+
+    function toggleEditIngredient(id) {
+        if (editIngredientId == id) {
+            setEditIngredientId('')
+            setNewCocktailIngredient({
+                ingredient_name: '',
+                parts: 0
+            })
+        } else {
+            editCocktailIngredient(id)
+        }
+    }
 
     function setName(name) {
         setNewCocktailIngredient({
@@ -69,6 +84,28 @@ function Add(props){
             ingredient_name: newCocktailIngredient.ingredient_name,
             parts
         })
+    }
+    function editCocktailIngredient(id) {
+        var ingredient = addedCocktailIngredients.find(a => a.id == id)
+        setNewCocktailIngredient(ingredient)
+        setEditIngredientId(id)
+    }
+
+    function saveCocktail(){
+        if(editCocktailId){
+            // props.addCocktail(new_cocktail)
+            props.updateCocktails({
+                id: editCocktailId,
+                name: newCocktailName,
+                ingredients: addedCocktailIngredients
+            })
+        } else {
+            props.addCocktail({
+                id: generate(),
+                name: newCocktailName,
+                ingredients: addedCocktailIngredients
+            })
+        }
     }
 
     async function addIngredientToCocktail() {
@@ -289,11 +326,12 @@ function Add(props){
                     </TouchableOpacity>
                     
                     <TouchableOpacity onPress={async() => {
-                        props.addCocktail({
-                            id: generate(),
-                            name: newCocktailName,
-                            ingredients: addedCocktailIngredients
-                        })
+                        // props.addCocktail({
+                        //     id: generate(),
+                        //     name: newCocktailName,
+                        //     ingredients: addedCocktailIngredients
+                        // })
+                        saveCocktail()
                         // setNewCocktailName('')
                         resetNewCocktail()
 

@@ -78,6 +78,20 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
             const newState = {current}
 
             return newState
+        case 'UPDATE_COCKTAILS':
+            const updated = action.payload
+            console.log('updated', updated)
+            const updated_current = current.map(c=>{
+                if(c.id == updated.id){
+                    return updated
+                } else {
+                    return c
+                }
+            })
+
+            const updatedState = {current: updated_current}
+
+            return updatedState
         default:
             return state
     }
