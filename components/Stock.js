@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { View, StyleSheet, Switch, Dimensions, TouchableOpacity, Pressable, ScrollView } from 'react-native'
 import SlidingUpPanel from 'rn-sliding-up-panel'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import AppText from './AppText'
 import AddStock from './AddStock'
@@ -9,16 +10,23 @@ import { useStock, useFunctionMenu } from '../utils/hooks'
 import InStockIcon from '../assets/in-stock'
 import TabIcon from '../assets/tab'
 import FunctionButtonIcon from '../assets/function-button.svg'
+import { updateStock } from '../utils/StockActions'
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        updateStock,
+    }, dispatch)
+)
 
 
 function StockBottle(props) {
     return (
         <View style={styles.stock_bottle}>
             <View style={styles.switch_container}>
-                <TouchableOpacity onPress={() => setInStock(props.bottle, !props.bottle.in_stock)}>
+                <TouchableOpacity onPress={() => props.updateStock({id: props.bottle.id, label: props.bottle.label, in_stock: !props.bottle.in_stock})}>
                     <InStockIcon transform={[{ rotate: '-45deg' }]} width={45} height={45} fill={props.bottle.in_stock ? 'black' : 'grey'} />
                 </TouchableOpacity>
                 {/* <Switch value={props.bottle.in_stock} trackColor={{false: 'grey', true: 'black'}}  onValueChange={(val)=>setInStock(props.bottle, val)} /> */}
@@ -33,7 +41,7 @@ function StockBottle(props) {
 function StockMap(props) {
     return props.stock.map(bottle => {
         return (
-            <StockBottle key={bottle.id} bottle={bottle} />
+            <StockBottle key={bottle.id} bottle={bottle} updateStock={props.updateStock} />
         )
     })
 }
@@ -43,7 +51,7 @@ const mapStateToProps = (state) => {
     return { stock }
 }
 
-export default connect(mapStateToProps)(Stock)
+export default connect(mapStateToProps, mapDispatchToProps)(Stock)
 
 //export default 
 function Stock(props){
@@ -59,7 +67,7 @@ function Stock(props){
         <View style={[styles.stock, styles.view]}>
             {/* <AppText>Stock page yeah yeah</AppText> */}
             <ScrollView style={styles.scroll_view}>
-                <StockMap stock={stock} />
+                <StockMap stock={stock} updateStock={props.updateStock} />
             </ScrollView>
             
 

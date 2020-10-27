@@ -5,6 +5,13 @@ export const addStock = new_stock => (
     }
 )
 
+export const updateStock = updated_stock => (
+    {
+        type: 'UPDATE_STOCK',
+        payload: updated_stock
+    }
+)
+
 // export const addFriend = friendsIndex => (
 //     {
 //         type: 'ADD_FRIEND',

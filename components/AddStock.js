@@ -45,6 +45,7 @@ function AddStock(props){
                         label: newStockName,
                         in_stock: newStockIn
                     })
+                    setNewStockName('')
                 }}>
                     <AppText style={styles.link_text}>Add Bottle To Stock</AppText>
                 </TouchableOpacity>
