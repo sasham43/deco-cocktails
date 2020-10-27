@@ -18,3 +18,10 @@ export const updateCocktails = new_cocktails => (
         payload: new_cocktails
     }
 )
+
+export const deleteCocktail = id => (
+    {
+        type: 'DELETE_COCKTAIL',
+        payload: id
+    }
+)

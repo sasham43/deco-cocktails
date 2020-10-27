@@ -92,6 +92,13 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
             const updatedState = {current: updated_current}
 
             return updatedState
+        case 'DELETE_COCKTAIL':
+            const delete_id = action.payload
+            const deleted = current.filter(c=>c.id != delete_id)
+
+            const deleteState = {current: deleted}
+
+            return deleteState
         default:
             return state
     }

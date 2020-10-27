@@ -15,7 +15,7 @@ import {
     Alert
 } from 'react-native'
 import { connect } from 'react-redux'
-// import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux'
 import { useNavigation } from '@react-navigation/native'
 import _ from 'lodash'
 import SlidingUpPanel from 'rn-sliding-up-panel'
@@ -25,6 +25,7 @@ import { PartMap } from './Parts'
 import FunctionButtonIcon from '../assets/function-button.svg'
 import InStockIcon from '../assets/in-stock'
 import TabIcon from '../assets/tab'
+import { deleteCocktail } from '../utils/CocktailActions'
 
 import { useCocktails,  useStock, useFunctionMenu } from '../utils/hooks'
 
@@ -41,8 +42,12 @@ const windowHeight = Dimensions.get('window').height
     // const { cocktails } = state
     // return  cocktails
 // }
-
-export default connect(mapStateToProps)(CocktailList)
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        deleteCocktail
+    }, dispatch)
+)
+export default connect(mapStateToProps, mapDispatchToProps)(CocktailList)
 
 function Name(props) {
     const { isInStock } = useStock()
@@ -76,8 +81,10 @@ function sortedIngredients(ingredients) {
 function CocktailListMap(props) {
     const navigation = useNavigation()
 
+    console.log('props map', props)
+
     function selectCocktail(cocktail, currentMode) {
-        console.log('selecting', currentMode, cocktail)
+        console.log('selecting', currentMode, cocktail, props.deleteCocktail)
 
         if (currentMode == 'edit') {
             // move location, pass data in through route params (defined in Route component in Main)
@@ -96,7 +103,7 @@ function CocktailListMap(props) {
                 },
                 {
                     text: 'OK',
-                    onPress: () => deleteCocktail(cocktail.id)
+                    onPress: () => props.deleteCocktail(cocktail.id)
                 }
             ]
             Alert.alert(title, msg, buttons)
@@ -147,7 +154,7 @@ function CocktailList(props){
     // console.log(' cl props', props)
     const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
     const { 
-        deleteCocktail, 
+        // deleteCocktail, 
         // cocktailSearch, 
         // setCocktailSearch, 
         // filteredCocktails 
@@ -213,7 +220,7 @@ function CocktailList(props){
     return (
         <View style={styles.view}>
             <ScrollView style={styles.scroll_view}>
-                <CocktailListMap cocktails={filteredCocktails} currentMode={currentMode}></CocktailListMap>
+                <CocktailListMap cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} currentMode={currentMode}></CocktailListMap>
                 <View style={{marginTop:10, height: 20}}></View>
             </ScrollView>
 
