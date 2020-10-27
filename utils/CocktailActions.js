@@ -11,3 +11,10 @@ export const updateCocktail = updated_cocktail => (
         payload: updated_stock
     }
 )
+
+export const updateCocktails = new_cocktails => (
+    {
+        type: 'UPDATE_COCKTAILS',
+        payload: new_cocktails
+    }
+)
