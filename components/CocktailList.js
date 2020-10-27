@@ -34,9 +34,9 @@ const windowHeight = Dimensions.get('window').height
 
 // const mapStateToProps = (state) => {
     const mapStateToProps = (state) => {
-        // console.log('mapping state', state)
-        const { current } = state
-        return { cocktails: current }
+        console.log('mapping state', state)
+        const { cocktails, current } = state
+        return { cocktails: cocktails }
     }
     // const { cocktails } = state
     // return  cocktails
@@ -111,8 +111,8 @@ function CocktailListMap(props) {
 function CocktailList(props){
     const navigation = props.navigation
     // const cocktails = props.cocktails.cocktails
-    const cocktails = props.cocktails
-    // console.log(' cl props', cocktails)
+    const cocktails = props.cocktails.current
+    console.log(' cl props', props)
     const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
     const { deleteCocktail, cocktailSearch, setCocktailSearch, filteredCocktails } = useCocktails()
     // const { isInStock } = useStock()
