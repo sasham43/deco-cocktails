@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { StyleSheet, AsyncStorage } from 'react-native'
 // import { NativeRouter, Route, Link } from "react-router-native"
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionSpecs } from '@react-navigation/stack'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import { persistStore, persistReducer } from 'redux-persist'
 
 import stockReducer from '../utils/StockReducer'
 
@@ -21,7 +22,14 @@ import CornerIcon from '../assets/corner.svg'
 
 const Stack = createStackNavigator()
 
-const store = createStore(stockReducer)
+const persistConfig = {
+    key: 'root', // maybe stock?
+    storage: AsyncStorage
+}
+const persistedReducer = persistReducer(persistConfig, stockReducer)
+const store = createStore(persistedReducer)
+const persistor = persistStore(store)
+// const store = createStore(stockReducer)
 
 export default class Main extends React.Component {
 
