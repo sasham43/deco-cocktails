@@ -129,36 +129,13 @@ function CocktailListMap(props) {
             </Pressable>
         )
     )
-    // return filteredCocktails.map(cocktail =>
-    //     (
-    //         <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete'} onPress={()=>selectCocktail(cocktail)} style={styles.cocktail} key={cocktail.id}>
-    //             <View style={styles.cocktail_name_container}>
-    //                 <AppText>
-    //                     <Text style={styles.cocktail_text}>
-    //                         {cocktail.name}
-    //                     </Text>
-    //                 </AppText>
-    //             </View>
-    //             <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(i => i.parts != 0))} />
-    //             <NameMap ingredients={sortedIngredients(cocktail.ingredients)} />
-    //         </Pressable>
-    //     )
-    // )
 }
 
 
 function CocktailList(props){
     const navigation = props.navigation
-    // const cocktails = props.cocktails.cocktails
     const cocktails = props.cocktails.current
-    // console.log(' cl props', props)
     const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
-    const { 
-        // deleteCocktail, 
-        // cocktailSearch, 
-        // setCocktailSearch, 
-        // filteredCocktails 
-    } = useCocktails()
     const [cocktailSearch, setCocktailSearch] = useState('')
     const [filteredCocktails, setFilteredCocktails] = useState([])
 
@@ -188,34 +165,6 @@ function CocktailList(props){
 
         setFilteredCocktails(filtered)
     }
-
-    // function selectCocktail(cocktail) {
-    //     console.log('selecting', currentMode, cocktail)
-
-    //     if(currentMode == 'edit'){
-    //         // move location, pass data in through route params (defined in Route component in Main)
-    //         // history.push(`/add-cocktail/${cocktail.id}`)
-    //         navigation.navigate('AddCocktail', {
-    //             id: cocktail.id
-    //         })
-    //     } else if (currentMode == 'delete'){
-    //         var title = `Remove ${cocktail.name}?`
-    //         var msg = ''
-    //         var buttons = [
-    //             {
-    //                 text: 'Cancel',
-    //                 // onPress: () => console.log('Cancel Pressed'),
-    //                 style: 'cancel'
-    //             },
-    //             { 
-    //                 text: 'OK', 
-    //                 onPress: () => deleteCocktail(cocktail.id) 
-    //             }
-    //         ]
-    //         Alert.alert(title, msg, buttons)
-    //         // deleteCocktail(cocktail.id)
-    //     }
-    // }
 
     return (
         <View style={styles.view}>

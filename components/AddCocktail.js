@@ -31,25 +31,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Add)
 
 //export default 
 function Add(props){
-    const {  
-        // cocktails,
-        // addCocktail,
-        setFlag,
-        // newCocktailName,
-        // setNewCocktailName, 
-        // newCocktailIngredient, 
-        // addedCocktailIngredients, 
-        // setName, 
-        // setParts, 
-        // addIngredientToCocktail,
-        // setAddedCocktailIngredients, 
-        // setNewCocktailIngredient, 
-        // toggleEditIngredient,
-        // editIngredientId,
-        // setEditCocktailId,
-        // newCocktailIngredients,
-        // resetNewCocktail,
-    } = useCocktails([])
     const cocktails = props.cocktails.current
 
     const [newCocktailIngredient, setNewCocktailIngredient] = useState({
@@ -149,17 +130,11 @@ function Add(props){
         })
         setAddedCocktailIngredients([])
     }
-
-    // const params = useParams()
-    // const history = useHistory()
     const { navigation, route } = props
     const { currentMode, switchMode } = useFunctionMenu()
-
-    // console.log('add cockctail props', props)
     
     // when cocktails load, check params and set
     useEffect(()=>{
-        // resetNewCocktail()
         loadParams(route.params)
         // console.log('navigation', navigation)
         // console.log('route', route)
