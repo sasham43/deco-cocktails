@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions, KeyboardAvoidingView } from 'react-native'
+import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { generate } from 'shortid'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -24,10 +24,10 @@ const mapDispatchToProps = dispatch => (
 export default connect(null, mapDispatchToProps)(Add)
 
 //export default 
-function Add({navigation, route}){
+function Add(props){
     const {  
         cocktails,
-        addCocktail,
+        // addCocktail,
         setFlag,
         newCocktailName,
         setNewCocktailName, 
@@ -41,11 +41,16 @@ function Add({navigation, route}){
         toggleEditIngredient,
         editIngredientId,
         setEditCocktailId,
+        // newCocktailIngredients,
+        resetNewCocktail,
     } = useCocktails([])
 
     // const params = useParams()
     // const history = useHistory()
+    const { navigation, route } = props
     const { currentMode, switchMode } = useFunctionMenu()
+
+    console.log('add cockctail props', props)
     
     // when cocktails load, check params and set
     useEffect(()=>{
@@ -123,7 +128,7 @@ function Add({navigation, route}){
     return (
         <View style={styles.view}>
             <View style={styles.new_ingredient_container}>
-                <View>
+                <ScrollView style={{height: 300}}>
                     <TextInput
                         value={newCocktailName}
                         onChangeText={text => setNewCocktailName(text)}
@@ -131,9 +136,11 @@ function Add({navigation, route}){
                         placeholder="New cocktail name..."
                         clearButtonMode={"always"} 
                     />
+                    {/* <ScrollView style={{height: 300}}> */}
 
-                    <AddedIngredientMap />
-                </View>
+                        <AddedIngredientMap />
+                    {/* </ScrollView> */}
+                </ScrollView>
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.new_ingredient}>
                     <TextInput key={`newCocktailIngredientName`} clearButtonMode={"always"}  value={newCocktailIngredient.ingredient_name} onChangeText={text => setName(text)} style={styles.input} placeholder="Ingredient..." />
                     <RNPickerSelect
@@ -214,10 +221,10 @@ function Add({navigation, route}){
                     </TouchableOpacity>
                     
                     <TouchableOpacity onPress={async() => {
-                        addCocktail({
+                        props.addCocktail({
                             id: generate(),
                             name: newCocktailName,
-                            ingredients: newCocktailIngredients
+                            ingredients: addedCocktailIngredients
                         })
                         // setNewCocktailName('')
                         resetNewCocktail()

@@ -68,15 +68,16 @@ const INITIAL_STATE = {
 const cocktailReducer = (state = INITIAL_STATE, action) => {
     // console.log('cocktail reducing', state)
     
-    const { cocktails } = state
+    const { current } = state
     switch (action.type){
-        // case 'ADD_COCKTAIL':
-        //     const new_cocktail = action.payload
-        //     cocktails.push(new_cocktail)
+        case 'ADD_COCKTAIL':
+            console.log('adding', action)
+            const new_cocktail = action.payload
+            current.push(new_cocktail)
 
-        //     const newState = {cocktails}
+            const newState = {current}
 
-        //     return newState
+            return newState
         default:
             return state
     }
