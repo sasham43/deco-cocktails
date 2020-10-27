@@ -4,10 +4,11 @@ import { StyleSheet, AsyncStorage } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionSpecs } from '@react-navigation/stack'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 
 import stockReducer from '../utils/StockReducer'
+import cocktailReducer from '../utils/CocktailReducer'
 
 import Title from './Title'
 import CocktailList from './CocktailList'
@@ -26,7 +27,10 @@ const persistConfig = {
     key: 'root', // maybe stock?
     storage: AsyncStorage
 }
-const persistedReducer = persistReducer(persistConfig, stockReducer)
+const persistedReducer = persistReducer(persistConfig, combineReducers({
+    stock: stockReducer,
+    cocktails: cocktailReducer
+}))
 const store = createStore(persistedReducer)
 const persistor = persistStore(store)
 // const store = createStore(stockReducer)
