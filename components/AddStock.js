@@ -46,14 +46,15 @@ const styles = StyleSheet.create({
         // backgroundColor: '#fff'
         // flexDirection: 'row',
         // flex: 1,
-        position: 'absolute',
-        left: 20,
-        bottom: 30,
+        // position: 'absolute',
+        // left: 20,
+        // bottom: 30,
         width: windowWidth - 40,
         // width: windowWidth,
         // alignItems: 'center'
         // alignContent: 'flex-start',
         // alignItems: 'flex-start'
+        marginTop: 30,
         paddingRight: 20,
         marginBottom: 20,
     },

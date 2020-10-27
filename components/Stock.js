@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, StyleSheet, Switch, Dimensions, TouchableOpacity, Pressable, ScrollView } from 'react-native'
-import { Route, Link, matchPath } from 'react-router-native'
+// import { Route, Link, matchPath } from 'react-router-native'
+import SlidingUpPanel from 'rn-sliding-up-panel'
 
 import AppText from './AppText'
 import AddStock from './AddStock'
-import { useStock } from '../utils/hooks'
+import { useStock, useFunctionMenu } from '../utils/hooks'
 import InStockIcon from '../assets/in-stock'
+import TabIcon from '../assets/tab'
+import FunctionButtonIcon from '../assets/function-button.svg'
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
@@ -37,6 +40,7 @@ function StockMap(props) {
 
 export default function Stock({navigation}){
     const { stock, setStock, setInStock } = useStock()
+    const { toggleFunctionMenu, showFunctionMenu } = useFunctionMenu()
 
 
 
@@ -46,15 +50,47 @@ export default function Stock({navigation}){
             <ScrollView style={styles.scroll_view}>
                 <StockMap stock={stock} />
             </ScrollView>
-            {/* <View style={styles.link_container}> */}
-                <AddStock />
-                {/* <Pressable onPress={()=>navigation.navigate('AddStock')}>
-                    <View style={styles.link_container}>
-                        <AppText style={styles.link_text}>Add Stock</AppText>
-                    </View>
-                </Pressable> */}
-            {/* </View> */}
+            
+
+            <FunctionMenu
+                showFunctionMenu={showFunctionMenu}
+            />
+
+            <View style={styles.footer}>
+                <TouchableOpacity style={styles.function_button_container} onPress={() => toggleFunctionMenu()}>
+                    <FunctionButtonIcon width={100} height={75} />
+                </TouchableOpacity>
+            </View>
+            {/* <AddStock /> */}
         </View>
+    )
+}
+
+function FunctionMenu(props) {
+    const { panel, setPanel } = useFunctionMenu()
+
+    useEffect(() => {
+        if (props.showFunctionMenu) {
+            // slideUp()
+            if (panel)
+                panel.show(windowHeight / 2)
+        } else {
+            // slideDown()
+            if (panel)
+                panel.hide()
+        }
+        // panel.show()
+    }, [props.showFunctionMenu])
+
+    return (
+        <SlidingUpPanel showBackdrop={false} ref={c => setPanel(c)}>
+            <View style={styles.panel_container}>
+                <View style={styles.tab_icon_container}>
+                    <TabIcon height={65} width={65} />
+                </View>
+                <AddStock />
+            </View>
+        </SlidingUpPanel>
     )
 }
 
@@ -103,5 +139,43 @@ const styles = StyleSheet.create({
         fontSize: 22,
         // color: 'red',
         textAlign: 'center'
+    },
+    function_button_container: {
+        // height: 120,
+        alignContent: 'center',
+        alignItems: 'center',
+        zIndex: 2,
+        justifyContent: 'flex-start'
+    },
+    footer: {
+        // width: windowWidth,
+        width: windowWidth - 40,
+        marginLeft: 20,
+        // width: windowWidth - 120, // because padding
+        alignContent: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 1)',
+        zIndex: 10,
+        height: 90,
+        position: 'absolute',
+        bottom: 10,
+        // borderColor: '#000',
+        // borderWidth: 2
+    },
+    panel_container: {
+        flex: 1,
+        backgroundColor: 'white',
+        // alignItems: 'center',
+        // borderTopWidth: 1,
+        backgroundColor: '#fff',
+        justifyContent: 'flex-start',
+        shadowOffset: { width: 0, height: -5, },
+        shadowColor: 'rgba(150,150,150,.5)',
+        shadowOpacity: 1.0,
+        width: windowWidth - 40,
+        marginLeft: 20,
+    },
+    tab_icon_container: {
+        alignItems: 'center',
+        marginBottom: -20
     }
 })
