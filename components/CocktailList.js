@@ -33,9 +33,15 @@ import { useCocktails,  useStock, useFunctionMenu } from '../utils/hooks'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
+const titlePadding = 37 + 41 + 10
+const footerHeight = 25
+const viewHeight = windowHeight - (titlePadding + footerHeight)
+// const viewHeight = 100
+console.log('view height', viewHeight, (titlePadding + footerHeight))
+
 // const mapStateToProps = (state) => {
     const mapStateToProps = (state) => {
-        console.log('mapping state', state)
+        // console.log('mapping state', state)
         const { cocktails, current } = state
         return { cocktails: cocktails }
     }
@@ -260,7 +266,8 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingLeft: 40,
         paddingRight: 40,
-        height: windowHeight - 100,
+        height: viewHeight,
+        // height: windowHeight - 100,
         backgroundColor: '#fff',
         // width: windowWidth,flex:1
     },
@@ -273,7 +280,9 @@ const styles = StyleSheet.create({
         flexWrap: "wrap"
     },
     scroll_view: {
-        height: windowHeight - 120,
+        marginBottom: 25
+        // height: viewHeight,
+        // height: windowHeight - 120,
         // paddingTop: 100
         // paddingBottom: 100
         // height: windowHeight - 120
