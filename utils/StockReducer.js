@@ -69,6 +69,8 @@ const stockReducer = (state = INITIAL_STATE, action) => {
     }
 }
 
-export default combineReducers({
-    stock: stockReducer
-})
+export default stockReducer
+
+// export default combineReducers({
+//     stock: stockReducer
+// })
