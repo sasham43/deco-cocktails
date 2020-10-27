@@ -128,9 +128,7 @@ function CocktailList({navigation}){
             />
 
             <View style={styles.footer}>
-                {/* <TouchableOpacity style={styles.function_button_container} onPress={()=>toggle()}> */}
                 <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionMenu()}>
-
                     <FunctionButtonIcon width={100} height={75} />
                 </TouchableOpacity>
             </View>
