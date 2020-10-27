@@ -201,7 +201,7 @@ export const useCocktails = () => {
         addIngredientToCocktail, 
         setName, 
         setParts, 
-        // resetNewCocktail, 
+        resetNewCocktail, 
         setNewCocktailIngredient,
         editCocktailIngredient,
         editIngredientId, 
@@ -210,7 +210,7 @@ export const useCocktails = () => {
         deleteCocktail,
         cocktailSearch, 
         setCocktailSearch,
-        filteredCocktails
+        filteredCocktails,
     }
 }
 
