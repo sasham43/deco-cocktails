@@ -29,21 +29,41 @@ const INITIAL_STATE = {
     possible: []
 }
 
-const stockReducer = (state = INITIAL_STATE, action) =>{
+const stockReducer = (state = INITIAL_STATE, action) => {
+    const {
+        current, 
+        possible
+    } = state
     switch (action.type){
         case 'ADD_STOCK':
-            const {
-                current, 
-                possible
-            } = state
             const new_stock = action.payload
             current.push(new_stock)
 
             const newState = { current, possible }
 
-            console.log('adding stock in reducer')
+            // should update AsyncStorage
 
             return newState
+        case 'UPDATE_STOCK':
+            // const {
+            //     current,
+            //     possible
+            // } = state
+            const updated_stock = action.payload
+
+            var new_current = current.map(c=>{
+                if(c.id == updated_stock.id){
+                    return updated_stock
+                } else {
+                    return c
+                }
+            })
+
+            console.log('????',updated_stock,  new_current)
+
+            const updatedState = {current: new_current, possible}
+
+            return updatedState
         default:
             return state
     }
