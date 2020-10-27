@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { View, StyleSheet, Text, Switch, TextInput, Dimensions, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
+import { generate } from 'shortid'
 
 import { addStock } from '../utils/StockActions'
 import AppText from './AppText'
@@ -21,9 +22,14 @@ export default connect(null, mapDispatchToProps)(AddStock);
 
 //export default 
 function AddStock(props){
+    const [newStockName, setNewStockName] = useState('')
+    const [newStockIn, setNewStockIn] = useState(true)
     console.log('add stock props', props)
+    function toggleStockIn() {
+        setNewStockIn(!newStockIn)
+    }
 
-    const { newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock, toggleStockIn } = useStock()
+    // const { newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock, toggleStockIn } = useStock()
   
     return (
         <KeyboardAvoidingView contentContainerStyle={styles.content_container} behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.view}>
@@ -42,6 +48,7 @@ function AddStock(props){
                 <TouchableOpacity onPress={async () => {
                     // addToStock()
                     props.addStock({
+                        id: generate(),
                         label: newStockName,
                         in_stock: newStockIn
                     })
