@@ -20,13 +20,18 @@ const mapDispatchToProps = dispatch => (
         addCocktail,
     }, dispatch)
 )
+const mapStateToProps = (state) => {
+    console.log('mapping state', state)
+    const { cocktails, current } = state
+    return { cocktails: cocktails }
+}
 
-export default connect(null, mapDispatchToProps)(Add)
+export default connect(mapStateToProps, mapDispatchToProps)(Add)
 
 //export default 
 function Add(props){
     const {  
-        cocktails,
+        // cocktails,
         // addCocktail,
         setFlag,
         // newCocktailName,
@@ -44,6 +49,7 @@ function Add(props){
         // newCocktailIngredients,
         // resetNewCocktail,
     } = useCocktails([])
+    const cocktails = props.cocktails.current
 
     const [newCocktailIngredient, setNewCocktailIngredient] = useState({
         ingredient_name: '',

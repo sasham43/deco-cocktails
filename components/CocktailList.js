@@ -72,12 +72,44 @@ function sortedIngredients(ingredients) {
     return _.orderBy(ingredients, 'parts', 'desc')
 }
 
+
 function CocktailListMap(props) {
-    // console.log('map props', props)
+    const navigation = useNavigation()
+
+    function selectCocktail(cocktail, currentMode) {
+        console.log('selecting', currentMode, cocktail)
+
+        if (currentMode == 'edit') {
+            // move location, pass data in through route params (defined in Route component in Main)
+            // history.push(`/add-cocktail/${cocktail.id}`)
+            navigation.navigate('AddCocktail', {
+                id: cocktail.id
+            })
+        } else if (currentMode == 'delete') {
+            var title = `Remove ${cocktail.name}?`
+            var msg = ''
+            var buttons = [
+                {
+                    text: 'Cancel',
+                    // onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel'
+                },
+                {
+                    text: 'OK',
+                    onPress: () => deleteCocktail(cocktail.id)
+                }
+            ]
+            Alert.alert(title, msg, buttons)
+            // deleteCocktail(cocktail.id)
+        }
+    }
+
+
+    console.log('map props', props.currentMode)
     // console.log('disabled', props.currentMode != 'edit' && props.currentMode != 'delete')
     return props.cocktails.map(cocktail =>
         (
-            <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete'} onPress={() => selectCocktail(cocktail)} style={styles.cocktail} key={cocktail.id}>
+            <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete'} onPress={() => selectCocktail(cocktail, props.currentMode)} style={styles.cocktail} key={cocktail.id}>
                 <View style={styles.cocktail_name_container}>
                     <AppText>
                         <Text style={styles.cocktail_text}>
@@ -150,33 +182,33 @@ function CocktailList(props){
         setFilteredCocktails(filtered)
     }
 
-    function selectCocktail(cocktail) {
-        console.log('selecting', currentMode, cocktail)
+    // function selectCocktail(cocktail) {
+    //     console.log('selecting', currentMode, cocktail)
 
-        if(currentMode == 'edit'){
-            // move location, pass data in through route params (defined in Route component in Main)
-            // history.push(`/add-cocktail/${cocktail.id}`)
-            navigation.navigate('AddCocktail', {
-                id: cocktail.id
-            })
-        } else if (currentMode == 'delete'){
-            var title = `Remove ${cocktail.name}?`
-            var msg = ''
-            var buttons = [
-                {
-                    text: 'Cancel',
-                    // onPress: () => console.log('Cancel Pressed'),
-                    style: 'cancel'
-                },
-                { 
-                    text: 'OK', 
-                    onPress: () => deleteCocktail(cocktail.id) 
-                }
-            ]
-            Alert.alert(title, msg, buttons)
-            // deleteCocktail(cocktail.id)
-        }
-    }
+    //     if(currentMode == 'edit'){
+    //         // move location, pass data in through route params (defined in Route component in Main)
+    //         // history.push(`/add-cocktail/${cocktail.id}`)
+    //         navigation.navigate('AddCocktail', {
+    //             id: cocktail.id
+    //         })
+    //     } else if (currentMode == 'delete'){
+    //         var title = `Remove ${cocktail.name}?`
+    //         var msg = ''
+    //         var buttons = [
+    //             {
+    //                 text: 'Cancel',
+    //                 // onPress: () => console.log('Cancel Pressed'),
+    //                 style: 'cancel'
+    //             },
+    //             { 
+    //                 text: 'OK', 
+    //                 onPress: () => deleteCocktail(cocktail.id) 
+    //             }
+    //         ]
+    //         Alert.alert(title, msg, buttons)
+    //         // deleteCocktail(cocktail.id)
+    //     }
+    // }
 
     return (
         <View style={styles.view}>
