@@ -1,62 +1,62 @@
 import { generate } from 'shortid'
 
 
-// var default_cocktails = defaultCocktails()
-var default_cocktails = [
-    {
-        id: generate(),
-        name: 'Martini',
-        // ingredients: [
-        //     {
-        //         id: generate(),
-        //         ingredient_name: 'Gin',
-        //         parts: 1
-        //     },
-        //     {
-        //         id: generate(),
-        //         ingredient_name: 'Dry Vermouth',
-        //         parts: 1
-        //     },
-        // ]
-    },
-    {
-        id: generate(),
-        name: 'Gin & Tonic',
-        // ingredients: [
-        //     {
-        //         id: generate(),
-        //         ingredient_name: 'Gin',
-        //         parts: 1
-        //     },
-        //     {
-        //         id: generate(),
-        //         ingredient_name: 'Tonic',
-        //         parts: 2
-        //     },
-        // ]
-    },
-    {
-        id: generate(),
-        name: 'Negroni',
-        // ingredients: [
-        //     {
-        //         id: generate(),
-        //         ingredient_name: 'Gin',
-        //         parts: 1
-        //     },
-        //     {
-        //         id: generate(),
-        //         ingredient_name: 'Sweet Vermouth',
-        //         parts: 1
-        //     },
-        //     {
-        //         id: generate(),
-        //         ingredient_name: 'Campari',
-        //         parts: 1
-        //     },
-        // ]
-    },
-]
+var default_cocktails = defaultCocktails()
+// var default_cocktails = [
+//     {
+//         id: generate(),
+//         name: 'Martini',
+//         // ingredients: [
+//         //     {
+//         //         id: generate(),
+//         //         ingredient_name: 'Gin',
+//         //         parts: 1
+//         //     },
+//         //     {
+//         //         id: generate(),
+//         //         ingredient_name: 'Dry Vermouth',
+//         //         parts: 1
+//         //     },
+//         // ]
+//     },
+//     {
+//         id: generate(),
+//         name: 'Gin & Tonic',
+//         // ingredients: [
+//         //     {
+//         //         id: generate(),
+//         //         ingredient_name: 'Gin',
+//         //         parts: 1
+//         //     },
+//         //     {
+//         //         id: generate(),
+//         //         ingredient_name: 'Tonic',
+//         //         parts: 2
+//         //     },
+//         // ]
+//     },
+//     {
+//         id: generate(),
+//         name: 'Negroni',
+//         // ingredients: [
+//         //     {
+//         //         id: generate(),
+//         //         ingredient_name: 'Gin',
+//         //         parts: 1
+//         //     },
+//         //     {
+//         //         id: generate(),
+//         //         ingredient_name: 'Sweet Vermouth',
+//         //         parts: 1
+//         //     },
+//         //     {
+//         //         id: generate(),
+//         //         ingredient_name: 'Campari',
+//         //         parts: 1
+//         //     },
+//         // ]
+//     },
+// ]
 
 
 const INITIAL_STATE = {
