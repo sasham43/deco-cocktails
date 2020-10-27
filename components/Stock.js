@@ -21,6 +21,12 @@ const mapDispatchToProps = dispatch => (
     }, dispatch)
 )
 
+const mapStateToProps = (state) => {
+    const { stock } = state
+    return { stock }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Stock)
 
 function StockBottle(props) {
     return (
@@ -46,18 +52,11 @@ function StockMap(props) {
     })
 }
 
-const mapStateToProps = (state) => {
-    const { stock } = state
-    return { stock }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Stock)
-
 //export default 
 function Stock(props){
     const navigation = props.navigation
     const stock = props.stock.current
-    console.log('props', props)
+    // console.log('props', props)
     // const { stock, setStock, setInStock } = useStock()
     const { toggleFunctionMenu, showFunctionMenu } = useFunctionMenu()
 

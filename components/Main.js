@@ -27,12 +27,13 @@ const persistConfig = {
     key: 'root', // maybe stock?
     storage: AsyncStorage
 }
-const persistedReducer = persistReducer(persistConfig, combineReducers({
-    stock: stockReducer,
-    cocktails: cocktailReducer
-}))
+const persistedReducer = persistReducer(persistConfig, cocktailReducer)
+// const persistedReducer = persistReducer(persistConfig, combineReducers({
+//     stock: stockReducer,
+//     cocktails: cocktailReducer
+// }))
 const store = createStore(persistedReducer)
-const persistor = persistStore(store)
+const persistor = persistStore(store) // not sure what to do with this
 // const store = createStore(stockReducer)
 
 export default class Main extends React.Component {

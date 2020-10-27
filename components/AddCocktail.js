@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions, KeyboardAvoidingView } from 'react-native'
 import { generate } from 'shortid'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import RNPickerSelect from 'react-native-picker-select'
 import _ from 'lodash'
-// import { useParams, useHistory } from 'react-router-native'
 
 import AppText from './AppText'
 import { Part } from './Parts'
 import { useCocktails, newCocktail, useFunctionMenu } from '../utils/hooks'
 
+import { addCocktail } from '../utils/CocktailActions'
+
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-export default function Add({navigation, route}){
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        addCocktail,
+    }, dispatch)
+)
+
+export default connect(null, mapDispatchToProps)(Add)
+
+//export default 
+function Add({navigation, route}){
     const {  
         cocktails,
         addCocktail,
@@ -202,7 +214,14 @@ export default function Add({navigation, route}){
                     </TouchableOpacity>
                     
                     <TouchableOpacity onPress={async() => {
-                        addCocktail()
+                        addCocktail({
+                            id: generate(),
+                            name: newCocktailName,
+                            ingredients: newCocktailIngredients
+                        })
+                        // setNewCocktailName('')
+                        resetNewCocktail()
+
                         navigation.push('AddCocktail')
                         // history.push('/add-cocktail') // to refresh
                         // navi
