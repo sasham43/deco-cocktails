@@ -29,28 +29,90 @@ function Add(props){
         cocktails,
         // addCocktail,
         setFlag,
-        newCocktailName,
-        setNewCocktailName, 
-        newCocktailIngredient, 
-        addedCocktailIngredients, 
-        setName, 
-        setParts, 
-        addIngredientToCocktail,
-        setAddedCocktailIngredients, 
-        setNewCocktailIngredient, 
+        // newCocktailName,
+        // setNewCocktailName, 
+        // newCocktailIngredient, 
+        // addedCocktailIngredients, 
+        // setName, 
+        // setParts, 
+        // addIngredientToCocktail,
+        // setAddedCocktailIngredients, 
+        // setNewCocktailIngredient, 
         toggleEditIngredient,
         editIngredientId,
         setEditCocktailId,
         // newCocktailIngredients,
-        resetNewCocktail,
+        // resetNewCocktail,
     } = useCocktails([])
+
+    const [newCocktailIngredient, setNewCocktailIngredient] = useState({
+        ingredient_name: '',
+        parts: 0
+    })
+    const [addedCocktailIngredients, setAddedCocktailIngredients] = useState([])
+    const [newCocktailName, setNewCocktailName] = useState('')
+
+    function setName(name) {
+        setNewCocktailIngredient({
+            ingredient_name: name,
+            parts: newCocktailIngredient.parts
+        })
+    }
+    function setParts(parts) {
+        setNewCocktailIngredient({
+            ingredient_name: newCocktailIngredient.ingredient_name,
+            parts
+        })
+    }
+
+    async function addIngredientToCocktail() {
+        // check if we're editing an ingredient or adding a new one
+        if (editIngredientId) {
+            var added = addedCocktailIngredients.map(a => {
+                if (a.id == editIngredientId) {
+                    return {
+                        id: editIngredientId,
+                        ingredient_name: newCocktailIngredient.ingredient_name,
+                        parts: newCocktailIngredient.parts
+                    }
+                } else {
+                    return a
+                }
+            })
+        } else {
+            var added = [{
+                id: generate(),
+                ingredient_name: newCocktailIngredient.ingredient_name,
+                parts: newCocktailIngredient.parts
+            }, ...addedCocktailIngredients]
+        }
+
+        setAddedCocktailIngredients(added)
+        setNewCocktailIngredient({
+            ingredient_name: '',
+            parts: 0
+        })
+        setEditIngredientId('')
+    }
+
+    // maybe not needed...
+    function resetNewCocktail() {
+        // console.log('resetting')
+        setEditCocktailId('')
+        setNewCocktailName('')
+        setNewCocktailIngredient({
+            ingredient_name: '',
+            parts: 0
+        })
+        setAddedCocktailIngredients([])
+    }
 
     // const params = useParams()
     // const history = useHistory()
     const { navigation, route } = props
     const { currentMode, switchMode } = useFunctionMenu()
 
-    console.log('add cockctail props', props)
+    // console.log('add cockctail props', props)
     
     // when cocktails load, check params and set
     useEffect(()=>{
