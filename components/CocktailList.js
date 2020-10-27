@@ -14,7 +14,8 @@ import {
     Platform,
     Alert
 } from 'react-native'
-// import { Link, useHistory } from 'react-router-native'
+import { connect } from 'react-redux'
+// import { bindActionCreators } from 'redux'
 import { useNavigation } from '@react-navigation/native'
 import _ from 'lodash'
 import SlidingUpPanel from 'rn-sliding-up-panel'
@@ -31,58 +32,152 @@ import { useCocktails,  useStock, useFunctionMenu } from '../utils/hooks'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
+// const mapStateToProps = (state) => {
+    const mapStateToProps = (state) => {
+        // console.log('mapping state', state)
+        const { current } = state
+        return { cocktails: current }
+    }
+    // const { cocktails } = state
+    // return  cocktails
+// }
 
-function CocktailList({navigation}){
-    const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
-    const { cocktails, deleteCocktail, cocktailSearch, setCocktailSearch, filteredCocktails } = useCocktails()
+export default connect(mapStateToProps)(CocktailList)
+
+function Name(props) {
     const { isInStock } = useStock()
+    if (props.last) {
+        return (
+            <AppText style={{ color: isInStock(props.ingredient_name) ? 'black' : 'grey' }}> {props.ingredient_name}</AppText>
+        )
+    } else {
+        return (
+            <AppText style={{ color: isInStock(props.ingredient_name) ? 'black' : 'grey' }}> {props.ingredient_name} |</AppText>
+        )
+    }
+}
+function NameMap(props) {
+    return (
+        <View style={styles.name_container}>
+            {props.ingredients.map((ingredient, i) => (
+                <View key={`part-${i}`}>
+                    <Name ingredient_name={ingredient.ingredient_name} last={(i + 1 == props.ingredients.length)} />
+                </View>
+            ))}
+        </View>
+    )
+}
+
+function sortedIngredients(ingredients) {
+    return _.orderBy(ingredients, 'parts', 'desc')
+}
+
+function CocktailListMap(props) {
+    // console.log('map props', props)
+    // console.log('disabled', props.currentMode != 'edit' && props.currentMode != 'delete')
+    return props.cocktails.map(cocktail =>
+        (
+            <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete'} onPress={() => selectCocktail(cocktail)} style={styles.cocktail} key={cocktail.id}>
+                <View style={styles.cocktail_name_container}>
+                    <AppText>
+                        <Text style={styles.cocktail_text}>
+                            {cocktail.name}
+                        </Text>
+                    </AppText>
+                </View>
+                <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(i => i.parts != 0))} />
+                <NameMap ingredients={sortedIngredients(cocktail.ingredients)} />
+            </Pressable>
+        )
+    )
+    // return filteredCocktails.map(cocktail =>
+    //     (
+    //         <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete'} onPress={()=>selectCocktail(cocktail)} style={styles.cocktail} key={cocktail.id}>
+    //             <View style={styles.cocktail_name_container}>
+    //                 <AppText>
+    //                     <Text style={styles.cocktail_text}>
+    //                         {cocktail.name}
+    //                     </Text>
+    //                 </AppText>
+    //             </View>
+    //             <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(i => i.parts != 0))} />
+    //             <NameMap ingredients={sortedIngredients(cocktail.ingredients)} />
+    //         </Pressable>
+    //     )
+    // )
+}
+
+
+function CocktailList(props){
+    const navigation = props.navigation
+    // const cocktails = props.cocktails.cocktails
+    const cocktails = props.cocktails
+    // console.log(' cl props', cocktails)
+    const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
+    const { deleteCocktail, cocktailSearch, setCocktailSearch, filteredCocktails } = useCocktails()
+    // const { isInStock } = useStock()
     // const  history  = useHistory()
 
-    function CocktailListMap(props) {
-        // console.log('disabled', props.currentMode != 'edit' && props.currentMode != 'delete')
-        return filteredCocktails.map(cocktail =>
-            (
-                <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete'} onPress={()=>selectCocktail(cocktail)} style={styles.cocktail} key={cocktail.id}>
-                    <View style={styles.cocktail_name_container}>
-                        <AppText>
-                            <Text style={styles.cocktail_text}>
-                                {cocktail.name}
-                            </Text>
-                        </AppText>
-                    </View>
-                    <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(i => i.parts != 0))} />
-                    <NameMap ingredients={sortedIngredients(cocktail.ingredients)} />
-                </Pressable>
-            )
-        )
-    }
+    // function CocktailListMap(props) {
+    //     // console.log('disabled', props.currentMode != 'edit' && props.currentMode != 'delete')
+    //     return props.cocktails.map(cocktail =>
+    //         (
+    //             <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete'} onPress={()=>selectCocktail(cocktail)} style={styles.cocktail} key={cocktail.id}>
+    //                 <View style={styles.cocktail_name_container}>
+    //                     <AppText>
+    //                         <Text style={styles.cocktail_text}>
+    //                             {cocktail.name}
+    //                         </Text>
+    //                     </AppText>
+    //                 </View>
+    //                 <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(i => i.parts != 0))} />
+    //                 <NameMap ingredients={sortedIngredients(cocktail.ingredients)} />
+    //             </Pressable>
+    //         )
+    //     )
+    //     // return filteredCocktails.map(cocktail =>
+    //     //     (
+    //     //         <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete'} onPress={()=>selectCocktail(cocktail)} style={styles.cocktail} key={cocktail.id}>
+    //     //             <View style={styles.cocktail_name_container}>
+    //     //                 <AppText>
+    //     //                     <Text style={styles.cocktail_text}>
+    //     //                         {cocktail.name}
+    //     //                     </Text>
+    //     //                 </AppText>
+    //     //             </View>
+    //     //             <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(i => i.parts != 0))} />
+    //     //             <NameMap ingredients={sortedIngredients(cocktail.ingredients)} />
+    //     //         </Pressable>
+    //     //     )
+    //     // )
+    // }
 
-    function Name(props) {
-        if (props.last) {
-            return (
-                <AppText style={{ color: isInStock(props.ingredient_name) ? 'black' : 'grey' }}> {props.ingredient_name}</AppText>
-            )
-        } else {
-            return (
-                <AppText style={{ color: isInStock(props.ingredient_name) ? 'black' : 'grey' }}> {props.ingredient_name} |</AppText>
-            )
-        }
-    }
-    function NameMap(props) {
-        return (
-            <View style={styles.name_container}>
-                {props.ingredients.map((ingredient, i) => (
-                    <View key={`part-${i}`}>
-                        <Name ingredient_name={ingredient.ingredient_name} last={(i + 1 == props.ingredients.length)} />
-                    </View>
-                ))}
-            </View>
-        )
-    }
+    // function Name(props) {
+    //     if (props.last) {
+    //         return (
+    //             <AppText style={{ color: isInStock(props.ingredient_name) ? 'black' : 'grey' }}> {props.ingredient_name}</AppText>
+    //         )
+    //     } else {
+    //         return (
+    //             <AppText style={{ color: isInStock(props.ingredient_name) ? 'black' : 'grey' }}> {props.ingredient_name} |</AppText>
+    //         )
+    //     }
+    // }
+    // function NameMap(props) {
+    //     return (
+    //         <View style={styles.name_container}>
+    //             {props.ingredients.map((ingredient, i) => (
+    //                 <View key={`part-${i}`}>
+    //                     <Name ingredient_name={ingredient.ingredient_name} last={(i + 1 == props.ingredients.length)} />
+    //                 </View>
+    //             ))}
+    //         </View>
+    //     )
+    // }
 
-    function sortedIngredients(ingredients) {
-        return _.orderBy(ingredients, 'parts', 'desc')
-    }
+    // function sortedIngredients(ingredients) {
+    //     return _.orderBy(ingredients, 'parts', 'desc')
+    // }
 
     function selectCocktail(cocktail) {
         console.log('selecting', currentMode, cocktail)
@@ -115,7 +210,7 @@ function CocktailList({navigation}){
     return (
         <View style={styles.view}>
             <ScrollView style={styles.scroll_view}>
-                <CocktailListMap currentMode={currentMode}></CocktailListMap>
+                <CocktailListMap cocktails={cocktails} currentMode={currentMode}></CocktailListMap>
                 <View style={{marginTop:10, height: 20}}></View>
             </ScrollView>
 
@@ -311,4 +406,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default CocktailList
+// export default CocktailList

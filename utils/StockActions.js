@@ -11,10 +11,3 @@ export const updateStock = updated_stock => (
         payload: updated_stock
     }
 )
-
-// export const addFriend = friendsIndex => (
-//     {
-//         type: 'ADD_FRIEND',
-//         payload: friendsIndex,
-//     }
-// );

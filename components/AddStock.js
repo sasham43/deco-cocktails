@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => (
     }, dispatch)
 )
 
-export default connect(null, mapDispatchToProps)(AddStock);
+export default connect(null, mapDispatchToProps)(AddStock)
 
 //export default 
 function AddStock(props){
