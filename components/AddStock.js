@@ -1,6 +1,9 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import { View, StyleSheet, Text, Switch, TextInput, Dimensions, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
 
+import { addStock } from '../utils/StockActions'
 import AppText from './AppText'
 import { useStock } from '../utils/hooks'
 import InStockIcon from '../assets/in-stock'
@@ -8,7 +11,17 @@ import InStockIcon from '../assets/in-stock'
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
 
-export default function AddStock(){
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        addStock,
+    }, dispatch)
+)
+
+export default connect(null, mapDispatchToProps)(AddStock);
+
+//export default 
+function AddStock(props){
+    console.log('add stock props', props)
 
     const { newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock, toggleStockIn } = useStock()
   
@@ -27,7 +40,11 @@ export default function AddStock(){
             </View>
             <View style={styles.add_container}>
                 <TouchableOpacity onPress={async () => {
-                    addToStock()
+                    // addToStock()
+                    props.addStock({
+                        label: newStockName,
+                        in_stock: newStockIn
+                    })
                 }}>
                     <AppText style={styles.link_text}>Add Bottle To Stock</AppText>
                 </TouchableOpacity>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { View, StyleSheet, Switch, Dimensions, TouchableOpacity, Pressable, ScrollView } from 'react-native'
-// import { Route, Link, matchPath } from 'react-router-native'
 import SlidingUpPanel from 'rn-sliding-up-panel'
+import { connect } from 'react-redux'
 
 import AppText from './AppText'
 import AddStock from './AddStock'
@@ -38,8 +38,19 @@ function StockMap(props) {
     })
 }
 
-export default function Stock({navigation}){
-    const { stock, setStock, setInStock } = useStock()
+const mapStateToProps = (state) => {
+    const { stock } = state
+    return { stock }
+}
+
+export default connect(mapStateToProps)(Stock)
+
+//export default 
+function Stock(props){
+    const navigation = props.navigation
+    const stock = props.stock.current
+    console.log('props', props)
+    // const { stock, setStock, setInStock } = useStock()
     const { toggleFunctionMenu, showFunctionMenu } = useFunctionMenu()
 
 
