@@ -213,7 +213,7 @@ function FunctionMenu(props) {
     }, [props.showFunctionMenu])
     
     return (
-        <SlidingUpPanel showBackdrop={false} ref={c=> setPanel(c)} onBottomReached={()=>props.setShowFunctionMenu(false)}>
+        <SlidingUpPanel showBackdrop={false} draggableRange={{top: windowHeight - 120, bottom: 0}} ref={c=> setPanel(c)} onBottomReached={()=>props.setShowFunctionMenu(false)}>
             <View style={ styles.panel_container }>
                 <View style={styles.tab_icon_container}>
                     <TabIcon height={65} width={65} />

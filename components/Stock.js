@@ -56,7 +56,7 @@ function StockMap(props) {
 function Stock(props){
     const navigation = props.navigation
     const stock = props.stock.current
-    const { toggleFunctionMenu, showFunctionMenu } = useFunctionMenu()
+    const { toggleFunctionMenu, showFunctionMenu, setShowFunctionMenu } = useFunctionMenu()
 
     return (
         <View style={[styles.stock, styles.view]}>
@@ -66,6 +66,7 @@ function Stock(props){
 
             <FunctionMenu
                 showFunctionMenu={showFunctionMenu}
+                setShowFunctionMenu={setShowFunctionMenu}
             />
 
             <View style={styles.footer}>
@@ -91,7 +92,7 @@ function FunctionMenu(props) {
     }, [props.showFunctionMenu])
 
     return (
-        <SlidingUpPanel showBackdrop={false} ref={c => setPanel(c)}>
+        <SlidingUpPanel draggableRange={{ top: windowHeight - 120, bottom: 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
             <View style={styles.panel_container}>
                 <View style={styles.tab_icon_container}>
                     <TabIcon height={65} width={65} />
