@@ -56,19 +56,13 @@ function StockMap(props) {
 function Stock(props){
     const navigation = props.navigation
     const stock = props.stock.current
-    // console.log('props', props)
-    // const { stock, setStock, setInStock } = useStock()
     const { toggleFunctionMenu, showFunctionMenu } = useFunctionMenu()
-
-
 
     return (
         <View style={[styles.stock, styles.view]}>
-            {/* <AppText>Stock page yeah yeah</AppText> */}
             <ScrollView style={styles.scroll_view}>
                 <StockMap stock={stock} updateStock={props.updateStock} />
-            </ScrollView>
-            
+            </ScrollView>            
 
             <FunctionMenu
                 showFunctionMenu={showFunctionMenu}
@@ -79,7 +73,6 @@ function Stock(props){
                     <FunctionButtonIcon width={100} height={75} />
                 </TouchableOpacity>
             </View>
-            {/* <AddStock /> */}
         </View>
     )
 }
@@ -89,15 +82,12 @@ function FunctionMenu(props) {
 
     useEffect(() => {
         if (props.showFunctionMenu) {
-            // slideUp()
             if (panel)
                 panel.show(windowHeight / 2)
         } else {
-            // slideDown()
             if (panel)
                 panel.hide()
         }
-        // panel.show()
     }, [props.showFunctionMenu])
 
     return (
@@ -114,9 +104,6 @@ function FunctionMenu(props) {
 
 const styles = StyleSheet.create({
     stock: {
-        // justifyContent: 'flex-start'
-        // alignItems: 'center'
-        // marginLeft: 20
         paddingLeft: 40
     },
     view: {
@@ -125,65 +112,49 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         height: windowHeight - 100,
         backgroundColor: '#fff',
-        // justifyContent: 'space-between'
-        // width: windowWidth - 100
     },
     scroll_view: {
         height: windowHeight - 120,
     },
     stock_bottle: {
-        // flex: 1,
         flexDirection: 'row',
         marginBottom: 10
     },  
     label_container: {
-        // flex: 6
         alignSelf: 'center'
     },
     switch_container: {
-        // flex: 1
         marginRight: 10
     },
     label_text: {
         fontSize: 22,
     },
     link_container: {
-        // flexDirection: 'column',
-        // justifyContent: 'flex-end',
         alignSelf: 'center',
-        // justifySelf: 'center'
     },
     link_text: {
         fontSize: 22,
-        // color: 'red',
         textAlign: 'center'
     },
     function_button_container: {
-        // height: 120,
         alignContent: 'center',
         alignItems: 'center',
         zIndex: 2,
         justifyContent: 'flex-start'
     },
     footer: {
-        // width: windowWidth,
         width: windowWidth - 40,
         marginLeft: 20,
-        // width: windowWidth - 120, // because padding
         alignContent: 'center',
         backgroundColor: 'rgba(255, 255, 255, 1)',
         zIndex: 10,
         height: 90,
         position: 'absolute',
         bottom: 10,
-        // borderColor: '#000',
-        // borderWidth: 2
     },
     panel_container: {
         flex: 1,
         backgroundColor: 'white',
-        // alignItems: 'center',
-        // borderTopWidth: 1,
         backgroundColor: '#fff',
         justifyContent: 'flex-start',
         shadowOffset: { width: 0, height: -5, },
