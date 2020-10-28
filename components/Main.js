@@ -114,8 +114,8 @@ const styles = StyleSheet.create({
         paddingLeft: 50,
         paddingRight: 50,
     },
-    top_right: { position: 'absolute', top: 20, right: 10 },
-    top_left: { position: 'absolute', top: 20, left: 10, transform: [{ rotate: '-90deg' }] },
-    bottom_right: { zIndex: 10, position: 'absolute', bottom: 10, right: 10, transform: [{ rotate: '90deg' }] },
-    bottom_left: { zIndex: 10, position: 'absolute', bottom: 10, left: 10, transform: [{ rotate: '180deg' }] }
+    top_right: { position: 'absolute', top: 40, right: 10 },
+    top_left: { position: 'absolute', top: 40, left: 10, transform: [{ rotate: '-90deg' }] },
+    bottom_right: { zIndex: 10, position: 'absolute', bottom: 30, right: 10, transform: [{ rotate: '90deg' }] },
+    bottom_left: { zIndex: 10, position: 'absolute', bottom: 30, left: 10, transform: [{ rotate: '180deg' }] }
 })
