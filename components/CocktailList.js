@@ -165,7 +165,7 @@ function CocktailList(props){
         <View style={styles.view}>
             <ScrollView style={styles.scroll_view}>
                 <CocktailListMap cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} currentMode={currentMode}></CocktailListMap>
-                <View style={{marginTop:10, height: 20}}></View>
+                <View style={{marginTop:50, height: 20}}></View>
             </ScrollView>
 
             <FunctionMenu 
@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
         zIndex: 10,
         height: 90,
         position: 'absolute',
-        bottom: 10,
+        bottom: 50,
     },
     panel_container: {
         flex: 1,

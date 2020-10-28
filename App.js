@@ -1,7 +1,7 @@
 // modules
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native'; 
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native'; 
 import {AppLoading} from 'expo'
 import {
   useFonts,
@@ -22,11 +22,11 @@ export default function App() {
     return <AppLoading />
   } else {
     return (
-      <View style={[styles.container, { fontFamily: 'PoiretOne_400Regular' }]}>
+      <SafeAreaView style={[styles.container, { fontFamily: 'PoiretOne_400Regular' }]}>
         {/* <Text>Crump Cocktails</Text> */}
         <StatusBar style={{color: '#000'}} />
         <Main></Main>
-      </View>
+      </SafeAreaView>
     );
   }
 }
