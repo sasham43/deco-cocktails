@@ -37,17 +37,13 @@ const titlePadding = 37 + 41 + 10
 const footerHeight = 25
 const viewHeight = windowHeight - (titlePadding + footerHeight)
 // const viewHeight = 100
-console.log('view height', viewHeight, (titlePadding + footerHeight))
+// console.log('view height', viewHeight, (titlePadding + footerHeight))
 
-// const mapStateToProps = (state) => {
-    const mapStateToProps = (state) => {
-        // console.log('mapping state', state)
-        const { cocktails, current } = state
-        return { cocktails: cocktails }
-    }
-    // const { cocktails } = state
-    // return  cocktails
-// }
+
+const mapStateToProps = (state) => {
+    const { cocktails, current } = state
+    return { cocktails: cocktails }
+}
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
         deleteCocktail
@@ -87,14 +83,12 @@ function sortedIngredients(ingredients) {
 function CocktailListMap(props) {
     const navigation = useNavigation()
 
-    console.log('props map', props)
+    // console.log('props map', props)
 
     function selectCocktail(cocktail, currentMode) {
         console.log('selecting', currentMode, cocktail, props.deleteCocktail)
 
         if (currentMode == 'edit') {
-            // move location, pass data in through route params (defined in Route component in Main)
-            // history.push(`/add-cocktail/${cocktail.id}`)
             navigation.navigate('AddCocktail', {
                 id: cocktail.id
             })
@@ -104,7 +98,6 @@ function CocktailListMap(props) {
             var buttons = [
                 {
                     text: 'Cancel',
-                    // onPress: () => console.log('Cancel Pressed'),
                     style: 'cancel'
                 },
                 {
@@ -113,13 +106,9 @@ function CocktailListMap(props) {
                 }
             ]
             Alert.alert(title, msg, buttons)
-            // deleteCocktail(cocktail.id)
         }
     }
-
-
-    console.log('map props', props.currentMode)
-    // console.log('disabled', props.currentMode != 'edit' && props.currentMode != 'delete')
+    
     return props.cocktails.map(cocktail =>
         (
             <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete'} onPress={() => selectCocktail(cocktail, props.currentMode)} style={styles.cocktail} key={cocktail.id}>
@@ -139,7 +128,7 @@ function CocktailListMap(props) {
 
 
 function CocktailList(props){
-    const navigation = props.navigation
+    // const navigation = props.navigation
     const cocktails = props.cocktails.current
     const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
     const [cocktailSearch, setCocktailSearch] = useState('')
@@ -202,15 +191,12 @@ function FunctionMenu(props) {
 
     useEffect(()=>{
         if (props.showFunctionMenu) {
-            // slideUp()
             if(panel)
-            panel.show(windowHeight / 2)
+                panel.show(windowHeight / 2)
         } else {
-            // slideDown()
             if(panel)
-            panel.hide()
+               panel.hide()
         }
-        // panel.show()
     }, [props.showFunctionMenu])
     
     return (
@@ -238,7 +224,6 @@ function FunctionMenu(props) {
 
 function FunctionMenuButton(props){
     return (
-        // <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
         <Pressable style={styles.function_menu_button} onPress={() => props.switchMode(props.mode)}>
             <View style={{ opacity: props.mode == props.currentMode ? 1 : 0 }}>
                 <InStockIcon  transform={[{ rotate: '-45deg' }]} width={25} height={25} />
@@ -256,7 +241,6 @@ const styles = StyleSheet.create({
     },
     cocktail: {
         marginBottom: 60,
-        // marginTop: 60
     },
     cocktail_text: {
         fontSize: 20,
@@ -269,7 +253,6 @@ const styles = StyleSheet.create({
         height: viewHeight,
         // height: windowHeight - 100,
         backgroundColor: '#fff',
-        // width: windowWidth,flex:1
     },
     cocktail_name_container: {
         // flex: 1
@@ -281,12 +264,6 @@ const styles = StyleSheet.create({
     },
     scroll_view: {
         marginBottom: 25
-        // height: viewHeight,
-        // height: windowHeight - 120,
-        // paddingTop: 100
-        // paddingBottom: 100
-        // height: windowHeight - 120
-        // height: windowHeight - 200
     },
     action_buttons: {
         fontSize: 22,
@@ -308,26 +285,22 @@ const styles = StyleSheet.create({
         borderLeftWidth: 0,
         borderTopWidth: 0,
     },
-    function_menu: {
-        justifyContent: 'space-between',
-        height: 200,
-        zIndex: 1,
-        position: 'absolute',
-        backgroundColor: '#fff',
-        // bottom: 100,
-        top: windowHeight - 430, // hacky...
-    },
-    function_menu_visible: {
-        justifyContent: 'space-between',
-        // height: 200,
-        // top: 400,
-        zIndex: 1,
-        position: 'absolute',
-        backgroundColor: '#fff',
-        // bottom: 100,
-        top: windowHeight - 600, // hacky...
-        height: 1000, transform: [{ translateY: 1000 }] 
-    },
+    // function_menu: {
+    //     justifyContent: 'space-between',
+    //     height: 200,
+    //     zIndex: 1,
+    //     position: 'absolute',
+    //     backgroundColor: '#fff',
+    //     top: windowHeight - 430, // hacky...
+    // },
+    // function_menu_visible: {
+    //     justifyContent: 'space-between',
+    //     zIndex: 1,
+    //     position: 'absolute',
+    //     backgroundColor: '#fff',
+    //     top: windowHeight - 600, // hacky...
+    //     height: 1000, transform: [{ translateY: 1000 }] 
+    // },
     function_menu_button: { 
         flexDirection: 'row', 
         // marginLeft: -20,
@@ -342,24 +315,18 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     footer: {
-        // width: windowWidth,
         width: windowWidth - 40,
         marginLeft: 20,
-        // width: windowWidth - 120, // because padding
         alignContent: 'center',
         backgroundColor: 'rgba(255, 255, 255, 1)',
         zIndex: 10,
         height: 90,
         position: 'absolute',
         bottom: 10,
-        // borderColor: '#000',
-        // borderWidth: 2
     },
     panel_container: {
         flex: 1,
         backgroundColor: 'white',
-        // alignItems: 'center',
-        // borderTopWidth: 1,
         backgroundColor: '#fff',
         justifyContent: 'flex-start',
         shadowOffset: { width: 0, height: -5, },
@@ -373,5 +340,3 @@ const styles = StyleSheet.create({
         marginBottom: -20
     }
 })
-
-// export default CocktailList

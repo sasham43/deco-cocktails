@@ -22,14 +22,13 @@ const mapDispatchToProps = dispatch => (
     }, dispatch)
 )
 const mapStateToProps = (state) => {
-    console.log('mapping state', state)
+    // console.log('mapping state', state)
     const { cocktails, current } = state
     return { cocktails: cocktails }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Add)
 
-//export default 
 function Add(props){
     const cocktails = props.cocktails.current
 
@@ -119,9 +118,7 @@ function Add(props){
         setEditIngredientId('')
     }
 
-    // maybe not needed...
     function resetNewCocktail() {
-        // console.log('resetting')
         setEditCocktailId('')
         setNewCocktailName('')
         setNewCocktailIngredient({
@@ -136,8 +133,6 @@ function Add(props){
     // when cocktails load, check params and set
     useEffect(()=>{
         loadParams(route.params)
-        // console.log('navigation', navigation)
-        // console.log('route', route)
     },[cocktails])
 
     function loadParams(params){
@@ -188,7 +183,6 @@ function Add(props){
             <TouchableOpacity style={[styles.added_ingredient, editIngredientId == props.id ? styles.selected_ingredient : null]} onPress={()=>toggleEditIngredient(props.id)}>
                 <AppText>{props.ingredient_name}</AppText>
                 <AppText>{fractions}</AppText>
-                {/* <AppText>{props.parts}</AppText> */}
                 <Part style={styles.added_parts} parts={props.parts} last={true} />
             </TouchableOpacity>
         )
@@ -216,10 +210,8 @@ function Add(props){
                         placeholder="New cocktail name..."
                         clearButtonMode={"always"} 
                     />
-                    {/* <ScrollView style={{height: 300}}> */}
 
-                        <AddedIngredientMap />
-                    {/* </ScrollView> */}
+                    <AddedIngredientMap />
                 </ScrollView>
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.new_ingredient}>
                     <TextInput key={`newCocktailIngredientName`} clearButtonMode={"always"}  value={newCocktailIngredient.ingredient_name} onChangeText={text => setName(text)} style={styles.input} placeholder="Ingredient..." />
@@ -332,16 +324,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center'
     },
-    // input: {
-    //     fontFamily: 'PoiretOne_400Regular',
-    //     paddingTop: 10,
-    //     paddingBottom: 10,
-    //     paddingLeft: 10,
-    //     paddingRight: 10,
-    //     borderWidth: 1,
-    //     borderColor: '#eee',
-    //     borderStyle: 'solid'
-    // },
     input: {
         fontFamily: 'PoiretOne_400Regular',
         paddingTop: 10,
@@ -353,7 +335,6 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         fontSize: 18,
         width: windowWidth - 125,
-        // marginLeft: 10,
         borderRightWidth: 0,
         borderLeftWidth: 0,
         borderTopWidth: 0,
@@ -363,25 +344,19 @@ const styles = StyleSheet.create({
         marginTop: 45,
         fontSize: 23,
         alignSelf: 'center',
-        // justifySelf: 'center'
     },
     add_ingredient_button: {
         marginTop: 15,
         fontSize: 23,
         alignSelf: 'center',
-        // justifySelf: 'center'
     },
     inputIOS: {
         fontFamily: 'PoiretOne_400Regular',
         borderColor: '#aaa',
         borderWidth: 1,
-        // borderRadius: 5,
         paddingVertical: 12,
         paddingHorizontal: 10,
         fontSize: 18,
-        // borderRightWidth: 0,
-        // borderLeftWidth: 0,
-        // borderTopWidth: 0,
         marginBottom: 5
     },
     new_ingredient: {
@@ -401,16 +376,11 @@ const styles = StyleSheet.create({
     added_parts: {
         marginTop: 8,
         marginBottom: 4
-        // alignSelf: 'center'
-        // justifyContent: 'center'
     },
     new_ingredient_container: {
         flexDirection: 'column',
-        // alignContent: 'flex-end',
-        // justifyContent: 'flex-end',
         justifyContent: 'space-between',
         flexWrap: 'nowrap',
-
         height: windowHeight - 180
     }
 })
