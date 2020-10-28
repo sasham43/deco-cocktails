@@ -130,9 +130,17 @@ function CocktailListMap(props) {
 function CocktailList(props){
     // const navigation = props.navigation
     const cocktails = props.cocktails.current
-    const { toggleFunctionMenu, showFunctionMenu, currentMode, switchMode } = useFunctionMenu()
+    const { 
+        // toggleFunctionMenu, 
+        // showFunctionMenu, 
+        currentMode, switchMode } = useFunctionMenu()
     const [cocktailSearch, setCocktailSearch] = useState('')
     const [filteredCocktails, setFilteredCocktails] = useState([])
+    const [showFunctionMenu, setShowFunctionMenu] = useState(false)
+
+    function toggleFunctionMenu() {
+        setShowFunctionMenu(!showFunctionMenu)
+    }
 
     useEffect(() => {
         filterCocktails()
@@ -170,6 +178,7 @@ function CocktailList(props){
 
             <FunctionMenu 
                 showFunctionMenu={showFunctionMenu}
+                setShowFunctionMenu={setShowFunctionMenu}
                 currentMode={currentMode}
                 cocktailSearch={cocktailSearch}
                 setCocktailSearch={setCocktailSearch}
@@ -187,6 +196,10 @@ function CocktailList(props){
 
 function FunctionMenu(props) {
     const { panel, setPanel } = useFunctionMenu()
+    // const [showFunctionMenu, setShowFunctionMenu] = useState(false)
+    // const [currentMode, setCurrentMode] = useState('')
+    // const [keyboardShowing, setKeyboardShowing] = useState(false)
+    // const [panel, setPanel] = useState(null)
     const navigation = useNavigation()
 
     useEffect(()=>{
@@ -200,7 +213,7 @@ function FunctionMenu(props) {
     }, [props.showFunctionMenu])
     
     return (
-        <SlidingUpPanel showBackdrop={false} ref={c=> setPanel(c)}>
+        <SlidingUpPanel showBackdrop={false} ref={c=> setPanel(c)} onBottomReached={()=>props.setShowFunctionMenu(false)}>
             <View style={ styles.panel_container }>
                 <View style={styles.tab_icon_container}>
                     <TabIcon height={65} width={65} />
@@ -285,22 +298,6 @@ const styles = StyleSheet.create({
         borderLeftWidth: 0,
         borderTopWidth: 0,
     },
-    // function_menu: {
-    //     justifyContent: 'space-between',
-    //     height: 200,
-    //     zIndex: 1,
-    //     position: 'absolute',
-    //     backgroundColor: '#fff',
-    //     top: windowHeight - 430, // hacky...
-    // },
-    // function_menu_visible: {
-    //     justifyContent: 'space-between',
-    //     zIndex: 1,
-    //     position: 'absolute',
-    //     backgroundColor: '#fff',
-    //     top: windowHeight - 600, // hacky...
-    //     height: 1000, transform: [{ translateY: 1000 }] 
-    // },
     function_menu_button: { 
         flexDirection: 'row', 
         // marginLeft: -20,
