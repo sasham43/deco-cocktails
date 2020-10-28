@@ -320,9 +320,9 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         backgroundColor: 'rgba(255, 255, 255, 1)',
         zIndex: 10,
-        height: 90,
+        height: 200,
         position: 'absolute',
-        bottom: 50,
+        bottom: -60,
     },
     panel_container: {
         flex: 1,
