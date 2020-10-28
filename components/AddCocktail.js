@@ -360,7 +360,8 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     new_ingredient: {
-        marginTop: 15
+        marginTop: 15,
+        marginBottom: 40
     },
     selected_ingredient: {
         borderWidth: 1,
