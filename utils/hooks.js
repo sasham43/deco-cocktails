@@ -243,7 +243,8 @@ export const useFunctionMenu = () =>{
         currentMode,
         keyboardShowing,
         setKeyboardShowing,
-        panel, setPanel
+        panel, setPanel,
+        setShowFunctionMenu
     }
 }
 
