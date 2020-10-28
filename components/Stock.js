@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
         zIndex: 10,
         height: 90,
         position: 'absolute',
-        bottom: 10,
+        bottom: 60,
     },
     panel_container: {
         flex: 1,
