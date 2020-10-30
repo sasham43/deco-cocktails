@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    dark_mode: false,
+    dark_mode: true,
     dark_theme: {
         backgroundColor: '#000',
         color: '#fff'
