@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
     // backgroundColor: '#fff',
-    marginTop: 10
+    // marginTop: 10
     // alignItems: 'center',
     // justifyContent: 'center',
     // fontFamily: 'PoiretOne_400Regular'
