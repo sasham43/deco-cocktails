@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
     },
     selected: {
         borderBottomWidth: 1,
-        borderColor: 'black',
+        borderColor: '#fff',
+        // borderColor: 'black',
         borderStyle: 'solid'
     }
 })

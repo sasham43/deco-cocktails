@@ -28,14 +28,18 @@ const styles = StyleSheet.create({
         flex: 1,
         alignSelf: 'center',
 
-        backgroundColor: '#fff'
+        // backgroundColor: '#fff'
+        backgroundColor: '#000',
+        color: '#fff'
     },
     view: {
         paddingTop: 10,
         paddingLeft: 10,
         paddingRight: 10,
         width: windowWidth,
-        backgroundColor: '#fff',
+        backgroundColor: '#000',
+        color: '#fff',
+        // backgroundColor: '#fff',
         alignItems: 'center'
     }
 })
