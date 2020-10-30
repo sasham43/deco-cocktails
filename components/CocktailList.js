@@ -41,8 +41,9 @@ const viewHeight = windowHeight - (titlePadding + footerHeight)
 
 
 const mapStateToProps = (state) => {
-    const { cocktails, current } = state
-    return { cocktails: cocktails }
+    // console.log('state', state)
+    const { cocktails, current, ui } = state
+    return { cocktails: cocktails, ui }
 }
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
@@ -86,7 +87,7 @@ function CocktailListMap(props) {
     // console.log('props map', props)
 
     function selectCocktail(cocktail, currentMode) {
-        console.log('selecting', currentMode, cocktail, props.deleteCocktail)
+        // console.log('selecting', currentMode, cocktail, props.deleteCocktail)
 
         if (currentMode == 'edit') {
             navigation.navigate('AddCocktail', {
@@ -114,7 +115,7 @@ function CocktailListMap(props) {
             <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete'} onPress={() => selectCocktail(cocktail, props.currentMode)} style={styles.cocktail} key={cocktail.id}>
                 <View style={styles.cocktail_name_container}>
                     <AppText>
-                        <Text style={styles.cocktail_text}>
+                        <Text style={[styles.cocktail_text, props.theme]}>
                             {cocktail.name}
                         </Text>
                     </AppText>
@@ -128,6 +129,7 @@ function CocktailListMap(props) {
 
 
 function CocktailList(props){
+    // console.log('list props', props.ui)
     // const navigation = props.navigation
     const cocktails = props.cocktails.current
     const { 
@@ -170,9 +172,9 @@ function CocktailList(props){
     }
 
     return (
-        <View style={styles.view}>
+        <View style={[styles.view, props.ui.current_theme]}>
             <ScrollView style={styles.scroll_view}>
-                <CocktailListMap cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} currentMode={currentMode}></CocktailListMap>
+                <CocktailListMap theme={props.ui.current_theme} cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} currentMode={currentMode}></CocktailListMap>
                 <View style={{marginTop:50, height: 20}}></View>
             </ScrollView>
 
@@ -183,11 +185,12 @@ function CocktailList(props){
                 cocktailSearch={cocktailSearch}
                 setCocktailSearch={setCocktailSearch}
                 switchMode={switchMode}
+                theme={props.ui.current_theme}
             />
 
             <View style={styles.footer}>
                 <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionMenu()}>
-                    <FunctionButtonIcon fill={"#fff"} width={100} height={75} />
+                    <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
                 </TouchableOpacity>
             </View>
         </View>
@@ -214,19 +217,19 @@ function FunctionMenu(props) {
     
     return (
         <SlidingUpPanel showBackdrop={false} draggableRange={{top: windowHeight - 120, bottom: 0}} ref={c=> setPanel(c)} onBottomReached={()=>props.setShowFunctionMenu(false)}>
-            <View style={ styles.panel_container }>
+            <View style={ [styles.panel_container, props.theme] }>
                 <View style={styles.tab_icon_container}>
-                    <TabIcon fill={"#fff"} height={65} width={65} />
+                    <TabIcon fill={props.theme.color} height={65} width={65} />
                 </View>
                 <View style={[ null, styles.function_menu_button]}>
                     <View style={{ opacity: 'search' == props.currentMode ? 1 : 0 }}>
-                        <InStockIcon fill={"#fff"} transform={[{ rotate: '-45deg' }]} width={25} height={25} />
+                        <InStockIcon fill={props.theme.color} transform={[{ rotate: '-45deg' }]} width={25} height={25} />
                     </View>
                     <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} onFocus={()=>props.switchMode('search')} placeholder="Search cocktails..." clearButtonMode={"always"} style={styles.input} />
                 </View>
 
-                <FunctionMenuButton label={"Edit A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} />
-                <FunctionMenuButton label={"Remove Cocktails"} mode="delete" switchMode={props.switchMode} currentMode={props.currentMode} />
+                <FunctionMenuButton theme={props.theme} label={"Edit A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} />
+                <FunctionMenuButton theme={props.theme} label={"Remove Cocktails"} mode="delete" switchMode={props.switchMode} currentMode={props.currentMode} />
                 <Pressable style={[{marginLeft: 25, marginTop: 20}]} onPress={()=>navigation.navigate('AddCocktail')}>
                     <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
                 </Pressable>
@@ -236,10 +239,11 @@ function FunctionMenu(props) {
 }
 
 function FunctionMenuButton(props){
+    // console.log('rops', props.theme)
     return (
         <Pressable style={styles.function_menu_button} onPress={() => props.switchMode(props.mode)}>
             <View style={{ opacity: props.mode == props.currentMode ? 1 : 0 }}>
-                <InStockIcon  transform={[{ rotate: '-45deg' }]} width={25} height={25} />
+                <InStockIcon fill={props.theme.color}  transform={[{ rotate: '-45deg' }]} width={25} height={25} />
             </View>
             <AppText style={styles.action_buttons}>{props.label}</AppText>
         </Pressable>
@@ -266,8 +270,8 @@ const styles = StyleSheet.create({
         paddingRight: 40,
         height: viewHeight,
         // height: windowHeight - 100,
-        backgroundColor: '#000',
-        color: '#fff',
+        // backgroundColor: '#000',
+        // color: '#fff',
         // backgroundColor: '#fff',
     },
     cocktail_name_container: {
@@ -300,7 +304,7 @@ const styles = StyleSheet.create({
         borderRightWidth: 0,
         borderLeftWidth: 0,
         borderTopWidth: 0,
-        color: '#fff'
+        // color: '#fff'
     },
     function_menu_button: { 
         flexDirection: 'row', 
@@ -324,8 +328,8 @@ const styles = StyleSheet.create({
         height: 200,
         position: 'absolute',
         bottom: -60,
-        backgroundColor: '#000',
-        color: '#000'
+        // backgroundColor: '#000',
+        // color: '#000'
     },
     panel_container: {
         flex: 1,

@@ -1,14 +1,20 @@
 import React from 'react'
 import { View, StyleSheet, Pressable } from 'react-native'
-// import { Route, Link, matchPath } from 'react-router-native'
-// import PropTypes from "prop-types"
 import { useNavigation } from '@react-navigation/native'
+import { connect } from 'react-redux'
 
 import AppText from './AppText'
 
-export default function Menu(data) {
+const mapStateToProps = (state) => {
+    // console.log('state', state)
+    const { ui } = state
+    return { ui }
+}
+export default connect(mapStateToProps)(Menu)
+// export default 
+function Menu(data) {
     var props = data.props // it's nested for some reason, idk
-    // console.log('menu props', props)
+    console.log('menu props', data)
     const navigation = props.navigation
     const route = props.scene.route
     // const navigation = useNavigation()
@@ -18,30 +24,30 @@ export default function Menu(data) {
 
     return (
         <View style={styles.menu}>
-            <View style={[styles.link,]}>
+            <View style={[styles.link, data.ui.current_theme]}>
                 <Pressable onPress={()=>navigation.navigate('About')}>
-                    <View style={currentPage == 'About' ? styles.selected : null}>
+                    <View style={currentPage == 'About' ? [styles.selected, {borderColor: data.ui.current_theme.color}] : null}>
                         <AppText>About</AppText>
                     </View>
                 </Pressable>
             </View>
             <View style={styles.link}>
                 <Pressable onPress={() => navigation.navigate('CocktailList')}>
-                    <View style={currentPage == 'CocktailList' ? styles.selected : null}>
+                    <View style={currentPage == 'CocktailList' ? [styles.selected, {borderColor: data.ui.current_theme.color}] : null}>
                         <AppText>Cocktails</AppText>
                     </View>
                 </Pressable>
             </View>
             <View style={styles.link}>
                 <Pressable onPress={() => navigation.navigate('Stock')}>
-                    <View style={currentPage == 'Stock' ? styles.selected : null}>
+                    <View style={currentPage == 'Stock' ? [styles.selected, {borderColor: data.ui.current_theme.color}] : null}>
                         <AppText>Stock</AppText>
                     </View>
                 </Pressable>
             </View>
             <View style={styles.link}>
                 <Pressable onPress={() => navigation.navigate('AddCocktail')}>
-                    <View style={currentPage == 'AddCocktail' ? styles.selected : null}>
+                    <View style={currentPage == 'AddCocktail' ? [styles.selected, {borderColor: data.ui.current_theme.color}] : null}>
                         <AppText>Add</AppText>
                     </View>
                 </Pressable>
@@ -59,8 +65,8 @@ const styles = StyleSheet.create({
         alignContent: 'flex-start',
         paddingLeft: 50,
         paddingRight: 50,
-        backgroundColor: '#000',
-        color: '#fff',
+        // backgroundColor: '#000',
+        // color: '#fff',
         // height: 1
     },
     link: {
@@ -71,7 +77,7 @@ const styles = StyleSheet.create({
     },
     selected: {
         borderBottomWidth: 1,
-        borderColor: '#fff',
+        // borderColor: '#fff',
         // borderColor: 'black',
         borderStyle: 'solid'
     }

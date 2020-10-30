@@ -3,12 +3,14 @@ import { StyleSheet, AsyncStorage } from 'react-native'
 // import { NativeRouter, Route, Link } from "react-router-native"
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionSpecs } from '@react-navigation/stack'
-import { Provider } from 'react-redux'
-import { createStore, combineReducers } from 'redux'
+// import { Provider } from 'react-redux'
+import { createStore, combineReducers} from 'redux'
+import { connect} from 'react-redux'
 import { persistStore, persistReducer } from 'redux-persist'
 
-import stockReducer from '../utils/StockReducer'
-import cocktailReducer from '../utils/CocktailReducer'
+// import stockReducer from '../utils/StockReducer'
+// import cocktailReducer from '../utils/CocktailReducer'
+// import uiReducer from '../utils/UIReducer'
 
 import Title from './Title'
 import CocktailList from './CocktailList'
@@ -39,14 +41,32 @@ const persistConfig = {
 
 
 
-const store = createStore(combineReducers({
-    stock: stockReducer,
-    cocktails: cocktailReducer
-}))
+// const store = createStore(combineReducers({
+//     stock: stockReducer,
+//     cocktails: cocktailReducer,
+//     ui: uiReducer,
+// }))
 // const persistor = persistStore(store) // not sure what to do with this
 // const store = createStore(stockReducer)
 
-export default class Main extends React.Component {
+const mapStateToProps = (state) => {
+    // console.log('state', state)
+    const {  ui } = state
+    return { ui }
+}
+// const mapDispatchToProps = dispatch => (
+//     bindActionCreators({
+//         deleteCocktail
+//     }, dispatch)
+// )
+// export default connect(mapStateToProps, null)(Main)
+
+// export default 
+class Main extends React.Component {
+
+    constructor(props) {
+        super(props)
+    }
 
     
     render() {
@@ -71,12 +91,12 @@ export default class Main extends React.Component {
             }
         }
         return (
-            <Provider store={store}>
+            // <Provider store={store}>
                 <NavigationContainer style={styles.container}>
-                    <CornerIcon fill={"#fff"} style={styles.top_right} width={60} height={60} />
-                    <CornerIcon fill={"#fff"} style={styles.top_left} width={60} height={60} />
-                    <CornerIcon fill={"#fff"} style={styles.bottom_right} width={60} height={60} />
-                    <CornerIcon fill={"#fff"} style={styles.bottom_left} width={60} height={60} />
+                    <CornerIcon fill={this.props.ui.current_theme.color} style={styles.top_right} width={60} height={60} />
+                    <CornerIcon fill={this.props.ui.current_theme.color} style={styles.top_left} width={60} height={60} />
+                    <CornerIcon fill={this.props.ui.current_theme.color} style={styles.bottom_right} width={60} height={60} />
+                    <CornerIcon fill={this.props.ui.current_theme.color} style={styles.bottom_left} width={60} height={60} />
                     <Title></Title>
                     <Stack.Navigator  screenOptions={{ header: (props) => <Menu props={{...props}} /> }}>
                         <Stack.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Stack.Screen>
@@ -86,7 +106,7 @@ export default class Main extends React.Component {
                         <Stack.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
                     </Stack.Navigator>
                 </NavigationContainer>
-            </Provider>
+            // </Provider>
         )
     }
 }
@@ -121,3 +141,4 @@ const styles = StyleSheet.create({
     bottom_right: { zIndex: 10, position: 'absolute', bottom: 30, right: 10, transform: [{ rotate: '90deg' }] },
     bottom_left: { zIndex: 10, position: 'absolute', bottom: 30, left: 10, transform: [{ rotate: '180deg' }] }
 })
+export default connect(mapStateToProps, null)(Main)
