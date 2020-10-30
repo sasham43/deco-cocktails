@@ -33,7 +33,7 @@ function StockBottle(props) {
         <View style={styles.stock_bottle}>
             <View style={styles.switch_container}>
                 <TouchableOpacity onPress={() => props.updateStock({id: props.bottle.id, label: props.bottle.label, in_stock: !props.bottle.in_stock})}>
-                    <InStockIcon transform={[{ rotate: '-45deg' }]} width={45} height={45} fill={props.bottle.in_stock ? 'black' : 'grey'} />
+                    <InStockIcon fill={"#fff"} transform={[{ rotate: '-45deg' }]} width={45} height={45} fill={props.bottle.in_stock ? 'black' : 'grey'} />
                 </TouchableOpacity>
                 {/* <Switch value={props.bottle.in_stock} trackColor={{false: 'grey', true: 'black'}}  onValueChange={(val)=>setInStock(props.bottle, val)} /> */}
             </View>
@@ -71,7 +71,7 @@ function Stock(props){
 
             <View style={styles.footer}>
                 <TouchableOpacity style={styles.function_button_container} onPress={() => toggleFunctionMenu()}>
-                    <FunctionButtonIcon width={100} height={75} />
+                    <FunctionButtonIcon fill={"#fff"} width={100} height={75} />
                 </TouchableOpacity>
             </View>
         </View>
@@ -95,7 +95,7 @@ function FunctionMenu(props) {
         <SlidingUpPanel draggableRange={{ top: windowHeight - 120, bottom: 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
             <View style={styles.panel_container}>
                 <View style={styles.tab_icon_container}>
-                    <TabIcon height={65} width={65} />
+                    <TabIcon fill={"#fff"} height={65} width={65} />
                 </View>
                 <AddStock />
             </View>
@@ -112,7 +112,8 @@ const styles = StyleSheet.create({
         paddingLeft: 30,
         paddingRight: 10,
         height: windowHeight - 100,
-        backgroundColor: '#fff',
+        backgroundColor: '#000',
+        // backgroundColor: '#fff',
     },
     scroll_view: {
         height: windowHeight - 120,
@@ -152,6 +153,8 @@ const styles = StyleSheet.create({
         height: 200,
         position: 'absolute',
         bottom: -60,
+        backgroundColor: '#000',
+        color: '#fff'
     },
     panel_container: {
         flex: 1,
