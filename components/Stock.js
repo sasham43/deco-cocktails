@@ -15,6 +15,7 @@ import { updateStock } from '../utils/StockActions'
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
 
+
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
         updateStock,
@@ -22,8 +23,8 @@ const mapDispatchToProps = dispatch => (
 )
 
 const mapStateToProps = (state) => {
-    const { stock } = state
-    return { stock }
+    const { stock, ui } = state
+    return { stock, ui }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Stock)
@@ -59,7 +60,7 @@ function Stock(props){
     const { toggleFunctionMenu, showFunctionMenu, setShowFunctionMenu } = useFunctionMenu()
 
     return (
-        <View style={[styles.stock, styles.view]}>
+        <View style={[styles.stock, styles.view, props.ui.current_theme]}>
             <ScrollView style={styles.scroll_view}>
                 <StockMap stock={stock} updateStock={props.updateStock} />
             </ScrollView>            
@@ -67,11 +68,12 @@ function Stock(props){
             <FunctionMenu
                 showFunctionMenu={showFunctionMenu}
                 setShowFunctionMenu={setShowFunctionMenu}
+                theme={props.ui.current_theme}
             />
 
             <View style={styles.footer}>
                 <TouchableOpacity style={styles.function_button_container} onPress={() => toggleFunctionMenu()}>
-                    <FunctionButtonIcon fill={"#fff"} width={100} height={75} />
+                    <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
                 </TouchableOpacity>
             </View>
         </View>
@@ -93,9 +95,9 @@ function FunctionMenu(props) {
 
     return (
         <SlidingUpPanel draggableRange={{ top: windowHeight - 120, bottom: 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
-            <View style={styles.panel_container}>
+            <View style={[styles.panel_container, props.theme]}>
                 <View style={styles.tab_icon_container}>
-                    <TabIcon fill={"#fff"} height={65} width={65} />
+                    <TabIcon fill={props.theme.color} height={65} width={65} />
                 </View>
                 <AddStock />
             </View>
@@ -153,8 +155,8 @@ const styles = StyleSheet.create({
         height: 200,
         position: 'absolute',
         bottom: -60,
-        backgroundColor: '#000',
-        color: '#fff'
+        // backgroundColor: '#000',
+        // color: '#fff'
     },
     panel_container: {
         flex: 1,

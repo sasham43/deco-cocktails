@@ -15,6 +15,7 @@ import { addCocktail, updateCocktails } from '../utils/CocktailActions'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
+
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
         addCocktail,
@@ -23,8 +24,8 @@ const mapDispatchToProps = dispatch => (
 )
 const mapStateToProps = (state) => {
     // console.log('mapping state', state)
-    const { cocktails, current } = state
-    return { cocktails: cocktails }
+    const { cocktails, current, ui } = state
+    return { cocktails: cocktails, ui }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Add)
@@ -200,7 +201,7 @@ function Add(props){
         color: '#9EA0A4',
     };
     return (
-        <View style={styles.view}>
+        <View style={[styles.view, props.ui.current_theme]}>
             <View style={styles.new_ingredient_container}>
                 <ScrollView style={{height: 300}}>
                     <TextInput
