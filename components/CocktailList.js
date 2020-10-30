@@ -187,7 +187,7 @@ function CocktailList(props){
 
             <View style={styles.footer}>
                 <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionMenu()}>
-                    <FunctionButtonIcon width={100} height={75} />
+                    <FunctionButtonIcon fill={"#fff"} width={100} height={75} />
                 </TouchableOpacity>
             </View>
         </View>
@@ -257,7 +257,8 @@ const styles = StyleSheet.create({
     },
     cocktail_text: {
         fontSize: 20,
-        marginTop: 10
+        marginTop: 10,
+        color: '#fff',
     },
     view: {
         paddingTop: 10,
@@ -265,7 +266,9 @@ const styles = StyleSheet.create({
         paddingRight: 40,
         height: viewHeight,
         // height: windowHeight - 100,
-        backgroundColor: '#fff',
+        backgroundColor: '#000',
+        color: '#fff',
+        // backgroundColor: '#fff',
     },
     cocktail_name_container: {
         // flex: 1
@@ -320,11 +323,14 @@ const styles = StyleSheet.create({
         height: 200,
         position: 'absolute',
         bottom: -60,
+        backgroundColor: '#000',
+        color: '#000'
     },
     panel_container: {
         flex: 1,
-        backgroundColor: 'white',
-        backgroundColor: '#fff',
+        // backgroundColor: 'white',
+        backgroundColor: '#000',
+        // backgroundColor: '#fff',
         justifyContent: 'flex-start',
         shadowOffset: { width: 0, height: -5, },
         shadowColor: 'rgba(150,150,150,.5)',
