@@ -216,11 +216,11 @@ function FunctionMenu(props) {
         <SlidingUpPanel showBackdrop={false} draggableRange={{top: windowHeight - 120, bottom: 0}} ref={c=> setPanel(c)} onBottomReached={()=>props.setShowFunctionMenu(false)}>
             <View style={ styles.panel_container }>
                 <View style={styles.tab_icon_container}>
-                    <TabIcon height={65} width={65} />
+                    <TabIcon fill={"#fff"} height={65} width={65} />
                 </View>
                 <View style={[ null, styles.function_menu_button]}>
                     <View style={{ opacity: 'search' == props.currentMode ? 1 : 0 }}>
-                        <InStockIcon transform={[{ rotate: '-45deg' }]} width={25} height={25} />
+                        <InStockIcon fill={"#fff"} transform={[{ rotate: '-45deg' }]} width={25} height={25} />
                     </View>
                     <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} onFocus={()=>props.switchMode('search')} placeholder="Search cocktails..." clearButtonMode={"always"} style={styles.input} />
                 </View>
@@ -300,6 +300,7 @@ const styles = StyleSheet.create({
         borderRightWidth: 0,
         borderLeftWidth: 0,
         borderTopWidth: 0,
+        color: '#fff'
     },
     function_menu_button: { 
         flexDirection: 'row', 

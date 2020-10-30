@@ -33,22 +33,22 @@ export function Shape(props) {
     // console.log("Shape props", props)
     if (props.part == 0.25) {
         return (
-            <QuarterCircle width={props.width} height={props.height} />
+            <QuarterCircle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
         )
     }
     if (props.part == 0.5) {
         return (
-            <HalfCircle width={props.width} height={props.height} />
+            <HalfCircle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
         )
     }
     if (props.part == 0.75) {
         return (
-            <ThreeQuarterCircle width={props.width} height={props.height} />
+            <ThreeQuarterCircle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
         )
     }
     if (props.part == 1) {
         return (
-            <Circle width={props.width} height={props.height} />
+            <Circle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
         )
     }
     return null
