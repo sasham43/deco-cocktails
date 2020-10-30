@@ -155,8 +155,10 @@ const styles = StyleSheet.create({
     },
     panel_container: {
         flex: 1,
-        backgroundColor: 'white',
-        backgroundColor: '#fff',
+        // backgroundColor: 'white',
+        backgroundColor: '#000',
+        color: '#000',
+        // backgroundColor: '#fff',
         justifyContent: 'flex-start',
         shadowOffset: { width: 0, height: -5, },
         shadowColor: 'rgba(150,150,150,.5)',

@@ -50,80 +50,6 @@ export default function Menu(data) {
     )
 }
 
-// export default class Menu extends React.Component {
-
-//     constructor(props){
-//         super(props)
-
-//         this.state = {
-//             currentPage: ''
-//         }
-//     }
-
-
-//     render(){
-
-//         var currentPage = 'cocktails'
-//         return (<LilMenu />)
-//     //     return (
-//     //         <View>
-//     //             <Route render={(routeProps)=>{
-//     //                 var currentPage = ''
-//     //                 switch (routeProps.location.pathname){
-//     //                     case '/stock':
-//     //                         currentPage = 'stock'
-//     //                         break;
-//     //                     case '/about':
-//     //                         currentPage = 'about'
-//     //                         break;
-//     //                     case '/add-cocktail':
-//     //                         currentPage = 'add-cocktail'
-//     //                         break;
-//     //                     case '/':
-//     //                         currentPage = 'cocktails'
-//     //                         break;
-//     //                     // default:
-//     //                     //     currentPage = 'cocktails'
-//     //                 }
-
-//     //                 return (
-//     //                     <View style={styles.menu}>
-//     //                         <View style={[styles.link, ]}>
-//     //                             <Link to="/about">
-//     //                                 <View style={currentPage == 'about' ? styles.selected : null}>
-//     //                                     <AppText>About</AppText>
-//     //                                 </View>
-//     //                             </Link>
-//     //                         </View>
-//     //                         <View style={styles.link}>
-//     //                             <Link to="/">
-//     //                                 <View style={currentPage == 'cocktails' ? styles.selected : null}>
-//     //                                     <AppText>Cocktails</AppText>
-//     //                                 </View>
-//     //                             </Link>
-//     //                         </View>
-//     //                         <View style={styles.link}>
-//     //                             <Link to="/stock">
-//     //                                 <View style={currentPage == 'stock' ? styles.selected : null}>
-//     //                                     <AppText>Stock</AppText>
-//     //                                 </View>
-//     //                             </Link>
-//     //                         </View>
-//     //                         <View style={styles.link}>
-//     //                             <Link to="/add-cocktail">
-//     //                                 <View style={currentPage == 'add-cocktail' ? styles.selected : null}>
-//     //                                     <AppText>Add</AppText>
-//     //                                 </View>
-//     //                             </Link>
-//     //                         </View>
-//     //                     </View>
-//     //                 )
-//     //             }} />
-//     //         </View>
-//     //     )
-//     }
-// }
-
 
 const styles = StyleSheet.create({
     menu: {
@@ -133,6 +59,8 @@ const styles = StyleSheet.create({
         alignContent: 'flex-start',
         paddingLeft: 50,
         paddingRight: 50,
+        backgroundColor: '#000',
+        color: '#fff',
         // height: 1
     },
     link: {

@@ -73,10 +73,10 @@ export default class Main extends React.Component {
         return (
             <Provider store={store}>
                 <NavigationContainer style={styles.container}>
-                    <CornerIcon style={styles.top_right} width={60} height={60} />
-                    <CornerIcon style={styles.top_left} width={60} height={60} />
-                    <CornerIcon style={styles.bottom_right} width={60} height={60} />
-                    <CornerIcon style={styles.bottom_left} width={60} height={60} />
+                    <CornerIcon fill={"#fff"} style={styles.top_right} width={60} height={60} />
+                    <CornerIcon fill={"#fff"} style={styles.top_left} width={60} height={60} />
+                    <CornerIcon fill={"#fff"} style={styles.bottom_right} width={60} height={60} />
+                    <CornerIcon fill={"#fff"} style={styles.bottom_left} width={60} height={60} />
                     <Title></Title>
                     <Stack.Navigator  screenOptions={{ header: (props) => <Menu props={{...props}} /> }}>
                         <Stack.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Stack.Screen>
@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
         marginRight: 50,
         // paddingLeft: 50,
         // paddingRight: 50,
-        backgroundColor: '#fff'
+        // backgroundColor: '#fff',
+        backgroundColor: '#000',
     },
     screen: {
         flex: 1, 
@@ -110,7 +111,8 @@ const styles = StyleSheet.create({
         paddingTop: 40,
         // paddingLeft: 20,
         // paddingRight: 20,
-        backgroundColor: '#fff',
+        // backgroundColor: '#fff',
+        backgroundColor: '#000',
         paddingLeft: 50,
         paddingRight: 50,
     },
