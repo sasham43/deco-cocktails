@@ -147,9 +147,9 @@ const styles = StyleSheet.create({
         zIndex: 10,
         position: 'absolute'
     },
-    top_right: { top: 40, right: 10 },
-    top_left: {  top: 40, left: 10, transform: [{ rotate: '-90deg' }] },
-    bottom_right: { bottom: 30, right: 10, transform: [{ rotate: '90deg' }] },
-    bottom_left: { bottom: 30, left: 10, transform: [{ rotate: '180deg' }] }
+    top_right: { top: 10, right: 10 },
+    top_left: {  top: 10, left: 10, transform: [{ rotate: '-90deg' }] },
+    bottom_right: { bottom: 10, right: 10, transform: [{ rotate: '90deg' }] },
+    bottom_left: { bottom: 10, left: 10, transform: [{ rotate: '180deg' }] }
 })
 // export default connect(mapStateToProps, null)(Main)
