@@ -14,6 +14,9 @@ import { updateStock } from '../utils/StockActions'
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
+const titlePadding = 37 + 41 + 10
+const footerHeight = 25
+const viewHeight = windowHeight - (titlePadding + footerHeight)
 
 
 const mapDispatchToProps = dispatch => (
@@ -113,7 +116,8 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingLeft: 30,
         paddingRight: 10,
-        height: windowHeight - 100,
+        // height: windowHeight - 100,
+        height: viewHeight,
         backgroundColor: '#000',
         // backgroundColor: '#fff',
     },
