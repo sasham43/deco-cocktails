@@ -59,7 +59,7 @@ export default function App(props) {
       <SafeAreaView style={[styles.container, { fontFamily: 'PoiretOne_400Regular' }, ui.current_theme]}>
         {/* <Text>Crump Cocktails</Text> */}
         {/* <StatusBar barStyle={"light-content"} /> */}
-        <StyledBar dark_mode={ui.dark_mode} />
+        {/* <StyledBar dark_mode={ui.dark_mode} /> */}
         <Main></Main>
       </SafeAreaView>
       </Provider>
