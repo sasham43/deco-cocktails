@@ -39,7 +39,7 @@ export function AddedIngredient(props) {
 
     var fractions = translateParts(props.parts)
     return (
-        <TouchableOpacity style={[styles.added_ingredient, props.editIngredientId == props.id ? styles.selected_ingredient : null]} onPress={() => props.toggleEditIngredient(props.id)}>
+        <TouchableOpacity disabled={!props.toggleEditIngredient} style={[styles.added_ingredient, props.editIngredientId == props.id ? styles.selected_ingredient : null]} onPress={() => props.toggleEditIngredient(props.id)}>
             <AppText>{props.ingredient_name}</AppText>
             <AppText>{fractions}</AppText>
             <Part style={styles.added_parts} parts={props.parts} last={true} />
