@@ -96,13 +96,13 @@ function Main(props){
             // <Provider store={store}>
             // <View>
                 <NavigationContainer>
-                {/* <View style={[styles.container, props.ui.current_theme]}> */}
+                <View style={[styles.container, props.ui.current_theme]}>
 
                 
-                    <CornerIcon fill={props.ui.current_theme.color} style={styles.top_right} width={60} height={60} />
-                    <CornerIcon fill={props.ui.current_theme.color} style={styles.top_left} width={60} height={60} />
-                    <CornerIcon fill={props.ui.current_theme.color} style={styles.bottom_right} width={60} height={60} />
-                    <CornerIcon fill={props.ui.current_theme.color} style={styles.bottom_left} width={60} height={60} />
+                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
+                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={60} height={60} />
+                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
+                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={60} height={60} />
                     <Title></Title>
                     <Stack.Navigator  screenOptions={{ header: (props) => <Menu props={{...props}} /> }}>
                         <Stack.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Stack.Screen>
@@ -111,7 +111,7 @@ function Main(props){
                         <Stack.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
                         <Stack.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
                     </Stack.Navigator>
-                {/* </View> */}
+                </View>
                 </NavigationContainer>
 
         )
@@ -123,13 +123,13 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-start',
         alignSelf: 'stretch',
-        marginTop: 50,
-        marginLeft: 50,
-        marginRight: 50,
+        // marginTop: 50,
+        // marginLeft: 50,
+        // marginRight: 50,
         // paddingLeft: 50,
         // paddingRight: 50,
         // backgroundColor: '#fff',
-        backgroundColor: '#000',
+        // backgroundColor: '#000',
     },
     screen: {
         flex: 1, 
@@ -143,9 +143,13 @@ const styles = StyleSheet.create({
         paddingLeft: 50,
         paddingRight: 50,
     },
-    top_right: { position: 'absolute', top: 40, right: 10 },
-    top_left: { position: 'absolute', top: 40, left: 10, transform: [{ rotate: '-90deg' }] },
-    bottom_right: { zIndex: 10, position: 'absolute', bottom: 30, right: 10, transform: [{ rotate: '90deg' }] },
-    bottom_left: { zIndex: 10, position: 'absolute', bottom: 30, left: 10, transform: [{ rotate: '180deg' }] }
+    corner_icon: {
+        zIndex: 10,
+        position: 'absolute'
+    },
+    top_right: { top: 40, right: 10 },
+    top_left: {  top: 40, left: 10, transform: [{ rotate: '-90deg' }] },
+    bottom_right: { bottom: 30, right: 10, transform: [{ rotate: '90deg' }] },
+    bottom_left: { bottom: 30, left: 10, transform: [{ rotate: '180deg' }] }
 })
 // export default connect(mapStateToProps, null)(Main)
