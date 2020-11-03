@@ -1,10 +1,12 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
+import { connect } from 'react-redux'
 import { generate } from 'shortid'
 
 import HalfCircle from '../assets/half-circle.svg'
 import QuarterCircle from '../assets/quarter-circle.svg'
 import ThreeQuarterCircle from '../assets/three-quarter-circle.svg'
+import ThreeQuarterCircleLight from '../assets/three-quarter-circle-light.svg'
 import Circle from '../assets/circle.svg'
 
 import AppText from './AppText'
@@ -28,29 +30,67 @@ function buildPartArray(parts) {
 
     return part_array
 }
+const mapStateToProps = (state) => {
+    // console.log('state', state)
+    const { ui } = state
+    return { ui }
+}
+export const ConnectedShape = connect(mapStateToProps)(Shape)
+// export ConnectedShape
 
-export function Shape(props) {
+// export 
+function Shape(props) {
     // console.log("Shape props", props)
-    if (props.part == 0.25) {
-        return (
-            <QuarterCircle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
-        )
-    }
-    if (props.part == 0.5) {
-        return (
-            <HalfCircle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
-        )
-    }
-    if (props.part == 0.75) {
-        return (
-            <ThreeQuarterCircle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
-        )
-    }
-    if (props.part == 1) {
-        return (
-            <Circle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
-        )
-    }
+    // if(props.ui.dark_mode){
+        if (props.part == 0.25) {
+            return (
+                <QuarterCircle stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+            )
+        }
+        if (props.part == 0.5) {
+            return (
+                <HalfCircle stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+            )
+        }
+        if (props.part == 0.75) {
+            if(props.ui.dark_mode){
+                return (
+                    <ThreeQuarterCircle stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+                )
+            } else {
+                return (
+                    <ThreeQuarterCircleLight stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+                )
+            }
+        }
+        if (props.part == 1) {
+            return (
+                <Circle stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+            )
+        }
+    // } else {
+    //     if (props.part == 0.25) {
+    //         return (
+    //             <QuarterCircle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
+    //         )
+    //     }
+    //     if (props.part == 0.5) {
+    //         return (
+    //             <HalfCircle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
+    //         )
+    //     }
+    //     if (props.part == 0.75) {
+    //         return (
+    //             <ThreeQuarterCircle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
+    //         )
+    //     }
+    //     if (props.part == 1) {
+    //         return (
+    //             <Circle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
+    //         )
+    //     }
+    // }
+    
     return null
 }
 export function ShapeMap(props) {
@@ -59,7 +99,7 @@ export function ShapeMap(props) {
         var key = generate()
         return (
             <View key={key} style={[styles.shape_container, getShapeMargin(part)]}>
-                <Shape height={9} width={9} part={part} />
+                <ConnectedShape height={9} width={9} part={part} />
             </View>
         )
     })

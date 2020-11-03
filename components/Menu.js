@@ -14,7 +14,7 @@ export default connect(mapStateToProps)(Menu)
 // export default 
 function Menu(data) {
     var props = data.props // it's nested for some reason, idk
-    console.log('menu props', data.ui)
+    // console.log('menu props', data.ui)
     const navigation = props.navigation
     const route = props.scene.route
     // const navigation = useNavigation()
