@@ -1,21 +1,38 @@
 import React from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
+import { View, StyleSheet, Dimensions, Pressable } from 'react-native'
 
 import AppText from './AppText'
+import {setDarkMode } from '../utils/UIActions'
 
 const windowWidth = Dimensions.get('window').width
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 const mapStateToProps = (state) => {
     // console.log('state', state)
     const { ui } = state
     return { ui }
 }
-export default connect(mapStateToProps)(About)
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setDarkMode,
+    }, dispatch)
+)
+export default connect(mapStateToProps, mapDispatchToProps)(About)
 // export default 
 function About (props){
     return (
         <View style={[styles.about, styles.view, props.ui.current_theme]}>
-            <AppText>This app was made in Crump House with an assist from Bongo and Gomez.</AppText>
+            <AppText style={styles.text}>
+                This app was made in Crump House with an assist from 
+
+            </AppText>
+                <Pressable style={styles.button} onPress={()=>props.setDarkMode(false)}>
+                    <AppText style={styles.text}>Bongo</AppText>
+                </Pressable>
+            <AppText style={styles.text}>and </AppText>
+                <Pressable style={styles.button} onPress={()=>props.setDarkMode(true)}>
+                    <AppText style={styles.text}>Gomez.</AppText>
+                </Pressable>
         </View>
     )
 }
@@ -31,15 +48,15 @@ function About (props){
 
 const styles = StyleSheet.create({
     about: {
+        // marginTop: 10,
         flex: 1,
         alignSelf: 'center',
-
         // backgroundColor: '#fff'
         // backgroundColor: '#000',
         // color: '#fff'
     },
     view: {
-        paddingTop: 10,
+        paddingTop: 30,
         paddingLeft: 10,
         paddingRight: 10,
         width: windowWidth,
@@ -47,5 +64,12 @@ const styles = StyleSheet.create({
         // color: '#fff',
         // backgroundColor: '#fff',
         alignItems: 'center'
+    },
+    text: {
+        fontSize: 22,
+    },
+    button: {
+        marginRight: 10,
+        marginLeft: 10
     }
 })
