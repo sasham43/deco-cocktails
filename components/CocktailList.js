@@ -188,7 +188,7 @@ function CocktailList(props){
                 theme={props.ui.current_theme}
             />
 
-            <View style={styles.footer}>
+            <View style={[styles.footer, props.ui.current_theme]}>
                 <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionMenu()}>
                     <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
                 </TouchableOpacity>
