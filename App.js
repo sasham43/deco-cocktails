@@ -23,18 +23,6 @@ const store = createStore(combineReducers({
   ui: uiReducer,
 }))
 
-function StyledBar(props){
-  if(!props.dark_mode){
-    return (
-      <StatusBar barStyle={"light-content"} />
-    )
-  } else {
-    return (
-      <StatusBar barStyle={"dark-content"} />
-    )
-  }
-}
-
 export default function App(props) {
   const [ui, setUI] = useState({})
 
@@ -43,7 +31,6 @@ export default function App(props) {
   })
 
   var state = store.getState()
-  // setUI(state.ui)
   store.subscribe(()=>{
     state = store.getState()
     setUI(state.ui)
@@ -57,9 +44,6 @@ export default function App(props) {
     return (
       <Provider store={store}>
       <SafeAreaView style={[styles.container, { fontFamily: 'PoiretOne_400Regular' }, ui.current_theme]}>
-        {/* <Text>Crump Cocktails</Text> */}
-        {/* <StatusBar barStyle={"light-content"} /> */}
-        {/* <StyledBar dark_mode={ui.dark_mode} /> */}
         <Main></Main>
       </SafeAreaView>
       </Provider>
