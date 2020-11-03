@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, AsyncStorage } from 'react-native'
+import { StyleSheet, AsyncStorage, View } from 'react-native'
 // import { NativeRouter, Route, Link } from "react-router-native"
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionSpecs } from '@react-navigation/stack'
@@ -59,17 +59,19 @@ const mapStateToProps = (state) => {
 //         deleteCocktail
 //     }, dispatch)
 // )
-// export default connect(mapStateToProps, null)(Main)
+export default connect(mapStateToProps)(Main)
 
 // export default 
-class Main extends React.Component {
+// class Main extends React.Component {
 
-    constructor(props) {
-        super(props)
-    }
+//     constructor(props) {
+//         super(props)
+//     }
 
     
-    render() {
+//     render() {
+function Main(props){
+        // return (
         // console.log("transition spects", TransitionSpecs)
         var screen_options = {
             headerShown: true, 
@@ -92,11 +94,15 @@ class Main extends React.Component {
         }
         return (
             // <Provider store={store}>
-                <NavigationContainer style={styles.container}>
-                    <CornerIcon fill={this.props.ui.current_theme.color} style={styles.top_right} width={60} height={60} />
-                    <CornerIcon fill={this.props.ui.current_theme.color} style={styles.top_left} width={60} height={60} />
-                    <CornerIcon fill={this.props.ui.current_theme.color} style={styles.bottom_right} width={60} height={60} />
-                    <CornerIcon fill={this.props.ui.current_theme.color} style={styles.bottom_left} width={60} height={60} />
+            // <View>
+                <NavigationContainer>
+                {/* <View style={[styles.container, props.ui.current_theme]}> */}
+
+                
+                    <CornerIcon fill={props.ui.current_theme.color} style={styles.top_right} width={60} height={60} />
+                    <CornerIcon fill={props.ui.current_theme.color} style={styles.top_left} width={60} height={60} />
+                    <CornerIcon fill={props.ui.current_theme.color} style={styles.bottom_right} width={60} height={60} />
+                    <CornerIcon fill={props.ui.current_theme.color} style={styles.bottom_left} width={60} height={60} />
                     <Title></Title>
                     <Stack.Navigator  screenOptions={{ header: (props) => <Menu props={{...props}} /> }}>
                         <Stack.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Stack.Screen>
@@ -105,11 +111,12 @@ class Main extends React.Component {
                         <Stack.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
                         <Stack.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
                     </Stack.Navigator>
+                {/* </View> */}
                 </NavigationContainer>
-            // </Provider>
+
         )
     }
-}
+// }
 
 const styles = StyleSheet.create({
     container: {
@@ -141,4 +148,4 @@ const styles = StyleSheet.create({
     bottom_right: { zIndex: 10, position: 'absolute', bottom: 30, right: 10, transform: [{ rotate: '90deg' }] },
     bottom_left: { zIndex: 10, position: 'absolute', bottom: 30, left: 10, transform: [{ rotate: '180deg' }] }
 })
-export default connect(mapStateToProps, null)(Main)
+// export default connect(mapStateToProps, null)(Main)

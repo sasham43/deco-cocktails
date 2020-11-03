@@ -14,7 +14,7 @@ export default connect(mapStateToProps)(Menu)
 // export default 
 function Menu(data) {
     var props = data.props // it's nested for some reason, idk
-    console.log('menu props', data)
+    console.log('menu props', data.ui)
     const navigation = props.navigation
     const route = props.scene.route
     // const navigation = useNavigation()
@@ -23,8 +23,8 @@ function Menu(data) {
     // console.log('scrren', currentPage) // this doesn't quite work, styles aren't updating
 
     return (
-        <View style={styles.menu}>
-            <View style={[styles.link, data.ui.current_theme]}>
+        <View style={[styles.menu, data.ui.current_theme]}>
+            <View style={[styles.link]}>
                 <Pressable onPress={()=>navigation.navigate('About')}>
                     <View style={currentPage == 'About' ? [styles.selected, {borderColor: data.ui.current_theme.color}] : null}>
                         <AppText>About</AppText>

@@ -24,7 +24,7 @@ export default connect(null, mapDispatchToProps)(AddStock)
 function AddStock(props){
     const [newStockName, setNewStockName] = useState('')
     const [newStockIn, setNewStockIn] = useState(true)
-    console.log('add stock props', props)
+    // console.log('add stock props', props)
     function toggleStockIn() {
         setNewStockIn(!newStockIn)
     }
@@ -32,16 +32,16 @@ function AddStock(props){
     // const { newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock, toggleStockIn } = useStock()
   
     return (
-        <KeyboardAvoidingView contentContainerStyle={styles.content_container} behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.view}>
+        <KeyboardAvoidingView contentContainerStyle={[styles.content_container, props.theme]} behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.view}>
             <View style={styles.stock_form}>
                 <View style={styles.switch_container}>
                     <TouchableOpacity onPress={()=>toggleStockIn()}>
-                        <InStockIcon transform={[{rotate: '-45deg'}]} width={45} height={45} fill={newStockIn ? 'black' : 'grey'} />
+                        <InStockIcon transform={[{rotate: '-45deg'}]} width={45} height={45} fill={newStockIn ? props.theme.color : 'grey'} />
                     </TouchableOpacity>
                     {/* <Switch value={newStockIn} trackColor={{ false: 'grey', true: 'black' }} onValueChange={(val) => setNewStockIn(val)} /> */}
                 </View>
                 <View style={styles.input_container}>
-                    <TextInput style={styles.input} value={newStockName} onChangeText={text => setNewStockName(text)} placeholder="New stock..." />
+                    <TextInput style={[styles.input, props.theme]} value={newStockName} onChangeText={text => setNewStockName(text)} placeholder="New stock..." />
                 </View>
             </View>
             <View style={styles.add_container}>
