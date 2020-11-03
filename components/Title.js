@@ -1,13 +1,25 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
+
 import AppText from './AppText'
 
+const mapStateToProps = (state) => {
+    // console.log('state', state)
+    const { ui } = state
+    return { ui }
+}
+// export default connect(mapStateToProps)(Title)
 
-export default class Title extends React.Component {
+// export default 
+class Title extends React.Component {
+    constructor(props){
+        super(props)
+    }
 
     render(){
         return (
-            <View style={styles.title}>
+            <View style={[styles.title, this.props.ui.current_theme]}>
                 <AppText>
                     <Text style={styles.text}>
                         Crump Cocktails!
@@ -33,3 +45,5 @@ const styles = StyleSheet.create({
         fontSize: 35
     }
 })
+
+export default connect(mapStateToProps)(Title)

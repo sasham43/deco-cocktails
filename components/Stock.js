@@ -34,7 +34,7 @@ function StockBottle(props) {
         <View style={styles.stock_bottle}>
             <View style={styles.switch_container}>
                 <TouchableOpacity onPress={() => props.updateStock({id: props.bottle.id, label: props.bottle.label, in_stock: !props.bottle.in_stock})}>
-                    <InStockIcon fill={"#fff"} transform={[{ rotate: '-45deg' }]} width={45} height={45} fill={props.bottle.in_stock ? 'black' : 'grey'} />
+                    <InStockIcon transform={[{ rotate: '-45deg' }]} width={45} height={45} fill={props.bottle.in_stock ? props.theme.color : 'grey'} />
                 </TouchableOpacity>
                 {/* <Switch value={props.bottle.in_stock} trackColor={{false: 'grey', true: 'black'}}  onValueChange={(val)=>setInStock(props.bottle, val)} /> */}
             </View>
@@ -48,7 +48,7 @@ function StockBottle(props) {
 function StockMap(props) {
     return props.stock.map(bottle => {
         return (
-            <StockBottle key={bottle.id} bottle={bottle} updateStock={props.updateStock} />
+            <StockBottle theme={props.theme} key={bottle.id} bottle={bottle} updateStock={props.updateStock} />
         )
     })
 }
@@ -62,7 +62,7 @@ function Stock(props){
     return (
         <View style={[styles.stock, styles.view, props.ui.current_theme]}>
             <ScrollView style={styles.scroll_view}>
-                <StockMap stock={stock} updateStock={props.updateStock} />
+                <StockMap theme={props.ui.current_theme} stock={stock} updateStock={props.updateStock} />
             </ScrollView>            
 
             <FunctionMenu
@@ -99,7 +99,7 @@ function FunctionMenu(props) {
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />
                 </View>
-                <AddStock />
+                <AddStock theme={props.theme} />
             </View>
         </SlidingUpPanel>
     )
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
         width: windowWidth - 40,
         marginLeft: 20,
         alignContent: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 1)',
+        // backgroundColor: 'rgba(255, 255, 255, 1)',
         zIndex: 10,
         height: 200,
         position: 'absolute',
@@ -161,8 +161,8 @@ const styles = StyleSheet.create({
     panel_container: {
         flex: 1,
         // backgroundColor: 'white',
-        backgroundColor: '#000',
-        color: '#000',
+        // backgroundColor: '#000',
+        // color: '#000',
         // backgroundColor: '#fff',
         justifyContent: 'flex-start',
         shadowOffset: { width: 0, height: -5, },

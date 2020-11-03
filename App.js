@@ -23,7 +23,7 @@ const store = createStore(combineReducers({
   ui: uiReducer,
 }))
 
-export default function App() {
+export default function App(props) {
   let [fontsLoaded] = useFonts({
     PoiretOne_400Regular,
   })
