@@ -40,9 +40,9 @@ export function AddedIngredient(props) {
     var fractions = translateParts(props.parts)
     return (
         <TouchableOpacity disabled={!props.toggleEditIngredient} style={[styles.added_ingredient, props.editIngredientId == props.id ? styles.selected_ingredient : null]} onPress={() => props.toggleEditIngredient(props.id)}>
-            <AppText>{props.ingredient_name}</AppText>
-            <AppText>{fractions}</AppText>
-            <Part style={styles.added_parts} parts={props.parts} last={true} />
+            <AppText style={[styles.ingredient_text, styles.ingredient_name]}>{props.ingredient_name}</AppText>
+            <AppText style={[styles.inset, styles.ingredient_text]}>{fractions}</AppText>
+            <Part style={[styles.inset, styles.added_parts]} parts={props.parts} last={true} />
         </TouchableOpacity>
     )
 }
@@ -64,7 +64,17 @@ const styles = StyleSheet.create({
         paddingBottom: 3,
         paddingLeft: 3,
         paddingRight: 3,
-        marginLeft: 8
+        marginLeft: 8,
+        // fontSize: 20
+    },
+    ingredient_name: {
+      fontSize: 19,
+    },
+    ingredient_text: {
+      fontSize: 17,
+    },
+    inset: {
+        marginLeft: 7
     },
     added_parts: {
         marginTop: 8,
