@@ -30,6 +30,56 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Add)
 
+
+
+function translateParts(parts) {
+    var split = parts.toString().split('.')
+    if (split[1]) {
+        var fraction = ''
+        switch (split[1]) {
+            case '25':
+                fraction = '1/4'
+                break;
+            case '5':
+                fraction = '1/2'
+                break;
+            case '75':
+                fraction = '3/4'
+                break;
+        }
+
+        if (split[0] != '0') {
+            return `${split[0]} ${fraction}`
+        } else {
+            return fraction
+        }
+    }
+    return split[0]
+}
+
+function sortedIngredients(ingredients) {
+    return _.orderBy(ingredients, 'parts', 'desc')
+}
+
+function AddedIngredient(props) {
+    
+    var fractions = translateParts(props.parts)
+    return (
+        <TouchableOpacity style={[styles.added_ingredient, editIngredientId == props.id ? styles.selected_ingredient : null]} onPress={() => toggleEditIngredient(props.id)}>
+            <AppText>{props.ingredient_name}</AppText>
+            <AppText>{fractions}</AppText>
+            <Part style={styles.added_parts} parts={props.parts} last={true} />
+        </TouchableOpacity>
+    )
+}
+function AddedIngredientMap(props) {
+    return sortedIngredients(props.addedCocktailIngredients).map(a => {
+        return (
+            <AddedIngredient key={a.id} id={a.id} ingredient_name={a.ingredient_name} parts={a.parts} />
+        )
+    })
+}
+
 function Add(props){
     const cocktails = props.cocktails.current
 
@@ -149,53 +199,6 @@ function Add(props){
         }
     }
 
-    function sortedIngredients(ingredients) {
-        return _.orderBy(ingredients, 'parts', 'desc')
-    }
-
-    function translateParts(parts){
-        var split = parts.toString().split('.')
-        if(split[1]){
-            var fraction = ''
-            switch (split[1]) {
-                case '25':
-                    fraction = '1/4'
-                    break;
-                case '5':
-                    fraction = '1/2'
-                    break;
-                case '75':
-                    fraction = '3/4'
-                    break;
-            }
-
-            if(split[0] != '0'){
-                return `${split[0]} ${fraction}`
-            } else {
-                return fraction
-            }
-        }
-        return split[0]
-    }
-
-    function AddedIngredient(props){
-        var fractions = translateParts(props.parts)
-        return (
-            <TouchableOpacity style={[styles.added_ingredient, editIngredientId == props.id ? styles.selected_ingredient : null]} onPress={()=>toggleEditIngredient(props.id)}>
-                <AppText>{props.ingredient_name}</AppText>
-                <AppText>{fractions}</AppText>
-                <Part style={styles.added_parts} parts={props.parts} last={true} />
-            </TouchableOpacity>
-        )
-    }
-    function AddedIngredientMap(){
-        return sortedIngredients(addedCocktailIngredients).map(a=>{
-            return (
-                <AddedIngredient key={a.id} id={a.id} ingredient_name={a.ingredient_name} parts={a.parts} />
-            )
-        })
-    }
-
     const placeholder = {
         label: 'Parts...',
         color: '#9EA0A4',
@@ -207,15 +210,24 @@ function Add(props){
                     <TextInput
                         value={newCocktailName}
                         onChangeText={text => setNewCocktailName(text)}
-                        style={styles.input}
+                        style={[styles.input, props.ui.current_theme]}
                         placeholder="New cocktail name..."
                         clearButtonMode={"always"} 
+                        placeholderTextColor={props.ui.current_theme.color} 
                     />
 
-                    <AddedIngredientMap />
+                    <AddedIngredientMap addedCocktailIngredients={addedCocktailIngredients} />
                 </ScrollView>
-                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.new_ingredient}>
-                    <TextInput key={`newCocktailIngredientName`} clearButtonMode={"always"}  value={newCocktailIngredient.ingredient_name} onChangeText={text => setName(text)} style={styles.input} placeholder="Ingredient..." />
+                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.new_ingredient, props.ui.current_theme]}>
+                    <TextInput 
+                        key={`newCocktailIngredientName`} 
+                        clearButtonMode={"always"}  
+                        value={newCocktailIngredient.ingredient_name} 
+                        onChangeText={text => setName(text)} 
+                        style={[styles.input, props.ui.current_theme]} 
+                        placeholder="Ingredient..." 
+                        placeholderTextColor={props.ui.current_theme.color} 
+                    />
                     <RNPickerSelect
                         key={newCocktailIngredient.parts}
                         placeholder={placeholder}
