@@ -87,9 +87,13 @@ function CocktailListMap(props) {
     // console.log('props map', props)
 
     function selectCocktail(cocktail, currentMode) {
-        // console.log('selecting', currentMode, cocktail, props.deleteCocktail)
+        console.log('selecting', currentMode, cocktail, props.deleteCocktail)
 
-        if (currentMode == 'edit') {
+        if(currentMode == 'select'){
+            navigation.navigate('ViewCocktail', {
+                id: cocktail.id
+            })
+        } else if (currentMode == 'edit') {
             navigation.navigate('AddCocktail', {
                 id: cocktail.id
             })
@@ -112,7 +116,7 @@ function CocktailListMap(props) {
     
     return props.cocktails.map(cocktail =>
         (
-            <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete'} onPress={() => selectCocktail(cocktail, props.currentMode)} style={styles.cocktail} key={cocktail.id}>
+            <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete' && props.currentMode != 'select'} onPress={() => selectCocktail(cocktail, props.currentMode)} style={styles.cocktail} key={cocktail.id}>
                 <View style={styles.cocktail_name_container}>
                     <AppText>
                         <Text style={[styles.cocktail_text, props.theme]}>
@@ -224,6 +228,7 @@ function FunctionMenu(props) {
                     <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} onFocus={()=>props.switchMode('search')} placeholder="Search cocktails..." clearButtonMode={"always"} style={styles.input} />
                 </View>
 
+                <FunctionMenuButton theme={props.theme} label={"Select A Cocktail"} mode="select" switchMode={props.switchMode} currentMode={props.currentMode} />
                 <FunctionMenuButton theme={props.theme} label={"Edit A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} />
                 <FunctionMenuButton theme={props.theme} label={"Remove Cocktails"} mode="delete" switchMode={props.switchMode} currentMode={props.currentMode} />
                 <Pressable style={[{marginLeft: 25, marginTop: 20}]} onPress={()=>navigation.navigate('AddCocktail')}>

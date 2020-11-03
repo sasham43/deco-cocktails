@@ -8,6 +8,7 @@ import _ from 'lodash'
 
 import AppText from './AppText'
 import { Part } from './Parts'
+import { AddedIngredientMap } from './AddedIngredients'
 import { useCocktails, newCocktail, useFunctionMenu } from '../utils/hooks'
 
 import { addCocktail, updateCocktails } from '../utils/CocktailActions'
@@ -32,53 +33,53 @@ export default connect(mapStateToProps, mapDispatchToProps)(Add)
 
 
 
-function translateParts(parts) {
-    var split = parts.toString().split('.')
-    if (split[1]) {
-        var fraction = ''
-        switch (split[1]) {
-            case '25':
-                fraction = '1/4'
-                break;
-            case '5':
-                fraction = '1/2'
-                break;
-            case '75':
-                fraction = '3/4'
-                break;
-        }
+// function translateParts(parts) {
+//     var split = parts.toString().split('.')
+//     if (split[1]) {
+//         var fraction = ''
+//         switch (split[1]) {
+//             case '25':
+//                 fraction = '1/4'
+//                 break;
+//             case '5':
+//                 fraction = '1/2'
+//                 break;
+//             case '75':
+//                 fraction = '3/4'
+//                 break;
+//         }
 
-        if (split[0] != '0') {
-            return `${split[0]} ${fraction}`
-        } else {
-            return fraction
-        }
-    }
-    return split[0]
-}
+//         if (split[0] != '0') {
+//             return `${split[0]} ${fraction}`
+//         } else {
+//             return fraction
+//         }
+//     }
+//     return split[0]
+// }
 
-function sortedIngredients(ingredients) {
-    return _.orderBy(ingredients, 'parts', 'desc')
-}
+// function sortedIngredients(ingredients) {
+//     return _.orderBy(ingredients, 'parts', 'desc')
+// }
 
-function AddedIngredient(props) {
+// function AddedIngredient(props) {
     
-    var fractions = translateParts(props.parts)
-    return (
-        <TouchableOpacity style={[styles.added_ingredient, editIngredientId == props.id ? styles.selected_ingredient : null]} onPress={() => toggleEditIngredient(props.id)}>
-            <AppText>{props.ingredient_name}</AppText>
-            <AppText>{fractions}</AppText>
-            <Part style={styles.added_parts} parts={props.parts} last={true} />
-        </TouchableOpacity>
-    )
-}
-function AddedIngredientMap(props) {
-    return sortedIngredients(props.addedCocktailIngredients).map(a => {
-        return (
-            <AddedIngredient key={a.id} id={a.id} ingredient_name={a.ingredient_name} parts={a.parts} />
-        )
-    })
-}
+//     var fractions = translateParts(props.parts)
+//     return (
+//         <TouchableOpacity style={[styles.added_ingredient, editIngredientId == props.id ? styles.selected_ingredient : null]} onPress={() => toggleEditIngredient(props.id)}>
+//             <AppText>{props.ingredient_name}</AppText>
+//             <AppText>{fractions}</AppText>
+//             <Part style={styles.added_parts} parts={props.parts} last={true} />
+//         </TouchableOpacity>
+//     )
+// }
+// function AddedIngredientMap(props) {
+//     return sortedIngredients(props.addedCocktailIngredients).map(a => {
+//         return (
+//             <AddedIngredient key={a.id} id={a.id} ingredient_name={a.ingredient_name} parts={a.parts} />
+//         )
+//     })
+// }
 
 function Add(props){
     const cocktails = props.cocktails.current
@@ -216,7 +217,7 @@ function Add(props){
                         placeholderTextColor={props.ui.current_theme.color} 
                     />
 
-                    <AddedIngredientMap addedCocktailIngredients={addedCocktailIngredients} />
+                    <AddedIngredientMap addedCocktailIngredients={addedCocktailIngredients} editIngredientId={editIngredientId} toggleEditIngredient={toggleEditIngredient} />
                 </ScrollView>
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.new_ingredient, props.ui.current_theme]}>
                     <TextInput 
@@ -306,18 +307,10 @@ function Add(props){
                     </TouchableOpacity>
                     
                     <TouchableOpacity onPress={async() => {
-                        // props.addCocktail({
-                        //     id: generate(),
-                        //     name: newCocktailName,
-                        //     ingredients: addedCocktailIngredients
-                        // })
                         saveCocktail()
-                        // setNewCocktailName('')
                         resetNewCocktail()
 
                         navigation.push('AddCocktail')
-                        // history.push('/add-cocktail') // to refresh
-                        // navi
                     }}>
                         <AppText style={styles.add_button}>Add Cocktail</AppText>
                     </TouchableOpacity>
@@ -377,21 +370,21 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginBottom: 40
     },
-    selected_ingredient: {
-        borderWidth: 1,
-        borderStyle: 'dashed'
-    },
-    added_ingredient: {
-        paddingTop: 3,
-        paddingBottom: 3,
-        paddingLeft: 3,
-        paddingRight: 3,
-        marginLeft: 8
-    },
-    added_parts: {
-        marginTop: 8,
-        marginBottom: 4
-    },
+    // selected_ingredient: {
+    //     borderWidth: 1,
+    //     borderStyle: 'dashed'
+    // },
+    // added_ingredient: {
+    //     paddingTop: 3,
+    //     paddingBottom: 3,
+    //     paddingLeft: 3,
+    //     paddingRight: 3,
+    //     marginLeft: 8
+    // },
+    // added_parts: {
+    //     marginTop: 8,
+    //     marginBottom: 4
+    // },
     new_ingredient_container: {
         flexDirection: 'column',
         justifyContent: 'space-between',
