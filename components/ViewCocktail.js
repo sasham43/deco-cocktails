@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
+import { View, StyleSheet, Dimensions, ScrollView, Pressable, Alert } from 'react-native'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { useNavigation } from '@react-navigation/native'
 
 import AppText from './AppText'
 import { AddedIngredientMap } from './AddedIngredients'
+import { deleteCocktail } from '../utils/CocktailActions'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
@@ -16,10 +19,17 @@ const mapStateToProps = (state) => {
     const { cocktails, current, ui } = state
     return { cocktails: cocktails, ui }
 }
-export default connect(mapStateToProps)(ViewCocktail)
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        deleteCocktail
+    }, dispatch)
+)
+export default connect(mapStateToProps, mapDispatchToProps)(ViewCocktail)
 
 // export default 
 function ViewCocktail(props){
+    const navigation = useNavigation()
     const [cocktail, setCocktail] = useState({})
 
     useEffect(()=>{
@@ -33,18 +43,50 @@ function ViewCocktail(props){
             setCocktail(cocktail)
         }
     }
+    function editCocktail(){
+        navigation.navigate('AddCocktail', {
+            id: cocktail.id
+        })
+    }
+    function removeCocktail(){
+        var title = `Remove ${cocktail.name}?`
+        var msg = ''
+        var buttons = [
+            {
+                text: 'Cancel',
+                style: 'cancel'
+            },
+            {
+                text: 'OK',
+                onPress: removeThisCocktail
+            }
+        ]
+        Alert.alert(title, msg, buttons)
+    }
+
+    function removeThisCocktail(){
+        props.deleteCocktail(cocktail.id)
+        navigation.navigate('CocktailList')
+    }
 
     return (
         <View style={[styles.view, props.ui.current_theme]}>
-            {/* <AppText>Select</AppText> */}
             <View>
                 <AppText style={styles.cocktail_title}>{cocktail.name}</AppText>
             </View>
-            <View>
+            <ScrollView>
                 <View style={ styles.category_title_container }>
                     <AppText style={styles.category_title}>Ingredients</AppText>
                 </View>
                 <AddedIngredientMap addedCocktailIngredients={cocktail.ingredients} />
+            </ScrollView>
+            <View style={styles.button_container}>
+                <Pressable style={styles.button} onPress={()=>editCocktail()}>
+                    <AppText style={styles.button_text}>Edit Cocktail</AppText>
+                </Pressable>
+                <Pressable style={styles.button} onPress={()=>removeCocktail()}>
+                    <AppText style={styles.button_text}>Remove Cocktail</AppText>
+                </Pressable>
             </View>
         </View>
     )
@@ -74,5 +116,20 @@ const styles = StyleSheet.create({
         fontSize: 18,
         // borderBottomWidth: 1, 
         // borderBottomColor: '#000' 
+    },
+    button_container: {
+        position: 'absolute',
+        bottom: 20,
+        width: windowWidth,
+        paddingBottom: 40
+        // textAlign: 'center'
+    },
+    button_text: {
+        fontSize: 19,
+        textAlign: 'center'
+    },
+    button: {
+        marginTop: 5,
+        marginBottom: 5
     }
 })
