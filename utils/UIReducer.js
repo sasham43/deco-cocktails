@@ -21,7 +21,7 @@ const uiReducer = (state = INITIAL_STATE, action) => {
     switch (action.type){
         case 'SET_DARK_MODE':
             const new_dark_mode = action.payload
-            if (dark_mode) {
+            if (new_dark_mode) {
                 new_current = dark_theme
             } else {
                 new_current = light_theme

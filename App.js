@@ -37,7 +37,7 @@ export default function App(props) {
       <Provider store={store}>
       <SafeAreaView style={[styles.container, { fontFamily: 'PoiretOne_400Regular' }]}>
         {/* <Text>Crump Cocktails</Text> */}
-        <StatusBar style={{color: '#000'}} />
+        <StatusBar barStyle={"light-content"} />
         <Main></Main>
       </SafeAreaView>
       </Provider>
