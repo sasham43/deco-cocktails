@@ -20,6 +20,7 @@ import Stock from './Stock'
 import Menu from './Menu'
 import Add from './AddCocktail'
 import AddStock from './AddStock'
+import ViewCocktail from './ViewCocktail'
 
 import CornerIcon from '../assets/corner.svg'
 
@@ -74,12 +75,8 @@ function Main(props){
             }
         }
         return (
-            // <Provider store={store}>
-            // <View>
-                <NavigationContainer>
+            <NavigationContainer>
                 <View style={[styles.container, props.ui.current_theme]}>
-
-                
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={60} height={60} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
@@ -91,10 +88,10 @@ function Main(props){
                         <Stack.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Stack.Screen>
                         <Stack.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
                         <Stack.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
+                        <Stack.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Stack.Screen>
                     </Stack.Navigator>
                 </View>
-                </NavigationContainer>
-
+            </NavigationContainer>
         )
     }
 
