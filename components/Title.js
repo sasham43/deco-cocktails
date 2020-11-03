@@ -5,13 +5,9 @@ import { connect } from 'react-redux'
 import AppText from './AppText'
 
 const mapStateToProps = (state) => {
-    // console.log('state', state)
     const { ui } = state
     return { ui }
-}
-// export default connect(mapStateToProps)(Title)
-
-// export default 
+} // export is at bottom
 class Title extends React.Component {
     constructor(props){
         super(props)
@@ -25,7 +21,6 @@ class Title extends React.Component {
                         Crump Cocktails!
                     </Text>
                 </AppText>
-                {/* <Text style={styles.text}>Crump Cocktails!</Text> */}
             </View>
         )
     }
@@ -34,7 +29,6 @@ class Title extends React.Component {
 
 const styles = StyleSheet.create({
     title: {
-        // borderBottom: 'solid 1px black'
         borderColor: 'black',
         borderBottomWidth: 1,
         borderStyle: 'solid',

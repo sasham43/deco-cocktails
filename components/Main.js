@@ -25,11 +25,10 @@ import CornerIcon from '../assets/corner.svg'
 
 const Stack = createStackNavigator()
 
-const persistConfig = {
-    key: 'root', // maybe stock?
-    storage: AsyncStorage
-}
-
+// const persistConfig = {
+//     key: 'root', // maybe stock?
+//     storage: AsyncStorage
+// }
 // finish setting up state before adding persistance, leads to weird stuff
 //
 // const persistedReducer = persistReducer(persistConfig, cocktailReducer)
@@ -38,9 +37,6 @@ const persistConfig = {
 //     cocktails: cocktailReducer
 // }))
 // const store = createStore(persistedReducer)
-
-
-
 // const store = createStore(combineReducers({
 //     stock: stockReducer,
 //     cocktails: cocktailReducer,
@@ -50,26 +46,11 @@ const persistConfig = {
 // const store = createStore(stockReducer)
 
 const mapStateToProps = (state) => {
-    // console.log('state', state)
     const {  ui } = state
     return { ui }
 }
-// const mapDispatchToProps = dispatch => (
-//     bindActionCreators({
-//         deleteCocktail
-//     }, dispatch)
-// )
 export default connect(mapStateToProps)(Main)
 
-// export default 
-// class Main extends React.Component {
-
-//     constructor(props) {
-//         super(props)
-//     }
-
-    
-//     render() {
 function Main(props){
         // return (
         // console.log("transition spects", TransitionSpecs)
@@ -116,30 +97,17 @@ function Main(props){
 
         )
     }
-// }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
         alignSelf: 'stretch',
-        // marginTop: 50,
-        // marginLeft: 50,
-        // marginRight: 50,
-        // paddingLeft: 50,
-        // paddingRight: 50,
-        // backgroundColor: '#fff',
-        // backgroundColor: '#000',
     },
     screen: {
         flex: 1, 
-        // width: 1000,
         marginTop: 20,
         paddingTop: 40,
-        // paddingLeft: 20,
-        // paddingRight: 20,
-        // backgroundColor: '#fff',
-        backgroundColor: '#000',
         paddingLeft: 50,
         paddingRight: 50,
     },
@@ -152,4 +120,3 @@ const styles = StyleSheet.create({
     bottom_right: { bottom: 10, right: 10, transform: [{ rotate: '90deg' }] },
     bottom_left: { bottom: 10, left: 10, transform: [{ rotate: '180deg' }] }
 })
-// export default connect(mapStateToProps, null)(Main)

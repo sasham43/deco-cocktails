@@ -199,10 +199,6 @@ function CocktailList(props){
 
 function FunctionMenu(props) {
     const { panel, setPanel } = useFunctionMenu()
-    // const [showFunctionMenu, setShowFunctionMenu] = useState(false)
-    // const [currentMode, setCurrentMode] = useState('')
-    // const [keyboardShowing, setKeyboardShowing] = useState(false)
-    // const [panel, setPanel] = useState(null)
     const navigation = useNavigation()
 
     useEffect(()=>{
@@ -269,10 +265,6 @@ const styles = StyleSheet.create({
         paddingLeft: 40,
         paddingRight: 40,
         height: viewHeight,
-        // height: windowHeight - 100,
-        // backgroundColor: '#000',
-        // color: '#fff',
-        // backgroundColor: '#fff',
     },
     cocktail_name_container: {
         // flex: 1
@@ -328,14 +320,9 @@ const styles = StyleSheet.create({
         height: 200,
         position: 'absolute',
         bottom: -60,
-        // backgroundColor: '#000',
-        // color: '#000'
     },
     panel_container: {
         flex: 1,
-        // backgroundColor: 'white',
-        backgroundColor: '#000',
-        // backgroundColor: '#fff',
         justifyContent: 'flex-start',
         shadowOffset: { width: 0, height: -5, },
         shadowColor: 'rgba(150,150,150,.5)',
