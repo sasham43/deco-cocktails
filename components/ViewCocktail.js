@@ -38,9 +38,12 @@ function ViewCocktail(props){
         <View style={[styles.view, props.ui.current_theme]}>
             {/* <AppText>Select</AppText> */}
             <View>
-                <AppText>{cocktail.name}</AppText>
+                <AppText style={styles.cocktail_title}>{cocktail.name}</AppText>
             </View>
             <View>
+                <View style={ styles.category_title_container }>
+                    <AppText style={styles.category_title}>Ingredients</AppText>
+                </View>
                 <AddedIngredientMap addedCocktailIngredients={cocktail.ingredients} />
             </View>
         </View>
@@ -54,5 +57,22 @@ const styles = StyleSheet.create({
         paddingLeft: 40,
         paddingRight: 40,
         height: viewHeight,
+    },
+    cocktail_title: {
+        // alignItems: 'center',
+        textAlign: 'center',
+        fontSize: 22
+    },
+    category_title: { 
+        fontSize: 19 
+    },
+    category_title_container: { 
+        paddingLeft: 4, 
+        width: 100, 
+        marginTop: 10,
+        marginBottom: 8,
+        fontSize: 18,
+        // borderBottomWidth: 1, 
+        // borderBottomColor: '#000' 
     }
 })
