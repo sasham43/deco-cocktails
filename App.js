@@ -1,6 +1,6 @@
 // modules
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native'; 
 import {AppLoading} from 'expo'
 import { createStore, combineReducers } from 'redux'
@@ -23,9 +23,30 @@ const store = createStore(combineReducers({
   ui: uiReducer,
 }))
 
+function StyledBar(props){
+  if(!props.dark_mode){
+    return (
+      <StatusBar barStyle={"light-content"} />
+    )
+  } else {
+    return (
+      <StatusBar barStyle={"dark-content"} />
+    )
+  }
+}
+
 export default function App(props) {
+  const [ui, setUI] = useState({})
+
   let [fontsLoaded] = useFonts({
     PoiretOne_400Regular,
+  })
+
+  var state = store.getState()
+  // setUI(state.ui)
+  store.subscribe(()=>{
+    state = store.getState()
+    setUI(state.ui)
   })
 
   console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nloading...')
@@ -35,9 +56,10 @@ export default function App(props) {
   } else {
     return (
       <Provider store={store}>
-      <SafeAreaView style={[styles.container, { fontFamily: 'PoiretOne_400Regular' }]}>
+      <SafeAreaView style={[styles.container, { fontFamily: 'PoiretOne_400Regular' }, ui.current_theme]}>
         {/* <Text>Crump Cocktails</Text> */}
-        <StatusBar barStyle={"light-content"} />
+        {/* <StatusBar barStyle={"light-content"} /> */}
+        <StyledBar dark_mode={ui.dark_mode} />
         <Main></Main>
       </SafeAreaView>
       </Provider>
