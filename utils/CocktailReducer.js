@@ -15,7 +15,7 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
     const { current } = state
     switch (action.type){
         case 'ADD_COCKTAIL':
-            console.log('adding', action)
+            // console.log('adding', action)
             const new_cocktail = action.payload
             current.push(new_cocktail)
 
@@ -24,7 +24,7 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
             return newState
         case 'UPDATE_COCKTAILS':
             const updated = action.payload
-            console.log('updated', updated)
+            // console.log('updated', updated)
             const updated_current = current.map(c=>{
                 if(c.id == updated.id){
                     return updated
