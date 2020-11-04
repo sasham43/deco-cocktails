@@ -46,8 +46,9 @@ export function AddedIngredient(props) {
             disabled={!props.toggleEditIngredient} 
             style={[
                 styles.added_ingredient, 
-                props.editIngredientId == props.id ? { ...styles.selected_ingredient, shadowColor: props.theme.shadowColor, borderColor: props.theme.selectedBorderColor} : {borderWidth: 1, borderColor: props.theme.backgroundColor}, 
-                props.theme]} 
+                props.theme,
+                props.editIngredientId == props.id ? { ...styles.selected_ingredient, shadowColor: props.theme.shadowColor, borderColor: props.theme.borderColor} : {borderWidth: 1, borderColor: props.theme.backgroundColor}, 
+            ]} 
             onPress={() => props.toggleEditIngredient(props.id)}
         >
             <AppText style={[styles.ingredient_text, styles.ingredient_name]}>{props.ingredient_name}</AppText>
