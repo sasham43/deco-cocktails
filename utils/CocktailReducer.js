@@ -172,8 +172,8 @@ function defaultCocktails() {
                 {
                     id: generate(),
                     ingredient_name: 'Angostura',
-                    parts: 'dash'
-                    // parts: 0
+                    // parts: 'dash'
+                    parts: 0
                 },
             ]
         },

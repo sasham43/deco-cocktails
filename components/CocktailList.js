@@ -124,11 +124,15 @@ function CocktailListMap(props) {
                         </Text>
                     </AppText>
                 </View>
-                <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(i => i.parts != 0))} />
+                <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(filterIngredients))} />
                 <NameMap ingredients={sortedIngredients(cocktail.ingredients)} />
             </Pressable>
         )
     )
+}
+
+function filterIngredients(i){
+   return (i.parts != 0 && i.parts != 'dash' && i.parts != 'float')
 }
 
 
