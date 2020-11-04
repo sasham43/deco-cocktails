@@ -207,15 +207,16 @@ function Add(props){
     return (
         <View style={[styles.view, props.ui.current_theme]}>
             <View style={styles.new_ingredient_container}>
+                <TextInput
+                    value={newCocktailName}
+                    onChangeText={text => setNewCocktailName(text)}
+                    style={[styles.input, styles.cocktail_name, props.ui.current_theme]}
+                    placeholder="New cocktail name..."
+                    clearButtonMode={"always"}
+                    placeholderTextColor={props.ui.current_theme.color}
+                />
                 <ScrollView style={{height: 300}}>
-                    <TextInput
-                        value={newCocktailName}
-                        onChangeText={text => setNewCocktailName(text)}
-                        style={[styles.input, styles.cocktail_name, props.ui.current_theme]}
-                        placeholder="New cocktail name..."
-                        clearButtonMode={"always"} 
-                        placeholderTextColor={props.ui.current_theme.color} 
-                    />
+                    
 
                     <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={addedCocktailIngredients} editIngredientId={editIngredientId} toggleEditIngredient={toggleEditIngredient} />
                 </ScrollView>
@@ -379,7 +380,8 @@ const styles = StyleSheet.create({
         marginBottom: 40
     },
     cocktail_name: {
-        marginBottom: 25
+        marginBottom: 25,
+        fontSize: 22
     },  
     new_ingredient_container: {
         flexDirection: 'column',
