@@ -233,7 +233,7 @@ function Add(props){
                         key={newCocktailIngredient.parts}
                         placeholder={placeholder}
                         useNativeAndroidPickerStyle={false}
-                        style={styles} 
+                        style={{inputIOS: {...styles.inputIOS, color: props.ui.current_theme.color}}} 
                         value={newCocktailIngredient.parts}
                         onValueChange={(val) => setParts(val)} 
                         items={[
