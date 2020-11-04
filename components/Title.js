@@ -18,7 +18,7 @@ class Title extends React.Component {
             <View style={[styles.title, this.props.ui.current_theme]}>
                 <AppText>
                     <Text style={styles.text}>
-                        Crump Cocktails!
+                        Crump Cocktails
                     </Text>
                 </AppText>
             </View>
