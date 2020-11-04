@@ -312,7 +312,7 @@ function Add(props){
                     <TouchableOpacity onPress={() => {
                         addIngredientToCocktail()
                     }}>
-                        <AppText style={styles.add_ingredient_button}>+</AppText>
+                        <SaveIngredientText save={editIngredientId ? true : false}></SaveIngredientText>
                     </TouchableOpacity>
                     
                     <TouchableOpacity onPress={async() => {
@@ -321,7 +321,7 @@ function Add(props){
 
                         navigation.push('AddCocktail')
                     }}>
-                        <AppText style={styles.add_button}>Add Cocktail</AppText>
+                        <SaveCocktailText save={editCocktailId ? true : false}></SaveCocktailText>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
 
@@ -330,13 +330,37 @@ function Add(props){
     )
 }
 
+function SaveCocktailText(props){
+    if(props.save){
+        return (
+            <AppText style={styles.add_button}>Save Cocktail</AppText>
+        )
+    } else {
+        return (
+            <AppText style={styles.add_button}>Add Cocktail</AppText>
+        )
+    }
+}
+
+function SaveIngredientText(props){
+    if(props.save){
+        return (
+            <AppText style={styles.add_ingredient_button}>Save Ingredient</AppText>
+        )
+    } else {
+        return (
+            <AppText style={styles.add_ingredient_button}>Add Ingredient</AppText>
+        )
+    }
+}
+
 const styles = StyleSheet.create({
     view: {
         paddingTop: 10,
         paddingLeft: 10,
         paddingRight: 10,
         height: windowHeight - 100,
-        backgroundColor: '#000',
+        // backgroundColor: '#000',
         // backgroundColor: '#fff',
         alignItems: 'center'
     },
