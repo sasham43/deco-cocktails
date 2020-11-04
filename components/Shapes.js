@@ -75,28 +75,6 @@ function Shape(props) {
                 <Circle stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
             )
         }
-    // } else {
-    //     if (props.part == 0.25) {
-    //         return (
-    //             <QuarterCircle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
-    //         )
-    //     }
-    //     if (props.part == 0.5) {
-    //         return (
-    //             <HalfCircle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
-    //         )
-    //     }
-    //     if (props.part == 0.75) {
-    //         return (
-    //             <ThreeQuarterCircle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
-    //         )
-    //     }
-    //     if (props.part == 1) {
-    //         return (
-    //             <Circle stroke={"#fff"} fill={"#fff"} width={props.width} height={props.height} />
-    //         )
-    //     }
-    // }
     
     return null
 }

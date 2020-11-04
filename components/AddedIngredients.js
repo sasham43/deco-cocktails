@@ -28,6 +28,9 @@ function translateParts(parts) {
             return fraction
         }
     }
+    // if(split[0] == '0'){
+
+    // }
     return split[0]
 }
 
@@ -70,6 +73,8 @@ const styles = StyleSheet.create({
         paddingRight: 6,
         marginLeft: 8,
         marginBottom: 10,
+        justifyContent: 'space-between',
+        height: 90
         // fontSize: 20
     },
     ingredient_name: {

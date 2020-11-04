@@ -129,7 +129,8 @@ function defaultCocktails() {
                 {
                     id: generate(),
                     ingredient_name: 'Red Wine',
-                    parts: 0
+                    // parts: 0
+                    parts: 'float'
                 },
             ]
         },
@@ -156,7 +157,7 @@ function defaultCocktails() {
         },
         {
             id: generate(),
-            name: 'Manhatten',
+            name: 'Manhattan',
             ingredients: [
                 {
                     id: generate(),
@@ -171,7 +172,8 @@ function defaultCocktails() {
                 {
                     id: generate(),
                     ingredient_name: 'Angostura',
-                    parts: 0
+                    parts: 'dash'
+                    // parts: 0
                 },
             ]
         },

@@ -238,6 +238,14 @@ function Add(props){
                         onValueChange={(val) => setParts(val)} 
                         items={[
                             {
+                                label: 'dash',
+                                value: 'dash'
+                            },
+                            {
+                                label: 'float',
+                                value: 'float'
+                            },
+                            {
                                 label: '1/4',
                                 value: 0.25
                             },
