@@ -4,13 +4,13 @@ const INITIAL_STATE = {
         backgroundColor: '#000',
         color: '#fff',
         shadowColor: 'rgba(200, 200, 200, 1)',
-        selectedBorderColor: '#444',
+        borderColor: '#444',
     },
     light_theme: {
         backgroundColor: '#fff',
         color: '#000',
         shadowColor: 'rgba(50, 50, 50, 1)',
-        selectedBorderColor: '#aaa',
+        borderColor: '#aaa',
     },
     current_theme: {}
 }

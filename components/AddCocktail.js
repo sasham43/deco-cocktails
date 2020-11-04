@@ -382,7 +382,7 @@ const styles = StyleSheet.create({
     },
     add_button: {
         marginTop: 45,
-        fontSize: 23,
+        fontSize: 25,
         alignSelf: 'center',
     },
     add_ingredient_button: {
