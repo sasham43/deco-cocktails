@@ -39,7 +39,7 @@ export function AddedIngredient(props) {
 
     var fractions = translateParts(props.parts)
     return (
-        <TouchableOpacity disabled={!props.toggleEditIngredient} style={[styles.added_ingredient, props.editIngredientId == props.id ? styles.selected_ingredient : null]} onPress={() => props.toggleEditIngredient(props.id)}>
+        <TouchableOpacity disabled={!props.toggleEditIngredient} style={[styles.added_ingredient, props.editIngredientId == props.id ? {...styles.selected_ingredient, shadowColor: props.theme.color, borderColor: props.theme.color} : null, props.theme]} onPress={() => props.toggleEditIngredient(props.id)}>
             <AppText style={[styles.ingredient_text, styles.ingredient_name]}>{props.ingredient_name}</AppText>
             <AppText style={[styles.inset, styles.ingredient_text]}>{fractions}</AppText>
             <Part style={[styles.inset, styles.added_parts]} parts={props.parts} last={true} />
@@ -49,7 +49,7 @@ export function AddedIngredient(props) {
 export function AddedIngredientMap(props) {
     return sortedIngredients(props.addedCocktailIngredients).map(a => {
         return (
-            <AddedIngredient key={a.id} id={a.id} ingredient_name={a.ingredient_name} parts={a.parts} editIngredientId={props.editIngredientId} toggleEditIngredient={props.toggleEditIngredient} />
+            <AddedIngredient theme={props.theme} key={a.id} id={a.id} ingredient_name={a.ingredient_name} parts={a.parts} editIngredientId={props.editIngredientId} toggleEditIngredient={props.toggleEditIngredient} />
         )
     })
 }
@@ -57,14 +57,19 @@ export function AddedIngredientMap(props) {
 const styles = StyleSheet.create({
     selected_ingredient: {
         borderWidth: 1,
-        borderStyle: 'dashed'
+        // borderStyle: 'dashed'
+
+        shadowOffset: { width: -4, height: -4, },
+        // shadowColor: 'rgba(150,150,150,.5)',
+        shadowOpacity: 0.5,
     },
     added_ingredient: {
-        paddingTop: 3,
-        paddingBottom: 3,
-        paddingLeft: 3,
-        paddingRight: 3,
+        paddingTop: 6,
+        paddingBottom: 6,
+        paddingLeft: 6,
+        paddingRight: 6,
         marginLeft: 8,
+        marginBottom: 10,
         // fontSize: 20
     },
     ingredient_name: {
