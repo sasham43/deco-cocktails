@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         // textAlign: 'center'
     },
     button_text: {
-        fontSize: 19,
+        fontSize: 23,
         textAlign: 'center'
     },
     button: {

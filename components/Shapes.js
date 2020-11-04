@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { generate } from 'shortid'
 
 import HalfCircle from '../assets/half-circle.svg'
+import HalfCircleLight from '../assets/half-circle-light.svg'
 import QuarterCircle from '../assets/quarter-circle.svg'
 import ThreeQuarterCircle from '../assets/three-quarter-circle.svg'
 import ThreeQuarterCircleLight from '../assets/three-quarter-circle-light.svg'
@@ -48,18 +49,24 @@ function Shape(props) {
             )
         }
         if (props.part == 0.5) {
-            return (
-                <HalfCircle stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
-            )
+            if(props.ui.dark_mode){
+                return (
+                    <HalfCircle transform={[{ rotate: '180deg' }]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+                )
+            } else {
+                return (
+                    <HalfCircleLight transform={[{ rotate: '180deg' }]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+                )
+            }
         }
         if (props.part == 0.75) {
             if(props.ui.dark_mode){
                 return (
-                    <ThreeQuarterCircle stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+                    <ThreeQuarterCircle transform={[{rotate: '90deg'}]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
                 )
             } else {
                 return (
-                    <ThreeQuarterCircleLight stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+                    <ThreeQuarterCircleLight transform={[{ rotate: '90deg' }]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
                 )
             }
         }
