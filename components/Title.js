@@ -29,9 +29,9 @@ class Title extends React.Component {
 
 const styles = StyleSheet.create({
     title: {
-        borderColor: 'black',
-        borderBottomWidth: 1,
-        borderStyle: 'solid',
+        // borderColor: 'black',
+        // borderBottomWidth: 1,
+        // borderStyle: 'solid',
         alignSelf: 'center',
         marginTop: 30
     },
