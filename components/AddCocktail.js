@@ -211,7 +211,7 @@ function Add(props){
                     <TextInput
                         value={newCocktailName}
                         onChangeText={text => setNewCocktailName(text)}
-                        style={[styles.input, props.ui.current_theme]}
+                        style={[styles.input, styles.cocktail_name, props.ui.current_theme]}
                         placeholder="New cocktail name..."
                         clearButtonMode={"always"} 
                         placeholderTextColor={props.ui.current_theme.color} 
@@ -364,27 +364,15 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 10,
         fontSize: 18,
-        marginBottom: 5
+        marginBottom: 5,
     },
     new_ingredient: {
         marginTop: 15,
         marginBottom: 40
     },
-    // selected_ingredient: {
-    //     borderWidth: 1,
-    //     borderStyle: 'dashed'
-    // },
-    // added_ingredient: {
-    //     paddingTop: 3,
-    //     paddingBottom: 3,
-    //     paddingLeft: 3,
-    //     paddingRight: 3,
-    //     marginLeft: 8
-    // },
-    // added_parts: {
-    //     marginTop: 8,
-    //     marginBottom: 4
-    // },
+    cocktail_name: {
+        marginBottom: 25
+    },  
     new_ingredient_container: {
         flexDirection: 'column',
         justifyContent: 'space-between',

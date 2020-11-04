@@ -2,11 +2,13 @@ const INITIAL_STATE = {
     dark_mode: false,
     dark_theme: {
         backgroundColor: '#000',
-        color: '#fff'
+        color: '#fff',
+        shadowColor: 'rgba(200, 200, 200, 1)'
     },
     light_theme: {
         backgroundColor: '#fff',
-        color: '#000'
+        color: '#000',
+        shadowColor: 'rgba(50, 50, 50, 1)'
     },
     current_theme: {}
 }

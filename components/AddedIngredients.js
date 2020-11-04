@@ -39,7 +39,7 @@ export function AddedIngredient(props) {
 
     var fractions = translateParts(props.parts)
     return (
-        <TouchableOpacity disabled={!props.toggleEditIngredient} style={[styles.added_ingredient, props.editIngredientId == props.id ? {...styles.selected_ingredient, shadowColor: props.theme.color, borderColor: props.theme.color} : null, props.theme]} onPress={() => props.toggleEditIngredient(props.id)}>
+        <TouchableOpacity disabled={!props.toggleEditIngredient} style={[styles.added_ingredient, props.editIngredientId == props.id ? {...styles.selected_ingredient, shadowColor: props.theme.shadowColor, borderColor: props.theme.color} : null, props.theme]} onPress={() => props.toggleEditIngredient(props.id)}>
             <AppText style={[styles.ingredient_text, styles.ingredient_name]}>{props.ingredient_name}</AppText>
             <AppText style={[styles.inset, styles.ingredient_text]}>{fractions}</AppText>
             <Part style={[styles.inset, styles.added_parts]} parts={props.parts} last={true} />
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
 
         shadowOffset: { width: -4, height: -4, },
         // shadowColor: 'rgba(150,150,150,.5)',
-        shadowOpacity: 0.5,
+        shadowOpacity: 0.3,
     },
     added_ingredient: {
         paddingTop: 6,
