@@ -217,7 +217,7 @@ function Add(props){
                         placeholderTextColor={props.ui.current_theme.color} 
                     />
 
-                    <AddedIngredientMap addedCocktailIngredients={addedCocktailIngredients} editIngredientId={editIngredientId} toggleEditIngredient={toggleEditIngredient} />
+                    <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={addedCocktailIngredients} editIngredientId={editIngredientId} toggleEditIngredient={toggleEditIngredient} />
                 </ScrollView>
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.new_ingredient, props.ui.current_theme]}>
                     <TextInput 
