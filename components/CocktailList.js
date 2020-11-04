@@ -229,7 +229,15 @@ function FunctionMenu(props) {
                     <View style={{ opacity: 'search' == props.currentMode ? 1 : 0 }}>
                         <InStockIcon fill={props.theme.color} transform={[{ rotate: '-45deg' }]} width={25} height={25} />
                     </View>
-                    <TextInput value={props.cocktailSearch} onChangeText={(text) => props.setCocktailSearch(text)} onFocus={()=>props.switchMode('search')} placeholder="Search cocktails..." clearButtonMode={"always"} style={styles.input} />
+                    <TextInput 
+                        value={props.cocktailSearch} 
+                        onChangeText={(text) => props.setCocktailSearch(text)} 
+                        onFocus={()=>props.switchMode('search')} 
+                        placeholder="Search cocktails..." 
+                        placeholderTextColor={props.theme.color}
+                        clearButtonMode={"always"} 
+                        style={[styles.input, props.theme]} 
+                    />
                 </View>
 
                 <FunctionMenuButton theme={props.theme} label={"Select A Cocktail"} mode="select" switchMode={props.switchMode} currentMode={props.currentMode} />
