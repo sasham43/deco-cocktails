@@ -30,6 +30,16 @@ const INITIAL_STATE = {
             height: viewHeight,
             marginTop: 50, // account for menu
         },
+        footerStyles: {
+            width: windowWidth - 40,
+            marginLeft: 20,
+            alignContent: 'center',
+            backgroundColor: 'rgba(255, 255, 255, 1)',
+            zIndex: 10,
+            height: 200,
+            position: 'absolute',
+            bottom: -60,
+        },
     }
 }
 

@@ -308,17 +308,17 @@ function SaveIngredientText(props){
 }
 
 const styles = StyleSheet.create({
-    view: {
-        paddingTop: 10,
-        paddingLeft: 10,
-        paddingRight: 10,
-        // height: windowHeight - 100,
-        height: viewHeight,
-        marginTop: 50,
-        // backgroundColor: '#000',
-        // backgroundColor: '#fff',
-        alignItems: 'center'
-    },
+    // view: {
+    //     paddingTop: 10,
+    //     paddingLeft: 10,
+    //     paddingRight: 10,
+    //     // height: windowHeight - 100,
+    //     height: viewHeight,
+    //     marginTop: 50,
+    //     // backgroundColor: '#000',
+    //     // backgroundColor: '#fff',
+    //     alignItems: 'center'
+    // },
     input: {
         fontFamily: 'PoiretOne_400Regular',
         paddingTop: 10,
