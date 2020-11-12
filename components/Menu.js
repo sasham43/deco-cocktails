@@ -41,17 +41,17 @@ function Menu(props) {
         // handleFade()
     // }, [])
 
-
+    const fadeTime = 500
     const selectLeft = () => {
         // console.log('selecting left', leftAnim, rightAnim)
         Animated.timing(leftAnim, {
             toValue: 1,
-            duration: 1000,
+            duration: fadeTime,
             useNativeDriver: true,
         }).start()
         Animated.timing(rightAnim, {
             toValue: 0,
-            duration: 1000,
+            duration: fadeTime,
             useNativeDriver: true,
         }).start()
     }
@@ -59,12 +59,12 @@ function Menu(props) {
         // console.log('selecting right', leftAnim, rightAnim)
         Animated.timing(leftAnim, {
             toValue: 0,
-            duration: 1000,
+            duration: fadeTime,
             useNativeDriver: true,
         }).start()
         Animated.timing(rightAnim, {
             toValue: 1,
-            duration: 1000,
+            duration: fadeTime,
             useNativeDriver: true,
         }).start()
     }
