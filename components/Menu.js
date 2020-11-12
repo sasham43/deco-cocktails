@@ -14,11 +14,18 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Menu)
 
 function Menu(props) {
-    console.log('props',props.navigation, props.navigation.dangerouslyGetState())
+    // console.log('props',props.navigation, props.navigation.dangerouslyGetState())
     const state = props.navigation.dangerouslyGetState()
     // var props = data.props // it's nested for some reason, idk
     const navigation = props.navigation
-    var currentPage = state.index == 0 ? 'CocktailList' : 'Stock'
+    // var currentPage = state.index == 0 ? 'CocktailList' : 'Stock'
+    var currentPage
+    if(state.index == 0){
+        currentPage = 'CocktailList'
+    } else if (state.index == 2){
+        currentPage = 'Stock'
+    }
+    console.log('current page', currentPage, state.index)
     // const route = props.scene.route
     // var currentPage = 'CocktailList'
     
@@ -90,7 +97,7 @@ function Menu(props) {
 }
 
 function SelectedIcon(props){
-    // if(props.selected){
+    if(props.selected){
         const transform_props = props.position == 'left' ? [{ rotate: '135deg' }] : [{ rotate: '-45deg' }]
         const container_style = props.position == 'left' ? {paddingLeft: 10} : {paddingRight: 10}
         console.log('fadeAnim', props.fadeAnim)
@@ -99,9 +106,9 @@ function SelectedIcon(props){
                 <InStockIcon transform={transform_props} width={30} height={30} fill={props.theme.color} />
             </Animated.View>
         )
-    // } else {
-    //     return null
-    // }
+    } else {
+        return null
+    }
 }
 
 const styles = StyleSheet.create({
