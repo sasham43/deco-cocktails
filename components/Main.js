@@ -2,7 +2,8 @@ import React from 'react'
 import { StyleSheet, AsyncStorage, View } from 'react-native'
 // import { NativeRouter, Route, Link } from "react-router-native"
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, TransitionSpecs } from '@react-navigation/stack'
+import { createStackNavigator,TransitionSpecs } from '@react-navigation/stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 // import { Provider } from 'react-redux'
 import { createStore, combineReducers} from 'redux'
 import { connect} from 'react-redux'
@@ -25,6 +26,7 @@ import ViewCocktail from './ViewCocktail'
 import CornerIcon from '../assets/corner.svg'
 
 const Stack = createStackNavigator()
+const Tab = createBottomTabNavigator()
 
 // const persistConfig = {
 //     key: 'root', // maybe stock?
@@ -53,8 +55,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Main)
 
 function Main(props){
-        // return (
-        // console.log("transition spects", TransitionSpecs)
         var screen_options = {
             headerShown: true, 
             transitionSpec: {
@@ -72,7 +72,8 @@ function Main(props){
                     },
                     overlayStyle: {}
                 }
-            }
+            },
+            tabBarVisible: false
         }
         return (
             <NavigationContainer>
@@ -82,14 +83,14 @@ function Main(props){
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={60} height={60} />
                     <Title></Title>
-                    <Stack.Navigator  screenOptions={{ header: (props) => <Menu props={{...props}} /> }}>
-                        <Stack.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Stack.Screen>
-                        <Stack.Screen options={screen_options} name="About" style={styles.screen} component={About}></Stack.Screen>
-                        <Stack.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Stack.Screen>
-                        <Stack.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
-                        <Stack.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
-                        <Stack.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Stack.Screen>
-                    </Stack.Navigator>
+                    <Tab.Navigator  tabBar={props=> <Menu {...props} />} >
+                        <Tab.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Tab.Screen>
+                        <Tab.Screen options={screen_options} name="About" style={styles.screen} component={About}></Tab.Screen>
+                        <Tab.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Tab.Screen>
+                        <Tab.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Tab.Screen>
+                        <Tab.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Tab.Screen>
+                        <Tab.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Tab.Screen>
+                    </Tab.Navigator>
                 </View>
             </NavigationContainer>
         )
