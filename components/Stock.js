@@ -14,7 +14,7 @@ import { updateStock } from '../utils/StockActions'
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
-const titlePadding = 37 + 41 + 10
+const titlePadding = 37 + 41 + 20
 const footerHeight = 25
 const viewHeight = windowHeight - (titlePadding + footerHeight)
 
@@ -97,7 +97,7 @@ function FunctionMenu(props) {
     }, [props.showFunctionMenu])
 
     return (
-        <SlidingUpPanel draggableRange={{ top: windowHeight - 120, bottom: 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
+        <SlidingUpPanel draggableRange={{ top: windowHeight - 135, bottom: 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
             <View style={[styles.panel_container, props.theme]}>
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />
@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
         paddingLeft: 30,
         paddingRight: 10,
         height: viewHeight,
+        marginTop: 50,
     },
     scroll_view: {
         height: windowHeight - 120,
