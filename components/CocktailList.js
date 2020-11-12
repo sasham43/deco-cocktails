@@ -33,7 +33,7 @@ import { useCocktails,  useStock, useFunctionMenu } from '../utils/hooks'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-const titlePadding = 37 + 41 + 10
+const titlePadding = 37 + 41 + 20
 const footerHeight = 25
 const viewHeight = windowHeight - (titlePadding + footerHeight)
 // const viewHeight = 100
@@ -220,7 +220,7 @@ function FunctionMenu(props) {
     }, [props.showFunctionMenu])
     
     return (
-        <SlidingUpPanel showBackdrop={false} draggableRange={{top: windowHeight - 120, bottom: 0}} ref={c=> setPanel(c)} onBottomReached={()=>props.setShowFunctionMenu(false)}>
+        <SlidingUpPanel showBackdrop={false} draggableRange={{ top: windowHeight - 135, bottom: 0}} ref={c=> setPanel(c)} onBottomReached={()=>props.setShowFunctionMenu(false)}>
             <View style={ [styles.panel_container, props.theme] }>
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />
@@ -282,6 +282,7 @@ const styles = StyleSheet.create({
         paddingLeft: 40,
         paddingRight: 40,
         height: viewHeight,
+        marginTop: 50, // account for menu
     },
     cocktail_name_container: {
         // flex: 1
