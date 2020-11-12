@@ -63,7 +63,7 @@ function Stock(props){
     const { toggleFunctionMenu, showFunctionMenu, setShowFunctionMenu } = useFunctionMenu()
 
     return (
-        <View style={[styles.stock, styles.view, props.ui.current_theme]}>
+        <View style={[styles.stock, props.ui.default_styles.viewStyles, props.ui.current_theme]}>
             <ScrollView style={styles.scroll_view}>
                 <StockMap theme={props.ui.current_theme} stock={stock} updateStock={props.updateStock} />
             </ScrollView>            

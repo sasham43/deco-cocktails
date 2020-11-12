@@ -27,7 +27,7 @@ import InStockIcon from '../assets/in-stock'
 import TabIcon from '../assets/tab'
 import { deleteCocktail } from '../utils/CocktailActions'
 
-import { useCocktails,  useStock, useFunctionMenu } from '../utils/hooks'
+import { useStock, useFunctionMenu } from '../utils/hooks'
 
 
 const windowWidth = Dimensions.get('window').width
@@ -180,7 +180,7 @@ function CocktailList(props){
     }
 
     return (
-        <View style={[styles.view, props.ui.current_theme]}>
+        <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}>
             <ScrollView style={styles.scroll_view}>
                 <CocktailListMap theme={props.ui.current_theme} cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} currentMode={currentMode}></CocktailListMap>
                 <View style={{marginTop:50, height: 20}}></View>

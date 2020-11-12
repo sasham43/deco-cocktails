@@ -158,7 +158,7 @@ function Add(props){
         color: '#9EA0A4',
     };
     return (
-        <View style={[styles.view, props.ui.current_theme]}>
+        <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}>
             <View style={styles.new_ingredient_container}>
                 <TextInput
                     value={newCocktailName}
