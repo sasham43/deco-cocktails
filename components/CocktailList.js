@@ -196,7 +196,7 @@ function CocktailList(props){
                 theme={props.ui.current_theme}
             />
 
-            <View style={[styles.footer, props.ui.current_theme]}>
+            <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
                 <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionMenu()}>
                     <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
                 </TouchableOpacity>
@@ -277,13 +277,13 @@ const styles = StyleSheet.create({
         marginTop: 10,
         color: '#fff',
     },
-    view: {
-        paddingTop: 10,
-        paddingLeft: 40,
-        paddingRight: 40,
-        height: viewHeight,
-        marginTop: 50, // account for menu
-    },
+    // view: {
+    //     paddingTop: 10,
+    //     paddingLeft: 40,
+    //     paddingRight: 40,
+    //     height: viewHeight,
+    //     marginTop: 50, // account for menu
+    // },
     cocktail_name_container: {
         // flex: 1
     },
@@ -329,16 +329,16 @@ const styles = StyleSheet.create({
         zIndex: 2,
         justifyContent: 'flex-start'
     },
-    footer: {
-        width: windowWidth - 40,
-        marginLeft: 20,
-        alignContent: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 1)',
-        zIndex: 10,
-        height: 200,
-        position: 'absolute',
-        bottom: -60,
-    },
+    // footer: {
+    //     width: windowWidth - 40,
+    //     marginLeft: 20,
+    //     alignContent: 'center',
+    //     backgroundColor: 'rgba(255, 255, 255, 1)',
+    //     zIndex: 10,
+    //     height: 200,
+    //     position: 'absolute',
+    //     bottom: -60,
+    // },
     panel_container: {
         flex: 1,
         justifyContent: 'flex-start',

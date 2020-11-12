@@ -74,7 +74,7 @@ function Stock(props){
                 theme={props.ui.current_theme}
             />
 
-            <View style={styles.footer}>
+            <View style={props.ui.default_styles.footerStyles}>
                 <TouchableOpacity style={styles.function_button_container} onPress={() => toggleFunctionMenu()}>
                     <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
                 </TouchableOpacity>
@@ -112,13 +112,13 @@ const styles = StyleSheet.create({
     stock: {
         paddingLeft: 40
     },
-    view: {
-        paddingTop: 10,
-        paddingLeft: 30,
-        paddingRight: 10,
-        height: viewHeight,
-        marginTop: 50,
-    },
+    // view: {
+    //     paddingTop: 10,
+    //     paddingLeft: 30,
+    //     paddingRight: 10,
+    //     height: viewHeight,
+    //     marginTop: 50,
+    // },
     scroll_view: {
         height: windowHeight - 120,
     },
@@ -148,15 +148,15 @@ const styles = StyleSheet.create({
         zIndex: 2,
         justifyContent: 'flex-start'
     },
-    footer: {
-        width: windowWidth - 40,
-        marginLeft: 20,
-        alignContent: 'center',
-        zIndex: 10,
-        height: 200,
-        position: 'absolute',
-        bottom: -60,
-    },
+    // footer: {
+    //     width: windowWidth - 40,
+    //     marginLeft: 20,
+    //     alignContent: 'center',
+    //     zIndex: 10,
+    //     height: 200,
+    //     position: 'absolute',
+    //     bottom: -60,
+    // },
     panel_container: {
         flex: 1,
         justifyContent: 'flex-start',
