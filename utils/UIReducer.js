@@ -1,3 +1,12 @@
+import { Dimensions } from 'react-native'
+
+const windowWidth = Dimensions.get('window').width
+const windowHeight = Dimensions.get('window').height
+
+const titlePadding = 37 + 41 + 20
+const footerHeight = 25
+const viewHeight = windowHeight - (titlePadding + footerHeight)
+
 const INITIAL_STATE = {
     dark_mode: false,
     dark_theme: {
@@ -12,7 +21,16 @@ const INITIAL_STATE = {
         shadowColor: 'rgba(50, 50, 50, 1)',
         borderColor: '#aaa',
     },
-    current_theme: {}
+    current_theme: {},
+    default_styles: {
+        viewStyles: {
+            paddingTop: 10,
+            paddingLeft: 40,
+            paddingRight: 40,
+            height: viewHeight,
+            marginTop: 50, // account for menu
+        },
+    }
 }
 
 const uiReducer = (state = INITIAL_STATE, action) => {
@@ -20,7 +38,8 @@ const uiReducer = (state = INITIAL_STATE, action) => {
         dark_mode,
         dark_theme,
         light_theme,
-        current_theme
+        current_theme,
+        default_styles,
     } = state
     switch (action.type){
         case 'SET_DARK_MODE':
@@ -34,7 +53,8 @@ const uiReducer = (state = INITIAL_STATE, action) => {
                 dark_mode: new_dark_mode,
                 dark_theme,
                 light_theme,
-                current_theme: new_current
+                current_theme: new_current,
+                default_styles
             }
         default:
             var new_current = {}
@@ -43,7 +63,7 @@ const uiReducer = (state = INITIAL_STATE, action) => {
             } else {
                 new_current = light_theme
             }
-            const new_state = {dark_mode,dark_theme,light_theme, current_theme: new_current}
+            const new_state = {dark_mode,dark_theme,light_theme, current_theme: new_current, default_styles}
             return new_state
     }
 }
