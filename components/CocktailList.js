@@ -99,21 +99,22 @@ function CocktailListMap(props) {
             navigation.navigate('AddCocktail', {
                 id: cocktail.id
             })
-        } else if (currentMode == 'delete') {
-            var title = `Remove ${cocktail.name}?`
-            var msg = ''
-            var buttons = [
-                {
-                    text: 'Cancel',
-                    style: 'cancel'
-                },
-                {
-                    text: 'OK',
-                    onPress: () => props.deleteCocktail(cocktail.id)
-                }
-            ]
-            Alert.alert(title, msg, buttons)
-        }
+        } 
+        // else if (currentMode == 'delete') {
+        //     var title = `Remove ${cocktail.name}?`
+        //     var msg = ''
+        //     var buttons = [
+        //         {
+        //             text: 'Cancel',
+        //             style: 'cancel'
+        //         },
+        //         {
+        //             text: 'OK',
+        //             onPress: () => props.deleteCocktail(cocktail.id)
+        //         }
+        //     ]
+        //     Alert.alert(title, msg, buttons)
+        // }
     }
     
     return props.cocktails.map(cocktail =>
@@ -225,12 +226,13 @@ function CocktailList(props){
                 theme={props.ui.current_theme}
             />
 
-            <Footer ui={props.ui} deleteCocktails={props.deleteCocktails} toggleFunctionMenu={toggleFunctionMenu} currentMode={currentMode} switchMode={switchMode} />
-            {/* <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
-                <TouchableOpacity style={styles.function_button_container} onPress={()=>toggleFunctionMenu()}>
-                    <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
-                </TouchableOpacity>
-            </View> */}
+            <Footer 
+                ui={props.ui} 
+                deleteCocktails={props.deleteCocktails} 
+                toggleFunctionMenu={toggleFunctionMenu} 
+                currentMode={currentMode} 
+                switchMode={switchMode} 
+            />
         </View>
     )
 }
@@ -247,6 +249,14 @@ function Footer(props){
                 </Pressable>
                 <Pressable onPress={()=>props.switchMode('')}>
                     <AppText style={styles.footer_button_text}>Cancel</AppText>
+                </Pressable>
+            </View> 
+        )
+    } else if (props.currentMode == 'edit'){
+        return (
+            <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
+                <Pressable onPress={()=>props.switchMode('')}>
+                    <AppText style={styles.footer_button_text}>Edit A Cocktail</AppText>
                 </Pressable>
             </View> 
         )
@@ -302,7 +312,7 @@ function FunctionMenu(props) {
                     />
                 </View>
 
-                <FunctionMenuButton theme={props.theme} label={"Select A Cocktail"} mode="select" switchMode={props.switchMode} currentMode={props.currentMode} />
+                <FunctionMenuButton theme={props.theme} label={"Select A Cocktail"} mode="select" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Edit A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Remove Cocktails"} mode="delete" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <Pressable style={[{marginLeft: 25, marginTop: 20}]} onPress={()=>navigation.navigate('AddCocktail')}>
@@ -318,7 +328,7 @@ function FunctionMenuButton(props){
 
     function changeMode(){
         props.switchMode(props.mode)
-        if(props.mode == 'delete'){
+        if(props.mode != 'search'){
             props.hidePanel()
         }
     }
@@ -364,7 +374,8 @@ const styles = StyleSheet.create({
     },
     scroll_view: {
         marginBottom: 25,
-        paddingLeft: 50
+        paddingLeft: 50,
+        paddingRight: 10,
     },
     action_buttons: {
         fontSize: 22,

@@ -70,7 +70,7 @@ function ViewCocktail(props){
     }
 
     return (
-        <View style={[styles.view, props.ui.current_theme]}>
+        <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}>
             <View>
                 <AppText style={styles.cocktail_title}>{cocktail.name}</AppText>
             </View>
@@ -78,9 +78,9 @@ function ViewCocktail(props){
                 <View style={ styles.category_title_container }>
                     <AppText style={styles.category_title}>Ingredients</AppText>
                 </View>
-                <AddedIngredientMap addedCocktailIngredients={cocktail.ingredients} />
+                <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={cocktail.ingredients} />
             </ScrollView>
-            <View style={styles.button_container}>
+            <View style={[props.ui.default_styles.footerStyles, styles.button_container]}>
                 <Pressable style={styles.button} onPress={()=>editCocktail()}>
                     <AppText style={styles.button_text}>Edit Cocktail</AppText>
                 </Pressable>
@@ -118,10 +118,10 @@ const styles = StyleSheet.create({
         // borderBottomColor: '#000' 
     },
     button_container: {
-        position: 'absolute',
-        bottom: 20,
-        width: windowWidth,
-        paddingBottom: 40
+        // position: 'absolute',
+        // bottom: 20,
+        // width: windowWidth,
+        // paddingBottom: 40
         // textAlign: 'center'
     },
     button_text: {
