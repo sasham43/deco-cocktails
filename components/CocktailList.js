@@ -116,17 +116,29 @@ function CocktailListMap(props) {
     
     return props.cocktails.map(cocktail =>
         (
-            <Pressable disabled={props.currentMode != 'edit' && props.currentMode != 'delete' && props.currentMode != 'select'} onPress={() => selectCocktail(cocktail, props.currentMode)} style={styles.cocktail} key={cocktail.id}>
-                <View style={styles.cocktail_name_container}>
-                    <AppText>
-                        <Text style={[styles.cocktail_text, props.theme]}>
-                            {cocktail.name}
-                        </Text>
-                    </AppText>
+            <View style={[styles.cocktail_container]} key={cocktail.id}>
+                <View style={[{flex: 1}]}>
+                    <Pressable onPress={()=>cocktail.selected = !cocktail.selected }>
+                        <InStockIcon transform={[{ rotate: '-45deg' }]} width={45} height={45} fill={cocktail.selected ? props.theme.color : 'grey'} />
+                    </Pressable>
                 </View>
-                <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(filterIngredients))} />
-                <NameMap ingredients={sortedIngredients(cocktail.ingredients)} />
-            </Pressable>
+                <Pressable 
+                    disabled={props.currentMode != 'edit' && props.currentMode != 'delete' && props.currentMode != 'select'} 
+                    onPress={() => selectCocktail(cocktail, props.currentMode)} 
+                    style={[styles.cocktail, {flex:8}]} 
+                    // key={cocktail.id}
+                >
+                    <View style={styles.cocktail_name_container}>
+                        <AppText>
+                            <Text style={[styles.cocktail_text, props.theme]}>
+                                {cocktail.name}
+                            </Text>
+                        </AppText>
+                    </View>
+                    <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(filterIngredients))} />
+                    <NameMap ingredients={sortedIngredients(cocktail.ingredients)} />
+                </Pressable>
+            </View>
         )
     )
 }
@@ -329,16 +341,6 @@ const styles = StyleSheet.create({
         zIndex: 2,
         justifyContent: 'flex-start'
     },
-    // footer: {
-    //     width: windowWidth - 40,
-    //     marginLeft: 20,
-    //     alignContent: 'center',
-    //     backgroundColor: 'rgba(255, 255, 255, 1)',
-    //     zIndex: 10,
-    //     height: 200,
-    //     position: 'absolute',
-    //     bottom: -60,
-    // },
     panel_container: {
         flex: 1,
         justifyContent: 'flex-start',
@@ -351,5 +353,8 @@ const styles = StyleSheet.create({
     tab_icon_container: {
         alignItems: 'center',
         marginBottom: -20
+    },
+    cocktail_container: {
+        flexDirection: 'row'
     }
 })
