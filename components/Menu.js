@@ -14,11 +14,8 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Menu)
 
 function Menu(props) {
-    // console.log('props',props.navigation, props.navigation.dangerouslyGetState())
     const state = props.navigation.dangerouslyGetState()
-    // var props = data.props // it's nested for some reason, idk
     const navigation = props.navigation
-    // var currentPage = state.index == 0 ? 'CocktailList' : 'Stock'
     var currentPage
     if(state.index == 0){
         currentPage = 'CocktailList'
@@ -32,39 +29,22 @@ function Menu(props) {
         var leftAnim = useRef(new Animated.Value(1)).current;
         var rightAnim = useRef(new Animated.Value(1)).current;
     }
-    console.log('current page', currentPage, state.index)
-    // const route = props.scene.route
-    // var currentPage = 'CocktailList'
-    
-    // var currentPage = route.name
 
-    // fade
-    // const leftAnim = useRef(new Animated.Value(1)).current;
-    // const rightAnim = useRef(new Animated.Value(0)).current;
     function handleFade(){
         if (currentPage == 'CocktailList') {
-            // selectLeft()
-            // selectRight()
             fadeLeftIn()
             fadeRightOut()
         } else if (currentPage == 'Stock') {
             fadeRightIn()
             fadeLeftOut()
-            // selectRight()
-            // selectLeft()
         } else {
             fadeLeftOut()
             fadeRightOut()
         }
     }
-
-    // useEffect(()=>{
-        // handleFade()
-        // }, [])
         
     const fadeTime = 1000
     const fadeLeftIn = () => {
-        console.log('fading left in')
         Animated.timing(leftAnim, {
             toValue: 1,
             duration: fadeTime,
@@ -72,7 +52,6 @@ function Menu(props) {
         }).start()
     }
     const fadeRightIn = () => {
-        console.log('fading right in')
         Animated.timing(rightAnim, {
             toValue: 1,
             duration: fadeTime,
@@ -80,7 +59,6 @@ function Menu(props) {
         }).start()
     }
     const fadeLeftOut = () => {
-        console.log('fading left out')
         Animated.timing(leftAnim, {
             toValue: 0,
             duration: fadeTime,
@@ -88,41 +66,12 @@ function Menu(props) {
         }).start()
     }
     const fadeRightOut = () => {
-        console.log('fading right out')
         Animated.timing(rightAnim, {
             toValue: 0,
             duration: fadeTime,
             useNativeDriver: true,
         }).start()
     }
-
-    const selectLeft = () => {
-        console.log('selecting left', leftAnim, rightAnim)
-        Animated.timing(leftAnim, {
-            toValue: 1,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-        Animated.timing(rightAnim, {
-            toValue: 0,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    const selectRight = () => {
-        console.log('selecting right', leftAnim, rightAnim)
-        Animated.timing(leftAnim, {
-            toValue: 0,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-        Animated.timing(rightAnim, {
-            toValue: 1,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-
     handleFade()
 
     return (
@@ -147,21 +96,6 @@ function Menu(props) {
             </View>
         </View>
     )
-}
-
-function SelectedIcon(props){
-    if(props.selected){
-        const transform_props = props.position == 'left' ? [{ rotate: '135deg' }] : [{ rotate: '-45deg' }]
-        const container_style = props.position == 'left' ? {paddingLeft: 10} : {paddingRight: 10}
-        console.log('fadeAnim', props.fadeAnim)
-        return (
-            <Animated.View style={[container_style, {opacity: props.fadeAnim}]}>
-                <InStockIcon transform={transform_props} width={30} height={30} fill={props.theme.color} />
-            </Animated.View>
-        )
-    } else {
-        return null
-    }
 }
 
 const styles = StyleSheet.create({
