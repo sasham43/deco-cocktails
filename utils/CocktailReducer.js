@@ -43,6 +43,19 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
             const deleteState = {current: deleted}
 
             return deleteState
+        case 'SELECT_COCKTAIL':
+            const select_id = action.payload
+            const selected = current.map(c=>{
+                if(c.id == select_id){
+                    c.selected = !c.selected
+                }
+                return c
+            })
+            console.log('select action', select_id)
+
+            const selectState = {current: selected}
+
+            return selectState
         default:
             return state
     }
