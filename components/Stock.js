@@ -74,7 +74,7 @@ function Stock(props){
                 theme={props.ui.current_theme}
             />
 
-            <View style={props.ui.default_styles.footerStyles}>
+            <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
                 <TouchableOpacity style={styles.function_button_container} onPress={() => toggleFunctionMenu()}>
                     <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
                 </TouchableOpacity>

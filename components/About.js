@@ -4,7 +4,7 @@ import { View, StyleSheet, Dimensions, Pressable } from 'react-native'
 import AppText from './AppText'
 import {setDarkMode } from '../utils/UIActions'
 
-const windowWidth = Dimensions.get('window').width
+// const windowWidth = Dimensions.get('window').width
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 const mapStateToProps = (state) => {
@@ -21,7 +21,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(About)
 // export default 
 function About (props){
     return (
-        <View style={[styles.about, styles.view, props.ui.current_theme]}>
+        <View style={[styles.about, props.ui.default_styles.viewStyles, props.ui.current_theme]}>
             <AppText style={styles.text}>
                 This app was made in Crump House with an assist from 
 
@@ -49,22 +49,22 @@ function About (props){
 const styles = StyleSheet.create({
     about: {
         // marginTop: 10,
-        flex: 1,
-        alignSelf: 'center',
+        // flex: 1,
+        // alignSelf: 'center',
         // backgroundColor: '#fff'
         // backgroundColor: '#000',
         // color: '#fff'
     },
-    view: {
-        paddingTop: 30,
-        paddingLeft: 10,
-        paddingRight: 10,
-        width: windowWidth,
-        // backgroundColor: '#000',
-        // color: '#fff',
-        // backgroundColor: '#fff',
-        alignItems: 'center'
-    },
+    // view: {
+    //     paddingTop: 30,
+    //     paddingLeft: 10,
+    //     paddingRight: 10,
+    //     width: windowWidth,
+    //     // backgroundColor: '#000',
+    //     // color: '#fff',
+    //     // backgroundColor: '#fff',
+    //     alignItems: 'center'
+    // },
     text: {
         fontSize: 22,
     },

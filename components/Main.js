@@ -22,6 +22,7 @@ import Menu from './Menu'
 import Add from './AddCocktail'
 import AddStock from './AddStock'
 import ViewCocktail from './ViewCocktail'
+import { navigationRef } from '../utils/RootNavigation'
 
 import CornerIcon from '../assets/corner.svg'
 
@@ -76,7 +77,7 @@ function Main(props){
             tabBarVisible: false
         }
         return (
-            <NavigationContainer>
+            <NavigationContainer ref={navigationRef}>
                 <View style={[styles.container, props.ui.current_theme]}>
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={60} height={60} />

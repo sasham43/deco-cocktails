@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { connect } from 'react-redux'
 
 import AppText from './AppText'
+import * as RootNavigation from '../utils/RootNavigation'
 
 const mapStateToProps = (state) => {
     const { ui } = state
@@ -15,13 +16,13 @@ class Title extends React.Component {
 
     render(){
         return (
-            <View style={[styles.title, this.props.ui.current_theme]}>
+            <Pressable onLongPress={()=>RootNavigation.navigate('About')} style={[styles.title, this.props.ui.current_theme]}>
                 <AppText>
                     <Text style={styles.text}>
                         Crump Cocktails
                     </Text>
                 </AppText>
-            </View>
+            </Pressable>
         )
     }
 }
