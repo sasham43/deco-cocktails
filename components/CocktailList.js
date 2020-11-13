@@ -260,6 +260,14 @@ function Footer(props){
                 </Pressable>
             </View> 
         )
+    } else if (props.currentMode == 'select'){
+        return (
+            <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
+                <Pressable onPress={() => props.switchMode('')}>
+                    <AppText style={styles.footer_button_text}>View A Cocktail</AppText>
+                </Pressable>
+            </View>
+        )
     } else {
         return (
             <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
