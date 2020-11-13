@@ -16,9 +16,9 @@ import { addCocktail, updateCocktails } from '../utils/CocktailActions'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-const titlePadding = 37 + 41 + 20
-const footerHeight = 25
-const viewHeight = windowHeight - (titlePadding + footerHeight)
+// const titlePadding = 37 + 41 + 20
+// const footerHeight = 25
+// const viewHeight = windowHeight - (titlePadding + footerHeight)
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
@@ -158,7 +158,7 @@ function Add(props){
         color: '#9EA0A4',
     };
     return (
-        <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}>
+        <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}>
             <View style={styles.new_ingredient_container}>
                 <TextInput
                     value={newCocktailName}
