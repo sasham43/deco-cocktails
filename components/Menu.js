@@ -22,8 +22,15 @@ function Menu(props) {
     var currentPage
     if(state.index == 0){
         currentPage = 'CocktailList'
+        var leftAnim = useRef(new Animated.Value(1)).current;
+        var rightAnim = useRef(new Animated.Value(0)).current;
     } else if (state.index == 2){
         currentPage = 'Stock'
+        var leftAnim = useRef(new Animated.Value(0)).current;
+        var rightAnim = useRef(new Animated.Value(1)).current;
+    } else {
+        var leftAnim = useRef(new Animated.Value(1)).current;
+        var rightAnim = useRef(new Animated.Value(1)).current;
     }
     console.log('current page', currentPage, state.index)
     // const route = props.scene.route
@@ -32,25 +39,65 @@ function Menu(props) {
     // var currentPage = route.name
 
     // fade
-    const leftAnim = useRef(new Animated.Value(1)).current;
-    const rightAnim = useRef(new Animated.Value(0)).current;
+    // const leftAnim = useRef(new Animated.Value(1)).current;
+    // const rightAnim = useRef(new Animated.Value(0)).current;
     function handleFade(){
         if (currentPage == 'CocktailList') {
-            selectLeft()
-            // selectRight()
-        } else if (currentPage == 'Stock') {
-            selectRight()
             // selectLeft()
+            // selectRight()
+            fadeLeftIn()
+            fadeRightOut()
+        } else if (currentPage == 'Stock') {
+            fadeRightIn()
+            fadeLeftOut()
+            // selectRight()
+            // selectLeft()
+        } else {
+            fadeLeftOut()
+            fadeRightOut()
         }
     }
 
     // useEffect(()=>{
         // handleFade()
-    // }, [])
+        // }, [])
+        
+    const fadeTime = 1000
+    const fadeLeftIn = () => {
+        console.log('fading left in')
+        Animated.timing(leftAnim, {
+            toValue: 1,
+            duration: fadeTime,
+            useNativeDriver: true,
+        }).start()
+    }
+    const fadeRightIn = () => {
+        console.log('fading right in')
+        Animated.timing(rightAnim, {
+            toValue: 1,
+            duration: fadeTime,
+            useNativeDriver: true,
+        }).start()
+    }
+    const fadeLeftOut = () => {
+        console.log('fading left out')
+        Animated.timing(leftAnim, {
+            toValue: 0,
+            duration: fadeTime,
+            useNativeDriver: true,
+        }).start()
+    }
+    const fadeRightOut = () => {
+        console.log('fading right out')
+        Animated.timing(rightAnim, {
+            toValue: 0,
+            duration: fadeTime,
+            useNativeDriver: true,
+        }).start()
+    }
 
-    const fadeTime = 500
     const selectLeft = () => {
-        // console.log('selecting left', leftAnim, rightAnim)
+        console.log('selecting left', leftAnim, rightAnim)
         Animated.timing(leftAnim, {
             toValue: 1,
             duration: fadeTime,
@@ -63,7 +110,7 @@ function Menu(props) {
         }).start()
     }
     const selectRight = () => {
-        // console.log('selecting right', leftAnim, rightAnim)
+        console.log('selecting right', leftAnim, rightAnim)
         Animated.timing(leftAnim, {
             toValue: 0,
             duration: fadeTime,
@@ -83,12 +130,18 @@ function Menu(props) {
             <View style={styles.link_container}>
                 <Pressable style={styles.link} onPress={()=>navigation.navigate('CocktailList')}>
                     <AppText style={styles.link_text}>Cocktails</AppText>
-                    <SelectedIcon fadeAnim={leftAnim} theme={props.ui.current_theme} position={'left'} selected={currentPage == 'CocktailList'}></SelectedIcon>
+                    {/* <SelectedIcon fadeAnim={leftAnim} theme={props.ui.current_theme} position={'left'} selected={currentPage == 'CocktailList'}></SelectedIcon> */}
+                    <Animated.View style={[{ paddingLeft: 10 }, { opacity: leftAnim }]}>
+                        <InStockIcon transform={[{ rotate: '135deg' }]} width={30} height={30} fill={props.ui.current_theme.color} />
+                    </Animated.View>
                 </Pressable>
             </View>
             <View style={styles.link_container}>
                 <Pressable style={styles.link} onPress={()=>navigation.navigate('Stock')}>
-                    <SelectedIcon fadeAnim={rightAnim} theme={props.ui.current_theme} position={'right'} selected={currentPage == 'Stock'}></SelectedIcon>
+                    <Animated.View style={[{ paddingRight: 10 }, { opacity: rightAnim }]}>
+                        <InStockIcon transform={[{ rotate: '-45deg' }]} width={30} height={30} fill={props.ui.current_theme.color} />
+                    </Animated.View>
+                    {/* <SelectedIcon fadeAnim={rightAnim} theme={props.ui.current_theme} position={'right'} selected={currentPage == 'Stock'}></SelectedIcon> */}
                     <AppText style={styles.link_text}>Stock</AppText>
                 </Pressable>
             </View>
