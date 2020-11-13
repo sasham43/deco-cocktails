@@ -256,7 +256,7 @@ function Footer(props){
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
                 <Pressable onPress={()=>props.switchMode('')}>
-                    <AppText style={styles.footer_button_text}>Edit A Cocktail</AppText>
+                    <AppText style={styles.footer_button_text}>Change A Cocktail</AppText>
                 </Pressable>
             </View> 
         )
@@ -265,6 +265,9 @@ function Footer(props){
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
                 <Pressable onPress={() => props.switchMode('')}>
                     <AppText style={styles.footer_button_text}>View A Cocktail</AppText>
+                </Pressable>
+                <Pressable onPress={() => props.switchMode('')}>
+                    <AppText style={styles.footer_button_text}>X</AppText>
                 </Pressable>
             </View>
         )
