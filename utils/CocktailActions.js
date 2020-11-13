@@ -26,6 +26,12 @@ export const deleteCocktail = id => (
     }
 )
 
+export const deleteCocktails = () => (
+    {
+        type: 'DELETE_COCKTAILS',
+    }
+)
+
 export const selectCocktail = id => (
     {
         type: 'SELECT_COCKTAIL',
