@@ -25,7 +25,7 @@ const INITIAL_STATE = {
     default_styles: {
         viewStyles: {
             paddingTop: 10,
-            paddingLeft: 40,
+            paddingLeft: 10,
             paddingRight: 40,
             height: viewHeight,
             marginTop: 50, // account for menu

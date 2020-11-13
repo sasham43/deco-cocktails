@@ -25,7 +25,7 @@ import { PartMap } from './Parts'
 import FunctionButtonIcon from '../assets/function-button.svg'
 import InStockIcon from '../assets/in-stock'
 import TabIcon from '../assets/tab'
-import { deleteCocktail } from '../utils/CocktailActions'
+import { deleteCocktail, selectCocktail } from '../utils/CocktailActions'
 
 import { useStock, useFunctionMenu } from '../utils/hooks'
 
@@ -47,7 +47,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        deleteCocktail
+        deleteCocktail,
+        selectCocktail
     }, dispatch)
 )
 export default connect(mapStateToProps, mapDispatchToProps)(CocktailList)
@@ -116,11 +117,12 @@ function CocktailListMap(props) {
     
     return props.cocktails.map(cocktail =>
         (
-            <View style={[styles.cocktail_container]} key={cocktail.id}>
-                <View style={[{flex: 1}]}>
-                    <Pressable onPress={()=>cocktail.selected = !cocktail.selected }>
+            <View style={[styles.cocktail_container, {position: 'relative', overflow: 'visible'}]} key={cocktail.id}>
+                <View style={[{flex: 1, position: 'absolute', left: -40}]}>
+                    {/* <Pressable onPress={()=>selectCocktail(cocktail) }>
                         <InStockIcon transform={[{ rotate: '-45deg' }]} width={45} height={45} fill={cocktail.selected ? props.theme.color : 'grey'} />
-                    </Pressable>
+                    </Pressable> */}
+                    <CocktailToggle cocktail={cocktail} theme={props.theme} selectCocktail={props.selectCocktail} currentMode={props.currentMode} />
                 </View>
                 <Pressable 
                     disabled={props.currentMode != 'edit' && props.currentMode != 'delete' && props.currentMode != 'select'} 
@@ -141,6 +143,20 @@ function CocktailListMap(props) {
             </View>
         )
     )
+}
+
+function CocktailToggle(props){
+    var size = 35
+    if(props.currentMode == 'delete'){
+        return (
+            <Pressable onPress={() => props.selectCocktail(props.cocktail.id)}>
+                <AppText>{props.cocktail.selected}</AppText>
+                <InStockIcon transform={[{ rotate: '-45deg' }]} width={size} height={size} fill={props.cocktail.selected ? props.theme.color : 'grey'} />
+            </Pressable>
+        )
+    } else {
+        return null
+    }
 }
 
 function filterIngredients(i){
@@ -194,7 +210,7 @@ function CocktailList(props){
     return (
         <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}>
             <ScrollView style={styles.scroll_view}>
-                <CocktailListMap theme={props.ui.current_theme} cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} currentMode={currentMode}></CocktailListMap>
+                <CocktailListMap theme={props.ui.current_theme} cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} selectCocktail={props.selectCocktail} currentMode={currentMode}></CocktailListMap>
                 <View style={{marginTop:50, height: 20}}></View>
             </ScrollView>
 
@@ -305,7 +321,8 @@ const styles = StyleSheet.create({
         flexWrap: "wrap"
     },
     scroll_view: {
-        marginBottom: 25
+        marginBottom: 25,
+        paddingLeft: 50
     },
     action_buttons: {
         fontSize: 22,
