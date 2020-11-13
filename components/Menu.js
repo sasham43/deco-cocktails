@@ -79,7 +79,6 @@ function Menu(props) {
             <View style={styles.link_container}>
                 <Pressable style={styles.link} onPress={()=>navigation.navigate('CocktailList')}>
                     <AppText style={styles.link_text}>Cocktails</AppText>
-                    {/* <SelectedIcon fadeAnim={leftAnim} theme={props.ui.current_theme} position={'left'} selected={currentPage == 'CocktailList'}></SelectedIcon> */}
                     <Animated.View style={[{ paddingLeft: 10 }, { opacity: leftAnim }]}>
                         <InStockIcon transform={[{ rotate: '135deg' }]} width={30} height={30} fill={props.ui.current_theme.color} />
                     </Animated.View>
@@ -90,7 +89,6 @@ function Menu(props) {
                     <Animated.View style={[{ paddingRight: 10 }, { opacity: rightAnim }]}>
                         <InStockIcon transform={[{ rotate: '-45deg' }]} width={30} height={30} fill={props.ui.current_theme.color} />
                     </Animated.View>
-                    {/* <SelectedIcon fadeAnim={rightAnim} theme={props.ui.current_theme} position={'right'} selected={currentPage == 'Stock'}></SelectedIcon> */}
                     <AppText style={styles.link_text}>Stock</AppText>
                 </Pressable>
             </View>
