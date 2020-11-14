@@ -155,6 +155,13 @@ function Add(props){
         }
     }
 
+    async function saveCocktailPress() {
+        saveCocktail()
+        resetNewCocktail()
+
+        navigation.navigate('AddCocktail', {})
+    }
+
     const placeholder = {
         label: 'Parts...',
         color: '#9EA0A4',
@@ -265,7 +272,8 @@ function Add(props){
                     />
 
                     <AppButton press={addIngredientToCocktail} theme={props.ui.current_theme}>
-                        <SaveIngredientText color={props.ui.current_theme.color} save={editIngredientId ? true : false}></SaveIngredientText>
+                        {/* <SaveIngredientText color={props.ui.current_theme.color} save={editIngredientId ? true : false}></SaveIngredientText> */}
+                        {editIngredientId ? "Save Ingredient" : "Add Ingredient"}
                     </AppButton>
                     {/* <TouchableOpacity onPress={() => {
                         addIngredientToCocktail()
@@ -273,14 +281,18 @@ function Add(props){
                         <SaveIngredientText save={editIngredientId ? true : false}></SaveIngredientText>
                     </TouchableOpacity> */}
                     
-                    <TouchableOpacity onPress={async() => {
+                    <AppButton press={saveCocktailPress} theme={props.ui.current_theme}>
+                        {editCocktailId ? "Save Cocktail" : "Add Cocktail"}
+                        {/* <SaveCocktailText color={props.ui.current_theme.color} save={editCocktailId ? true : false}></SaveCocktailText> */}
+                    </AppButton>
+                    {/* <TouchableOpacity onPress={async() => {
                         saveCocktail()
                         resetNewCocktail()
 
                         navigation.navigate('AddCocktail', {})
                     }}>
                         <SaveCocktailText save={editCocktailId ? true : false}></SaveCocktailText>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </KeyboardAvoidingView>
 
             </View>
