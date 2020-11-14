@@ -39,7 +39,7 @@ function sortedIngredients(ingredients) {
 }
 
 export function AddedIngredient(props) {
-    console.log('added ingredient', props)
+    // console.log('added ingredient', props)
 
     var fractions = translateParts(props.parts)
     return (
