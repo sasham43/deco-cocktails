@@ -24,19 +24,17 @@ export default function AppButton(props) {
             <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
-            <ButtonText pressed={pressed} theme={props.theme}>{props.label}</ButtonText>
+            <ButtonText pressed={pressed} theme={props.theme}>{props.children}</ButtonText>
         </Pressable>
     )
 }
 
 function ButtonText(props) {
     if (props.pressed) {
-        // console.log('pressed button text', styles.button_pressed_text)
         return (
             <AppText style={[styles.button_pressed_text, {color: props.theme.backgroundColor}]}>{props.children}</AppText>
         )
     } else {
-        // console.log('not pressed button text', styles.button_text)
         return (
             <AppText style={[styles.button_text, {color: props.theme.color}]}>{props.children}</AppText>
         )

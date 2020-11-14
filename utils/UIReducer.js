@@ -74,6 +74,7 @@ const uiReducer = (state = INITIAL_STATE, action) => {
                 light_theme,
                 current_theme: new_current,
                 default_styles,
+                button_borders,
                 border_color: border
             }
         default:
@@ -91,6 +92,7 @@ const uiReducer = (state = INITIAL_STATE, action) => {
                 light_theme, 
                 current_theme: new_current, 
                 default_styles,
+                button_borders,
                 border_color: border}
             return new_state
     }

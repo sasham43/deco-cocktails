@@ -39,12 +39,13 @@ function ViewCocktail(props){
 
     function loadParams(params){
         if(params.id){
-            console.log('props.cocktails', props.cocktails)
+            // console.log('props.cocktails', props.cocktails)
             var cocktail = props.cocktails.current.find(c=>c.id == params.id)
             setCocktail(cocktail)
         }
     }
     function editCocktail(){
+        console.log('editin this cocktail', cocktail.id)
         navigation.navigate('AddCocktail', {
             id: cocktail.id
         })
@@ -82,8 +83,12 @@ function ViewCocktail(props){
                 <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={cocktail.ingredients} />
             </ScrollView>
             <View style={[props.ui.default_styles.footerStyles, styles.button_container, props.ui.current_theme]}>
-                <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={editCocktail} label={"Change Cocktail"} />
-                <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={removeCocktail} label={"Remove Cocktail"} />
+                <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={editCocktail}>
+                    Change Cocktail
+                </AppButton>
+                <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={removeCocktail}>
+                    Remove Cocktail
+                </AppButton>
                 {/* <Pressable style={styles.button} onPress={()=>editCocktail()}>
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions, KeyboardAvoidingView, ScrollView } from 'react-native'
+import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions, KeyboardAvoidingView, ScrollView, Text } from 'react-native'
 import { generate } from 'shortid'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -7,6 +7,7 @@ import RNPickerSelect from 'react-native-picker-select'
 import _ from 'lodash'
 
 import AppText from './AppText'
+import AppButton from './AppButton'
 import { Part } from './Parts'
 import { AddedIngredientMap } from './AddedIngredients'
 import { useCocktails, newCocktail, useFunctionMenu } from '../utils/hooks'
@@ -142,6 +143,7 @@ function Add(props){
 
     function loadParams(params){
         if(params && params.id){
+            // console.log('loading params', params)
             var cocktail = cocktails.find(c=>c.id == params.id)
             if(cocktail){
                 setNewCocktailName(cocktail.name)
@@ -262,17 +264,20 @@ function Add(props){
                         ]} 
                     />
 
-                    <TouchableOpacity onPress={() => {
+                    <AppButton press={addIngredientToCocktail} theme={props.ui.current_theme}>
+                        <SaveIngredientText color={props.ui.current_theme.color} save={editIngredientId ? true : false}></SaveIngredientText>
+                    </AppButton>
+                    {/* <TouchableOpacity onPress={() => {
                         addIngredientToCocktail()
                     }}>
                         <SaveIngredientText save={editIngredientId ? true : false}></SaveIngredientText>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     
                     <TouchableOpacity onPress={async() => {
                         saveCocktail()
                         resetNewCocktail()
 
-                        navigation.push('AddCocktail')
+                        navigation.navigate('AddCocktail', {})
                     }}>
                         <SaveCocktailText save={editCocktailId ? true : false}></SaveCocktailText>
                     </TouchableOpacity>
@@ -298,11 +303,11 @@ function SaveCocktailText(props){
 function SaveIngredientText(props){
     if(props.save){
         return (
-            <AppText style={styles.add_ingredient_button}>Save Ingredient</AppText>
+            <Text style={[styles.add_ingredient_button, props.color]}>Save Ingredient</Text>
         )
     } else {
         return (
-            <AppText style={styles.add_ingredient_button}>Add Ingredient</AppText>
+            <Text style={[styles.add_ingredient_button, props.color]}>Add Ingredient</Text>
         )
     }
 }
