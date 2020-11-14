@@ -267,7 +267,7 @@ function Footer(props){
                     <AppText style={styles.footer_button_text}>View A Cocktail</AppText>
                 </Pressable>
                 <Pressable onPress={() => props.switchMode('')}>
-                    <AppText style={styles.footer_button_text}>X</AppText>
+                    <AppText style={styles.footer_button_text}>x</AppText>
                 </Pressable>
             </View>
         )

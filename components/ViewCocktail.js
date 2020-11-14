@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import AppText from './AppText'
 import { AddedIngredientMap } from './AddedIngredients'
 import { deleteCocktail } from '../utils/CocktailActions'
+import CornerIcon from '../assets/corner.svg'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
@@ -68,6 +69,7 @@ function ViewCocktail(props){
         props.deleteCocktail(cocktail.id)
         navigation.navigate('CocktailList')
     }
+    var icon_size = 15
 
     return (
         <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}>
@@ -80,9 +82,13 @@ function ViewCocktail(props){
                 </View>
                 <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={cocktail.ingredients} />
             </ScrollView>
-            <View style={[props.ui.default_styles.footerStyles, styles.button_container]}>
+            <View style={[props.ui.default_styles.footerStyles, styles.button_container, props.ui.current_theme]}>
                 <Pressable style={styles.button} onPress={()=>editCocktail()}>
-                    <AppText style={styles.button_text}>Edit Cocktail</AppText>
+                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
+                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
+                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
+                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+                    <AppText style={styles.button_text}>Change Cocktail</AppText>
                 </Pressable>
                 <Pressable style={styles.button} onPress={()=>removeCocktail()}>
                     <AppText style={styles.button_text}>Remove Cocktail</AppText>
@@ -91,6 +97,8 @@ function ViewCocktail(props){
         </View>
     )
 }
+
+var icon_distance = -1
 
 const styles = StyleSheet.create({
     view: {
@@ -123,6 +131,8 @@ const styles = StyleSheet.create({
         // width: windowWidth,
         // paddingBottom: 40
         // textAlign: 'center'
+        marginBottom: 100,
+        padding: 8
     },
     button_text: {
         fontSize: 23,
@@ -130,6 +140,17 @@ const styles = StyleSheet.create({
     },
     button: {
         marginTop: 5,
-        marginBottom: 5
-    }
+        marginBottom: 5,
+        borderColor: '#333',
+        borderWidth: 1,
+        padding: 8,
+    },
+    corner_icon: {
+        zIndex: 10,
+        position: 'absolute'
+    },
+    top_right: { top: icon_distance, right: icon_distance },
+    top_left: { top: icon_distance, left: icon_distance, transform: [{ rotate: '-90deg' }] },
+    bottom_right: { bottom: icon_distance, right: icon_distance, transform: [{ rotate: '90deg' }] },
+    bottom_left: { bottom: icon_distance, left: icon_distance, transform: [{ rotate: '180deg' }] }
 })
