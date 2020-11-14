@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import AppText from './AppText'
 import { AddedIngredientMap } from './AddedIngredients'
 import { deleteCocktail } from '../utils/CocktailActions'
-import CornerIcon from '../assets/corner.svg'
+import AppButton from './AppButton'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
@@ -82,7 +82,8 @@ function ViewCocktail(props){
                 <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={cocktail.ingredients} />
             </ScrollView>
             <View style={[props.ui.default_styles.footerStyles, styles.button_container, props.ui.current_theme]}>
-                <AppButton theme={props.ui.current_theme} press={editCocktail} label={"Change Cocktail"} />
+                <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={editCocktail} label={"Change Cocktail"} />
+                <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={removeCocktail} label={"Remove Cocktail"} />
                 {/* <Pressable style={styles.button} onPress={()=>editCocktail()}>
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
@@ -90,54 +91,52 @@ function ViewCocktail(props){
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
                     <AppText style={styles.button_text}>Change Cocktail</AppText>
                 </Pressable> */}
-                <Pressable style={styles.button} onPress={()=>removeCocktail()}>
+                {/* <Pressable style={styles.button} onPress={()=>removeCocktail()}>
                     <AppText style={styles.button_text}>Remove Cocktail</AppText>
-                </Pressable>
+                </Pressable> */}
             </View>
         </View>
     )
 }
 
-function AppButton(props) {
-    const [pressed, setPressed] = useState(false)
+// function AppButton(props) {
+//     const [pressed, setPressed] = useState(false)
 
-    function pressStyles(props) {
-        if (!props.pressed) {
-            // setPressed(false)
-            return styles.button
-        } else {
-            // setPressed(true)
-            return styles.pressed_button
-        }
-    }
-    var icon_size = 15
-    return (
-        <Pressable style={pressStyles} onPressIn={()=>setPressed(true)} onPressOut={()=>setPressed(false)} onPress={() => props.press()}>
-            <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
-            <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
-            <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
-            <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
-            {/* <AppText style={pressed ? styles.button_pressed_text : styles.button_text}>{props.label}</AppText> */}
-            <ButtonText pressed={pressed}>{props.label}</ButtonText>
-        </Pressable>
-    )
-}
+//     function pressStyles(props) {
+//         if (!props.pressed) {
+//             // setPressed(false)
+//             return styles.button
+//         } else {
+//             // setPressed(true)
+//             return styles.pressed_button
+//         }
+//     }
+//     var icon_size = 15
+//     return (
+//         <Pressable style={pressStyles} onPressIn={()=>setPressed(true)} onPressOut={()=>setPressed(false)} onPress={() => props.press()}>
+//             <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
+//             <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
+//             <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
+//             <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+//             {/* <AppText style={pressed ? styles.button_pressed_text : styles.button_text}>{props.label}</AppText> */}
+//             <ButtonText pressed={pressed}>{props.label}</ButtonText>
+//         </Pressable>
+//     )
+// }
 
-function ButtonText(props){
-    if(props.pressed){
-        // console.log('pressed button text', styles.button_pressed_text)
-        return (
-            <AppText style={styles.button_pressed_text}>{props.children}</AppText>
-        )
-    } else {
-        // console.log('not pressed button text', styles.button_text)
-        return (
-            <AppText style={styles.button_text}>{props.children}</AppText>
-        )
-    }
-}
-
-var icon_distance = -1
+// function ButtonText(props){
+//     if(props.pressed){
+//         // console.log('pressed button text', styles.button_pressed_text)
+//         return (
+//             <AppText style={styles.button_pressed_text}>{props.children}</AppText>
+//         )
+//     } else {
+//         // console.log('not pressed button text', styles.button_text)
+//         return (
+//             <AppText style={styles.button_text}>{props.children}</AppText>
+//         )
+//     }
+// }
 
 const styles = StyleSheet.create({
     view: {
@@ -173,39 +172,4 @@ const styles = StyleSheet.create({
         marginBottom: 100,
         padding: 8
     },
-    button_text: {
-        fontSize: 23,
-        textAlign: 'center'
-    },
-    button: {
-        marginTop: 5,
-        marginBottom: 5,
-        borderColor: '#333',
-        borderWidth: 1,
-        padding: 8,
-    },
-    pressed_button: {
-        marginTop: 5,
-        marginBottom: 5,
-        borderColor: '#333',
-        backgroundColor: '#fff',
-        borderWidth: 1,
-        padding: 8,
-    },
-    button_text: {
-        color: '#fff',
-        fontSize: 20,
-    },
-    button_pressed_text: {
-        color: '#000',
-        fontSize: 20,
-    },
-    corner_icon: {
-        zIndex: 10,
-        position: 'absolute'
-    },
-    top_right: { top: icon_distance, right: icon_distance },
-    top_left: { top: icon_distance, left: icon_distance, transform: [{ rotate: '-90deg' }] },
-    bottom_right: { bottom: icon_distance, right: icon_distance, transform: [{ rotate: '90deg' }] },
-    bottom_left: { bottom: icon_distance, left: icon_distance, transform: [{ rotate: '180deg' }] }
 })

@@ -21,7 +21,12 @@ const INITIAL_STATE = {
         shadowColor: 'rgba(50, 50, 50, 1)',
         borderColor: '#aaa',
     },
+    button_borders: {
+        dark_border: '#333',
+        light_border: '#ccc'
+    },
     current_theme: {},
+    border_color: '',
     default_styles: {
         viewStyles: {
             paddingTop: 10,
@@ -50,30 +55,43 @@ const uiReducer = (state = INITIAL_STATE, action) => {
         light_theme,
         current_theme,
         default_styles,
+        button_borders,
     } = state
     switch (action.type){
         case 'SET_DARK_MODE':
             const new_dark_mode = action.payload
+            var border
             if (new_dark_mode) {
                 new_current = dark_theme
+                border = button_borders.dark_border
             } else {
                 new_current = light_theme
+                border = button_borders.light_border
             }
             return {
                 dark_mode: new_dark_mode,
                 dark_theme,
                 light_theme,
                 current_theme: new_current,
-                default_styles
+                default_styles,
+                border_color: border
             }
         default:
             var new_current = {}
             if(dark_mode){
                 new_current = dark_theme
+                border = button_borders.dark_border
             } else {
                 new_current = light_theme
+                border = button_borders.light_border
             }
-            const new_state = {dark_mode,dark_theme,light_theme, current_theme: new_current, default_styles}
+            const new_state = {
+                dark_mode, 
+                dark_theme, 
+                light_theme, 
+                current_theme: new_current, 
+                default_styles,
+                border_color: border}
             return new_state
     }
 }
