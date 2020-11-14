@@ -4,6 +4,7 @@ import { generate } from 'shortid'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import RNPickerSelect from 'react-native-picker-select'
+import { useIsFocused } from '@react-navigation/native'
 import _ from 'lodash'
 
 import AppText from './AppText'
@@ -46,6 +47,7 @@ function Add(props){
     const [newCocktailName, setNewCocktailName] = useState('')
     const [editIngredientId, setEditIngredientId] = useState('')
     const [editCocktailId, setEditCocktailId] = useState('')
+    const isFocused = useIsFocused()
 
     function toggleEditIngredient(id) {
         if (editIngredientId == id) {
@@ -140,18 +142,29 @@ function Add(props){
     useEffect(()=>{
         loadParams(route.params)
     },[cocktails])
+    useEffect(()=>{
+        loadParams(route.params)
+    },[isFocused])
 
     function loadParams(params){
+        console.log('loading params', params)
         if(params && params.id){
-            // console.log('loading params', params)
             var cocktail = cocktails.find(c=>c.id == params.id)
             if(cocktail){
                 setNewCocktailName(cocktail.name)
                 setAddedCocktailIngredients(cocktail.ingredients)
                 setEditCocktailId(params.id)
+            } else {
+                setNewCocktailName('')
+                setAddedCocktailIngredients([])
+                setEditCocktailId(null)
             }
 
             switchMode('edit')
+        } else {
+            setNewCocktailName('')
+            setAddedCocktailIngredients([])
+            setEditCocktailId(null)
         }
     }
 
