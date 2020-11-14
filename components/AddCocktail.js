@@ -300,29 +300,29 @@ function Add(props){
     )
 }
 
-function SaveCocktailText(props){
-    if(props.save){
-        return (
-            <AppText style={styles.add_button}>Save Cocktail</AppText>
-        )
-    } else {
-        return (
-            <AppText style={styles.add_button}>Add Cocktail</AppText>
-        )
-    }
-}
+// function SaveCocktailText(props){
+//     if(props.save){
+//         return (
+//             <AppText style={styles.add_button}>Save Cocktail</AppText>
+//         )
+//     } else {
+//         return (
+//             <AppText style={styles.add_button}>Add Cocktail</AppText>
+//         )
+//     }
+// }
 
-function SaveIngredientText(props){
-    if(props.save){
-        return (
-            <Text style={[styles.add_ingredient_button, props.color]}>Save Ingredient</Text>
-        )
-    } else {
-        return (
-            <Text style={[styles.add_ingredient_button, props.color]}>Add Ingredient</Text>
-        )
-    }
-}
+// function SaveIngredientText(props){
+//     if(props.save){
+//         return (
+//             <Text style={[styles.add_ingredient_button, props.color]}>Save Ingredient</Text>
+//         )
+//     } else {
+//         return (
+//             <Text style={[styles.add_ingredient_button, props.color]}>Add Ingredient</Text>
+//         )
+//     }
+// }
 
 const styles = StyleSheet.create({
     // view: {
@@ -373,7 +373,7 @@ const styles = StyleSheet.create({
     },
     new_ingredient: {
         marginTop: 15,
-        marginBottom: 40
+        marginBottom: 50
     },
     cocktail_name: {
         marginBottom: 25,
