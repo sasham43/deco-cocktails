@@ -15,7 +15,7 @@ function AppText(props){
     // console.log('app text props', props)
 
     return (
-        <Text style={[props.style, { fontFamily: 'PoiretOne_400Regular', color: props.ui.current_theme.color }]}>
+        <Text style={[{ fontFamily: 'PoiretOne_400Regular', color: props.ui.current_theme.color }, props.style]}>
             {props.children}
         </Text>
     )

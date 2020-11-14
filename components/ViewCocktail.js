@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Dimensions, ScrollView, Pressable, Alert } from 'react-native'
+import { View, StyleSheet, Dimensions, ScrollView, Pressable, Alert, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { useNavigation } from '@react-navigation/native'
@@ -69,7 +69,6 @@ function ViewCocktail(props){
         props.deleteCocktail(cocktail.id)
         navigation.navigate('CocktailList')
     }
-    var icon_size = 15
 
     return (
         <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}>
@@ -83,19 +82,59 @@ function ViewCocktail(props){
                 <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={cocktail.ingredients} />
             </ScrollView>
             <View style={[props.ui.default_styles.footerStyles, styles.button_container, props.ui.current_theme]}>
-                <Pressable style={styles.button} onPress={()=>editCocktail()}>
+                <AppButton theme={props.ui.current_theme} press={editCocktail} label={"Change Cocktail"} />
+                {/* <Pressable style={styles.button} onPress={()=>editCocktail()}>
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
                     <AppText style={styles.button_text}>Change Cocktail</AppText>
-                </Pressable>
+                </Pressable> */}
                 <Pressable style={styles.button} onPress={()=>removeCocktail()}>
                     <AppText style={styles.button_text}>Remove Cocktail</AppText>
                 </Pressable>
             </View>
         </View>
     )
+}
+
+function AppButton(props) {
+    const [pressed, setPressed] = useState(false)
+
+    function pressStyles(props) {
+        if (!props.pressed) {
+            // setPressed(false)
+            return styles.button
+        } else {
+            // setPressed(true)
+            return styles.pressed_button
+        }
+    }
+    var icon_size = 15
+    return (
+        <Pressable style={pressStyles} onPressIn={()=>setPressed(true)} onPressOut={()=>setPressed(false)} onPress={() => props.press()}>
+            <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+            {/* <AppText style={pressed ? styles.button_pressed_text : styles.button_text}>{props.label}</AppText> */}
+            <ButtonText pressed={pressed}>{props.label}</ButtonText>
+        </Pressable>
+    )
+}
+
+function ButtonText(props){
+    if(props.pressed){
+        // console.log('pressed button text', styles.button_pressed_text)
+        return (
+            <AppText style={styles.button_pressed_text}>{props.children}</AppText>
+        )
+    } else {
+        // console.log('not pressed button text', styles.button_text)
+        return (
+            <AppText style={styles.button_text}>{props.children}</AppText>
+        )
+    }
 }
 
 var icon_distance = -1
@@ -144,6 +183,22 @@ const styles = StyleSheet.create({
         borderColor: '#333',
         borderWidth: 1,
         padding: 8,
+    },
+    pressed_button: {
+        marginTop: 5,
+        marginBottom: 5,
+        borderColor: '#333',
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        padding: 8,
+    },
+    button_text: {
+        color: '#fff',
+        fontSize: 20,
+    },
+    button_pressed_text: {
+        color: '#000',
+        fontSize: 20,
     },
     corner_icon: {
         zIndex: 10,
