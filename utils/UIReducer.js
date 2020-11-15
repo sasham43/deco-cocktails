@@ -43,8 +43,9 @@ const INITIAL_STATE = {
             zIndex: 10,
             height: 200,
             position: 'absolute',
-            bottom: -60,
+            // bottom: -60,
             // bottom: 100
+            bottom: 0,
         },
     }
 }

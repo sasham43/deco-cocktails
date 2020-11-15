@@ -180,7 +180,7 @@ function Add(props){
         color: '#9EA0A4',
     };
     return (
-        <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}>
+        <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 40}]}>
             <View style={styles.new_ingredient_container}>
                 <TextInput
                     value={newCocktailName}
@@ -284,58 +284,27 @@ function Add(props){
                         ]} 
                     />
 
-                    <AppButton press={addIngredientToCocktail} theme={props.ui.current_theme}>
-                        {/* <SaveIngredientText color={props.ui.current_theme.color} save={editIngredientId ? true : false}></SaveIngredientText> */}
+                    {/* <AppButton press={addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
                         {editIngredientId ? "Save Ingredient" : "Add Ingredient"}
                     </AppButton>
-                    {/* <TouchableOpacity onPress={() => {
-                        addIngredientToCocktail()
-                    }}>
-                        <SaveIngredientText save={editIngredientId ? true : false}></SaveIngredientText>
-                    </TouchableOpacity> */}
                     
-                    <AppButton press={saveCocktailPress} theme={props.ui.current_theme}>
+                    <AppButton press={saveCocktailPress} theme={props.ui.current_theme} border={props.ui.border_color}>
                         {editCocktailId ? "Save Cocktail" : "Add Cocktail"}
-                        {/* <SaveCocktailText color={props.ui.current_theme.color} save={editCocktailId ? true : false}></SaveCocktailText> */}
+                    </AppButton> */}
+                    <AppButton press={addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
+                        {editIngredientId ? "Save Ingredient" : "Add Ingredient"}
                     </AppButton>
-                    {/* <TouchableOpacity onPress={async() => {
-                        saveCocktail()
-                        resetNewCocktail()
-
-                        navigation.navigate('AddCocktail', {})
-                    }}>
-                        <SaveCocktailText save={editCocktailId ? true : false}></SaveCocktailText>
-                    </TouchableOpacity> */}
                 </KeyboardAvoidingView>
+            </View>
+            <View style={[props.ui.default_styles.footerStyles, styles.save_cocktail]}>
 
+                <AppButton press={saveCocktailPress} theme={props.ui.current_theme} border={props.ui.border_color}>
+                    {editCocktailId ? "Save Cocktail" : "Add Cocktail"}
+                </AppButton>
             </View>
         </View>
     )
 }
-
-// function SaveCocktailText(props){
-//     if(props.save){
-//         return (
-//             <AppText style={styles.add_button}>Save Cocktail</AppText>
-//         )
-//     } else {
-//         return (
-//             <AppText style={styles.add_button}>Add Cocktail</AppText>
-//         )
-//     }
-// }
-
-// function SaveIngredientText(props){
-//     if(props.save){
-//         return (
-//             <Text style={[styles.add_ingredient_button, props.color]}>Save Ingredient</Text>
-//         )
-//     } else {
-//         return (
-//             <Text style={[styles.add_ingredient_button, props.color]}>Add Ingredient</Text>
-//         )
-//     }
-// }
 
 const styles = StyleSheet.create({
     // view: {
@@ -386,7 +355,7 @@ const styles = StyleSheet.create({
     },
     new_ingredient: {
         marginTop: 15,
-        marginBottom: 50
+        marginBottom: 110
     },
     cocktail_name: {
         marginBottom: 25,
@@ -397,5 +366,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexWrap: 'nowrap',
         height: windowHeight - 180
+    },
+    save_cocktail: {
+        bottom: -50,
+        paddingLeft: 10,
+        paddingRight: 10
     }
 })
