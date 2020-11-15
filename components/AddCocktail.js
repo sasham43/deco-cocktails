@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions, KeyboardAvoidingView, ScrollView, Text } from 'react-native'
+import React, { useState, useEffect, useRef } from 'react'
+import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions, KeyboardAvoidingView, ScrollView, PanResponder } from 'react-native'
 import { generate } from 'shortid'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -99,7 +99,7 @@ function Add(props){
     async function addIngredientToCocktail() {
         if (!newCocktailIngredient.ingredient_name)
             return // don't allow empty ingredient names
-            
+
         // check if we're editing an ingredient or adding a new one
         if (editIngredientId) {
             var added = addedCocktailIngredients.map(a => {
@@ -162,7 +162,7 @@ function Add(props){
     },[isFocused])
 
     function loadParams(params){
-        console.log('loading params', params)
+        // console.log('loading params', params)
         if(params && params.id){
             var cocktail = cocktails.find(c=>c.id == params.id)
             if(cocktail){
@@ -190,6 +190,102 @@ function Add(props){
         navigation.navigate('AddCocktail', {})
     }
 
+    const [sliderValue, setSliderValue] = useState(0)
+    const max = 275
+    const ingredient_values = [
+        {
+            label: 'dash',
+            value: 'dash'
+        },
+        {
+            label: 'float',
+            value: 'float'
+        },
+        {
+            label: '1/4',
+            value: 0.25
+        },
+        {
+            label: '1/2',
+            value: 0.5
+        },
+        {
+            label: '3/4',
+            value: 0.75
+        },
+        {
+            label: '1',
+            value: 1
+        },
+        {
+            label: '1 1/4',
+            value: 1.25
+        },
+        {
+            label: '1 1/2',
+            value: 1.5
+        },
+        {
+            label: '1 3/4',
+            value: 1.75
+        },
+        {
+            label: '2',
+            value: 2
+        },
+        {
+            label: '2 1/4',
+            value: 2.25
+        },
+        {
+            label: '2 1/2',
+            value: 2.5
+        },
+        {
+            label: '2 3/4',
+            value: 2.75
+        },
+        {
+            label: '3',
+            value: 3
+        },
+        {
+            label: '3 1/4',
+            value: 3.25
+        },
+        {
+            label: '3 1/2',
+            value: 3.5
+        },
+        {
+            label: '3 3/4',
+            value: 3.75
+        },
+    ]
+    const panResponder = useRef(PanResponder.create({
+            onStartShouldSetPanResponder: (evt, gestureState) => true,
+            onStartShouldSetPanResponderCapture: (evt, gestureState) =>
+            true,
+            onMoveShouldSetPanResponder: (evt, gestureState) => true,
+            onMoveShouldSetPanResponderCapture: (evt, gestureState) =>
+            true,
+
+            onPanResponderGrant: (evt, gestureState) => {
+                // console.log('grant', gestureState)
+                // The gesture has started. Show visual feedback so the user knows
+                // what is happening!
+                // gestureState.d{x,y} will be set to zero now
+            },
+            onPanResponderMove: (evt, gestureState) => {
+                console.log('move', gestureState.dx)
+                var value = parseInt( gestureState.dx / 15)
+                setSliderValue(value)
+                // The most recent move distance is gestureState.move{X,Y}
+                // The accumulated gesture distance since becoming responder is
+                // gestureState.d{x,y}
+            },
+        })).current
+
     const placeholder = {
         label: 'Parts...',
         color: '#9EA0A4',
@@ -211,6 +307,17 @@ function Add(props){
                 </ScrollView>
 
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.new_ingredient, props.ui.current_theme]}>
+                    <View style={{height: 50, borderColor: '#000', borderWidth: 1}}>
+                        <AppText>{sliderValue}</AppText>
+                        {/* <AppText>{ingredient_values[sliderValue]}</AppText> */}
+                        <SliderIngredient ingredient_values={ingredient_values} slider={sliderValue}/>
+                    </View>
+                    <View 
+                        {...panResponder.panHandlers}
+                        style={{height: 50, borderColor: '#000', borderWidth: 1}}
+                    >
+                        <AppText>Slider</AppText>
+                    </View>
                     <TextInput 
                         key={`newCocktailIngredientName`} 
                         clearButtonMode={"always"}  
@@ -227,76 +334,7 @@ function Add(props){
                         style={{inputIOS: {...styles.inputIOS, color: props.ui.current_theme.color}}} 
                         value={newCocktailIngredient.parts}
                         onValueChange={(val) => setParts(val)} 
-                        items={[
-                            {
-                                label: 'dash',
-                                value: 'dash'
-                            },
-                            {
-                                label: 'float',
-                                value: 'float'
-                            },
-                            {
-                                label: '1/4',
-                                value: 0.25
-                            },
-                            {
-                                label: '1/2',
-                                value: 0.5
-                            },
-                            {
-                                label: '3/4',
-                                value: 0.75
-                            },
-                            {
-                                label: '1',
-                                value: 1
-                            },
-                            {
-                                label: '1 1/4',
-                                value: 1.25
-                            },
-                            {
-                                label: '1 1/2',
-                                value: 1.5
-                            },
-                            {
-                                label: '1 3/4',
-                                value: 1.75
-                            },
-                            {
-                                label: '2',
-                                value: 2
-                            },
-                            {
-                                label: '2 1/4',
-                                value: 2.25
-                            },
-                            {
-                                label: '2 1/2',
-                                value: 2.5
-                            },
-                            {
-                                label: '2 3/4',
-                                value: 2.75
-                            },
-                            {
-                                label: '3',
-                                value: 3
-                            },
-                            {
-                                label: '3 1/4',
-                                value: 3.25
-                            },
-                            {
-                                label: '3 1/2',
-                                value: 3.5
-                            },
-                            {
-                                label: '3 3/4',
-                                value: 3.75
-                            },
-                        ]} 
+                        items={ingredient_values} 
                     />
                     
                     <View>
@@ -319,6 +357,28 @@ function Add(props){
                     {editCocktailId ? "Save Cocktail" : "Add Cocktail"}
                 </AppButton>
             </View>
+        </View>
+    )
+}
+
+function SliderIngredient(props){
+    // if(!props.ingredient) return null
+    // var slider = props.slider < 0 ? 0 : props.slider
+    var slider = 0
+    if(props.slider < 0){
+        slider = 0
+    } else if (props.slider > props.ingredient_values.length){
+        slider = props.ingredient_values.length
+    } else {
+        slider = props.slider
+    }
+
+    const ingredient = props.ingredient_values[slider]
+
+    // const label = props.ingredient.label
+    return (
+        <View>
+            <AppText>{ingredient.label}</AppText>
         </View>
     )
 }
