@@ -44,6 +44,7 @@ const INITIAL_STATE = {
             height: 200,
             position: 'absolute',
             bottom: -60,
+            // bottom: 100
         },
     }
 }
