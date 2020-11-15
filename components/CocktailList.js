@@ -247,10 +247,10 @@ function Footer(props){
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
                 {/* <View style={{flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', height: 80}}> */}
-                    <AppButton press={remove} theme={props.ui.current_theme}>
+                    <AppButton press={remove} theme={props.ui.current_theme} border={props.ui.border_color}>
                         Remove
                     </AppButton>
-                    <AppButton press={() => props.switchMode('')} theme={props.ui.current_theme}>
+                    <AppButton press={() => props.switchMode('')} theme={props.ui.current_theme} border={props.ui.border_color}>
                         Cancel
                     </AppButton>
                 {/* </View> */}

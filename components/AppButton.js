@@ -9,12 +9,16 @@ import CornerIcon from '../assets/corner.svg'
 export default function AppButton(props) {
     const [pressed, setPressed] = useState(false)
     const theme = props.theme
+    const border = props.border
+
+    // console.log('button props', props, props.border)
 
     function pressStyles(props) {
         if (!props.pressed) {
-            return [styles.button, {backgroundColor: theme.backgroundColor}]
+            console.log('btn', [styles.button, { borderColor: border, backgroundColor: theme.backgroundColor }])
+            return [styles.button, {borderColor: border, backgroundColor: theme.backgroundColor}]
         } else {
-            return [styles.pressed_button, {backgroundColor: theme.color}]
+            return [styles.pressed_button, {borderColor: props.border, backgroundColor: theme.color}]
         }
     }
     var icon_size = 15

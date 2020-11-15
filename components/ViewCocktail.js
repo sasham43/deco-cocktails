@@ -174,7 +174,8 @@ const styles = StyleSheet.create({
         // width: windowWidth,
         // paddingBottom: 40
         // textAlign: 'center'
-        marginBottom: 100,
+        // marginBottom: 100,
+        marginBottom: 60,
         padding: 8
     },
 })
