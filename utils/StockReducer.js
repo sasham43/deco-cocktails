@@ -45,10 +45,6 @@ const stockReducer = (state = INITIAL_STATE, action) => {
 
             return newState
         case 'UPDATE_STOCK':
-            // const {
-            //     current,
-            //     possible
-            // } = state
             const updated_stock = action.payload
 
             var new_current = current.map(c=>{
@@ -59,7 +55,7 @@ const stockReducer = (state = INITIAL_STATE, action) => {
                 }
             })
 
-            console.log('????',updated_stock,  new_current)
+            // console.log('????',updated_stock,  new_current)
 
             const updatedState = {current: new_current, possible}
 
