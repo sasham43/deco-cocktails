@@ -6,6 +6,7 @@ import { generate } from 'shortid'
 
 import { addStock } from '../utils/StockActions'
 import AppText from './AppText'
+import AppButton from './AppButton'
 import { useStock } from '../utils/hooks'
 import InStockIcon from '../assets/in-stock'
 
@@ -29,6 +30,16 @@ function AddStock(props){
         setNewStockIn(!newStockIn)
     }
 
+    async function addBottle() {
+        // addToStock()
+        props.addStock({
+            id: generate(),
+            label: newStockName,
+            in_stock: newStockIn
+        })
+        setNewStockName('')
+    }
+
     // const { newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock, toggleStockIn } = useStock()
   
     return (
@@ -45,7 +56,10 @@ function AddStock(props){
                 </View>
             </View>
             <View style={styles.add_container}>
-                <TouchableOpacity onPress={async () => {
+                <AppButton press={addBottle} theme={props.theme} border={props.border}>
+                    <AppText style={styles.link_text}>Add Bottle To Stock</AppText>
+                </AppButton>
+                {/* <TouchableOpacity onPress={async () => {
                     // addToStock()
                     props.addStock({
                         id: generate(),
@@ -55,7 +69,7 @@ function AddStock(props){
                     setNewStockName('')
                 }}>
                     <AppText style={styles.link_text}>Add Bottle To Stock</AppText>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         </KeyboardAvoidingView>
     )
@@ -88,6 +102,7 @@ const styles = StyleSheet.create({
     },
     stock_form: {
         flexDirection: 'row',
+        paddingLeft: 20,
         // flexDirection: 'column',
         // alignContent: 'center',
         // justifyContent: 'flex-end'
@@ -113,7 +128,8 @@ const styles = StyleSheet.create({
         // width: windowWidth - 150
     },
     add_container: {
-        marginTop: 50
+        // marginTop: 50,
+        paddingLeft: 20
     },  
     link_text: {
         fontSize: 22,

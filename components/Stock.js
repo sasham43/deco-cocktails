@@ -72,6 +72,7 @@ function Stock(props){
                 showFunctionMenu={showFunctionMenu}
                 setShowFunctionMenu={setShowFunctionMenu}
                 theme={props.ui.current_theme}
+                border={props.ui.border_color}
             />
 
             <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
@@ -102,7 +103,7 @@ function FunctionMenu(props) {
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />
                 </View>
-                <AddStock theme={props.theme} />
+                <AddStock theme={props.theme} border={props.border} />
             </View>
         </SlidingUpPanel>
     )
