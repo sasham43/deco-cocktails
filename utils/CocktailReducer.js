@@ -6,7 +6,8 @@ var default_cocktails = defaultCocktails()
 const INITIAL_STATE = {
     // cocktails: [...default_cocktails],
     current: [...default_cocktails],
-    possible: []
+    possible: [],
+    slider: 0
 }
 
 const cocktailReducer = (state = INITIAL_STATE, action) => {
@@ -62,6 +63,10 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
             const selectState = {current: selected}
 
             return selectState
+        case 'CHANGE_COCKTAIL_SLIDER':
+            const slider_val = action.payload
+
+            return {current, slider: slider_val}
         default:
             return state
     }
