@@ -191,7 +191,7 @@ function Add(props){
                     placeholderTextColor={props.ui.current_theme.color}
                 />
 
-                <ScrollView style={{height: 300}}>
+                <ScrollView style={{height: 300, paddingRight: 10}}>
                     <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={addedCocktailIngredients} editIngredientId={editIngredientId} toggleEditIngredient={toggleEditIngredient} />
                 </ScrollView>
 
