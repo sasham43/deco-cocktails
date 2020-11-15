@@ -249,20 +249,27 @@ function Footer(props){
     } else if (props.currentMode == 'edit'){
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-                <Pressable onPress={()=>props.switchMode('')}>
+                <AppText style={styles.footer_button_text}>Change A Cocktail</AppText>
+                <AppButton press={() => props.switchMode('')} theme={props.ui.current_theme} border={props.ui.border_color}>
+                    Cancel
+                </AppButton>
+                {/* <Pressable onPress={()=>props.switchMode('')}>
                     <AppText style={styles.footer_button_text}>Change A Cocktail</AppText>
-                </Pressable>
+                </Pressable> */}
             </View> 
         )
     } else if (props.currentMode == 'select'){
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-                <Pressable onPress={() => props.switchMode('')}>
-                    <AppText style={styles.footer_button_text}>View A Cocktail</AppText>
-                </Pressable>
-                <Pressable onPress={() => props.switchMode('')}>
-                    <AppText style={styles.footer_button_text}>x</AppText>
-                </Pressable>
+                {/* <Pressable onPress={() => props.switchMode('')}> */}
+                <AppText style={styles.footer_button_text}>View A Cocktail</AppText>
+                <AppButton press={()=>props.switchMode('')} theme={props.ui.current_theme} border={props.ui.border_color}>
+                    Cancel
+                </AppButton>
+                {/* </Pressable> */}
+                {/* <Pressable onPress={() => props.switchMode('')}>
+                    <AppText style={styles.footer_button_text}>Cancel</AppText>
+                </Pressable> */}
             </View>
         )
     } else {
@@ -374,6 +381,7 @@ const styles = StyleSheet.create({
         // width: windowWidth
     },  
     footer_button_text: {
+        marginTop: 10,
         fontSize: 22
     },  
     name_container: {
