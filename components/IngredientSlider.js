@@ -41,9 +41,15 @@ function IngredientSlider(props){
         },
         onPanResponderMove: (evt, gestureState) => {
             var value = parseInt(gestureState.dx / 15)
-            slider_value = slider_value + value
+            if(gestureState.vx > 0){
+                console.log('right')
+                slider_value = slider_value + value
+            } else {
+                console.log('left')
+                slider_value = slider_value - (value*-1)
+            }
             // console.log('move', slider_value, sliderValue, value)
-            setSliderValue(parseInt(slider_value / 15))
+            setSliderValue(parseInt(slider_value / 30))
             // setSliderValue(sliderValue + value)
             // props.setSliderValue(props.sliderValue + value)
             // props.changeCocktailSlider(sliderValue + value)
@@ -148,7 +154,7 @@ function SliderDisplay(props) {
 
     const ingredient = props.ingredient_values[slider]
     if(!ingredient) return null
-    console.log('display', props.slider)
+    // console.log('display', props.slider)
 
     // const label = props.ingredient.label
     return (
