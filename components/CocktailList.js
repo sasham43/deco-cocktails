@@ -21,6 +21,7 @@ import _ from 'lodash'
 import SlidingUpPanel from 'rn-sliding-up-panel'
 
 import AppText from './AppText'
+import AppButton from './AppButton'
 import { PartMap } from './Parts'
 import FunctionButtonIcon from '../assets/function-button.svg'
 import InStockIcon from '../assets/in-stock'
@@ -239,17 +240,31 @@ function CocktailList(props){
 
 function Footer(props){
     if(props.currentMode == 'delete'){
+        function remove(){
+            props.deleteCocktails()
+            props.switchMode('')
+        }
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-                <Pressable onPress={()=>{
+                {/* <View style={{flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', height: 80}}> */}
+                    <AppButton press={remove} theme={props.ui.current_theme}>
+                        Remove
+                    </AppButton>
+                    <AppButton press={() => props.switchMode('')} theme={props.ui.current_theme}>
+                        Cancel
+                    </AppButton>
+                {/* </View> */}
+                
+                {/* <Pressable onPress={()=>{
                     props.deleteCocktails()
                     props.switchMode('')
                 }}>
                     <AppText style={styles.footer_button_text}>Remove</AppText>
-                </Pressable>
-                <Pressable onPress={()=>props.switchMode('')}>
+                </Pressable> */}
+                
+                {/* <Pressable onPress={()=>props.switchMode('')}>
                     <AppText style={styles.footer_button_text}>Cancel</AppText>
-                </Pressable>
+                </Pressable> */}
             </View> 
         )
     } else if (props.currentMode == 'edit'){
@@ -324,7 +339,7 @@ function FunctionMenu(props) {
                 </View>
 
                 <FunctionMenuButton theme={props.theme} label={"Select A Cocktail"} mode="select" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
-                <FunctionMenuButton theme={props.theme} label={"Edit A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
+                <FunctionMenuButton theme={props.theme} label={"Change A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Remove Cocktails"} mode="delete" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <Pressable style={[{marginLeft: 25, marginTop: 20}]} onPress={()=>navigation.navigate('AddCocktail', {id:null})}>
                     <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
@@ -368,7 +383,9 @@ const styles = StyleSheet.create({
         color: '#fff',
     },
     delete_footer: {
-        paddingTop: 20,
+        // paddingTop: 20,
+
+        alignItems: 'flex-start',
         justifyContent: 'space-evenly',
         // alignContent: 'center',
         flexDirection: 'row',
