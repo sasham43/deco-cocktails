@@ -11,6 +11,7 @@ import AppText from './AppText'
 import AppButton from './AppButton'
 import { Part } from './Parts'
 import { AddedIngredientMap } from './AddedIngredients'
+import IngredientSlider from './IngredientSlider'
 import { useCocktails, newCocktail, useFunctionMenu } from '../utils/hooks'
 
 import { addCocktail, updateCocktails } from '../utils/CocktailActions'
@@ -190,7 +191,7 @@ function Add(props){
         navigation.navigate('AddCocktail', {})
     }
 
-    const [sliderValue, setSliderValue] = useState(0)
+    // const [sliderValue, setSliderValue] = useState(0)
     const max = 275
     const ingredient_values = [
         {
@@ -262,29 +263,29 @@ function Add(props){
             value: 3.75
         },
     ]
-    const panResponder = useRef(PanResponder.create({
-            onStartShouldSetPanResponder: (evt, gestureState) => true,
-            onStartShouldSetPanResponderCapture: (evt, gestureState) =>
-            true,
-            onMoveShouldSetPanResponder: (evt, gestureState) => true,
-            onMoveShouldSetPanResponderCapture: (evt, gestureState) =>
-            true,
+    // const panResponder = useRef(PanResponder.create({
+    //         onStartShouldSetPanResponder: (evt, gestureState) => true,
+    //         onStartShouldSetPanResponderCapture: (evt, gestureState) =>
+    //         true,
+    //         onMoveShouldSetPanResponder: (evt, gestureState) => true,
+    //         onMoveShouldSetPanResponderCapture: (evt, gestureState) =>
+    //         true,
 
-            onPanResponderGrant: (evt, gestureState) => {
-                // console.log('grant', gestureState)
-                // The gesture has started. Show visual feedback so the user knows
-                // what is happening!
-                // gestureState.d{x,y} will be set to zero now
-            },
-            onPanResponderMove: (evt, gestureState) => {
-                console.log('move', gestureState.dx)
-                var value = parseInt( gestureState.dx / 15)
-                setSliderValue(value)
-                // The most recent move distance is gestureState.move{X,Y}
-                // The accumulated gesture distance since becoming responder is
-                // gestureState.d{x,y}
-            },
-        })).current
+    //         onPanResponderGrant: (evt, gestureState) => {
+    //             // console.log('grant', gestureState)
+    //             // The gesture has started. Show visual feedback so the user knows
+    //             // what is happening!
+    //             // gestureState.d{x,y} will be set to zero now
+    //         },
+    //         onPanResponderMove: (evt, gestureState) => {
+    //             console.log('move', gestureState.dx)
+    //             var value = parseInt( gestureState.dx / 15)
+    //             setSliderValue(value)
+    //             // The most recent move distance is gestureState.move{X,Y}
+    //             // The accumulated gesture distance since becoming responder is
+    //             // gestureState.d{x,y}
+    //         },
+    //     })).current
 
     const placeholder = {
         label: 'Parts...',
@@ -307,17 +308,22 @@ function Add(props){
                 </ScrollView>
 
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.new_ingredient, props.ui.current_theme]}>
-                    <View style={{height: 50, borderColor: '#000', borderWidth: 1}}>
-                        <AppText>{sliderValue}</AppText>
+                    {/* <View style={{height: 50, borderColor: '#000', borderWidth: 1}}> */}
+                        {/* <AppText>{sliderValue}</AppText> */}
                         {/* <AppText>{ingredient_values[sliderValue]}</AppText> */}
-                        <SliderIngredient ingredient_values={ingredient_values} slider={sliderValue}/>
-                    </View>
-                    <View 
+                        {/* <SliderIngredient ingredient_values={ingredient_values} slider={sliderValue}/> */}
+                    {/* </View> */}
+                    
+                    
+                    <IngredientSlider ingredient_values={ingredient_values} />
+                    
+                    
+                    {/* <View 
                         {...panResponder.panHandlers}
                         style={{height: 50, borderColor: '#000', borderWidth: 1}}
                     >
                         <AppText>Slider</AppText>
-                    </View>
+                    </View> */}
                     <TextInput 
                         key={`newCocktailIngredientName`} 
                         clearButtonMode={"always"}  
@@ -361,27 +367,27 @@ function Add(props){
     )
 }
 
-function SliderIngredient(props){
-    // if(!props.ingredient) return null
-    // var slider = props.slider < 0 ? 0 : props.slider
-    var slider = 0
-    if(props.slider < 0){
-        slider = 0
-    } else if (props.slider > props.ingredient_values.length){
-        slider = props.ingredient_values.length
-    } else {
-        slider = props.slider
-    }
+// function SliderIngredient(props){
+//     // if(!props.ingredient) return null
+//     // var slider = props.slider < 0 ? 0 : props.slider
+//     var slider = 0
+//     if(props.slider < 0){
+//         slider = 0
+//     } else if (props.slider > props.ingredient_values.length){
+//         slider = props.ingredient_values.length
+//     } else {
+//         slider = props.slider
+//     }
 
-    const ingredient = props.ingredient_values[slider]
+//     const ingredient = props.ingredient_values[slider]
 
-    // const label = props.ingredient.label
-    return (
-        <View>
-            <AppText>{ingredient.label}</AppText>
-        </View>
-    )
-}
+//     // const label = props.ingredient.label
+//     return (
+//         <View>
+//             <AppText>{ingredient.label}</AppText>
+//         </View>
+//     )
+// }
 
 const styles = StyleSheet.create({
     // view: {
