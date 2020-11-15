@@ -97,6 +97,9 @@ function Add(props){
     }
 
     async function addIngredientToCocktail() {
+        if (!newCocktailIngredient.ingredient_name)
+            return // don't allow empty ingredient names
+            
         // check if we're editing an ingredient or adding a new one
         if (editIngredientId) {
             var added = addedCocktailIngredients.map(a => {
@@ -119,6 +122,18 @@ function Add(props){
         }
 
         setAddedCocktailIngredients(added)
+        setNewCocktailIngredient({
+            ingredient_name: '',
+            parts: 0
+        })
+        setEditIngredientId('')
+    }
+
+    async function removeIngredientFromCocktail(){
+        console.log('oh no')
+        var ingredients = addedCocktailIngredients.filter(i=>i.id!=editIngredientId)
+
+        setAddedCocktailIngredients(ingredients)
         setNewCocktailIngredient({
             ingredient_name: '',
             parts: 0
@@ -283,17 +298,19 @@ function Add(props){
                             },
                         ]} 
                     />
-
-                    {/* <AppButton press={addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
-                        {editIngredientId ? "Save Ingredient" : "Add Ingredient"}
-                    </AppButton>
                     
-                    <AppButton press={saveCocktailPress} theme={props.ui.current_theme} border={props.ui.border_color}>
-                        {editCocktailId ? "Save Cocktail" : "Add Cocktail"}
-                    </AppButton> */}
-                    <AppButton press={addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
-                        {editIngredientId ? "Save Ingredient" : "Add Ingredient"}
-                    </AppButton>
+                    <View>
+                        <AppButton press={addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
+                            {editIngredientId ? "Save Ingredient" : "Add Ingredient"}
+                        </AppButton>
+                        {editIngredientId ? 
+                            <AppButton press={removeIngredientFromCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
+                                Remove Ingredient
+                            </AppButton>
+                            : null
+                        }
+                    </View>
+
                 </KeyboardAvoidingView>
             </View>
             <View style={[props.ui.default_styles.footerStyles, styles.save_cocktail]}>
