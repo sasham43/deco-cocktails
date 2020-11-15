@@ -33,11 +33,12 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Stock)
 
 function StockBottle(props) {
+    var icon_size = 35
     return (
         <View style={styles.stock_bottle}>
             <View style={styles.switch_container}>
                 <TouchableOpacity onPress={() => props.updateStock({id: props.bottle.id, label: props.bottle.label, in_stock: !props.bottle.in_stock})}>
-                    <InStockIcon transform={[{ rotate: '-45deg' }]} width={45} height={45} fill={props.bottle.in_stock ? props.theme.color : 'grey'} />
+                    <InStockIcon transform={[{ rotate: '-45deg' }]} width={icon_size} height={icon_size} fill={props.bottle.in_stock ? props.theme.color : 'grey'} />
                 </TouchableOpacity>
                 {/* <Switch value={props.bottle.in_stock} trackColor={{false: 'grey', true: 'black'}}  onValueChange={(val)=>setInStock(props.bottle, val)} /> */}
             </View>
