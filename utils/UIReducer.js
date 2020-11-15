@@ -3,6 +3,15 @@ import { Dimensions } from 'react-native'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
+// console.log('ui reducer', windowHeight)
+// handle some sort of adaptive screens
+var footerBottom
+if(windowHeight < 700){
+    footerBottom = -100
+} else {
+    footerBottom = -60
+}
+
 const titlePadding = 37 + 41 + 20
 const footerHeight = 25
 const viewHeight = windowHeight - (titlePadding + footerHeight)
@@ -43,9 +52,11 @@ const INITIAL_STATE = {
             zIndex: 10,
             height: 200,
             position: 'absolute',
-            bottom: -60,
+            bottom: footerBottom,
+            // bottom: -60,
             // bottom: 100
             // bottom: 10,
+            // bottom: -100
         },
     }
 }
