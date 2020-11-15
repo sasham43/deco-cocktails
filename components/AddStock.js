@@ -36,7 +36,7 @@ function AddStock(props){
             <View style={styles.stock_form}>
                 <View style={styles.switch_container}>
                     <TouchableOpacity onPress={()=>toggleStockIn()}>
-                        <InStockIcon transform={[{rotate: '-45deg'}]} width={45} height={45} fill={newStockIn ? props.theme.color : 'grey'} />
+                        <InStockIcon transform={[{rotate: '-45deg'}]} width={35} height={35} fill={newStockIn ? props.theme.color : 'grey'} />
                     </TouchableOpacity>
                     {/* <Switch value={newStockIn} trackColor={{ false: 'grey', true: 'black' }} onValueChange={(val) => setNewStockIn(val)} /> */}
                 </View>
