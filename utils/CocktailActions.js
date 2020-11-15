@@ -38,3 +38,10 @@ export const selectCocktail = id => (
         payload: id
     }
 )
+
+export const changeCocktailSlider = val => (
+    {
+        type: 'CHANGE_COCKTAIL_SLIDER',
+        payload: val
+    }
+)

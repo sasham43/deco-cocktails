@@ -1,14 +1,29 @@
 import React, { useRef, useState } from 'react'
 import {View, PanResponder} from 'react-native'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import AppText from './AppText'
+import { changeCocktailSlider } from '../utils/CocktailActions'
 
-export default function IngredientSlider(props){
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        changeCocktailSlider
+    }, dispatch)
+)
+const mapStateToProps = (state) => {
+    // console.log('mapping state', state)
+    const { cocktails, ui } = state
+    return { slider: cocktails.slider }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(IngredientSlider)
+
+function IngredientSlider(props){
 
     const [sliderValue, setSliderValue] = useState(0)
-    const sliderRef = useRef(0)
-    console.log('ingredient slider')
-
+    // const sliderRef = useRef(0)
+    // console.log('ingredient slider')
+    var slider_value = 0
     const panResponder = useRef(PanResponder.create({
         onStartShouldSetPanResponder: (evt, gestureState) => true,
         onStartShouldSetPanResponderCapture: (evt, gestureState) =>
@@ -19,18 +34,27 @@ export default function IngredientSlider(props){
 
         onPanResponderGrant: (evt, gestureState) => {
             // console.log('grant', gestureState)
-            console.log('grant', sliderRef, sliderValue)
+            // console.log('grant', sliderRef, sliderValue)
             // The gesture has started. Show visual feedback so the user knows
             // what is happening!
             // gestureState.d{x,y} will be set to zero now
         },
         onPanResponderMove: (evt, gestureState) => {
-            // console.log('move', gestureState.dx)
             var value = parseInt(gestureState.dx / 15)
-            setSliderValue(sliderRef.current + value)
+            slider_value = slider_value + value
+            // console.log('move', slider_value, sliderValue, value)
+            setSliderValue(parseInt(slider_value / 15))
+            // setSliderValue(sliderValue + value)
+            // props.setSliderValue(props.sliderValue + value)
+            // props.changeCocktailSlider(sliderValue + value)
             // The most recent move distance is gestureState.move{X,Y}
             // The accumulated gesture distance since becoming responder is
             // gestureState.d{x,y}
+        },
+        onPanResponderRelease: (evt, gestureState) => {
+            // props.setSliderValue(sliderValue)
+            // The user has released all touches while this view is the
+            // responder. This typically means a gesture has succeeded
         },
     })).current
 
@@ -41,6 +65,7 @@ export default function IngredientSlider(props){
 
                 <SliderDisplay ingredient_values={props.ingredient_values} slider={sliderValue} />
             </View>
+            {/* <Slider setSliderValue={props.changeCocktailSlider} sliderValue={props.slider} /> */}
             <View
                 {...panResponder.panHandlers}
                 style={{ height: 50, borderColor: '#000', borderWidth: 1 }}
@@ -63,6 +88,52 @@ export default function IngredientSlider(props){
     )
 }
 
+function Slider(props){
+    console.log('slider', props.slider)
+    // const [sliderValue, setSliderValue] = useState(0)
+    var slider_value = 0
+    const panResponder = useRef(PanResponder.create({
+        onStartShouldSetPanResponder: (evt, gestureState) => true,
+        // onStartShouldSetPanResponderCapture: (evt, gestureState) =>
+        //     true,
+        // onMoveShouldSetPanResponder: (evt, gestureState) => true,
+        // onMoveShouldSetPanResponderCapture: (evt, gestureState) =>
+        //     true,
+
+        onPanResponderGrant: (evt, gestureState) => {
+            // console.log('grant', gestureState)
+            // console.log('grant', sliderRef, sliderValue)
+            // The gesture has started. Show visual feedback so the user knows
+            // what is happening!
+            // gestureState.d{x,y} will be set to zero now
+        },
+        onPanResponderMove: (evt, gestureState) => {
+            // console.log('move', gestureState.dx)
+            var value = parseInt(gestureState.dx / 15)
+            slider_value = slider_value + value
+            // setSliderValue(sliderValue + value)
+            // props.setSliderValue(props.sliderValue + value)
+            // props.changeCocktailSlider(sliderValue + value)
+            // The most recent move distance is gestureState.move{X,Y}
+            // The accumulated gesture distance since becoming responder is
+            // gestureState.d{x,y}
+        },
+        onPanResponderRelease: (evt, gestureState) => {
+            // props.setSliderValue(sliderValue)
+            // The user has released all touches while this view is the
+            // responder. This typically means a gesture has succeeded
+        },
+    })).current
+    return (
+        <View
+            {...panResponder.panHandlers}
+            style={{ height: 50, borderColor: '#000', borderWidth: 1 }}
+        >
+            <AppText>Slider</AppText>
+        </View> 
+    )
+}
+
 function SliderDisplay(props) {
     // if(!props.ingredient) return null
     // var slider = props.slider < 0 ? 0 : props.slider
@@ -77,7 +148,7 @@ function SliderDisplay(props) {
 
     const ingredient = props.ingredient_values[slider]
     if(!ingredient) return null
-    // console.log('display')
+    console.log('display', props.slider)
 
     // const label = props.ingredient.label
     return (
