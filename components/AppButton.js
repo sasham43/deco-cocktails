@@ -15,7 +15,7 @@ export default function AppButton(props) {
 
     function pressStyles(props) {
         if (!props.pressed) {
-            console.log('btn', [styles.button, { borderColor: border, backgroundColor: theme.backgroundColor }])
+            // console.log('btn', [styles.button, { borderColor: border, backgroundColor: theme.backgroundColor }])
             return [styles.button, {borderColor: border, backgroundColor: theme.backgroundColor}]
         } else {
             return [styles.pressed_button, {borderColor: props.border, backgroundColor: theme.color}]
