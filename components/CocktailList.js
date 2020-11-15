@@ -296,7 +296,9 @@ function FunctionMenu(props) {
     useEffect(()=>{
         if (props.showFunctionMenu) {
             if(panel)
-                panel.show(windowHeight / 2)
+                console.log('windowHeight', windowHeight, windowHeight / 2)
+                var height = Math.max((windowHeight / 2), 450)
+                panel.show(height)
         } else {
             if(panel)
                panel.hide()
