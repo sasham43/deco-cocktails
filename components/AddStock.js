@@ -39,8 +39,6 @@ function AddStock(props){
         })
         setNewStockName('')
     }
-
-    // const { newStockName, setNewStockName, newStockIn, setNewStockIn, addToStock, toggleStockIn } = useStock()
   
     return (
         <KeyboardAvoidingView contentContainerStyle={[styles.content_container, props.theme]} behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.view}>
@@ -49,7 +47,6 @@ function AddStock(props){
                     <TouchableOpacity onPress={()=>toggleStockIn()}>
                         <InStockIcon transform={[{rotate: '-45deg'}]} width={35} height={35} fill={newStockIn ? props.theme.color : 'grey'} />
                     </TouchableOpacity>
-                    {/* <Switch value={newStockIn} trackColor={{ false: 'grey', true: 'black' }} onValueChange={(val) => setNewStockIn(val)} /> */}
                 </View>
                 <View style={styles.input_container}>
                     <TextInput style={[styles.input, props.theme]} value={newStockName} onChangeText={text => setNewStockName(text)} placeholder="New stock..." />
@@ -57,19 +54,8 @@ function AddStock(props){
             </View>
             <View style={styles.add_container}>
                 <AppButton press={addBottle} theme={props.theme} border={props.border}>
-                    <AppText style={styles.link_text}>Add Bottle To Stock</AppText>
+                    Add Bottle To Stock
                 </AppButton>
-                {/* <TouchableOpacity onPress={async () => {
-                    // addToStock()
-                    props.addStock({
-                        id: generate(),
-                        label: newStockName,
-                        in_stock: newStockIn
-                    })
-                    setNewStockName('')
-                }}>
-                    <AppText style={styles.link_text}>Add Bottle To Stock</AppText>
-                </TouchableOpacity> */}
             </View>
         </KeyboardAvoidingView>
     )

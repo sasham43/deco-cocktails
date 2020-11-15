@@ -62,11 +62,11 @@ function Name(props) {
 
     if (props.last) {
         return (
-            <AppText style={{ color: props.in_stock ? 'black' : 'grey' }}> {props.ingredient_name}</AppText>
+            <AppText style={{ color: props.in_stock ? props.theme.color : 'grey' }}> {props.ingredient_name}</AppText>
         )
     } else {
         return (
-            <AppText style={{ color: props.in_stock ? 'black' : 'grey' }}> {props.ingredient_name} |</AppText>
+            <AppText style={{ color: props.in_stock ? props.theme.color : 'grey' }}> {props.ingredient_name} |</AppText>
         )
     }
 }
@@ -78,7 +78,7 @@ function NameMap(props) {
         <View style={styles.name_container}>
             {props.ingredients.map((ingredient, i) => (
                 <View key={`part-${i}`}>
-                    <Name in_stock={isInStock(ingredient.ingredient_name)} ingredient_name={ingredient.ingredient_name} last={(i + 1 == props.ingredients.length)} />
+                    <Name theme={props.theme} in_stock={isInStock(ingredient.ingredient_name)} ingredient_name={ingredient.ingredient_name} last={(i + 1 == props.ingredients.length)} />
                 </View>
             ))}
         </View>
@@ -133,7 +133,7 @@ function CocktailListMap(props) {
                         </AppText>
                     </View>
                     <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(filterIngredients))} />
-                    <NameMap current_stock={current_stock} ingredients={sortedIngredients(cocktail.ingredients)} />
+                    <NameMap theme={props.theme} current_stock={current_stock} ingredients={sortedIngredients(cocktail.ingredients)} />
                 </Pressable>
             </View>
         )
@@ -238,25 +238,12 @@ function Footer(props){
         }
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-                {/* <View style={{flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', height: 80}}> */}
-                    <AppButton press={remove} theme={props.ui.current_theme} border={props.ui.border_color}>
-                        Remove
-                    </AppButton>
-                    <AppButton press={() => props.switchMode('')} theme={props.ui.current_theme} border={props.ui.border_color}>
-                        Cancel
-                    </AppButton>
-                {/* </View> */}
-                
-                {/* <Pressable onPress={()=>{
-                    props.deleteCocktails()
-                    props.switchMode('')
-                }}>
-                    <AppText style={styles.footer_button_text}>Remove</AppText>
-                </Pressable> */}
-                
-                {/* <Pressable onPress={()=>props.switchMode('')}>
-                    <AppText style={styles.footer_button_text}>Cancel</AppText>
-                </Pressable> */}
+                <AppButton press={remove} theme={props.ui.current_theme} border={props.ui.border_color}>
+                    Remove
+                </AppButton>
+                <AppButton press={() => props.switchMode('')} theme={props.ui.current_theme} border={props.ui.border_color}>
+                    Cancel
+                </AppButton>
             </View> 
         )
     } else if (props.currentMode == 'edit'){
