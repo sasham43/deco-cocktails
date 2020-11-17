@@ -38,21 +38,32 @@ function IngredientSlider(props){
             // The gesture has started. Show visual feedback so the user knows
             // what is happening!
             // gestureState.d{x,y} will be set to zero now
+            // slider_value += sliderValue
         },
         onPanResponderMove: (evt, gestureState) => {
             var value = parseInt(gestureState.dx / 15)
             if(gestureState.vx > 0){
-                console.log('right')
+                // console.log('right')
                 slider_value = slider_value + value
             } else {
-                console.log('left')
+                // console.log('left')
                 slider_value = slider_value - (value*-1)
             }
             // console.log('move', slider_value, sliderValue, value)
-            setSliderValue(parseInt(slider_value / 30))
+            // if(value < 0){
+            //     value
+            // }
+            // setSliderValue(parseInt(slider_value))
+            // console.log('constrain', constrain((slider_value / 30), 0, props.ingredient_values.length-1))
+            console.log('slider_value', slider_value)
+            // var constrained = constrain((slider_value), 0, props.ingredient_values.length - 1)
+            var constrained = constrain((slider_value / 30), 0, props.ingredient_values.length - 1)
+            setSliderValue(constrained)
             // setSliderValue(sliderValue + value)
             // props.setSliderValue(props.sliderValue + value)
             // props.changeCocktailSlider(sliderValue + value)
+            
+            
             // The most recent move distance is gestureState.move{X,Y}
             // The accumulated gesture distance since becoming responder is
             // gestureState.d{x,y}
@@ -92,6 +103,13 @@ function IngredientSlider(props){
             </View> */}
         </View>
     )
+}
+
+function constrain(num, min=0, max){
+    var floor = Math.max(min, num)
+    var ceiling = Math.min(floor, max)
+
+    return parseInt(ceiling)
 }
 
 function Slider(props){
@@ -147,7 +165,7 @@ function SliderDisplay(props) {
     if (props.slider < 0) {
         slider = 0
     } else if (props.slider > props.ingredient_values.length) {
-        slider = props.ingredient_values.length
+        slider = props.ingredient_values.length - 1
     } else {
         slider = props.slider
     }
