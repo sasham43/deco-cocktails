@@ -43,17 +43,23 @@ function IngredientSlider(props){
         },
         onPanResponderMove: (evt, gestureState) => {
             var value = parseInt(gestureState.dx / 15)
+            var direction = gestureState.vx > 0 ? 'right' : 'left'
             if((slider_value + value) > 480){
                 slider_value = 480
             } else if ((slider_value - (value * -1)) < 0){
                 slider_value = 0
             } else {
                 if(gestureState.vx > 0){
-                    // console.log('right')
+                    console.log('right')
                     slider_value = slider_value + value
                 } else {
-                    // console.log('left')
-                    slider_value = slider_value - (value*-1)
+                    // console.log('left', value, (value * -1))
+                    if(value.toString().includes("-")){
+                        slider_value += value
+                    } else {
+                        slider_value -= value
+                    }
+                    // slider_value = slider_value - (value*-1)
                 }
             }
             // console.log('move', slider_value, sliderValue, value)
@@ -62,7 +68,7 @@ function IngredientSlider(props){
             // }
             // setSliderValue(parseInt(slider_value))
             // console.log('constrain', constrain((slider_value / 30), 0, props.ingredient_values.length-1))
-            console.log('slider_value', slider_value)
+            console.log('slider_value', direction, slider_value)
             // var constrained = constrain((slider_value), 0, props.ingredient_values.length - 1)
             var constrained = constrain((slider_value / 30), 0, props.ingredient_values.length - 1)
             setSliderValue(constrained)
@@ -137,7 +143,7 @@ function SliderDisplay(props) {
 
     // const label = props.ingredient.label
     return (
-        <View>
+        <View style={{paddingLeft: 30}}>
             <AppText>{ingredient.label}</AppText>
             <Part style={{color:'blue'}} parts={ingredient.value} last={true} />
         </View>
