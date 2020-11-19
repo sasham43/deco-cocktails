@@ -192,7 +192,7 @@ function Add(props){
     }
 
     // const [sliderValue, setSliderValue] = useState(0)
-    const max = 275
+    // const max = 275
     const ingredient_values = [
         {
             label: 'dash',
@@ -417,7 +417,7 @@ const styles = StyleSheet.create({
         height: windowHeight - 180
     },
     save_cocktail: {
-        bottom: -50,
+        // bottom: -50,
         paddingLeft: 10,
         paddingRight: 10
     }

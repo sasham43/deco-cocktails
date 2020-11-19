@@ -57,7 +57,7 @@ function IngredientSlider(props){
             setSliderValue(constrained)
 
             const ingredient = props.ingredient_values[constrained]
-            console.log('ingredient', ingredient, constrained)
+            // console.log('ingredient', ingredient, constrained)
             setIngredient(ingredient)
             props.setParts(ingredient.value)
         },
@@ -69,10 +69,12 @@ function IngredientSlider(props){
     })).current
 
     useEffect(()=>{
-        // console.log('changing ingredient', props.ingredient, props.ingredient_values)
-        if(props.ingredient.parts){
+        // console.log('changing ingredient', props.ingredient)
+        if(props.ingredient.parts != null){
+            var value_obj = props.ingredient_values.find(v => v.value == props.ingredient.parts)
+            var label = value_obj ? value_obj.label : ''
             setIngredient({
-                label: props.ingredient_values.find(v=>v.value == props.ingredient.parts).label,
+                label: label,
                 value: props.ingredient.parts
             })
         }
@@ -80,13 +82,11 @@ function IngredientSlider(props){
 
     return (
         <View>
-            <View style={{ height: 50, borderColor: '#000', borderWidth: 1 }}>
-                <AppText>{sliderValue}</AppText>
+            <View style={{ height: 50, borderColor: '#000', borderWidth: 1, paddingTop: 10 }}>
+                {/* <AppText>{sliderValue}</AppText> */}
 
                 <SliderDisplay ingredient={ingredient} />
-                {/* <SliderDisplay setParts={props.setParts} ingredient_values={props.ingredient_values} slider={sliderValue} /> */}
             </View>
-            {/* <Slider setSliderValue={props.changeCocktailSlider} sliderValue={props.slider} /> */}
             <View
                 {...panResponder.panHandlers}
                 style={{ height: 50, borderColor: '#000', borderWidth: 1 }}
