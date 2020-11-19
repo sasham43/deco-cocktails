@@ -45,7 +45,7 @@ function Shape(props) {
     // if(props.ui.dark_mode){
         if (props.part == 0.25) {
             return (
-                <QuarterCircle stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+                <QuarterCircle transform={[{ rotate: '-90deg' }]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
             )
         }
         if (props.part == 0.5) {
@@ -91,11 +91,11 @@ export function ShapeMap(props) {
 }
 function getShapeMargin(part) {
     // console.log('width for part', part)
-    if (part == 0.25 || part == 0.25) {
-        return {
-            marginLeft: -10
-        }
-    }
+    // if (part == 0.25 || part == 0.25) {
+    //     return {
+    //         marginLeft: -10
+    //     }
+    // }
     return 25
 }
 
