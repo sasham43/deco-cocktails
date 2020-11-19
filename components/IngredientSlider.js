@@ -43,12 +43,18 @@ function IngredientSlider(props){
         },
         onPanResponderMove: (evt, gestureState) => {
             var value = parseInt(gestureState.dx / 15)
-            if(gestureState.vx > 0){
-                // console.log('right')
-                slider_value = slider_value + value
+            if((slider_value + value) > 480){
+                slider_value = 480
+            } else if ((slider_value - (value * -1)) < 0){
+                slider_value = 0
             } else {
-                // console.log('left')
-                slider_value = slider_value - (value*-1)
+                if(gestureState.vx > 0){
+                    // console.log('right')
+                    slider_value = slider_value + value
+                } else {
+                    // console.log('left')
+                    slider_value = slider_value - (value*-1)
+                }
             }
             // console.log('move', slider_value, sliderValue, value)
             // if(value < 0){
