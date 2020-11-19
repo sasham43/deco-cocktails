@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import AppText from './AppText'
+import { Part } from './Parts'
 import { changeCocktailSlider } from '../utils/CocktailActions'
 
 const mapDispatchToProps = dispatch => (
@@ -112,52 +113,6 @@ function constrain(num, min=0, max){
     return parseInt(ceiling)
 }
 
-function Slider(props){
-    console.log('slider', props.slider)
-    // const [sliderValue, setSliderValue] = useState(0)
-    var slider_value = 0
-    const panResponder = useRef(PanResponder.create({
-        onStartShouldSetPanResponder: (evt, gestureState) => true,
-        // onStartShouldSetPanResponderCapture: (evt, gestureState) =>
-        //     true,
-        // onMoveShouldSetPanResponder: (evt, gestureState) => true,
-        // onMoveShouldSetPanResponderCapture: (evt, gestureState) =>
-        //     true,
-
-        onPanResponderGrant: (evt, gestureState) => {
-            // console.log('grant', gestureState)
-            // console.log('grant', sliderRef, sliderValue)
-            // The gesture has started. Show visual feedback so the user knows
-            // what is happening!
-            // gestureState.d{x,y} will be set to zero now
-        },
-        onPanResponderMove: (evt, gestureState) => {
-            // console.log('move', gestureState.dx)
-            var value = parseInt(gestureState.dx / 15)
-            slider_value = slider_value + value
-            // setSliderValue(sliderValue + value)
-            // props.setSliderValue(props.sliderValue + value)
-            // props.changeCocktailSlider(sliderValue + value)
-            // The most recent move distance is gestureState.move{X,Y}
-            // The accumulated gesture distance since becoming responder is
-            // gestureState.d{x,y}
-        },
-        onPanResponderRelease: (evt, gestureState) => {
-            // props.setSliderValue(sliderValue)
-            // The user has released all touches while this view is the
-            // responder. This typically means a gesture has succeeded
-        },
-    })).current
-    return (
-        <View
-            {...panResponder.panHandlers}
-            style={{ height: 50, borderColor: '#000', borderWidth: 1 }}
-        >
-            <AppText>Slider</AppText>
-        </View> 
-    )
-}
-
 function SliderDisplay(props) {
     // if(!props.ingredient) return null
     // var slider = props.slider < 0 ? 0 : props.slider
@@ -172,12 +127,13 @@ function SliderDisplay(props) {
 
     const ingredient = props.ingredient_values[slider]
     if(!ingredient) return null
-    // console.log('display', props.slider)
+    console.log('display', props.slider, ingredient)
 
     // const label = props.ingredient.label
     return (
         <View>
             <AppText>{ingredient.label}</AppText>
+            <Part style={{color:'blue'}} parts={ingredient.value} last={true} />
         </View>
     )
 }
