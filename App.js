@@ -13,6 +13,7 @@ import {
 import stockReducer from './utils/StockReducer'
 import cocktailReducer from './utils/CocktailReducer'
 import uiReducer from './utils/UIReducer'
+import addCocktailReducer from './utils/AddCocktailReducer'
 
 // components
 import Main from './components/Main'
@@ -21,6 +22,7 @@ const store = createStore(combineReducers({
   stock: stockReducer,
   cocktails: cocktailReducer,
   ui: uiReducer,
+  add_cocktail: addCocktailReducer
 }))
 
 export default function App(props) {

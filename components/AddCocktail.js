@@ -15,6 +15,7 @@ import IngredientSlider from './IngredientSlider'
 import { useCocktails, newCocktail, useFunctionMenu } from '../utils/hooks'
 
 import { addCocktail, updateCocktails } from '../utils/CocktailActions'
+import { setNewCocktailIngredient, setAddedCocktailIngredients, setNewCocktailName } from '../utils/AddCocktailActions'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
@@ -26,13 +27,16 @@ const windowHeight = Dimensions.get('window').height
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
         addCocktail,
-        updateCocktails
+        updateCocktails,
+        setNewCocktailIngredient, 
+        setAddedCocktailIngredients, 
+        setNewCocktailName
     }, dispatch)
 )
 const mapStateToProps = (state) => {
     // console.log('mapping state', state)
-    const { cocktails, current, ui } = state
-    return { cocktails: cocktails, ui }
+    const { cocktails, current, ui, add_cocktail } = state
+    return { cocktails: cocktails, ui, new_cocktail_name: add_cocktail.new_cocktail_name, added_cocktail_ingredients: add_cocktail.added_cocktail_ingredients, new_cocktail_ingredient: add_cocktail.new_cocktail_ingredient }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Add)
@@ -40,12 +44,19 @@ export default connect(mapStateToProps, mapDispatchToProps)(Add)
 function Add(props){
     const cocktails = props.cocktails.current
 
-    const [newCocktailIngredient, setNewCocktailIngredient] = useState({
-        ingredient_name: '',
-        parts: 0
-    })
-    const [addedCocktailIngredients, setAddedCocktailIngredients] = useState([])
-    const [newCocktailName, setNewCocktailName] = useState('')
+    var newCocktailIngredient = props.new_cocktail_ingredient
+    console.log('new cocktail in', props)
+    // const [newCocktailIngredient, setNewCocktailIngredient] = useState({
+    //     ingredient_name: '',
+    //     parts: 0
+    // })
+    // const [addedCocktailIngredients, setAddedCocktailIngredients] = useState([])
+    var addedCocktailIngredients = props.added_cocktail_ingredients
+    const setNewCocktailIngredient = props.setNewCocktailIngredient
+    const setAddedCocktailIngredients = props.setAddedCocktailIngredients
+    const setNewCocktailName = props.setNewCocktailName
+    // const [newCocktailName, setNewCocktailName] = useState('')
+    var newCocktailName = props.new_cocktail_name
     const [editIngredientId, setEditIngredientId] = useState('')
     const [editCocktailId, setEditCocktailId] = useState('')
     const isFocused = useIsFocused()
@@ -192,7 +203,7 @@ function Add(props){
     }
 
     // const [sliderValue, setSliderValue] = useState(0)
-    const max = 275
+    // const max = 275
     const ingredient_values = [
         {
             label: 'dash',
@@ -263,29 +274,6 @@ function Add(props){
             value: 3.75
         },
     ]
-    // const panResponder = useRef(PanResponder.create({
-    //         onStartShouldSetPanResponder: (evt, gestureState) => true,
-    //         onStartShouldSetPanResponderCapture: (evt, gestureState) =>
-    //         true,
-    //         onMoveShouldSetPanResponder: (evt, gestureState) => true,
-    //         onMoveShouldSetPanResponderCapture: (evt, gestureState) =>
-    //         true,
-
-    //         onPanResponderGrant: (evt, gestureState) => {
-    //             // console.log('grant', gestureState)
-    //             // The gesture has started. Show visual feedback so the user knows
-    //             // what is happening!
-    //             // gestureState.d{x,y} will be set to zero now
-    //         },
-    //         onPanResponderMove: (evt, gestureState) => {
-    //             console.log('move', gestureState.dx)
-    //             var value = parseInt( gestureState.dx / 15)
-    //             setSliderValue(value)
-    //             // The most recent move distance is gestureState.move{X,Y}
-    //             // The accumulated gesture distance since becoming responder is
-    //             // gestureState.d{x,y}
-    //         },
-    //     })).current
 
     const placeholder = {
         label: 'Parts...',
@@ -327,7 +315,7 @@ function Add(props){
                         useNativeAndroidPickerStyle={false}
                         style={{inputIOS: {...styles.inputIOS, color: props.ui.current_theme.color}}} 
                         value={newCocktailIngredient.parts}
-                        onValueChange={(val) => setParts(val)} 
+                        onValueChange={setParts} 
                         items={ingredient_values} 
                     />
                     
