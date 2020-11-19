@@ -82,16 +82,15 @@ function IngredientSlider(props){
 
     return (
         <View>
-            <View style={{ height: 50, borderColor: '#000', borderWidth: 1, paddingTop: 10 }}>
-                {/* <AppText>{sliderValue}</AppText> */}
-
+            {/* <View style={{ height: 50, borderColor: '#000', borderWidth: 1, paddingTop: 10 }}>
                 <SliderDisplay ingredient={ingredient} />
-            </View>
+            </View> */}
             <View
                 {...panResponder.panHandlers}
                 style={{ height: 50, borderColor: '#000', borderWidth: 1 }}
             >
-                <AppText>Slider</AppText>
+                {/* <AppText>Slider</AppText> */}
+                <SliderDisplay ingredient={ingredient}></SliderDisplay>
             </View> 
         </View>
     )
@@ -110,8 +109,8 @@ function SliderDisplay(props) {
     // props.setParts(ingredient.value)
 
     return (
-        <View style={{paddingLeft: 30}}>
-            <AppText>{props.ingredient.label}</AppText>
+        <View style={{padding: 20}}>
+            {/* <AppText>{props.ingredient.label}</AppText> */}
             <Part style={{color:'blue'}} parts={props.ingredient.value} last={true} />
         </View>
     )
