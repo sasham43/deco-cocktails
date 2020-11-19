@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import {View, PanResponder} from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -53,23 +53,11 @@ function IngredientSlider(props){
                 }
             }
             
-            // console.log('slider_value', direction, slider_value)
-            // var constrained = constrain((slider_value), 0, props.ingredient_values.length - 1)
             var constrained = constrain((slider_value / 30), 0, props.ingredient_values.length - 1)
             setSliderValue(constrained)
 
-            // get ingredient
-            // var slider = 0
-            // if (props.slider < 0) {
-            //     slider = 0
-            // } else if (props.slider > props.ingredient_values.length) {
-            //     slider = props.ingredient_values.length - 1
-            // } else {
-            //     slider = props.slider
-            // }
-
             const ingredient = props.ingredient_values[constrained]
-            // console.log('ingredient', ingredient, constrained)
+            console.log('ingredient', ingredient, constrained)
             setIngredient(ingredient)
             props.setParts(ingredient.value)
         },
@@ -79,6 +67,16 @@ function IngredientSlider(props){
         //     // responder. This typically means a gesture has succeeded
         // },
     })).current
+
+    useEffect(()=>{
+        // console.log('changing ingredient', props.ingredient, props.ingredient_values)
+        if(props.ingredient.parts){
+            setIngredient({
+                label: props.ingredient_values.find(v=>v.value == props.ingredient.parts).label,
+                value: props.ingredient.parts
+            })
+        }
+    }, [props.ingredient])
 
     return (
         <View>
@@ -107,20 +105,8 @@ function constrain(num, min=0, max){
 }
 
 function SliderDisplay(props) {
-    // if(!props.ingredient) return null
-    // var slider = props.slider < 0 ? 0 : props.slider
-    // var slider = 0
-    // if (props.slider < 0) {
-    //     slider = 0
-    // } else if (props.slider > props.ingredient_values.length) {
-    //     slider = props.ingredient_values.length - 1
-    // } else {
-    //     slider = props.slider
-    // }
-
-    // const ingredient = props.ingredient_values[slider]
     if(!props.ingredient) return null
-    console.log('display', props.slider, props.ingredient)
+    console.log('display', props.ingredient)
     // props.setParts(ingredient.value)
 
     return (

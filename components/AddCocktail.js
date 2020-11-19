@@ -263,29 +263,6 @@ function Add(props){
             value: 3.75
         },
     ]
-    // const panResponder = useRef(PanResponder.create({
-    //         onStartShouldSetPanResponder: (evt, gestureState) => true,
-    //         onStartShouldSetPanResponderCapture: (evt, gestureState) =>
-    //         true,
-    //         onMoveShouldSetPanResponder: (evt, gestureState) => true,
-    //         onMoveShouldSetPanResponderCapture: (evt, gestureState) =>
-    //         true,
-
-    //         onPanResponderGrant: (evt, gestureState) => {
-    //             // console.log('grant', gestureState)
-    //             // The gesture has started. Show visual feedback so the user knows
-    //             // what is happening!
-    //             // gestureState.d{x,y} will be set to zero now
-    //         },
-    //         onPanResponderMove: (evt, gestureState) => {
-    //             console.log('move', gestureState.dx)
-    //             var value = parseInt( gestureState.dx / 15)
-    //             setSliderValue(value)
-    //             // The most recent move distance is gestureState.move{X,Y}
-    //             // The accumulated gesture distance since becoming responder is
-    //             // gestureState.d{x,y}
-    //         },
-    //     })).current
 
     const placeholder = {
         label: 'Parts...',
@@ -308,7 +285,8 @@ function Add(props){
                 </ScrollView>
 
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
-                    <IngredientSlider 
+                    <IngredientSlider
+                        ingredient={newCocktailIngredient}
                         ingredient_values={ingredient_values} 
                         setParts={setParts}
                     />
