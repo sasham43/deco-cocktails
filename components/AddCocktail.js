@@ -307,23 +307,11 @@ function Add(props){
                     <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={addedCocktailIngredients} editIngredientId={editIngredientId} toggleEditIngredient={toggleEditIngredient} />
                 </ScrollView>
 
-                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.new_ingredient, props.ui.current_theme]}>
-                    {/* <View style={{height: 50, borderColor: '#000', borderWidth: 1}}> */}
-                        {/* <AppText>{sliderValue}</AppText> */}
-                        {/* <AppText>{ingredient_values[sliderValue]}</AppText> */}
-                        {/* <SliderIngredient ingredient_values={ingredient_values} slider={sliderValue}/> */}
-                    {/* </View> */}
-                    
-                    
-                    <IngredientSlider ingredient_values={ingredient_values} />
-                    
-                    
-                    {/* <View 
-                        {...panResponder.panHandlers}
-                        style={{height: 50, borderColor: '#000', borderWidth: 1}}
-                    >
-                        <AppText>Slider</AppText>
-                    </View> */}
+                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
+                    <IngredientSlider 
+                        ingredient_values={ingredient_values} 
+                        setParts={setParts}
+                    />
                     <TextInput 
                         key={`newCocktailIngredientName`} 
                         clearButtonMode={"always"}  

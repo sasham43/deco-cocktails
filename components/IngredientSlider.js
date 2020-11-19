@@ -22,25 +22,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(IngredientSlider)
 function IngredientSlider(props){
 
     const [sliderValue, setSliderValue] = useState(0)
+    const [ingredient, setIngredient] = useState(null)
     // const sliderRef = useRef(0)
     // console.log('ingredient slider')
     var slider_value = 0
     const panResponder = useRef(PanResponder.create({
         onStartShouldSetPanResponder: (evt, gestureState) => true,
-        onStartShouldSetPanResponderCapture: (evt, gestureState) =>
-            true,
+        onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
         onMoveShouldSetPanResponder: (evt, gestureState) => true,
-        onMoveShouldSetPanResponderCapture: (evt, gestureState) =>
-            true,
-
-        onPanResponderGrant: (evt, gestureState) => {
-            // console.log('grant', gestureState)
-            // console.log('grant', sliderRef, sliderValue)
-            // The gesture has started. Show visual feedback so the user knows
-            // what is happening!
-            // gestureState.d{x,y} will be set to zero now
-            // slider_value += sliderValue
-        },
+        onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
         onPanResponderMove: (evt, gestureState) => {
             var value = parseInt(gestureState.dx / 15)
             var direction = gestureState.vx > 0 ? 'right' : 'left'
@@ -50,7 +40,7 @@ function IngredientSlider(props){
                 slider_value = 0
             } else {
                 if(gestureState.vx > 0){
-                    console.log('right')
+                    // console.log('right')
                     slider_value = slider_value + value
                 } else {
                     // console.log('left', value, (value * -1))
@@ -62,30 +52,32 @@ function IngredientSlider(props){
                     // slider_value = slider_value - (value*-1)
                 }
             }
-            // console.log('move', slider_value, sliderValue, value)
-            // if(value < 0){
-            //     value
-            // }
-            // setSliderValue(parseInt(slider_value))
-            // console.log('constrain', constrain((slider_value / 30), 0, props.ingredient_values.length-1))
-            console.log('slider_value', direction, slider_value)
+            
+            // console.log('slider_value', direction, slider_value)
             // var constrained = constrain((slider_value), 0, props.ingredient_values.length - 1)
             var constrained = constrain((slider_value / 30), 0, props.ingredient_values.length - 1)
             setSliderValue(constrained)
-            // setSliderValue(sliderValue + value)
-            // props.setSliderValue(props.sliderValue + value)
-            // props.changeCocktailSlider(sliderValue + value)
-            
-            
-            // The most recent move distance is gestureState.move{X,Y}
-            // The accumulated gesture distance since becoming responder is
-            // gestureState.d{x,y}
+
+            // get ingredient
+            // var slider = 0
+            // if (props.slider < 0) {
+            //     slider = 0
+            // } else if (props.slider > props.ingredient_values.length) {
+            //     slider = props.ingredient_values.length - 1
+            // } else {
+            //     slider = props.slider
+            // }
+
+            const ingredient = props.ingredient_values[constrained]
+            // console.log('ingredient', ingredient, constrained)
+            setIngredient(ingredient)
+            props.setParts(ingredient.value)
         },
-        onPanResponderRelease: (evt, gestureState) => {
-            // props.setSliderValue(sliderValue)
-            // The user has released all touches while this view is the
-            // responder. This typically means a gesture has succeeded
-        },
+        // onPanResponderRelease: (evt, gestureState) => {
+        //     // props.setSliderValue(sliderValue)
+        //     // The user has released all touches while this view is the
+        //     // responder. This typically means a gesture has succeeded
+        // },
     })).current
 
     return (
@@ -93,7 +85,8 @@ function IngredientSlider(props){
             <View style={{ height: 50, borderColor: '#000', borderWidth: 1 }}>
                 <AppText>{sliderValue}</AppText>
 
-                <SliderDisplay ingredient_values={props.ingredient_values} slider={sliderValue} />
+                <SliderDisplay ingredient={ingredient} />
+                {/* <SliderDisplay setParts={props.setParts} ingredient_values={props.ingredient_values} slider={sliderValue} /> */}
             </View>
             {/* <Slider setSliderValue={props.changeCocktailSlider} sliderValue={props.slider} /> */}
             <View
@@ -102,18 +95,6 @@ function IngredientSlider(props){
             >
                 <AppText>Slider</AppText>
             </View> 
-            {/* <View style={{height: 50, borderColor: '#000', borderWidth: 1}}>
-                        <AppText>{sliderValue}</AppText>
-                
-                <SliderIngredient ingredient_values={props.ingredient_values} slider={sliderValue}/>
-            </View>
-            <IngredientSlider />
-            <View
-                {...panResponder.panHandlers}
-                style={{ height: 50, borderColor: '#000', borderWidth: 1 }}
-            >
-                <AppText>Slider</AppText>
-            </View> */}
         </View>
     )
 }
@@ -128,24 +109,24 @@ function constrain(num, min=0, max){
 function SliderDisplay(props) {
     // if(!props.ingredient) return null
     // var slider = props.slider < 0 ? 0 : props.slider
-    var slider = 0
-    if (props.slider < 0) {
-        slider = 0
-    } else if (props.slider > props.ingredient_values.length) {
-        slider = props.ingredient_values.length - 1
-    } else {
-        slider = props.slider
-    }
+    // var slider = 0
+    // if (props.slider < 0) {
+    //     slider = 0
+    // } else if (props.slider > props.ingredient_values.length) {
+    //     slider = props.ingredient_values.length - 1
+    // } else {
+    //     slider = props.slider
+    // }
 
-    const ingredient = props.ingredient_values[slider]
-    if(!ingredient) return null
-    console.log('display', props.slider, ingredient)
+    // const ingredient = props.ingredient_values[slider]
+    if(!props.ingredient) return null
+    console.log('display', props.slider, props.ingredient)
+    // props.setParts(ingredient.value)
 
-    // const label = props.ingredient.label
     return (
         <View style={{paddingLeft: 30}}>
-            <AppText>{ingredient.label}</AppText>
-            <Part style={{color:'blue'}} parts={ingredient.value} last={true} />
+            <AppText>{props.ingredient.label}</AppText>
+            <Part style={{color:'blue'}} parts={props.ingredient.value} last={true} />
         </View>
     )
 }
