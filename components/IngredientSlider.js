@@ -92,7 +92,7 @@ function IngredientSlider(props){
             </View> */}
             <View
                 {...panResponder.panHandlers}
-                style={{ height: 15, borderColor: '#000', borderWidth: 0 }}
+                style={{ height: 30, borderColor: 'grey', borderWidth: 1, padding: 10, marginTop:-15 }}
             >
                 {/* <AppText>Slider</AppText> */}
                 <SliderDisplay ingredient={ingredient}></SliderDisplay>

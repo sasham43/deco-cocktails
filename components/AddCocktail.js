@@ -13,15 +13,12 @@ import { Part } from './Parts'
 import { AddedIngredientMap } from './AddedIngredients'
 import IngredientSlider from './IngredientSlider'
 import { useCocktails, newCocktail, useFunctionMenu } from '../utils/hooks'
+import TabIcon from '../assets/tab.svg'
 
 import { addCocktail, updateCocktails } from '../utils/CocktailActions'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
-
-// const titlePadding = 37 + 41 + 20
-// const footerHeight = 25
-// const viewHeight = windowHeight - (titlePadding + footerHeight)
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
@@ -275,6 +272,9 @@ function Add(props){
                 </ScrollView>
 
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
+                    {/* <View style={styles.tab_icon_container}>
+                        <TabIcon fill={props.ui.current_theme.color} height={65} width={65} />
+                    </View> */}
                     <IngredientSlider
                         parts={newCocktailIngredientParts}
                         ingredient_values={ingredient_values} 
@@ -314,7 +314,6 @@ function Add(props){
                 </KeyboardAvoidingView>
             </View>
             <View style={[props.ui.default_styles.footerStyles, styles.save_cocktail]}>
-
                 <AppButton press={saveCocktailPress} theme={props.ui.current_theme} border={props.ui.border_color}>
                     {editCocktailId ? "Save Cocktail" : "Add Cocktail"}
                 </AppButton>
@@ -322,28 +321,6 @@ function Add(props){
         </View>
     )
 }
-
-// function SliderIngredient(props){
-//     // if(!props.ingredient) return null
-//     // var slider = props.slider < 0 ? 0 : props.slider
-//     var slider = 0
-//     if(props.slider < 0){
-//         slider = 0
-//     } else if (props.slider > props.ingredient_values.length){
-//         slider = props.ingredient_values.length
-//     } else {
-//         slider = props.slider
-//     }
-
-//     const ingredient = props.ingredient_values[slider]
-
-//     // const label = props.ingredient.label
-//     return (
-//         <View>
-//             <AppText>{ingredient.label}</AppText>
-//         </View>
-//     )
-// }
 
 const styles = StyleSheet.create({
     // view: {
@@ -407,8 +384,11 @@ const styles = StyleSheet.create({
         height: windowHeight - 180
     },
     save_cocktail: {
-        // bottom: -50,
         paddingLeft: 10,
         paddingRight: 10
-    }
+    },
+    tab_icon_container: {
+        alignItems: 'center',
+        // marginBottom: -20
+    },
 })
