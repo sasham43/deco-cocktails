@@ -57,9 +57,13 @@ function IngredientSlider(props){
             setSliderValue(constrained)
 
             const ingredient = props.ingredient_values[constrained]
-            // console.log('ingredient', ingredient, constrained)
+            console.log('ingredient', ingredient, props.ingredient)
             setIngredient(ingredient)
             props.setParts(ingredient.value)
+            // props.setNewCocktailIngredient({
+            //     ingredient_name: props.ingredient.ingredient_name,
+            //     parts: ingredient.value
+            // })
         },
         // onPanResponderRelease: (evt, gestureState) => {
         //     // props.setSliderValue(sliderValue)
@@ -68,17 +72,34 @@ function IngredientSlider(props){
         // },
     })).current
 
+    // if outside value changes, set inside value to match
     useEffect(()=>{
         // console.log('changing ingredient', props.ingredient)
-        if(props.ingredient.parts != null){
-            var value_obj = props.ingredient_values.find(v => v.value == props.ingredient.parts)
+        if(props.parts != null){
+            var value_obj = props.ingredient_values.find(v => v.value == props.parts)
             var label = value_obj ? value_obj.label : ''
             setIngredient({
                 label: label,
-                value: props.ingredient.parts
+                value: props.parts
             })
         }
-    }, [props.ingredient])
+    }, [props.parts])
+    // useEffect(()=>{
+    //     // console.log('changing ingredient', props.ingredient)
+    //     if(props.parts != null){
+    //         var value_obj = props.ingredient_values.find(v => v.value == props.parts)
+    //         var label = value_obj ? value_obj.label : ''
+    //         setIngredient({
+    //             label: label,
+    //             value: props.parts
+    //         })
+    //     }
+    // }, [props.ingredient])
+
+    // useEffect(()=>{
+    //     console.log('props.ingredient.name', props.ingredient)
+    //     // setName(props.ingredient.ingredient_name)
+    // }, [props.ingredient.ingredient_name])
 
     return (
         <View>
@@ -87,7 +108,7 @@ function IngredientSlider(props){
             </View> */}
             <View
                 {...panResponder.panHandlers}
-                style={{ height: 50, borderColor: '#000', borderWidth: 1 }}
+                style={{ height: 15, borderColor: '#000', borderWidth: 0 }}
             >
                 {/* <AppText>Slider</AppText> */}
                 <SliderDisplay ingredient={ingredient}></SliderDisplay>
@@ -105,11 +126,11 @@ function constrain(num, min=0, max){
 
 function SliderDisplay(props) {
     if(!props.ingredient) return null
-    console.log('display', props.ingredient)
+    // console.log('display', props.ingredient)
     // props.setParts(ingredient.value)
 
     return (
-        <View style={{padding: 20}}>
+        <View style={{padding: 0, paddingLeft: 15}}>
             {/* <AppText>{props.ingredient.label}</AppText> */}
             <Part style={{color:'blue'}} parts={props.ingredient.value} last={true} />
         </View>
