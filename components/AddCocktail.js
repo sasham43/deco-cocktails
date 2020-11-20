@@ -40,10 +40,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Add)
 function Add(props){
     const cocktails = props.cocktails.current
 
-    // const [newCocktailIngredient, setNewCocktailIngredient] = useState({
-    //     ingredient_name: '',
-    //     parts: 0
-    // })
     const [newCocktailIngredientName, setNewCocktailIngredientName] = useState('')
     const [newCocktailIngredientParts, setNewCocktailIngredientParts] = useState('')
     const [addedCocktailIngredients, setAddedCocktailIngredients] = useState([])
@@ -57,33 +53,19 @@ function Add(props){
             setEditIngredientId('')
             setNewCocktailIngredientName('')
             setNewCocktailIngredientParts(0)
-        // setNewCocktailIngredient({
-        //     ingredient_name: '',
-        //     parts: 0
-        // })
         } else {
             editCocktailIngredient(id)
         }
     }
 
-    // console.log('Add', newCocktailIngredient)
-
     function setName(name) {
-        console.log('setting name', name)
+        // console.log('setting name', name)
         setNewCocktailIngredientName(name)
-        // setNewCocktailIngredient({
-        //     ingredient_name: name,
-        //     parts: newCocktailIngredient.parts
-        // })
     }
     function setParts(parts) {
         // console.log('setting part', newCocktailIngredient)
-        console.log('setting part', parts)
+        // console.log('setting part', parts)
         setNewCocktailIngredientParts(parts)
-        // setNewCocktailIngredient({
-        //     ingredient_name: newCocktailIngredient.ingredient_name,
-        //     parts
-        // })
     }
     function editCocktailIngredient(id) {
         var ingredient = addedCocktailIngredients.find(a => a.id == id)
@@ -139,10 +121,6 @@ function Add(props){
         setAddedCocktailIngredients(added)
         setNewCocktailIngredientName('')
         setNewCocktailIngredientParts(0)
-        // setNewCocktailIngredient({
-        //     ingredient_name: '',
-        //     parts: 0
-        // })
         setEditIngredientId('')
     }
 
@@ -153,10 +131,6 @@ function Add(props){
         setAddedCocktailIngredients(ingredients)
         setNewCocktailIngredientName('')
         setNewCocktailIngredientParts(0)
-        // setNewCocktailIngredient({
-        //     ingredient_name: '',
-        //     parts: 0
-        // })
         setEditIngredientId('')
     }
 
@@ -209,8 +183,6 @@ function Add(props){
         navigation.navigate('AddCocktail', {})
     }
 
-    // const [sliderValue, setSliderValue] = useState(0)
-    // const max = 275
     const ingredient_values = [
         {
             label: 'dash',
@@ -304,17 +276,14 @@ function Add(props){
 
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
                     <IngredientSlider
-                        // ingredient={newCocktailIngredient}
                         parts={newCocktailIngredientParts}
                         ingredient_values={ingredient_values} 
                         setParts={setParts}
-                        // setNewCocktailIngredient={setNewCocktailIngredient}
                     />
                     <TextInput 
                         key={`newCocktailIngredientName`} 
                         clearButtonMode={"always"}  
                         value={newCocktailIngredientName} 
-                        // value={newCocktailIngredient.ingredient_name} 
                         onChangeText={text => setName(text)} 
                         style={[styles.input, props.ui.current_theme]} 
                         placeholder="Ingredient..." 
@@ -322,12 +291,10 @@ function Add(props){
                     />
                     <RNPickerSelect
                         key={newCocktailIngredientParts}
-                        // key={newCocktailIngredient.parts}
                         placeholder={placeholder}
                         useNativeAndroidPickerStyle={false}
                         style={{inputIOS: {...styles.inputIOS, color: props.ui.current_theme.color}}} 
                         value={newCocktailIngredientParts}
-                        // value={newCocktailIngredient.parts}
                         onValueChange={(val) => setParts(val)} 
                         items={ingredient_values} 
                     />
