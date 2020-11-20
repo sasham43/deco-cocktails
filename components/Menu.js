@@ -89,7 +89,7 @@ function Menu(props) {
                     <Animated.View style={[{ paddingRight: 10 }, { opacity: rightAnim }]}>
                         <InStockIcon transform={[{ rotate: '-45deg' }]} width={30} height={30} fill={props.ui.current_theme.color} />
                     </Animated.View>
-                    <AppText style={styles.link_text}>Stock</AppText>
+                    <AppText style={styles.link_text}>Cabinet</AppText>
                 </Pressable>
             </View>
         </View>
