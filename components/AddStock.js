@@ -42,19 +42,19 @@ function AddStock(props){
   
     return (
         <KeyboardAvoidingView contentContainerStyle={[styles.content_container, props.theme]} behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.view}>
-            <View style={styles.stock_form}>
+            <View style={[styles.stock_form, props.theme]}>
                 <View style={styles.switch_container}>
                     <TouchableOpacity onPress={()=>toggleStockIn()}>
                         <InStockIcon transform={[{rotate: '-45deg'}]} width={35} height={35} fill={newStockIn ? props.theme.color : 'grey'} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.input_container}>
-                    <TextInput style={[styles.input, props.theme]} value={newStockName} onChangeText={text => setNewStockName(text)} placeholder="New stock..." />
+                    <TextInput style={[styles.input, props.theme]} value={newStockName} onChangeText={text => setNewStockName(text)} placeholder="New bottle..." />
                 </View>
             </View>
             <View style={styles.add_container}>
                 <AppButton press={addBottle} theme={props.theme} border={props.border}>
-                    Add Bottle To Stock
+                    Add Bottle To Cabinet
                 </AppButton>
             </View>
         </KeyboardAvoidingView>
@@ -88,11 +88,14 @@ const styles = StyleSheet.create({
     },
     stock_form: {
         flexDirection: 'row',
-        paddingLeft: 20,
+        marginLeft: 20,
+        // paddingLeft: 20,
         // flexDirection: 'column',
         // alignContent: 'center',
         // justifyContent: 'flex-end'
         // flex: 1
+        borderWidth: 1,
+        // borderColor: '#eee',
     },  
     text: {
         // fontSize: 50,
@@ -105,8 +108,8 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         paddingLeft: 10,
         paddingRight: 10,
-        borderWidth: 1,
-        borderColor: '#eee',
+        // borderWidth: 1,
+        // borderColor: '#eee',
         borderStyle: 'solid',
         flexDirection: 'row',
         alignSelf: 'stretch',
