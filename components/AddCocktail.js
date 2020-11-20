@@ -313,7 +313,7 @@ function Add(props){
 
                 </KeyboardAvoidingView>
             </View>
-            <View style={[props.ui.default_styles.footerStyles, styles.save_cocktail]}>
+            <View style={[props.ui.default_styles.footerStyles, styles.save_cocktail, props.ui.current_theme]}>
                 <AppButton press={saveCocktailPress} theme={props.ui.current_theme} border={props.ui.border_color}>
                     {editCocktailId ? "Save Cocktail" : "Add Cocktail"}
                 </AppButton>
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
         borderColor: '#aaa',
         borderStyle: 'solid',
         fontSize: 18,
-        width: windowWidth - 125,
+        // width: windowWidth - 125,
         borderRightWidth: 0,
         borderLeftWidth: 0,
         borderTopWidth: 0,
