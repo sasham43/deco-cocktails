@@ -9,7 +9,7 @@ var footerBottom
 if(windowHeight < 700){
     footerBottom = -100
 } else {
-    footerBottom = -60
+    footerBottom = -50
 }
 
 const titlePadding = 37 + 41 + 20
