@@ -60,6 +60,17 @@ const stockReducer = (state = INITIAL_STATE, action) => {
             const updatedState = {current: new_current, possible}
 
             return updatedState
+        case 'SELECT_STOCK':
+            var select_id = action.payload
+
+            var selected_stock = current.map(c=>{
+                if(c.id == select_id){
+                    c.selected = !c.selected
+                }
+                return c
+            })
+
+            return {current: selected_stock}
         default:
             return state
     }

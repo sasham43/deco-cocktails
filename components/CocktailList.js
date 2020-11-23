@@ -238,10 +238,10 @@ function Footer(props){
         }
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-                <AppButton press={remove} theme={props.ui.current_theme} border={props.ui.border_color}>
+                <AppButton press={remove}>
                     Remove
                 </AppButton>
-                <AppButton press={() => props.switchMode('')} theme={props.ui.current_theme} border={props.ui.border_color}>
+                <AppButton press={() => props.switchMode('')}>
                     Cancel
                 </AppButton>
             </View> 
@@ -250,7 +250,7 @@ function Footer(props){
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
                 <AppText style={styles.footer_button_text}>Change A Cocktail</AppText>
-                <AppButton press={() => props.switchMode('')} theme={props.ui.current_theme} border={props.ui.border_color}>
+                <AppButton press={() => props.switchMode('')}>
                     Cancel
                 </AppButton>
                 {/* <Pressable onPress={()=>props.switchMode('')}>
@@ -263,7 +263,7 @@ function Footer(props){
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
                 {/* <Pressable onPress={() => props.switchMode('')}> */}
                 <AppText style={styles.footer_button_text}>View A Cocktail</AppText>
-                <AppButton press={()=>props.switchMode('')} theme={props.ui.current_theme} border={props.ui.border_color}>
+                <AppButton press={()=>props.switchMode('')}>
                     Cancel
                 </AppButton>
                 {/* </Pressable> */}
@@ -290,7 +290,7 @@ function FunctionMenu(props) {
     useEffect(()=>{
         if (props.showFunctionMenu) {
             if(panel)
-                console.log('windowHeight', windowHeight, windowHeight / 2)
+                // console.log('windowHeight', windowHeight, windowHeight / 2)
                 var height = Math.max((windowHeight / 2), 450)
                 panel.show(height)
         } else {
