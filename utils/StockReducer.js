@@ -75,6 +75,22 @@ const stockReducer = (state = INITIAL_STATE, action) => {
             return {
                 current: current.filter(c => !c.selected)
             }
+        case 'UPDATE_IN_STOCK':
+            return {
+                current: current.map(c=>{
+                    c.in_stock = c.selected
+                    c.selected = false
+                    return c
+                })
+            }
+        case 'SELECT_BOTTLES_IN_STOCK':
+            console.log('selecting in stock')
+            return {
+                current: current.map(c => {
+                    c.selected = c.in_stock
+                    return c
+                })
+            }
         default:
             return state
     }
