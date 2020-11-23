@@ -38,13 +38,13 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Stock)
 
 function StockBottle(props) {
-    console.log('stock bottle' ,props.editStockId)
+    // console.log('stock bottle' ,props.editStockId)
     var icon_size = 35
     var show_icon = props.currentMode == 'edit' || props.currentMode == 'delete' ? 1 : 0
     function selectBottle(id){
-        console.log('selecting bottle', props.currentMode)
+        // console.log('selecting bottle', props.currentMode)
         if(props.currentMode == 'name'){
-            console.log('setting edit id', id)
+            // console.log('setting edit id', id)
             props.setEditId(id)
         }
     }
@@ -200,7 +200,7 @@ function FunctionMenu(props) {
         if (props.showFunctionMenu) {
             if (panel)
                 // console.log('windowHeight', windowHeight, windowHeight / 2)
-            var height = Math.max((windowHeight / 2), 450)
+            var height = Math.max((windowHeight / 2), 475)
             panel.show(height)
         } else {
             if (panel)
@@ -214,6 +214,8 @@ function FunctionMenu(props) {
         }
     }
 
+    var bottom_height = windowHeight < 700 ? 300 : 350
+
     function saveBottle(){
         props.setEditId(null)
         hidePanel()
@@ -221,7 +223,7 @@ function FunctionMenu(props) {
     }
 
     return (
-        <SlidingUpPanel draggableRange={{ top: windowHeight - 135, bottom: props.editStockId ? 300 : 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
+        <SlidingUpPanel draggableRange={{ top: windowHeight - 135, bottom: props.editStockId ? bottom_height : 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
             <View style={[styles.panel_container, props.theme]}>
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />
