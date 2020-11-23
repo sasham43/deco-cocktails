@@ -221,7 +221,7 @@ function FunctionMenu(props) {
     }
 
     return (
-        <SlidingUpPanel draggableRange={{ top: windowHeight - 135, bottom: 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
+        <SlidingUpPanel draggableRange={{ top: windowHeight - 135, bottom: props.editStockId ? 300 : 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
             <View style={[styles.panel_container, props.theme]}>
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />
@@ -245,9 +245,9 @@ function FunctionMenuButton(props){
         
         props.switchMode(props.mode)
 
-        if (props.mode != 'name') {
+        // if (props.mode != 'name') {
             props.hidePanel()
-        }
+        // }
     }
 
     return (
