@@ -38,6 +38,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Stock)
 
 function StockBottle(props) {
+    console.log('stock bottle' ,props.editStockId)
     var icon_size = 35
     var show_icon = props.currentMode == 'edit' || props.currentMode == 'delete' ? 1 : 0
     function selectBottle(id){
@@ -48,7 +49,7 @@ function StockBottle(props) {
         }
     }
     return (
-        <View style={styles.stock_bottle}>
+        <View style={[styles.stock_bottle]}>
             <View style={[styles.switch_container, {opacity: show_icon}]}>
                 <TouchableOpacity 
                     // onPress={() => props.updateStock({id: props.bottle.id, label: props.bottle.label, in_stock: !props.bottle.in_stock})}
@@ -63,7 +64,7 @@ function StockBottle(props) {
                     />
                 </TouchableOpacity>
             </View>
-            <Pressable onPress={()=>selectBottle(props.bottle.id)} style={styles.label_container}>
+            <Pressable onPress={() => selectBottle(props.bottle.id)} style={[styles.label_container, props.theme, props.editStockId == props.bottle.id ? styles.selected_bottle : null]}>
                 <AppText style={[styles.label_text, { color: props.bottle.in_stock ? props.theme.color : 'grey'}]}>{props.bottle.label}</AppText>
             </Pressable>
         </View>
@@ -81,6 +82,7 @@ function StockMap(props) {
                 selectStock={props.selectStock}
                 currentMode={props.currentMode} 
                 setEditId={props.setEditId}
+                editStockId={props.editStockId}
             />
         )
     })
@@ -131,16 +133,6 @@ function Footer(props) {
             </View>
         )
     }
-    // else if (props.currentMode == 'select') {
-    //     return (
-    //         <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-    //             <AppText style={styles.footer_button_text}>View A Cocktail</AppText>
-    //             <AppButton press={() => props.switchMode('')}>
-    //                 Cancel
-    //             </AppButton>
-    //         </View>
-    //     )
-    // } 
     else {
         return (
             <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
@@ -170,6 +162,7 @@ function Stock(props){
                     selectStock={props.selectStock}
                     currentMode={currentMode}
                     setEditId={setEditStockId}
+                    editStockId={editStockId}
                 />
             </ScrollView>            
 
@@ -187,7 +180,6 @@ function Stock(props){
 
             <Footer
                 ui={props.ui}
-                // deleteCocktails={props.deleteCocktails}
                 deleteStock={props.deleteStock}
                 updateInStock={props.updateInStock}
                 toggleFunctionMenu={toggleFunctionMenu}
@@ -195,11 +187,6 @@ function Stock(props){
                 switchMode={switchMode}
                 setEditStockId={setEditStockId}
             />
-            {/* <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
-                <TouchableOpacity style={styles.function_button_container} onPress={() => toggleFunctionMenu()}>
-                    <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
-                </TouchableOpacity>
-            </View> */}
         </View>
     )
 }
@@ -282,6 +269,7 @@ const styles = StyleSheet.create({
     //     marginTop: 50,
     // },
     scroll_view: {
+        paddingTop: 15,
         height: windowHeight - 120,
     },
     stock_bottle: {
@@ -289,7 +277,9 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },  
     label_container: {
-        alignSelf: 'center'
+        alignSelf: 'center',
+        flex: 1,
+        padding: 10
     },
     switch_container: {
         marginRight: 10
@@ -324,15 +314,14 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontSize: 22
     }, 
-    // footer: {
-    //     width: windowWidth - 40,
-    //     marginLeft: 20,
-    //     alignContent: 'center',
-    //     zIndex: 10,
-    //     height: 200,
-    //     position: 'absolute',
-    //     bottom: -60,
-    // },
+    selected_bottle: {
+        borderWidth: 1,
+        // borderStyle: 'dashed'
+
+        shadowOffset: { width: -4, height: -4, },
+        // shadowColor: 'rgba(150,150,150,.5)',
+        shadowOpacity: 0.3,
+    },
     panel_container: {
         flex: 1,
         justifyContent: 'flex-start',
