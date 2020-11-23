@@ -94,7 +94,16 @@ function Footer(props) {
                 </AppButton>
             </View>
         )
-    } 
+    } else if (props.currentMode == 'name'){
+        return (
+            <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
+                <AppText style={styles.footer_button_text}>Change A Name</AppText>
+                <AppButton press={() => props.switchMode('')}>
+                    Cancel
+                </AppButton>
+            </View>
+        )
+    }
     // else if (props.currentMode == 'select') {
     //     return (
     //         <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
@@ -181,6 +190,9 @@ function FunctionMenu(props) {
     function remove(){
         props.switchMode('delete')
     }
+    function name(){
+        props.switchMode('name')
+    }
 
     return (
         <SlidingUpPanel draggableRange={{ top: windowHeight - 135, bottom: 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
@@ -189,6 +201,9 @@ function FunctionMenu(props) {
                     <TabIcon fill={props.theme.color} height={65} width={65} />
                 </View>
                 <AddStock theme={props.theme} border={props.border} />
+                <View>
+                    <AppButton press={name}>Change Name</AppButton>
+                </View>
                 <View>
                     <AppButton press={edit}>Change Bottles</AppButton>
                 </View>
