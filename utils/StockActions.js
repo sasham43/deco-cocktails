@@ -11,3 +11,10 @@ export const updateStock = updated_stock => (
         payload: updated_stock
     }
 )
+
+export const selectStock = select_id => (
+    {
+        type: 'SELECT_STOCK',
+        payload: select_id
+    }
+)

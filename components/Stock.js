@@ -11,7 +11,7 @@ import { useStock, useFunctionMenu } from '../utils/hooks'
 import InStockIcon from '../assets/in-stock'
 import TabIcon from '../assets/tab'
 import FunctionButtonIcon from '../assets/function-button.svg'
-import { updateStock } from '../utils/StockActions'
+import { updateStock, selectStock } from '../utils/StockActions'
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
@@ -23,6 +23,7 @@ const viewHeight = windowHeight - (titlePadding + footerHeight)
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
         updateStock,
+        selectStock
     }, dispatch)
 )
 
@@ -35,10 +36,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(Stock)
 
 function StockBottle(props) {
     var icon_size = 35
+    var show_icon = props.currentMode == 'edit' || props.currentMode == 'remove' ? 1 : 0
     return (
         <View style={styles.stock_bottle}>
-            <View style={styles.switch_container}>
-                <TouchableOpacity onPress={() => props.updateStock({id: props.bottle.id, label: props.bottle.label, in_stock: !props.bottle.in_stock})}>
+            <View style={[styles.switch_container, {opacity: show_icon}]}>
+                <TouchableOpacity 
+                    // onPress={() => props.updateStock({id: props.bottle.id, label: props.bottle.label, in_stock: !props.bottle.in_stock})}
+                    onPress={()=>props.selectStock(props.bottle.id)}
+                >
                     <InStockIcon transform={[{ rotate: '-45deg' }]} width={icon_size} height={icon_size} fill={props.bottle.in_stock ? props.theme.color : 'grey'} />
                 </TouchableOpacity>
             </View>
@@ -52,7 +57,14 @@ function StockBottle(props) {
 function StockMap(props) {
     return props.stock.map(bottle => {
         return (
-            <StockBottle theme={props.theme} key={bottle.id} bottle={bottle} updateStock={props.updateStock} />
+            <StockBottle 
+                theme={props.theme} 
+                key={bottle.id} 
+                bottle={bottle} 
+                // updateStock={props.updateStock} 
+                selectStock={props.selectStock}
+                currentMode={props.currentMode} 
+            />
         )
     })
 }
@@ -61,12 +73,19 @@ function StockMap(props) {
 function Stock(props){
     const navigation = props.navigation
     const stock = props.stock.current
-    const { toggleFunctionMenu, showFunctionMenu, setShowFunctionMenu } = useFunctionMenu()
+    const { toggleFunctionMenu, showFunctionMenu, setShowFunctionMenu, currentMode, switchMode } = useFunctionMenu()
 
     return (
         <View style={[styles.stock, props.ui.default_styles.viewStyles, props.ui.current_theme]}>
             <ScrollView style={styles.scroll_view}>
-                <StockMap theme={props.ui.current_theme} stock={stock} updateStock={props.updateStock} />
+                {/* <AppText>{currentMode}</AppText> */}
+                <StockMap 
+                    theme={props.ui.current_theme} 
+                    stock={stock} 
+                    // updateStock={props.updateStock} 
+                    selectStock={props.selectStock}
+                    currentMode={currentMode}
+                />
             </ScrollView>            
 
             <FunctionMenu
@@ -74,6 +93,8 @@ function Stock(props){
                 setShowFunctionMenu={setShowFunctionMenu}
                 theme={props.ui.current_theme}
                 border={props.ui.border_color}
+                currentMode={currentMode}
+                switchMode={switchMode}
             />
 
             <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
@@ -91,7 +112,9 @@ function FunctionMenu(props) {
     useEffect(() => {
         if (props.showFunctionMenu) {
             if (panel)
-                panel.show(windowHeight / 2)
+                // console.log('windowHeight', windowHeight, windowHeight / 2)
+            var height = Math.max((windowHeight / 2), 450)
+            panel.show(height)
         } else {
             if (panel)
                 panel.hide()
@@ -99,7 +122,10 @@ function FunctionMenu(props) {
     }, [props.showFunctionMenu])
 
     function edit(){
-
+        props.switchMode('edit')
+    }
+    function remove(){
+        props.switchMode('remove')
     }
 
     return (
@@ -111,6 +137,9 @@ function FunctionMenu(props) {
                 <AddStock theme={props.theme} border={props.border} />
                 <View>
                     <AppButton press={edit}>Change Bottles</AppButton>
+                </View>
+                <View>
+                    <AppButton press={remove}>Remove Bottles</AppButton>
                 </View>
             </View>
         </SlidingUpPanel>
