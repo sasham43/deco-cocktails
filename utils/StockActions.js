@@ -18,3 +18,9 @@ export const selectStock = select_id => (
         payload: select_id
     }
 )
+
+export const deleteStock = () => (
+    {
+        type: 'DELETE_STOCK',
+    }
+)

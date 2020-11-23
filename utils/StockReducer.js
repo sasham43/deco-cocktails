@@ -71,6 +71,10 @@ const stockReducer = (state = INITIAL_STATE, action) => {
             })
 
             return {current: selected_stock}
+        case 'DELETE_STOCK':
+            return {
+                current: current.filter(c => !c.selected)
+            }
         default:
             return state
     }
