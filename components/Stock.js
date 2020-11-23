@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, Switch, Dimensions, TouchableOpacity, Pressable, ScrollView } from 'react-native'
 import SlidingUpPanel from 'rn-sliding-up-panel'
 import { connect } from 'react-redux'
@@ -40,6 +40,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(Stock)
 function StockBottle(props) {
     var icon_size = 35
     var show_icon = props.currentMode == 'edit' || props.currentMode == 'delete' ? 1 : 0
+    function selectBottle(id){
+        console.log('selecting bottle', props.currentMode)
+        if(props.currentMode == 'name'){
+            console.log('setting edit id', id)
+            props.setEditId(id)
+        }
+    }
     return (
         <View style={styles.stock_bottle}>
             <View style={[styles.switch_container, {opacity: show_icon}]}>
@@ -56,9 +63,9 @@ function StockBottle(props) {
                     />
                 </TouchableOpacity>
             </View>
-            <View style={styles.label_container}>
+            <Pressable onPress={()=>selectBottle(props.bottle.id)} style={styles.label_container}>
                 <AppText style={[styles.label_text, { color: props.bottle.in_stock ? props.theme.color : 'grey'}]}>{props.bottle.label}</AppText>
-            </View>
+            </Pressable>
         </View>
     )
 }
@@ -73,6 +80,7 @@ function StockMap(props) {
                 // updateStock={props.updateStock} 
                 selectStock={props.selectStock}
                 currentMode={props.currentMode} 
+                setEditId={props.setEditId}
             />
         )
     })
@@ -110,10 +118,14 @@ function Footer(props) {
             </View>
         )
     } else if (props.currentMode == 'name'){
+        function cancel(){
+            props.switchMode('')
+            props.setEditStockId(null)
+        }
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
                 <AppText style={styles.footer_button_text}>Change A Name</AppText>
-                <AppButton press={() => props.switchMode('')}>
+                <AppButton press={cancel}>
                     Cancel
                 </AppButton>
             </View>
@@ -145,6 +157,7 @@ function Stock(props){
     const navigation = props.navigation
     const stock = props.stock.current
     const { toggleFunctionMenu, showFunctionMenu, setShowFunctionMenu, currentMode, switchMode } = useFunctionMenu()
+    const [editStockId, setEditStockId] = useState()
 
     return (
         <View style={[styles.stock, props.ui.default_styles.viewStyles, props.ui.current_theme]}>
@@ -156,6 +169,7 @@ function Stock(props){
                     // updateStock={props.updateStock} 
                     selectStock={props.selectStock}
                     currentMode={currentMode}
+                    setEditId={setEditStockId}
                 />
             </ScrollView>            
 
@@ -166,6 +180,8 @@ function Stock(props){
                 border={props.ui.border_color}
                 currentMode={currentMode}
                 switchMode={switchMode}
+                editStockId={editStockId}
+                setEditId={setEditStockId}
                 selectBottlesInStock={props.selectBottlesInStock}
             />
 
@@ -177,6 +193,7 @@ function Stock(props){
                 toggleFunctionMenu={toggleFunctionMenu}
                 currentMode={currentMode}
                 switchMode={switchMode}
+                setEditStockId={setEditStockId}
             />
             {/* <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
                 <TouchableOpacity style={styles.function_button_container} onPress={() => toggleFunctionMenu()}>
@@ -190,6 +207,8 @@ function Stock(props){
 function FunctionMenu(props) {
     const { panel, setPanel } = useFunctionMenu()
 
+    // console.log('edit function menu', props)
+
     useEffect(() => {
         if (props.showFunctionMenu) {
             if (panel)
@@ -202,19 +221,16 @@ function FunctionMenu(props) {
         }
     }, [props.showFunctionMenu])
 
-    // function edit(){
-    //     props.switchMode('edit')
-    // }
-    // function remove(){
-    //     props.switchMode('delete')
-    // }
-    // function name(){
-    //     props.switchMode('name')
-    // }
     function hidePanel() {
         if (panel) {
             panel.hide()
         }
+    }
+
+    function saveBottle(){
+        props.setEditId(null)
+        hidePanel()
+        props.switchMode('')
     }
 
     return (
@@ -223,7 +239,7 @@ function FunctionMenu(props) {
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />
                 </View>
-                <AddStock theme={props.theme} border={props.border} />
+                <AddStock editStockId={props.editStockId} saveBottle={saveBottle} theme={props.theme} border={props.border} />
 
                 <FunctionMenuButton mode={'name'} switchMode={props.switchMode} hidePanel={hidePanel}>Change Name</FunctionMenuButton>
                 <FunctionMenuButton mode={'edit'} switchMode={props.switchMode} hidePanel={hidePanel} selectBottlesInStock={props.selectBottlesInStock}>Change Bottles</FunctionMenuButton>
@@ -236,7 +252,7 @@ function FunctionMenu(props) {
 function FunctionMenuButton(props){
     function changeMode() {
         if(props.mode == 'edit'){
-            console.log('selecting')
+            // console.log('selecting')
             props.selectBottlesInStock()
         }
         
