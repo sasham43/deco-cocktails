@@ -36,7 +36,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Stock)
 
 function StockBottle(props) {
     var icon_size = 35
-    var show_icon = props.currentMode == 'edit' || props.currentMode == 'remove' ? 1 : 0
+    var show_icon = props.currentMode == 'edit' || props.currentMode == 'delete' ? 1 : 0
     return (
         <View style={styles.stock_bottle}>
             <View style={[styles.switch_container, {opacity: show_icon}]}>
@@ -69,6 +69,53 @@ function StockMap(props) {
     })
 }
 
+function Footer(props) {
+    if (props.currentMode == 'delete') {
+        function remove() {
+            // props.deleteCocktails()
+            props.switchMode('')
+        }
+        return (
+            <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
+                <AppButton press={remove}>
+                    Remove
+                </AppButton>
+                <AppButton press={() => props.switchMode('')}>
+                    Cancel
+                </AppButton>
+            </View>
+        )
+    } else if (props.currentMode == 'edit') {
+        return (
+            <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
+                <AppText style={styles.footer_button_text}>Change A Bottle</AppText>
+                <AppButton press={() => props.switchMode('')}>
+                    Cancel
+                </AppButton>
+            </View>
+        )
+    } 
+    // else if (props.currentMode == 'select') {
+    //     return (
+    //         <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
+    //             <AppText style={styles.footer_button_text}>View A Cocktail</AppText>
+    //             <AppButton press={() => props.switchMode('')}>
+    //                 Cancel
+    //             </AppButton>
+    //         </View>
+    //     )
+    // } 
+    else {
+        return (
+            <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
+                <TouchableOpacity style={styles.function_button_container} onPress={() => props.toggleFunctionMenu()}>
+                    <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
+                </TouchableOpacity>
+            </View>
+        )
+    }
+}
+
 //export default 
 function Stock(props){
     const navigation = props.navigation
@@ -97,11 +144,18 @@ function Stock(props){
                 switchMode={switchMode}
             />
 
-            <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
+            <Footer
+                ui={props.ui}
+                // deleteCocktails={props.deleteCocktails}
+                toggleFunctionMenu={toggleFunctionMenu}
+                currentMode={currentMode}
+                switchMode={switchMode}
+            />
+            {/* <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
                 <TouchableOpacity style={styles.function_button_container} onPress={() => toggleFunctionMenu()}>
                     <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </View>
     )
 }
@@ -125,7 +179,7 @@ function FunctionMenu(props) {
         props.switchMode('edit')
     }
     function remove(){
-        props.switchMode('remove')
+        props.switchMode('delete')
     }
 
     return (
@@ -186,6 +240,20 @@ const styles = StyleSheet.create({
         zIndex: 2,
         justifyContent: 'flex-start'
     },
+    delete_footer: {
+        // paddingTop: 20,
+
+        alignItems: 'flex-start',
+        justifyContent: 'space-evenly',
+        // alignContent: 'center',
+        flexDirection: 'row',
+        flex: 1,
+        // width: windowWidth
+    }, 
+    footer_button_text: {
+        marginTop: 10,
+        fontSize: 22
+    }, 
     // footer: {
     //     width: windowWidth - 40,
     //     marginLeft: 20,
