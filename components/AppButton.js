@@ -1,15 +1,24 @@
 import React, { useState } from 'react'
 import { Pressable, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
 
 import AppText from './AppText'
 import CornerIcon from '../assets/corner.svg'
 
 
+const mapStateToProps = (state) => {
+    const { ui } = state
+    return { ui }
+}
+// export default 
+export default connect(mapStateToProps)(AppButton)
 
-export default function AppButton(props) {
+function AppButton(props) {
     const [pressed, setPressed] = useState(false)
-    const theme = props.theme
-    const border = props.border
+    // const theme = theme
+    const theme = props.ui.current_theme
+    // const border = props.border
+    const border = props.ui.border_color
 
     // console.log('button props', props, props.border)
 
@@ -24,11 +33,11 @@ export default function AppButton(props) {
     var icon_size = 15
     return (
         <Pressable pressDelay={'none'} style={pressStyles} onPressIn={() => setPressed(true)} onPressOut={() => setPressed(false)} onPress={() => props.press()}>
-            <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
-            <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
-            <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
-            <CornerIcon fill={props.theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
-            <ButtonText pressed={pressed} theme={props.theme}>{props.children}</ButtonText>
+            <CornerIcon fill={theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+            <ButtonText pressed={pressed} theme={theme}>{props.children}</ButtonText>
         </Pressable>
     )
 }

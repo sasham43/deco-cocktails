@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import AppText from './AppText'
+import AppButton from './AppButton'
 import AddStock from './AddStock'
 import { useStock, useFunctionMenu } from '../utils/hooks'
 import InStockIcon from '../assets/in-stock'
@@ -97,6 +98,10 @@ function FunctionMenu(props) {
         }
     }, [props.showFunctionMenu])
 
+    function edit(){
+
+    }
+
     return (
         <SlidingUpPanel draggableRange={{ top: windowHeight - 135, bottom: 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
             <View style={[styles.panel_container, props.theme]}>
@@ -104,6 +109,9 @@ function FunctionMenu(props) {
                     <TabIcon fill={props.theme.color} height={65} width={65} />
                 </View>
                 <AddStock theme={props.theme} border={props.border} />
+                <View>
+                    <AppButton press={edit}>Change Bottles</AppButton>
+                </View>
             </View>
         </SlidingUpPanel>
     )
