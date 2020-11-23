@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { View, StyleSheet, Text, Switch, TextInput, Dimensions, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
 import { generate } from 'shortid'
 
-import { addStock } from '../utils/StockActions'
+import { addStock, updateStock } from '../utils/StockActions'
 import AppText from './AppText'
 import AppButton from './AppButton'
 import { useStock } from '../utils/hooks'
@@ -13,13 +13,19 @@ import InStockIcon from '../assets/in-stock'
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
 
+const mapStateToProps = (state) => {
+    const { stock, ui } = state
+    return { stock, ui }
+}
+
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
         addStock,
+        updateStock,
     }, dispatch)
 )
 
-export default connect(null, mapDispatchToProps)(AddStock)
+export default connect(mapStateToProps, mapDispatchToProps)(AddStock)
 
 //export default 
 function AddStock(props){
@@ -32,13 +38,37 @@ function AddStock(props){
 
     async function addBottle() {
         // addToStock()
-        props.addStock({
-            id: generate(),
-            label: newStockName,
-            in_stock: newStockIn
-        })
+        if(props.editStockId){
+            // const edit_bottle = props.stock.current.find(s => s.id == props.editStockId)
+            props.updateStock({
+                id: props.editStockId,
+                label: newStockName,
+                in_stock: newStockIn
+            })
+            // props.switchMode('')
+            props.saveBottle()
+        } else {
+            props.addStock({
+                id: generate(),
+                label: newStockName,
+                in_stock: newStockIn
+            })
+        }
         setNewStockName('')
     }
+
+    useEffect(()=>{
+        if(props.editStockId){
+            // console.log('edit id', props.editStockId)
+            const edit_bottle = props.stock.current.find(s=>s.id == props.editStockId)
+            setNewStockName(edit_bottle.label)
+        } else {
+            setNewStockName('')
+        }
+    }, [props.editStockId])
+    // useEffect(()=>{
+    //     console.log('edit every id', props.editStockId)
+    // })
   
     return (
         <KeyboardAvoidingView contentContainerStyle={[styles.content_container, props.theme]} behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.view}>
@@ -53,12 +83,29 @@ function AddStock(props){
                 </View>
             </View>
             <View style={styles.add_container}>
-                <AppButton press={addBottle} theme={props.theme} border={props.border}>
+                <SaveButton editStockId={props.editStockId} press={addBottle} />
+                {/* <AppButton press={addBottle} theme={props.theme} border={props.border}>
                     Add Bottle To Cabinet
-                </AppButton>
+                </AppButton> */}
             </View>
         </KeyboardAvoidingView>
     )
+}
+
+function SaveButton(props){
+    if(props.editStockId){
+        return (
+            <AppButton press={props.press}>
+                Save Bottle To Cabinet
+            </AppButton>
+        )
+    } else {
+        return (
+            <AppButton press={props.press}>
+                Add Bottle To Cabinet
+            </AppButton>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
