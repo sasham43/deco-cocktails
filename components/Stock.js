@@ -193,6 +193,11 @@ function FunctionMenu(props) {
     function name(){
         props.switchMode('name')
     }
+    function hidePanel() {
+        if (panel) {
+            panel.hide()
+        }
+    }
 
     return (
         <SlidingUpPanel draggableRange={{ top: windowHeight - 135, bottom: 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
@@ -201,17 +206,35 @@ function FunctionMenu(props) {
                     <TabIcon fill={props.theme.color} height={65} width={65} />
                 </View>
                 <AddStock theme={props.theme} border={props.border} />
-                <View>
+                {/* <View>
                     <AppButton press={name}>Change Name</AppButton>
-                </View>
-                <View>
+                </View> */}
+                <FunctionMenuButton mode={'name'} switchMode={props.switchMode} hidePanel={hidePanel}>Change Name</FunctionMenuButton>
+                <FunctionMenuButton mode={'edit'} switchMode={props.switchMode} hidePanel={hidePanel}>Change Bottles</FunctionMenuButton>
+                <FunctionMenuButton mode={'delete'} switchMode={props.switchMode} hidePanel={hidePanel}>Remove Bottles</FunctionMenuButton>
+                {/* <View>
                     <AppButton press={edit}>Change Bottles</AppButton>
                 </View>
                 <View>
                     <AppButton press={remove}>Remove Bottles</AppButton>
-                </View>
+                </View> */}
             </View>
         </SlidingUpPanel>
+    )
+}
+
+function FunctionMenuButton(props){
+    function changeMode() {
+        props.switchMode(props.mode)
+        if (props.mode != 'name') {
+            props.hidePanel()
+        }
+    }
+
+    return (
+        <View>
+            <AppButton press={changeMode}>{props.children}</AppButton>
+        </View>
     )
 }
 
