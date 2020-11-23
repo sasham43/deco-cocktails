@@ -74,13 +74,13 @@ const styles = StyleSheet.create({
         // position: 'absolute',
         // left: 20,
         // bottom: 30,
-        width: windowWidth - 40,
+        // width: windowWidth - 80,
         // width: windowWidth,
         // alignItems: 'center'
         // alignContent: 'flex-start',
         // alignItems: 'flex-start'
         marginTop: 30,
-        paddingRight: 20,
+        // paddingRight: 20,
         marginBottom: 20,
     },
     content_container: {
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     },
     stock_form: {
         flexDirection: 'row',
-        marginLeft: 20,
+        // marginLeft: 20,
         // paddingLeft: 20,
         // flexDirection: 'column',
         // alignContent: 'center',
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: 10,
-        paddingRight: 10,
+        // paddingRight: 10,
         // borderWidth: 1,
         // borderColor: '#eee',
         borderStyle: 'solid',
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     },
     add_container: {
         // marginTop: 50,
-        paddingLeft: 20
+        // paddingLeft: 20
     },  
     link_text: {
         fontSize: 22,

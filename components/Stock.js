@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 1.0,
         width: windowWidth - 40,
         marginLeft: 20,
+        padding: 20
     },
     tab_icon_container: {
         alignItems: 'center',
