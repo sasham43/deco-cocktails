@@ -304,6 +304,10 @@ function FunctionMenu(props) {
             panel.hide()
         }
     }
+
+    function navigateToAdd(){
+        navigation.navigate('AddCocktail', { id: null })
+    }
     
     return (
         <SlidingUpPanel showBackdrop={false} draggableRange={{ top: windowHeight - 135, bottom: 0}} ref={c=> setPanel(c)} onBottomReached={()=>props.setShowFunctionMenu(false)}>
@@ -326,12 +330,13 @@ function FunctionMenu(props) {
                     />
                 </View>
 
-                <FunctionMenuButton theme={props.theme} label={"Select A Cocktail"} mode="select" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
+                <FunctionMenuButton theme={props.theme} label={"View A Cocktail"} mode="select" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Change A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Remove Cocktails"} mode="delete" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
-                <Pressable style={[{marginLeft: 25, marginTop: 20}]} onPress={()=>navigation.navigate('AddCocktail', {id:null})}>
+                <FunctionMenuButton theme={props.theme} label={"Add A Cocktail"} mode="add" switchMode={navigateToAdd} currentMode={props.currentMode} />
+                {/* <Pressable style={[{marginLeft: 25, marginTop: 20}]} onPress={()=>navigation.navigate('AddCocktail', {id:null})}>
                     <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
-                </Pressable>
+                </Pressable> */}
             </View>
         </SlidingUpPanel>        
     )
@@ -341,18 +346,23 @@ function FunctionMenuButton(props){
     // console.log('rops', props.theme)
 
     function changeMode(){
-        props.switchMode(props.mode)
-        if(props.mode != 'search'){
-            props.hidePanel()
+        if(props.mode == 'add'){
+            props.switchMode()
+        } else {
+            props.switchMode(props.mode)
+            if(props.mode != 'search'){
+                props.hidePanel()
+            }
         }
     }
     return (
-        <Pressable style={styles.function_menu_button} onPress={() => changeMode()}>
-            <View style={{ opacity: props.mode == props.currentMode ? 1 : 0 }}>
-                <InStockIcon fill={props.theme.color}  transform={[{ rotate: '-45deg' }]} width={25} height={25} />
-            </View>
-            <AppText style={styles.action_buttons}>{props.label}</AppText>
-        </Pressable>
+        // <Pressable style={styles.function_menu_button} onPress={() => changeMode()}>
+        //     <View style={{ opacity: props.mode == props.currentMode ? 1 : 0 }}>
+        //         <InStockIcon fill={props.theme.color}  transform={[{ rotate: '-45deg' }]} width={25} height={25} />
+        //     </View>
+        //     <AppText style={styles.action_buttons}>{props.label}</AppText>
+        // </Pressable>
+        <AppButton press={changeMode}>{props.label}</AppButton>
     )
 }
 
@@ -436,6 +446,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 1.0,
         width: windowWidth - 40,
         marginLeft: 20,
+        padding: 20
     },
     tab_icon_container: {
         alignItems: 'center',
