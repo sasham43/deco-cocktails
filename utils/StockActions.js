@@ -24,3 +24,15 @@ export const deleteStock = () => (
         type: 'DELETE_STOCK',
     }
 )
+
+export const updateInStock = () => (
+    {
+        type: 'UPDATE_IN_STOCK'
+    }
+)
+
+export const selectBottlesInStock = () => (
+    {
+        type: 'SELECT_BOTTLES_IN_STOCK'
+    }
+)

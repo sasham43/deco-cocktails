@@ -11,7 +11,7 @@ import { useStock, useFunctionMenu } from '../utils/hooks'
 import InStockIcon from '../assets/in-stock'
 import TabIcon from '../assets/tab'
 import FunctionButtonIcon from '../assets/function-button.svg'
-import { updateStock, selectStock, deleteStock } from '../utils/StockActions'
+import { updateStock, selectStock, deleteStock, updateInStock, selectBottlesInStock } from '../utils/StockActions'
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
@@ -24,7 +24,9 @@ const mapDispatchToProps = dispatch => (
     bindActionCreators({
         updateStock,
         selectStock,
-        deleteStock
+        deleteStock,
+        updateInStock,
+        selectBottlesInStock,
     }, dispatch)
 )
 
@@ -55,7 +57,7 @@ function StockBottle(props) {
                 </TouchableOpacity>
             </View>
             <View style={styles.label_container}>
-                <AppText style={styles.label_text}>{props.bottle.label}</AppText>
+                <AppText style={[styles.label_text, { color: props.bottle.in_stock ? props.theme.color : 'grey'}]}>{props.bottle.label}</AppText>
             </View>
         </View>
     )
@@ -94,9 +96,14 @@ function Footer(props) {
             </View>
         )
     } else if (props.currentMode == 'edit') {
+        function change() {
+            props.updateInStock()
+            props.switchMode('')
+        }
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-                <AppText style={styles.footer_button_text}>Change A Bottle</AppText>
+                {/* <AppText style={styles.footer_button_text}>Change Bottles In Stock</AppText> */}
+                <AppButton press={change}>Change Bottles In Stock</AppButton>
                 <AppButton press={() => props.switchMode('')}>
                     Cancel
                 </AppButton>
@@ -159,12 +166,14 @@ function Stock(props){
                 border={props.ui.border_color}
                 currentMode={currentMode}
                 switchMode={switchMode}
+                selectBottlesInStock={props.selectBottlesInStock}
             />
 
             <Footer
                 ui={props.ui}
                 // deleteCocktails={props.deleteCocktails}
                 deleteStock={props.deleteStock}
+                updateInStock={props.updateInStock}
                 toggleFunctionMenu={toggleFunctionMenu}
                 currentMode={currentMode}
                 switchMode={switchMode}
@@ -217,7 +226,7 @@ function FunctionMenu(props) {
                 <AddStock theme={props.theme} border={props.border} />
 
                 <FunctionMenuButton mode={'name'} switchMode={props.switchMode} hidePanel={hidePanel}>Change Name</FunctionMenuButton>
-                <FunctionMenuButton mode={'edit'} switchMode={props.switchMode} hidePanel={hidePanel}>Change Bottles</FunctionMenuButton>
+                <FunctionMenuButton mode={'edit'} switchMode={props.switchMode} hidePanel={hidePanel} selectBottlesInStock={props.selectBottlesInStock}>Change Bottles</FunctionMenuButton>
                 <FunctionMenuButton mode={'delete'} switchMode={props.switchMode} hidePanel={hidePanel}>Remove Bottles</FunctionMenuButton>
             </View>
         </SlidingUpPanel>
@@ -226,7 +235,13 @@ function FunctionMenu(props) {
 
 function FunctionMenuButton(props){
     function changeMode() {
+        if(props.mode == 'edit'){
+            console.log('selecting')
+            props.selectBottlesInStock()
+        }
+        
         props.switchMode(props.mode)
+
         if (props.mode != 'name') {
             props.hidePanel()
         }
