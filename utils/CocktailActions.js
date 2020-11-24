@@ -45,3 +45,9 @@ export const changeCocktailSlider = val => (
         payload: val
     }
 )
+
+export const resetDefaultCocktails = () => (
+    {
+        type: 'RESET'
+    }
+)

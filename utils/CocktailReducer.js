@@ -67,6 +67,8 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
             const slider_val = action.payload
 
             return {current, slider: slider_val}
+        case 'RESET':
+            return INITIAL_STATE
         default:
             return state
     }
