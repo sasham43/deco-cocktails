@@ -26,7 +26,7 @@ import { navigationRef } from '../utils/RootNavigation'
 
 import CornerIcon from '../assets/corner.svg'
 
-const Stack = createStackNavigator()
+// const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
 // const persistConfig = {

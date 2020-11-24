@@ -2,7 +2,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native'; 
-import {AppLoading} from 'expo'
+import { AppLoading } from 'expo'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import {
@@ -43,9 +43,9 @@ export default function App(props) {
   } else {
     return (
       <Provider store={store}>
-      <SafeAreaView style={[styles.container, { fontFamily: 'PoiretOne_400Regular' }, ui.current_theme]}>
-        <Main></Main>
-      </SafeAreaView>
+        <SafeAreaView style={[styles.container, { fontFamily: 'PoiretOne_400Regular' }, ui.current_theme]}>
+          <Main></Main>
+        </SafeAreaView>
       </Provider>
     );
   }
@@ -54,11 +54,5 @@ export default function App(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#000',
-    // backgroundColor: '#fff',
-    // marginTop: 10
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // fontFamily: 'PoiretOne_400Regular'
   },
 });
