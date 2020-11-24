@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     about_content: {
-        marginTop: 25,
+        marginBottom: 25,
         // paddingTop: 15,
     },
     text_container: {
