@@ -50,12 +50,15 @@ function ViewCocktail(props){
         }
     }
     function editCocktail(){
-        console.log('editin this cocktail', cocktail.id)
+        // console.log('editin this cocktail', cocktail.id)
         navigation.navigate('AddCocktail', {
             id: cocktail.id
         })
     }
     function removeCocktail(){
+        console.log('removing cocktail', cocktail)
+        // var name = cocktail ? cocktail.name : ''
+        // var title = `Remove ${title}?`
         var title = `Remove ${cocktail.name}?`
         var msg = ''
         var buttons = [
@@ -72,8 +75,11 @@ function ViewCocktail(props){
     }
 
     function removeThisCocktail(){
-        props.deleteCocktail(cocktail.id)
+        // props.deleteCocktail(cocktail.id)
+        // setCocktail({})
+        // navigation.navigate('CocktailList')
         navigation.navigate('CocktailList')
+        props.deleteCocktail(cocktail.id)
     }
 
     return (

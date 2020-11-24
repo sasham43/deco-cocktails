@@ -112,8 +112,9 @@ function CocktailListMap(props) {
             })
         }
     }
-    
+    // console.log('cocktail', props.cocktails)
     return props.cocktails.map(cocktail =>
+        
         (
             <View style={[styles.cocktail_container, {position: 'relative', overflow: 'visible'}]} key={cocktail.id}>
                 <View style={[{flex: 1, position: 'absolute', left: -40}]}>
