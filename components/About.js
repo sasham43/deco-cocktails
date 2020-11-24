@@ -2,6 +2,7 @@ import React from 'react'
 import { View, StyleSheet, Dimensions, Pressable } from 'react-native'
 
 import AppText from './AppText'
+import AppButton from './AppButton'
 import {setDarkMode } from '../utils/UIActions'
 
 // const windowWidth = Dimensions.get('window').width
@@ -21,30 +22,42 @@ export default connect(mapStateToProps, mapDispatchToProps)(About)
 // export default 
 function About (props){
     return (
-        <View style={[styles.about, props.ui.default_styles.viewStyles, props.ui.current_theme]}>
-            <AppText style={styles.text}>
-                This app was made in Crump House with an assist from 
+        <View style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}>
+            <View style={styles.about_content}>
+                <View style={styles.about_header_container}>
+                    <AppText style={styles.about_header}>About</AppText>
+                </View>
+                <View style={styles.text_container}>
+                    <AppText style={styles.text}>
+                        This app was made in Crump House with loving assistance from Bongo and Gomez.
+                    </AppText>
+                </View>
+            </View>
+            <View style={styles.about_content}>
+                <View style={styles.about_header_container}>
+                    <AppText style={styles.about_header}>Theme</AppText>
+                </View>
+                <View style={styles.button_container}>
+                    <View style={styles.about_button}>
+                        <AppButton  press={()=>props.setDarkMode(true)}>Dark</AppButton>
+                    </View>
+                    <View style={styles.about_button}>
+                        <AppButton press={()=>props.setDarkMode(false)}>Light</AppButton>
+                    </View>
+                </View>
+            </View>
 
-            </AppText>
-                <Pressable style={styles.button} onPress={()=>props.setDarkMode(false)}>
+
+                {/* <Pressable style={styles.button} onPress={()=>props.setDarkMode(false)}>
                     <AppText style={styles.text}>Bongo</AppText>
                 </Pressable>
             <AppText style={styles.text}>and </AppText>
                 <Pressable style={styles.button} onPress={()=>props.setDarkMode(true)}>
                     <AppText style={styles.text}>Gomez.</AppText>
-                </Pressable>
+                </Pressable> */}
         </View>
     )
 }
-// export default class About extends React.Component {
-//     render(){
-//         return (
-//             <View style={styles.about}>
-//                 <AppText>This app was made in Crump House with an assist from Bongo and Gomez.</AppText>
-//             </View>
-//         )
-//     }
-// }
 
 const styles = StyleSheet.create({
     about: {
@@ -54,17 +67,35 @@ const styles = StyleSheet.create({
         // backgroundColor: '#fff'
         // backgroundColor: '#000',
         // color: '#fff'
+        paddingLeft: 40,
+        paddingRight: 40,
     },
-    // view: {
-    //     paddingTop: 30,
-    //     paddingLeft: 10,
-    //     paddingRight: 10,
-    //     width: windowWidth,
-    //     // backgroundColor: '#000',
-    //     // color: '#fff',
-    //     // backgroundColor: '#fff',
-    //     alignItems: 'center'
-    // },
+    about_header: {
+        fontSize: 25,
+    },
+    about_header_container: {
+        borderBottomWidth: 1,
+    },
+    about_content: {
+        marginTop: 25,
+        // paddingTop: 15,
+    },
+    text_container: {
+        marginTop: 10
+    },
+    about_button: {
+        flex: 1,
+        margin: 10
+        // alignSelf: 'stretch',
+        // flexGrow: 1
+    },
+    button_container: {
+        marginTop: 10,
+        flexDirection: 'row',
+        // justifyContent: 'center' 
+        justifyContent: 'space-between',
+        // flexGrow: 1
+    },
     text: {
         fontSize: 22,
     },
