@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Dimensions, Pressable } from 'react-native'
+import { View, StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -26,7 +26,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(About)
 // export default 
 function About (props){
     return (
-        <View style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}>
+        <ScrollView style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}>
             <View style={styles.about_content}>
                 <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
                     <AppText style={styles.about_header}>About</AppText>
@@ -63,7 +63,7 @@ function About (props){
                     </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
