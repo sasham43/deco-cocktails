@@ -42,9 +42,7 @@ function StockBottle(props) {
     var icon_size = 35
     var show_icon = props.currentMode == 'edit' || props.currentMode == 'delete' ? 1 : 0
     function selectBottle(id){
-        // console.log('selecting bottle', props.currentMode)
         if(props.currentMode == 'name'){
-            // console.log('setting edit id', id)
             props.setEditId(id)
         }
     }
@@ -52,14 +50,12 @@ function StockBottle(props) {
         <View style={[styles.stock_bottle]}>
             <View style={[styles.switch_container, {opacity: show_icon}]}>
                 <TouchableOpacity 
-                    // onPress={() => props.updateStock({id: props.bottle.id, label: props.bottle.label, in_stock: !props.bottle.in_stock})}
                     onPress={()=>props.selectStock(props.bottle.id)}
                 >
                     <InStockIcon 
                         transform={[{ rotate: '-45deg' }]} 
                         width={icon_size} 
                         height={icon_size} 
-                        // fill={props.bottle.in_stock ? props.theme.color : 'grey'} 
                         fill={props.bottle.selected ? props.theme.color : 'grey'}
                     />
                 </TouchableOpacity>
@@ -77,8 +73,7 @@ function StockMap(props) {
             <StockBottle 
                 theme={props.theme} 
                 key={bottle.id} 
-                bottle={bottle} 
-                // updateStock={props.updateStock} 
+                bottle={bottle}  
                 selectStock={props.selectStock}
                 currentMode={props.currentMode} 
                 setEditId={props.setEditId}
@@ -91,7 +86,6 @@ function StockMap(props) {
 function Footer(props) {
     if (props.currentMode == 'delete') {
         function remove() {
-            // props.deleteCocktails()
             props.deleteStock()
             props.switchMode('')
         }
@@ -112,7 +106,6 @@ function Footer(props) {
         }
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-                {/* <AppText style={styles.footer_button_text}>Change Bottles In Stock</AppText> */}
                 <AppButton press={change}>Change Bottles In Stock</AppButton>
                 <AppButton press={() => props.switchMode('')}>
                     Cancel
@@ -144,9 +137,8 @@ function Footer(props) {
     }
 }
 
-//export default 
 function Stock(props){
-    const navigation = props.navigation
+    // const navigation = props.navigation
     const stock = props.stock.current
     const { toggleFunctionMenu, showFunctionMenu, setShowFunctionMenu, currentMode, switchMode } = useFunctionMenu()
     const [editStockId, setEditStockId] = useState()
@@ -154,11 +146,9 @@ function Stock(props){
     return (
         <View style={[styles.stock, props.ui.default_styles.viewStyles, props.ui.current_theme]}>
             <ScrollView style={styles.scroll_view}>
-                {/* <AppText>{currentMode}</AppText> */}
                 <StockMap 
                     theme={props.ui.current_theme} 
                     stock={stock} 
-                    // updateStock={props.updateStock} 
                     selectStock={props.selectStock}
                     currentMode={currentMode}
                     setEditId={setEditStockId}

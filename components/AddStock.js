@@ -39,13 +39,11 @@ function AddStock(props){
     async function addBottle() {
         // addToStock()
         if(props.editStockId){
-            // const edit_bottle = props.stock.current.find(s => s.id == props.editStockId)
             props.updateStock({
                 id: props.editStockId,
                 label: newStockName,
                 in_stock: newStockIn
             })
-            // props.switchMode('')
             props.saveBottle()
         } else {
             props.addStock({
@@ -66,9 +64,6 @@ function AddStock(props){
             setNewStockName('')
         }
     }, [props.editStockId])
-    // useEffect(()=>{
-    //     console.log('edit every id', props.editStockId)
-    // })
   
     return (
         <KeyboardAvoidingView contentContainerStyle={[styles.content_container, props.theme]} behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.view}>
@@ -84,9 +79,6 @@ function AddStock(props){
             </View>
             <View style={styles.add_container}>
                 <SaveButton editStockId={props.editStockId} press={addBottle} />
-                {/* <AppButton press={addBottle} theme={props.theme} border={props.border}>
-                    Add Bottle To Cabinet
-                </AppButton> */}
             </View>
         </KeyboardAvoidingView>
     )
@@ -111,21 +103,6 @@ function SaveButton(props){
 const styles = StyleSheet.create({
 
     view: {
-        // paddingTop: 10,
-        // paddingLeft: 10,
-        // paddingRight: 10,
-        // height: windowHeight - 100,
-        // backgroundColor: '#fff'
-        // flexDirection: 'row',
-        // flex: 1,
-        // position: 'absolute',
-        // left: 20,
-        // bottom: 30,
-        // width: windowWidth - 80,
-        // width: windowWidth,
-        // alignItems: 'center'
-        // alignContent: 'flex-start',
-        // alignItems: 'flex-start'
         marginTop: 30,
         // paddingRight: 20,
         marginBottom: 20,
@@ -135,14 +112,7 @@ const styles = StyleSheet.create({
     },
     stock_form: {
         flexDirection: 'row',
-        // marginLeft: 20,
-        // paddingLeft: 20,
-        // flexDirection: 'column',
-        // alignContent: 'center',
-        // justifyContent: 'flex-end'
-        // flex: 1
         borderWidth: 1,
-        // borderColor: '#eee',
     },  
     text: {
         // fontSize: 50,
@@ -154,14 +124,10 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: 10,
-        // paddingRight: 10,
-        // borderWidth: 1,
-        // borderColor: '#eee',
         borderStyle: 'solid',
         flexDirection: 'row',
         alignSelf: 'stretch',
         fontSize: 22
-        // width: windowWidth - 150
     },
     add_container: {
         // marginTop: 50,

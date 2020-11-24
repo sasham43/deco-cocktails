@@ -100,7 +100,7 @@ function CocktailListMap(props) {
     }).filter(s=>s) // remove nulls
 
     function selectCocktail(cocktail, currentMode) {
-        console.log('selecting', currentMode, cocktail, props.deleteCocktail)
+        // console.log('selecting', currentMode, cocktail, props.deleteCocktail)
 
         if(currentMode == 'select'){
             navigation.navigate('ViewCocktail', {
@@ -161,12 +161,11 @@ function filterIngredients(i){
 
 function CocktailList(props){
     // console.log('list props', props.ui)
-    // const navigation = props.navigation
     const cocktails = props.cocktails.current
     const { 
-        // toggleFunctionMenu, 
-        // showFunctionMenu, 
-        currentMode, switchMode } = useFunctionMenu()
+        currentMode, 
+        switchMode 
+    } = useFunctionMenu()
     const [cocktailSearch, setCocktailSearch] = useState('')
     const [filteredCocktails, setFilteredCocktails] = useState([])
     const [showFunctionMenu, setShowFunctionMenu] = useState(false)
@@ -253,23 +252,15 @@ function Footer(props){
                 <AppButton press={() => props.switchMode('')}>
                     Cancel
                 </AppButton>
-                {/* <Pressable onPress={()=>props.switchMode('')}>
-                    <AppText style={styles.footer_button_text}>Change A Cocktail</AppText>
-                </Pressable> */}
             </View> 
         )
     } else if (props.currentMode == 'select'){
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-                {/* <Pressable onPress={() => props.switchMode('')}> */}
                 <AppText style={styles.footer_button_text}>View A Cocktail</AppText>
                 <AppButton press={()=>props.switchMode('')}>
                     Cancel
                 </AppButton>
-                {/* </Pressable> */}
-                {/* <Pressable onPress={() => props.switchMode('')}>
-                    <AppText style={styles.footer_button_text}>Cancel</AppText>
-                </Pressable> */}
             </View>
         )
     } else {
@@ -334,9 +325,6 @@ function FunctionMenu(props) {
                 <FunctionMenuButton theme={props.theme} label={"Change A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Remove Cocktails"} mode="delete" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Add A Cocktail"} mode="add" switchMode={navigateToAdd} currentMode={props.currentMode} />
-                {/* <Pressable style={[{marginLeft: 25, marginTop: 20}]} onPress={()=>navigation.navigate('AddCocktail', {id:null})}>
-                    <AppText style={styles.action_buttons}>Add A Cocktail</AppText>
-                </Pressable> */}
             </View>
         </SlidingUpPanel>        
     )
@@ -356,12 +344,6 @@ function FunctionMenuButton(props){
         }
     }
     return (
-        // <Pressable style={styles.function_menu_button} onPress={() => changeMode()}>
-        //     <View style={{ opacity: props.mode == props.currentMode ? 1 : 0 }}>
-        //         <InStockIcon fill={props.theme.color}  transform={[{ rotate: '-45deg' }]} width={25} height={25} />
-        //     </View>
-        //     <AppText style={styles.action_buttons}>{props.label}</AppText>
-        // </Pressable>
         <AppButton press={changeMode}>{props.label}</AppButton>
     )
 }
