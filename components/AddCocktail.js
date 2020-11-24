@@ -122,7 +122,7 @@ function Add(props){
     }
 
     async function removeIngredientFromCocktail(){
-        console.log('oh no')
+        // console.log('oh no')
         var ingredients = addedCocktailIngredients.filter(i=>i.id!=editIngredientId)
 
         setAddedCocktailIngredients(ingredients)
@@ -134,11 +134,14 @@ function Add(props){
     function resetNewCocktail() {
         setEditCocktailId('')
         setNewCocktailName('')
-        setNewCocktailIngredient({
-            ingredient_name: '',
-            parts: 0
-        })
+        setNewCocktailIngredientName('')
+        setNewCocktailIngredientParts(0)
+        // setNewCocktailIngredient({
+        //     ingredient_name: '',
+        //     parts: 0
+        // })
         setAddedCocktailIngredients([])
+        // console.log('added cocktail ingredients', addedCocktailIngredients, newCocktailName)
     }
     const { navigation, route } = props
     const { currentMode, switchMode } = useFunctionMenu()
