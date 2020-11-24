@@ -90,6 +90,8 @@ const stockReducer = (state = INITIAL_STATE, action) => {
                     return c
                 })
             }
+        case 'RESET':
+            return INITIAL_STATE
         default:
             return state
     }

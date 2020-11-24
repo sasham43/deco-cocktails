@@ -1,13 +1,15 @@
 import React from 'react'
 import { View, StyleSheet, Dimensions, Pressable } from 'react-native'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import AppText from './AppText'
 import AppButton from './AppButton'
-import {setDarkMode } from '../utils/UIActions'
+import { setDarkMode } from '../utils/UIActions'
+import { resetDefaultCocktails } from '../utils/CocktailActions'
+import { resetDefaultStock } from '../utils/StockActions'
 
-// const windowWidth = Dimensions.get('window').width
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+
 const mapStateToProps = (state) => {
     // console.log('state', state)
     const { ui } = state
@@ -16,6 +18,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
         setDarkMode,
+        resetDefaultCocktails,
+        resetDefaultStock
     }, dispatch)
 )
 export default connect(mapStateToProps, mapDispatchToProps)(About)
@@ -24,7 +28,7 @@ function About (props){
     return (
         <View style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}>
             <View style={styles.about_content}>
-                <View style={styles.about_header_container}>
+                <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
                     <AppText style={styles.about_header}>About</AppText>
                 </View>
                 <View style={styles.text_container}>
@@ -34,7 +38,7 @@ function About (props){
                 </View>
             </View>
             <View style={styles.about_content}>
-                <View style={styles.about_header_container}>
+                <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
                     <AppText style={styles.about_header}>Theme</AppText>
                 </View>
                 <View style={styles.button_container}>
@@ -46,27 +50,25 @@ function About (props){
                     </View>
                 </View>
             </View>
-
-
-                {/* <Pressable style={styles.button} onPress={()=>props.setDarkMode(false)}>
-                    <AppText style={styles.text}>Bongo</AppText>
-                </Pressable>
-            <AppText style={styles.text}>and </AppText>
-                <Pressable style={styles.button} onPress={()=>props.setDarkMode(true)}>
-                    <AppText style={styles.text}>Gomez.</AppText>
-                </Pressable> */}
+            <View style={styles.about_content}>
+                <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
+                    <AppText style={styles.about_header}>Reset Defaults</AppText>
+                </View>
+                <View style={styles.button_container}>
+                    <View style={styles.about_button}>
+                        <AppButton press={() => props.resetDefaultCocktails()}>Cocktails</AppButton>
+                    </View>
+                    <View style={styles.about_button}>
+                        <AppButton press={() => props.resetDefaultStock()}>Cabinet</AppButton>
+                    </View>
+                </View>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     about: {
-        // marginTop: 10,
-        // flex: 1,
-        // alignSelf: 'center',
-        // backgroundColor: '#fff'
-        // backgroundColor: '#000',
-        // color: '#fff'
         paddingLeft: 40,
         paddingRight: 40,
     },
@@ -85,16 +87,12 @@ const styles = StyleSheet.create({
     },
     about_button: {
         flex: 1,
-        margin: 10
-        // alignSelf: 'stretch',
-        // flexGrow: 1
+        margin: 10,
     },
     button_container: {
         marginTop: 10,
         flexDirection: 'row',
-        // justifyContent: 'center' 
         justifyContent: 'space-between',
-        // flexGrow: 1
     },
     text: {
         fontSize: 22,

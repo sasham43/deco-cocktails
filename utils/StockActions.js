@@ -36,3 +36,9 @@ export const selectBottlesInStock = () => (
         type: 'SELECT_BOTTLES_IN_STOCK'
     }
 )
+
+export const resetDefaultStock = () => (
+    {
+        type: 'RESET'
+    }
+)
