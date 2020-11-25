@@ -284,7 +284,7 @@ function FunctionMenu(props) {
         if (props.showFunctionMenu) {
             if(panel)
                 // console.log('windowHeight', windowHeight, windowHeight / 2)
-                var height = Math.max((windowHeight / 2), 450)
+                var height = Math.max((windowHeight / 2), 470)
                 panel.show(height)
         } else {
             if(panel)
@@ -429,7 +429,10 @@ const styles = StyleSheet.create({
         // shadowOpacity: 1.0,
         width: windowWidth - 40,
         marginLeft: 20,
-        padding: 20,
+        // padding: 20,
+        // paddingTop:10,
+        paddingLeft: 20,
+        paddingRight: 20,
         elevation: 10 // for Android
     },
     tab_icon_container: {
