@@ -69,11 +69,9 @@ export function AddedIngredientMap(props) {
 const styles = StyleSheet.create({
     selected_ingredient: {
         borderWidth: 1,
-        // borderStyle: 'dashed'
-
         shadowOffset: { width: -4, height: -4, },
-        // shadowColor: 'rgba(150,150,150,.5)',
         shadowOpacity: 0.3,
+        elevation: 10 // for Android
     },
     added_ingredient: {
         paddingTop: 6,
