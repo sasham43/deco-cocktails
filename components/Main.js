@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-start',
         alignSelf: 'stretch',
+        marginTop: 10
     },
     screen: {
         flex: 1, 
