@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         // borderBottomWidth: 1,
         // borderStyle: 'solid',
         alignSelf: 'center',
-        marginTop: 30,
+        marginTop: 20,
         // marginBottom: 50, // space for menu
     },
     text: {
