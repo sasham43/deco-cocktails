@@ -161,6 +161,7 @@ function Stock(props){
                 setShowFunctionMenu={setShowFunctionMenu}
                 theme={props.ui.current_theme}
                 border={props.ui.border_color}
+                dark_mode={props.ui.dark_mode}
                 currentMode={currentMode}
                 switchMode={switchMode}
                 editStockId={editStockId}
@@ -212,9 +213,11 @@ function FunctionMenu(props) {
         props.switchMode('')
     }
 
+    const border_style = (Platform.OS == 'android' && props.dark_mode) ? { borderColor: props.theme.color, borderWidth: 1 } : null // add a border for Android in dark mode
+
     return (
         <SlidingUpPanel draggableRange={{ top: windowHeight - 135, bottom: props.editStockId ? bottom_height : 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
-            <View style={[styles.panel_container, props.theme]}>
+            <View style={[styles.panel_container, props.theme, border_style]}>
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />
                 </View>
