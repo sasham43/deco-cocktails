@@ -217,6 +217,7 @@ function CocktailList(props){
                 setCocktailSearch={setCocktailSearch}
                 switchMode={switchMode}
                 theme={props.ui.current_theme}
+                dark_mode={props.ui.dark_mode}
             />
 
             <Footer 
@@ -300,10 +301,12 @@ function FunctionMenu(props) {
     function navigateToAdd(){
         navigation.navigate('AddCocktail', { id: null })
     }
+
+    const border_style = (Platform.OS == 'android' && props.dark_mode) ? { borderColor: props.theme.color, borderWidth: 1 } : null // add a border for Android in dark mode
     
     return (
         <SlidingUpPanel showBackdrop={false} draggableRange={{ top: windowHeight - 135, bottom: 0}} ref={c=> setPanel(c)} onBottomReached={()=>props.setShowFunctionMenu(false)}>
-            <View style={ [styles.panel_container, props.theme] }>
+            <View style={ [styles.panel_container, props.theme, border_style] }>
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />
                 </View>
