@@ -74,7 +74,13 @@ function AddStock(props){
                     </TouchableOpacity>
                 </View>
                 <View style={styles.input_container}>
-                    <TextInput style={[styles.input, props.theme]} value={newStockName} onChangeText={text => setNewStockName(text)} placeholder="New bottle..." />
+                    <TextInput 
+                        style={[styles.input, props.theme]} 
+                        value={newStockName} 
+                        onChangeText={text => setNewStockName(text)} 
+                        placeholder="New bottle..." 
+                        placeholderTextColor={props.theme.color}
+                    />
                 </View>
             </View>
             <View style={styles.add_container}>

@@ -256,13 +256,6 @@ const styles = StyleSheet.create({
     stock: {
         paddingLeft: 40
     },
-    // view: {
-    //     paddingTop: 10,
-    //     paddingLeft: 30,
-    //     paddingRight: 10,
-    //     height: viewHeight,
-    //     marginTop: 50,
-    // },
     scroll_view: {
         paddingTop: 15,
         height: windowHeight - 120,
@@ -296,14 +289,10 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     delete_footer: {
-        // paddingTop: 20,
-
         alignItems: 'flex-start',
         justifyContent: 'space-evenly',
-        // alignContent: 'center',
         flexDirection: 'row',
         flex: 1,
-        // width: windowWidth
     }, 
     footer_button_text: {
         marginTop: 10,
@@ -318,9 +307,11 @@ const styles = StyleSheet.create({
     panel_container: {
         flex: 1,
         justifyContent: 'flex-start',
-        shadowOffset: { width: 0, height: -5, },
-        shadowColor: 'rgba(150,150,150,.5)',
-        shadowOpacity: 1.0,
+        // shadowOffset: { width: 0, height: -5, },
+        // shadowColor: 'rgba(150,150,150,.5)',
+        shadowColor: 'rgba(150,150,150,.1)',
+        shadowOpacity: .4,
+        // shadowOpacity: 1.0,
         width: windowWidth - 40,
         marginLeft: 20,
         padding: 20,
