@@ -367,14 +367,10 @@ const styles = StyleSheet.create({
         color: '#fff',
     },
     delete_footer: {
-        // paddingTop: 20,
-
         alignItems: 'flex-start',
         justifyContent: 'space-evenly',
-        // alignContent: 'center',
         flexDirection: 'row',
         flex: 1,
-        // width: windowWidth
     },  
     footer_button_text: {
         marginTop: 10,
@@ -427,9 +423,10 @@ const styles = StyleSheet.create({
     panel_container: {
         flex: 1,
         justifyContent: 'flex-start',
-        shadowOffset: { width: 0, height: -5, },
-        shadowColor: 'rgba(150,150,150,.5)',
-        shadowOpacity: 1.0,
+        // shadowOffset: { width: 0, height: -5, },
+        shadowColor: 'rgba(150,150,150,.1)',
+        shadowOpacity: .4,
+        // shadowOpacity: 1.0,
         width: windowWidth - 40,
         marginLeft: 20,
         padding: 20,
