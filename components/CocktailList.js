@@ -429,7 +429,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 1.0,
         width: windowWidth - 40,
         marginLeft: 20,
-        padding: 20
+        padding: 20,
+        elevation: 10 // for Android
     },
     tab_icon_container: {
         alignItems: 'center',
