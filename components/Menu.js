@@ -77,7 +77,7 @@ function Menu(props) {
     return (
         <View style={[styles.menu, props.ui.current_theme]}>
             <View style={styles.link_container}>
-                <Pressable style={styles.link} onPress={()=>navigation.navigate('CocktailList')}>
+                <Pressable style={styles.link} onPress={()=>navigation.navigate('CocktailList', {date: new Date().toString()})}>
                     <AppText style={styles.link_text}>Cocktails</AppText>
                     <Animated.View style={[{ paddingLeft: 10 }, { opacity: leftAnim }]}>
                         <InStockIcon transform={[{ rotate: '135deg' }]} width={30} height={30} fill={props.ui.current_theme.color} />
