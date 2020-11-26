@@ -35,9 +35,7 @@ function About (props){
             reset = props.resetDefaultStock
             title = 'Reset cabinet to default?  This will remove all new bottles from cabinet and cannot be undone'
         }
-        // var name = cocktail ? cocktail.name : ''
-        // var title = `Remove ${title}?`
-        // var title = `Remove ${cocktail.name}?`
+        
         var msg = ''
         var buttons = [
             {

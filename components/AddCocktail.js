@@ -28,8 +28,8 @@ const mapDispatchToProps = dispatch => (
 )
 const mapStateToProps = (state) => {
     // console.log('mapping state', state)
-    const { cocktails, current, ui } = state
-    return { cocktails: cocktails, ui }
+    const { cocktails, current, ui, stock } = state
+    return { cocktails: cocktails, ui, stock }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Add)
@@ -271,7 +271,13 @@ function Add(props){
                 />
 
                 <ScrollView style={{height: 300, paddingRight: 10}}>
-                    <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={addedCocktailIngredients} editIngredientId={editIngredientId} toggleEditIngredient={toggleEditIngredient} />
+                    <AddedIngredientMap 
+                        theme={props.ui.current_theme} 
+                        addedCocktailIngredients={addedCocktailIngredients} 
+                        editIngredientId={editIngredientId} 
+                        toggleEditIngredient={toggleEditIngredient} 
+                        stock={props.stock.current}
+                    />
                 </ScrollView>
 
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.new_ingredient, props.ui.current_theme]}>                   

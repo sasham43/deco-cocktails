@@ -17,8 +17,8 @@ const viewHeight = windowHeight - (titlePadding + footerHeight)
 
 const mapStateToProps = (state) => {
     // console.log('state', state)
-    const { cocktails, current, ui } = state
-    return { cocktails: cocktails, ui }
+    const { cocktails, current, ui, stock } = state
+    return { cocktails: cocktails, ui, stock }
 }
 
 const mapDispatchToProps = dispatch => (
@@ -88,7 +88,7 @@ function ViewCocktail(props){
                 <View style={ styles.category_title_container }>
                     <AppText style={styles.category_title}>Ingredients</AppText>
                 </View>
-                <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={cocktail.ingredients} />
+                <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={cocktail.ingredients} stock={props.stock.current} />
             </ScrollView>
             <View style={[props.ui.default_styles.footerStyles, styles.button_container, props.ui.current_theme]}>
                 <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={editCocktail}>
