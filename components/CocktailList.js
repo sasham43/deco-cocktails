@@ -305,6 +305,7 @@ function FunctionMenu(props) {
 
     function navigateToAdd(){
         navigation.navigate('AddCocktail', { id: null })
+        hidePanel()
     }
 
     const border_style = (Platform.OS == 'android' && props.dark_mode) ? { borderColor: props.theme.color, borderWidth: 1 } : null // add a border for Android in dark mode
