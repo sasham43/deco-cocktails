@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, ScrollView } from 'react-native'
+import { View, StyleSheet, ScrollView, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -25,6 +25,32 @@ const mapDispatchToProps = dispatch => (
 export default connect(mapStateToProps, mapDispatchToProps)(About)
 // export default 
 function About (props){
+    function resetDefault(type) {
+        console.log('removing cocktail', type)
+        var reset, title
+        if(type == 'cocktails'){
+            reset = props.resetDefaultCocktails
+            title = 'Reset cocktails to default?  This will remove all new cocktails and cannot be undone'
+        } else if (type == 'stock'){
+            reset = props.resetDefaultStock
+            title = 'Reset cabinet to default?  This will remove all new bottles from cabinet and cannot be undone'
+        }
+        // var name = cocktail ? cocktail.name : ''
+        // var title = `Remove ${title}?`
+        // var title = `Remove ${cocktail.name}?`
+        var msg = ''
+        var buttons = [
+            {
+                text: 'Cancel',
+                style: 'cancel'
+            },
+            {
+                text: 'OK',
+                onPress: reset
+            }
+        ]
+        Alert.alert(title, msg, buttons)
+    }
     return (
         <ScrollView style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}>
             <View style={styles.about_content}>
@@ -56,11 +82,17 @@ function About (props){
                 </View>
                 <View style={styles.button_container}>
                     <View style={styles.about_button}>
+                        <AppButton press={() => resetDefault('cocktails')}>Cocktails</AppButton>
+                    </View>
+                    <View style={styles.about_button}>
+                        <AppButton press={() => resetDefault('stock')}>Cabinet</AppButton>
+                    </View>
+                    {/* <View style={styles.about_button}>
                         <AppButton press={() => props.resetDefaultCocktails()}>Cocktails</AppButton>
                     </View>
                     <View style={styles.about_button}>
                         <AppButton press={() => props.resetDefaultStock()}>Cabinet</AppButton>
-                    </View>
+                    </View> */}
                 </View>
             </View>
         </ScrollView>
