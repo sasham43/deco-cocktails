@@ -75,9 +75,6 @@ function ViewCocktail(props){
     }
 
     function removeThisCocktail(){
-        // props.deleteCocktail(cocktail.id)
-        // setCocktail({})
-        // navigation.navigate('CocktailList')
         navigation.navigate('CocktailList')
         props.deleteCocktail(cocktail.id)
     }
