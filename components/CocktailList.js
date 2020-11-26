@@ -56,10 +56,6 @@ const mapDispatchToProps = dispatch => (
 export default connect(mapStateToProps, mapDispatchToProps)(CocktailList)
 
 function Name(props) {
-    // const { isInStock } = useStock()
-
-    // console.log('is in stock', isInStock)
-
     if (props.last) {
         return (
             <AppText style={{ color: props.in_stock ? props.theme.color : 'grey' }}> {props.ingredient_name}</AppText>
@@ -178,6 +174,15 @@ function CocktailList(props){
     useEffect(() => {
         filterCocktails()
     }, [cocktailSearch, cocktails])
+    useEffect(()=>{
+        // console.log('cocktails changed')
+        filterCocktails()
+        // loadParams()
+    }, [props.route.params])
+
+    // function loadParams(){
+    //     console.log('route', props.route.params)
+    // }
 
     function filterCocktails() {
         if (cocktailSearch == '') {
