@@ -52,16 +52,27 @@ export function AddedIngredient(props) {
             ]} 
             onPress={() => props.toggleEditIngredient(props.id)}
         >
-            <AppText style={[styles.ingredient_text, styles.ingredient_name]}>{props.ingredient_name}</AppText>
+            <AppText style={[styles.ingredient_text, styles.ingredient_name, { color: props.in_stock ? props.theme.color : 'grey' }]}>{props.ingredient_name}</AppText>
             <AppText style={[styles.inset, styles.ingredient_text]}>{fractions}</AppText>
             <Part style={[styles.inset, styles.added_parts]} parts={props.parts} last={true} />
         </TouchableOpacity>
     )
 }
 export function AddedIngredientMap(props) {
+    var stock = props.stock ? props.stock : []
     return sortedIngredients(props.addedCocktailIngredients).map(a => {
+        var found = stock.find(s=>s.label == a.ingredient_name)
+        var present = found ? true : false
+
         return (
-            <AddedIngredient theme={props.theme} key={a.id} id={a.id} ingredient_name={a.ingredient_name} parts={a.parts} editIngredientId={props.editIngredientId} toggleEditIngredient={props.toggleEditIngredient} />
+            <AddedIngredient 
+                theme={props.theme} 
+                key={a.id} id={a.id} 
+                ingredient_name={a.ingredient_name} 
+                parts={a.parts} editIngredientId={props.editIngredientId} 
+                toggleEditIngredient={props.toggleEditIngredient} 
+                in_stock={present}
+            />
         )
     })
 }
