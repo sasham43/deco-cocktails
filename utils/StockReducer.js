@@ -37,9 +37,12 @@ const stockReducer = (state = INITIAL_STATE, action) => {
     switch (action.type){
         case 'ADD_STOCK':
             const new_stock = action.payload
-            current.push(new_stock)
+            // current.push(new_stock)
 
-            const newState = { current, possible }
+            const newState = { 
+                current: [...current, new_stock], 
+                possible 
+            }
 
             // should update AsyncStorage
 
