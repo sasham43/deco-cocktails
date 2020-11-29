@@ -8,7 +8,7 @@ var footerBottom
 if(Platform.OS == 'android'){
     footerBottom = 0
 } else {
-    console.log('windowHeight', windowHeight, windowHeight /10, windowHeight / 20)
+    // console.log('windowHeight', windowHeight, windowHeight /10, windowHeight / 20)
     if(windowHeight > 1000){
         // footerBottom = windowHeight / 20
         footerBottom = 50
