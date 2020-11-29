@@ -92,6 +92,9 @@ function Main(props){
                         <Tab.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Tab.Screen>
                         <Tab.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Tab.Screen>
                     </Tab.Navigator>
+                    <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 10, backgroundColor:props.ui.current_theme.backgroundColor}}>
+
+                    </View>
                 </View>
             </NavigationContainer>
         )

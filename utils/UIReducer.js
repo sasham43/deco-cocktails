@@ -44,6 +44,10 @@ const INITIAL_STATE = {
     current_theme: {},
     border_color: '',
     default_styles: {
+        window: {
+            width: windowWidth,
+            height: windowHeight
+        },
         viewStyles: {
             paddingTop: 10,
             paddingLeft: 10,
