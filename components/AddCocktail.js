@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions, KeyboardAvoidingView, ScrollView, PanResponder } from 'react-native'
+import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions, KeyboardAvoidingView, ScrollView, Keyboard, PanResponder } from 'react-native'
 import { generate } from 'shortid'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -253,10 +253,23 @@ function Add(props){
             value: 3.75
         },
     ]
+    const [marginBottom, setMarginBottom] = useState(10)
+
+    Keyboard.addListener("keyboardWillShow", keyboardDidShow);
+    Keyboard.addListener("keyboardDidShow", keyboardDidShow);
+    Keyboard.addListener("keyboardWillHide", keyboardDidHide);
+    Keyboard.addListener("keyboardDidHide", keyboardDidHide);
+
+    function keyboardDidShow(){
+        setMarginBottom(100)
+    }
+    function keyboardDidHide(){
+        setMarginBottom(10)
+    }
 
     const placeholder = {
         label: 'Parts...',
-        color: '#9EA0A4',
+        color: 'grey',
     };
     return (
         <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 40}]}>
@@ -295,7 +308,7 @@ function Add(props){
                         clearButtonMode={"always"}  
                         value={newCocktailIngredientName} 
                         onChangeText={text => setName(text)} 
-                        style={[styles.input, props.ui.current_theme]} 
+                        style={[styles.input, {marginBottom: marginBottom}, props.ui.current_theme]} 
                         placeholder="Ingredient..." 
                         placeholderTextColor={"grey"}
                     // placeholderTextColor={props.ui.current_theme.color}
