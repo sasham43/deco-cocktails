@@ -8,9 +8,10 @@ var footerBottom
 if(Platform.OS == 'android'){
     footerBottom = 0
 } else {
-    // console.log('windowHeight', windowHeight, windowHeight /10, windowHeight / 20)
-    if(windowHeight > 820){
-        footerBottom = windowHeight / 20
+    console.log('windowHeight', windowHeight, windowHeight /10, windowHeight / 20)
+    if(windowHeight > 1000){
+        // footerBottom = windowHeight / 20
+        footerBottom = 50
     } else if (windowHeight > 700){
         footerBottom = 75
     } else {
@@ -60,15 +61,9 @@ const INITIAL_STATE = {
             alignContent: 'center',
             backgroundColor: 'rgba(255, 255, 255, 1)',
             zIndex: 10,
-            // height: 200,
             position: 'absolute',
-            // bottom: 0,
             height: 75,
             bottom: footerBottom,
-            // bottom: -60,
-            // bottom: 100
-            // bottom: 10,
-            // bottom: -100
         },
     }
 }
