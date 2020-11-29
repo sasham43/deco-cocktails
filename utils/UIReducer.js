@@ -3,7 +3,6 @@ import { Dimensions, Platform } from 'react-native'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-console.log('ui reducer', windowHeight)
 // handle some sort of adaptive screens
 var footerBottom
 if(Platform.OS == 'android'){
