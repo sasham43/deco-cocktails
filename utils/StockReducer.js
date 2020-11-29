@@ -1,27 +1,50 @@
 import { combineReducers } from 'redux'
 import { generate } from 'shortid'
 
+// var default_stock = [
+//     {
+//         id: generate(),
+//         label: 'Rye',
+//         in_stock: true
+//     },
+//     {
+//         id: generate(),
+//         label: 'Gin',
+//         in_stock: true
+//     },
+//     {
+//         id: generate(),
+//         label: 'Sweet Vermouth',
+//         in_stock: true
+//     },
+//     {
+//         id: generate(),
+//         label: 'Rum',
+//         in_stock: false
+//     },
+// ]
 var default_stock = [
-    {
-        id: generate(),
-        label: 'Rye',
-        in_stock: true
-    },
-    {
-        id: generate(),
-        label: 'Gin',
-        in_stock: true
-    },
-    {
-        id: generate(),
-        label: 'Sweet Vermouth',
-        in_stock: true
-    },
-    {
-        id: generate(),
-        label: 'Rum',
-        in_stock: false
-    },
+    { id: generate(), label: 'Gin', in_stock: true },
+    { id: generate(), label: 'Dry Vermouth', in_stock: true },
+    { id: generate(), label: 'Tonic', in_stock: true },
+    { id: generate(), label: 'Sweet Vermouth', in_stock: true },
+    { id: generate(), label: 'Campari', in_stock: true },
+    { id: generate(), label: 'Rye', in_stock: true },
+    { id: generate(), label: 'Lemon Juice', in_stock: true },
+    { id: generate(), label: 'Simple Syrup', in_stock: true },
+    { id: generate(), label: 'Red Wine', in_stock: true },
+    { id: generate(), label: 'Angostura', in_stock: true },
+    { id: generate(), label: 'Lime Juice', in_stock: true },
+    { id: generate(), label: 'Green Chartreuse', in_stock: true },
+    { id: generate(), label: 'Maraschino Liquer', in_stock: true },
+    { id: generate(), label: 'Cocchi Americano', in_stock: true },
+    { id: generate(), label: 'Cointreau', in_stock: true },
+    { id: generate(), label: 'Brandy', in_stock: true },
+    { id: generate(), label: 'Champagne', in_stock: true },
+    { id: generate(), label: 'Vodka', in_stock: true },
+    { id: generate(), label: 'Peychauds', in_stock: true },
+    { id: generate(), label: 'Absinthe', in_stock: true },
+    { id: generate(), label: 'Benedictine', in_stock: true }
 ]
 
 const INITIAL_STATE = {

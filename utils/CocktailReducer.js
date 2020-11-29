@@ -76,8 +76,6 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
 
 export default cocktailReducer
 
-
-
 function defaultCocktails() {
     return [
         {
