@@ -79,7 +79,8 @@ function AddStock(props){
                         value={newStockName} 
                         onChangeText={text => setNewStockName(text)} 
                         placeholder="New bottle..." 
-                        placeholderTextColor={props.theme.color}
+                        placeholderTextColor={"grey"}
+                        // placeholderTextColor={props.theme.color}
                     />
                 </View>
             </View>
