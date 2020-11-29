@@ -154,6 +154,7 @@ function Stock(props){
                     setEditId={setEditStockId}
                     editStockId={editStockId}
                 />
+                <View style={{ marginTop: 150, height: 20 }}></View>
             </ScrollView>            
 
             <FunctionMenu
@@ -271,7 +272,9 @@ const styles = StyleSheet.create({
         padding: 10
     },
     switch_container: {
-        marginRight: 10
+        marginTop: 5,
+        marginRight: 10,
+        marginLeft: 8
     },
     label_text: {
         fontSize: 22,
