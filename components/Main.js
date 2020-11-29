@@ -7,7 +7,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 // import { Provider } from 'react-redux'
 import { createStore, combineReducers} from 'redux'
 import { connect} from 'react-redux'
-import { persistStore, persistReducer } from 'redux-persist'
 
 // import stockReducer from '../utils/StockReducer'
 // import cocktailReducer from '../utils/CocktailReducer'
