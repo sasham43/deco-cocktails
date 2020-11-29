@@ -9,6 +9,8 @@ import {
   useFonts,
   PoiretOne_400Regular
 } from '@expo-google-fonts/poiret-one'
+import { persistStore, persistReducer } from 'redux-persist'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import stockReducer from './utils/StockReducer'
 import cocktailReducer from './utils/CocktailReducer'
@@ -17,11 +19,24 @@ import uiReducer from './utils/UIReducer'
 // components
 import Main from './components/Main'
 
-const store = createStore(combineReducers({
-  stock: stockReducer,
-  cocktails: cocktailReducer,
-  ui: uiReducer,
+const persistConfig = {
+    key: 'root', // maybe stock?
+    storage: AsyncStorage
+}
+const persistedReducer = persistReducer(persistConfig, combineReducers({
+    stock: stockReducer,
+    cocktails: cocktailReducer,
+    ui: uiReducer
 }))
+
+// const store = createStore(combineReducers({
+//   stock: stockReducer,
+//   cocktails: cocktailReducer,
+//   ui: uiReducer,
+// }))
+
+const store = createStore(persistedReducer)
+const persistor = persistStore(store)
 
 export default function App(props) {
   const [ui, setUI] = useState({})
