@@ -267,7 +267,8 @@ function Add(props){
                     style={[styles.input, styles.cocktail_name, props.ui.current_theme]}
                     placeholder="New cocktail name..."
                     clearButtonMode={"always"}
-                    placeholderTextColor={props.ui.current_theme.color}
+                    placeholderTextColor={"grey"}
+                    // placeholderTextColor={props.ui.current_theme.color}
                 />
 
                 <ScrollView style={{height: 300, paddingRight: 10}}>
@@ -296,7 +297,8 @@ function Add(props){
                         onChangeText={text => setName(text)} 
                         style={[styles.input, props.ui.current_theme]} 
                         placeholder="Ingredient..." 
-                        placeholderTextColor={props.ui.current_theme.color} 
+                        placeholderTextColor={"grey"}
+                    // placeholderTextColor={props.ui.current_theme.color}
                     />
                     <RNPickerSelect
                         key={newCocktailIngredientParts}

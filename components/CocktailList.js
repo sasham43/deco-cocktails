@@ -325,7 +325,8 @@ function FunctionMenu(props) {
                         onChangeText={(text) => props.setCocktailSearch(text)} 
                         onFocus={()=>props.switchMode('search')} 
                         placeholder="Search cocktails..." 
-                        placeholderTextColor={props.theme.color}
+                        placeholderTextColor={"grey"}
+                        // placeholderTextColor={props.theme.color}
                         clearButtonMode={"always"} 
                         style={[styles.input, props.theme]} 
                     />
