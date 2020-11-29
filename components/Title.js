@@ -19,7 +19,8 @@ class Title extends React.Component {
             <Pressable onLongPress={()=>RootNavigation.navigate('About')} style={[styles.title, this.props.ui.current_theme]}>
                 <AppText>
                     <Text style={styles.text}>
-                        Crump Cocktails
+                        {/* Crump Cocktails */}
+                        {this.props.ui.title}
                     </Text>
                 </AppText>
             </Pressable>

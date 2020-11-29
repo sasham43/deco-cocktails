@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 // import { Provider } from 'react-redux'
 import { createStore, combineReducers} from 'redux'
 import { connect} from 'react-redux'
-import { persistStore, persistReducer } from 'redux-persist'
+// import { persistStore, persistReducer } from 'redux-persist'
 
 // import stockReducer from '../utils/StockReducer'
 // import cocktailReducer from '../utils/CocktailReducer'
@@ -63,7 +63,7 @@ function Main(props){
                 close: TransitionSpecs.TransitionIOSSpec,
             },            
             cardStyleInterpolator: ({ current, next, layouts }) => {
-                // console.log('current, next ', current, next, layouts)
+                console.log('current, next ', current, next, layouts)
                 return {
                     cardStyle: {
                         opacity: current.progress.interpolate({

@@ -24,6 +24,7 @@ const footerHeight = 25
 const viewHeight = windowHeight - (titlePadding + footerHeight)
 
 const INITIAL_STATE = {
+    title: 'Crump Cocktails',
     dark_mode: false,
     dark_theme: {
         backgroundColor: '#000',
@@ -78,6 +79,7 @@ const uiReducer = (state = INITIAL_STATE, action) => {
         current_theme,
         default_styles,
         button_borders,
+        title
     } = state
     switch (action.type){
         case 'SET_DARK_MODE':
@@ -97,7 +99,21 @@ const uiReducer = (state = INITIAL_STATE, action) => {
                 current_theme: new_current,
                 default_styles,
                 button_borders,
-                border_color: border
+                border_color: border,
+                title
+            }
+        case 'SET_MENU_TITLE':
+            const new_title = action.payload
+            console.log('new title', new_title)
+            return {
+                dark_mode,
+                dark_theme,
+                light_theme,
+                current_theme,
+                default_styles,
+                button_borders,
+                border_color,
+                title: new_title
             }
         default:
             var new_current = {}
@@ -115,7 +131,9 @@ const uiReducer = (state = INITIAL_STATE, action) => {
                 current_theme: new_current, 
                 default_styles,
                 button_borders,
-                border_color: border}
+                border_color: border,
+                title
+            }
             return new_state
     }
 }
