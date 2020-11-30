@@ -136,12 +136,8 @@ function Add(props){
         setNewCocktailName('')
         setNewCocktailIngredientName('')
         setNewCocktailIngredientParts(0)
-        // setNewCocktailIngredient({
-        //     ingredient_name: '',
-        //     parts: 0
-        // })
         setAddedCocktailIngredients([])
-        // console.log('added cocktail ingredients', addedCocktailIngredients, newCocktailName)
+        // console.log('added cocktail ingredients', addedCocktailIngredients, newCocktailName, newCocktailIngredientName, newCocktailIngredientParts)
     }
     const { navigation, route } = props
     const { currentMode, switchMode } = useFunctionMenu()
@@ -174,6 +170,8 @@ function Add(props){
             setAddedCocktailIngredients([])
             setEditCocktailId(null)
         }
+        setNewCocktailIngredientName('')
+        setNewCocktailIngredientParts(0)
     }
 
     async function saveCocktailPress() {
@@ -252,6 +250,102 @@ function Add(props){
             label: '3 3/4',
             value: 3.75
         },
+        {
+            label: '4',
+            value: 4
+        },
+        {
+            label: '4 1/4',
+            value: 4.25
+        },
+        {
+            label: '4 1/2',
+            value: 4.5
+        },
+        {
+            label: '4 3/4',
+            value: 4.75
+        },
+        {
+            label: '5',
+            value: 5
+        },
+        {
+            label: '5 1/4',
+            value: 5.25
+        },
+        {
+            label: '5 1/2',
+            value: 5.5
+        },
+        {
+            label: '5 3/4',
+            value: 5.75
+        },
+        {
+            label: '6',
+            value: 6
+        },
+        {
+            label: '6 1/4',
+            value: 6.25
+        },
+        {
+            label: '6 1/2',
+            value: 6.5
+        },
+        {
+            label: '6 3/4',
+            value: 6.75
+        },
+        {
+            label: '7',
+            value: 7
+        },
+        {
+            label: '7 1/4',
+            value: 7.25
+        },
+        {
+            label: '7 1/2',
+            value: 7.5
+        },
+        {
+            label: '7 3/4',
+            value: 7.75
+        },
+        {
+            label: '8',
+            value: 8
+        },
+        {
+            label: '8 1/4',
+            value: 8.25
+        },
+        {
+            label: '8 1/2',
+            value: 8.5
+        },
+        {
+            label: '8 3/4',
+            value: 8.75
+        },
+        {
+            label: '9',
+            value: 9
+        },
+        {
+            label: '9 1/4',
+            value: 9.25
+        },
+        {
+            label: '9 1/2',
+            value: 9.5
+        },
+        {
+            label: '9 3/4',
+            value: 9.75
+        },
     ]
     const [marginBottom, setMarginBottom] = useState(10)
 
@@ -295,9 +389,6 @@ function Add(props){
                 </ScrollView>
 
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
-                    {/* <View style={styles.tab_icon_container}>
-                        <TabIcon fill={props.ui.current_theme.color} height={65} width={65} />
-                    </View> */}
                     <IngredientSlider
                         parts={newCocktailIngredientParts}
                         ingredient_values={ingredient_values} 
@@ -311,7 +402,6 @@ function Add(props){
                         style={[styles.input, {marginBottom: marginBottom}, props.ui.current_theme]} 
                         placeholder="Ingredient..." 
                         placeholderTextColor={"grey"}
-                    // placeholderTextColor={props.ui.current_theme.color}
                     />
                     <RNPickerSelect
                         key={newCocktailIngredientParts}
