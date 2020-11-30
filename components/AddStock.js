@@ -27,17 +27,15 @@ const mapDispatchToProps = dispatch => (
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddStock)
 
-//export default 
 function AddStock(props){
     const [newStockName, setNewStockName] = useState('')
     const [newStockIn, setNewStockIn] = useState(true)
-    // console.log('add stock props', props)
+
     function toggleStockIn() {
         setNewStockIn(!newStockIn)
     }
 
     async function addBottle() {
-        // addToStock()
         if(props.editStockId){
             props.updateStock({
                 id: props.editStockId,
@@ -57,7 +55,6 @@ function AddStock(props){
 
     useEffect(()=>{
         if(props.editStockId){
-            // console.log('edit id', props.editStockId)
             const edit_bottle = props.stock.current.find(s=>s.id == props.editStockId)
             setNewStockName(edit_bottle.label)
         } else {
@@ -111,20 +108,15 @@ const styles = StyleSheet.create({
 
     view: {
         marginTop: 30,
-        // paddingRight: 20,
         marginBottom: 20,
     },
     content_container: {
-        // marginBottom: 200,
     },
     stock_form: {
         flexDirection: 'row',
         borderWidth: 1,
     },  
     text: {
-        // fontSize: 50,
-        // color: 'red',
-        // textAlign: 'center'
     },
     input: {
         fontFamily: 'PoiretOne_400Regular',
@@ -137,12 +129,9 @@ const styles = StyleSheet.create({
         fontSize: 22
     },
     add_container: {
-        // marginTop: 50,
-        // paddingLeft: 20
     },  
     link_text: {
         fontSize: 22,
-        // color: 'red',
         textAlign: 'center'
     },
     switch_container: {
@@ -152,7 +141,5 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         flex: 1,
         marginLeft: 10
-        // flexDirection: 'row',
-        // flex: 1
     }
 })

@@ -13,8 +13,7 @@ const mapDispatchToProps = dispatch => (
     }, dispatch)
 )
 const mapStateToProps = (state) => {
-    // console.log('mapping state', state)
-    const { cocktails, ui } = state
+    const { cocktails } = state
     return { slider: cocktails.slider }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(IngredientSlider)
@@ -23,8 +22,6 @@ function IngredientSlider(props){
 
     const [sliderValue, setSliderValue] = useState(0)
     const [ingredient, setIngredient] = useState(null)
-    // const sliderRef = useRef(0)
-    // console.log('ingredient slider')
     var slider_value = 0
     const panResponder = useRef(PanResponder.create({
         onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -35,8 +32,6 @@ function IngredientSlider(props){
             var value = parseInt(gestureState.dx / 15)
             var direction = gestureState.vx > 0 ? 'right' : 'left'
             var slider_max = 1440
-            // var slider_max = 480
-            // console.log('slider value', slider_value, value)
             if((slider_value + value) > slider_max){
                 slider_value = slider_max
             } else if ((slider_value - (value * -1)) < 0){

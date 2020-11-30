@@ -10,21 +10,16 @@ const mapStateToProps = (state) => {
     const { ui } = state
     return { ui }
 }
-// export default 
+
 export default connect(mapStateToProps)(AppButton)
 
 function AppButton(props) {
     const [pressed, setPressed] = useState(false)
-    // const theme = theme
     const theme = props.ui.current_theme
-    // const border = props.border
     const border = props.ui.border_color
-
-    // console.log('button props', props, props.border)
 
     function pressStyles(props) {
         if (!props.pressed) {
-            // console.log('btn', [styles.button, { borderColor: border, backgroundColor: theme.backgroundColor }])
             return [styles.button, {borderColor: border, backgroundColor: theme.backgroundColor}]
         } else {
             return [styles.pressed_button, {borderColor: props.border, backgroundColor: theme.color}]
@@ -65,7 +60,6 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 5,
         marginBottom: 5,
-        // borderColor: '#333',
         borderWidth: 1,
         padding: 8,
         alignItems: 'center'
@@ -73,18 +67,14 @@ const styles = StyleSheet.create({
     pressed_button: {
         marginTop: 5,
         marginBottom: 5,
-        // borderColor: '#333',
-        // backgroundColor: '#fff',
         borderWidth: 1,
         padding: 8,
         alignItems: 'center'
     },
     button_text: {
-        // color: '#fff',
         fontSize: 20,
     },
     button_pressed_text: {
-        // color: '#000',
         fontSize: 20,
     },
     corner_icon: {

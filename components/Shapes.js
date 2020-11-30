@@ -27,54 +27,47 @@ function buildPartArray(parts) {
         part_array.push(remainder)
     }
 
-    // console.log('part array', part_array, parts)
-
     return part_array
 }
 const mapStateToProps = (state) => {
-    // console.log('state', state)
     const { ui } = state
     return { ui }
 }
 export const ConnectedShape = connect(mapStateToProps)(Shape)
-// export ConnectedShape
 
-// export 
 function Shape(props) {
-    // console.log("Shape props", props)
-    // if(props.ui.dark_mode){
-        if (props.part == 0.25) {
+    if (props.part == 0.25) {
+        return (
+            <QuarterCircle transform={[{ rotate: '-90deg' }]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+        )
+    }
+    if (props.part == 0.5) {
+        if(props.ui.dark_mode){
             return (
-                <QuarterCircle transform={[{ rotate: '-90deg' }]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+                <HalfCircle transform={[{ rotate: '180deg' }]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+            )
+        } else {
+            return (
+                <HalfCircleLight transform={[{ rotate: '180deg' }]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
             )
         }
-        if (props.part == 0.5) {
-            if(props.ui.dark_mode){
-                return (
-                    <HalfCircle transform={[{ rotate: '180deg' }]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
-                )
-            } else {
-                return (
-                    <HalfCircleLight transform={[{ rotate: '180deg' }]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
-                )
-            }
-        }
-        if (props.part == 0.75) {
-            if(props.ui.dark_mode){
-                return (
-                    <ThreeQuarterCircle transform={[{rotate: '90deg'}]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
-                )
-            } else {
-                return (
-                    <ThreeQuarterCircleLight transform={[{ rotate: '90deg' }]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
-                )
-            }
-        }
-        if (props.part == 1) {
+    }
+    if (props.part == 0.75) {
+        if(props.ui.dark_mode){
             return (
-                <Circle stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+                <ThreeQuarterCircle transform={[{rotate: '90deg'}]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+            )
+        } else {
+            return (
+                <ThreeQuarterCircleLight transform={[{ rotate: '90deg' }]} stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
             )
         }
+    }
+    if (props.part == 1) {
+        return (
+            <Circle stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
+        )
+    }
     
     return null
 }
@@ -90,12 +83,6 @@ export function ShapeMap(props) {
     })
 }
 function getShapeMargin(part) {
-    // console.log('width for part', part)
-    // if (part == 0.25 || part == 0.25) {
-    //     return {
-    //         marginLeft: -10
-    //     }
-    // }
     return 25
 }
 
@@ -106,7 +93,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginRight: 10,
         alignItems: 'center'
-        // width: 100
-        // flex: 3
     }
 })

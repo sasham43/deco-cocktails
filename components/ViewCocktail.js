@@ -16,8 +16,7 @@ const footerHeight = 25
 const viewHeight = windowHeight - (titlePadding + footerHeight)
 
 const mapStateToProps = (state) => {
-    // console.log('state', state)
-    const { cocktails, current, ui, stock } = state
+    const { cocktails, ui, stock } = state
     return { cocktails: cocktails, ui, stock }
 }
 
@@ -43,22 +42,16 @@ function ViewCocktail(props){
 
     function loadParams(params){
         if(params.id){
-            console.log('params', params)
-            // console.log('props.cocktails', props.cocktails)
             var cocktail = props.cocktails.current.find(c=>c.id == params.id)
             setCocktail(cocktail)
         }
     }
     function editCocktail(){
-        // console.log('editin this cocktail', cocktail.id)
         navigation.navigate('AddCocktail', {
             id: cocktail.id
         })
     }
     function removeCocktail(){
-        console.log('removing cocktail', cocktail)
-        // var name = cocktail ? cocktail.name : ''
-        // var title = `Remove ${title}?`
         var title = `Remove ${cocktail.name}?`
         var msg = ''
         var buttons = [
@@ -124,16 +117,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 8,
         fontSize: 18,
-        // borderBottomWidth: 1, 
-        // borderBottomColor: '#000' 
     },
     button_container: {
-        // position: 'absolute',
-        // bottom: 20,
-        // width: windowWidth,
-        // paddingBottom: 40
-        // textAlign: 'center'
-        // marginBottom: 100,
         marginBottom: 60,
         padding: 8
     },

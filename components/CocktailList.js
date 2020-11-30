@@ -37,13 +37,10 @@ const windowHeight = Dimensions.get('window').height
 const titlePadding = 37 + 41 + 20
 const footerHeight = 25
 const viewHeight = windowHeight - (titlePadding + footerHeight)
-// const viewHeight = 100
-// console.log('view height', viewHeight, (titlePadding + footerHeight))
 
 
 const mapStateToProps = (state) => {
-    // console.log('state', state)
-    const { cocktails, current, ui, stock } = state
+    const { cocktails, ui, stock } = state
     return { cocktails: cocktails, ui, stock }
 }
 const mapDispatchToProps = dispatch => (
@@ -88,7 +85,6 @@ function sortedIngredients(ingredients) {
 
 function CocktailListMap(props) {
     const navigation = useNavigation()
-    // console.log('current stock', props.stock)
     const current_stock = props.stock.map(s=>{
         if(s.in_stock){
             return s.label
@@ -96,8 +92,6 @@ function CocktailListMap(props) {
     }).filter(s=>s) // remove nulls
 
     function selectCocktail(cocktail, currentMode) {
-        // console.log('selecting', currentMode, cocktail, props.deleteCocktail)
-
         if(currentMode == 'select'){
             navigation.navigate('ViewCocktail', {
                 id: cocktail.id
@@ -108,7 +102,7 @@ function CocktailListMap(props) {
             })
         }
     }
-    // console.log('cocktail', props.cocktails)
+    
     return props.cocktails.map(cocktail =>
         
         (
@@ -120,7 +114,6 @@ function CocktailListMap(props) {
                     disabled={props.currentMode != 'edit' && props.currentMode != 'delete' && props.currentMode != 'select'} 
                     onPress={() => selectCocktail(cocktail, props.currentMode)} 
                     style={[styles.cocktail, {flex:8}]} 
-                    // key={cocktail.id}
                 >
                     <View style={styles.cocktail_name_container}>
                         <AppText>
@@ -157,7 +150,6 @@ function filterIngredients(i){
 
 
 function CocktailList(props){
-    // console.log('list props', props.ui)
     const cocktails = props.cocktails.current
     const { 
         currentMode, 
@@ -175,14 +167,8 @@ function CocktailList(props){
         filterCocktails()
     }, [cocktailSearch, cocktails])
     useEffect(()=>{
-        // console.log('cocktails changed')
         filterCocktails()
-        // loadParams()
     }, [props.route.params])
-
-    // function loadParams(){
-    //     console.log('route', props.route.params)
-    // }
 
     function filterCocktails() {
         if (cocktailSearch == '') {
@@ -288,7 +274,6 @@ function FunctionMenu(props) {
     useEffect(()=>{
         if (props.showFunctionMenu) {
             if(panel)
-                // console.log('windowHeight', windowHeight, windowHeight / 2)
                 var height = Math.max((windowHeight / 2), 470)
                 panel.show(height)
         } else {
@@ -326,7 +311,6 @@ function FunctionMenu(props) {
                         onFocus={()=>props.switchMode('search')} 
                         placeholder="Search cocktails..." 
                         placeholderTextColor={"grey"}
-                        // placeholderTextColor={props.theme.color}
                         clearButtonMode={"always"} 
                         style={[styles.input, props.theme]} 
                     />
@@ -342,8 +326,6 @@ function FunctionMenu(props) {
 }
 
 function FunctionMenuButton(props){
-    // console.log('rops', props.theme)
-
     function changeMode(){
         if(props.mode == 'add'){
             props.switchMode()
@@ -412,16 +394,13 @@ const styles = StyleSheet.create({
         borderRightWidth: 0,
         borderLeftWidth: 0,
         borderTopWidth: 0,
-        // color: '#fff'
     },
     function_menu_button: { 
-        flexDirection: 'row', 
-        // marginLeft: -20,
+        flexDirection: 'row',
         alignItems: 'center',
         marginTop: 20
     }, 
     function_button_container: {
-        // height: 120,
         alignContent: 'center',
         alignItems: 'center',
         zIndex: 2,
@@ -430,14 +409,10 @@ const styles = StyleSheet.create({
     panel_container: {
         flex: 1,
         justifyContent: 'flex-start',
-        // shadowOffset: { width: 0, height: -5, },
         shadowColor: 'rgba(150,150,150,.1)',
         shadowOpacity: .4,
-        // shadowOpacity: 1.0,
         width: windowWidth - 40,
         marginLeft: 20,
-        // padding: 20,
-        // paddingTop:10,
         paddingLeft: 20,
         paddingRight: 20,
         elevation: 10 // for Android

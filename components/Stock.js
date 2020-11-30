@@ -38,7 +38,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Stock)
 
 function StockBottle(props) {
-    // console.log('stock bottle' ,props.editStockId)
     var icon_size = 35
     var show_icon = props.currentMode == 'edit' || props.currentMode == 'delete' ? 1 : 0
     function selectBottle(id){
@@ -138,7 +137,6 @@ function Footer(props) {
 }
 
 function Stock(props){
-    // const navigation = props.navigation
     const stock = props.stock.current
     const { toggleFunctionMenu, showFunctionMenu, setShowFunctionMenu, currentMode, switchMode } = useFunctionMenu()
     const [editStockId, setEditStockId] = useState()
@@ -186,14 +184,12 @@ function Stock(props){
 function FunctionMenu(props) {
     const { panel, setPanel } = useFunctionMenu()
 
-    // console.log('edit function menu', props)
-
     useEffect(() => {
         if (props.showFunctionMenu) {
-            if (panel)
-                // console.log('windowHeight', windowHeight, windowHeight / 2)
-            var height = Math.max((windowHeight / 2), 500)
-            panel.show(height)
+            if (panel) {
+                var height = Math.max((windowHeight / 2), 500)
+                panel.show(height)
+            }
         } else {
             if (panel)
                 panel.hide()
@@ -245,15 +241,12 @@ function FunctionMenu(props) {
 function FunctionMenuButton(props){
     function changeMode() {
         if(props.mode == 'edit'){
-            // console.log('selecting')
             props.selectBottlesInStock()
         }
         
         props.switchMode(props.mode)
 
-        // if (props.mode != 'name') {
-            props.hidePanel()
-        // }
+        props.hidePanel()
     }
 
     return (
@@ -320,14 +313,10 @@ const styles = StyleSheet.create({
     panel_container: {
         flex: 1,
         justifyContent: 'flex-start',
-        // shadowOffset: { width: 0, height: -5, },
-        // shadowColor: 'rgba(150,150,150,.5)',
         shadowColor: 'rgba(150,150,150,.1)',
         shadowOpacity: .4,
-        // shadowOpacity: 1.0,
         width: windowWidth - 40,
         marginLeft: 20,
-        // padding: 20,
         paddingLeft: 20,
         paddingRight: 20,
         elevation: 10 // for Android

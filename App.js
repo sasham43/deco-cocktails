@@ -20,7 +20,7 @@ import uiReducer from './utils/UIReducer'
 import Main from './components/Main'
 
 const persistConfig = {
-    key: 'root', // maybe stock?
+    key: 'root', 
     storage: AsyncStorage
 }
 const persistedReducer = persistReducer(persistConfig, combineReducers({
@@ -28,12 +28,6 @@ const persistedReducer = persistReducer(persistConfig, combineReducers({
     cocktails: cocktailReducer,
     ui: uiReducer
 }))
-
-// const store = createStore(combineReducers({
-//   stock: stockReducer,
-//   cocktails: cocktailReducer,
-//   ui: uiReducer,
-// }))
 
 const store = createStore(persistedReducer)
 const persistor = persistStore(store)
@@ -51,7 +45,7 @@ export default function App(props) {
     setUI(state.ui)
   })
 
-  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nloading...')
+  // console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nloading...')
 
   if(!fontsLoaded){
     return <AppLoading />
