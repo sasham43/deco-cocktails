@@ -193,7 +193,6 @@ function FunctionMenu(props) {
             if (panel)
                 // console.log('windowHeight', windowHeight, windowHeight / 2)
             var height = Math.max((windowHeight / 2), 500)
-            // var height = Math.max((windowHeight / 2), 475)
             panel.show(height)
         } else {
             if (panel)
@@ -215,6 +214,10 @@ function FunctionMenu(props) {
         props.switchMode('')
     }
 
+    function onFocus(){
+        panel.show()
+    }
+
     const border_style = (Platform.OS == 'android' && props.dark_mode) ? { borderColor: props.theme.color, borderWidth: 1 } : null // add a border for Android in dark mode
 
     return (
@@ -223,7 +226,13 @@ function FunctionMenu(props) {
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />
                 </View>
-                <AddStock editStockId={props.editStockId} saveBottle={saveBottle} theme={props.theme} border={props.border} />
+                <AddStock 
+                    editStockId={props.editStockId} 
+                    saveBottle={saveBottle} 
+                    theme={props.theme} 
+                    border={props.border} 
+                    onFocus={onFocus}
+                />
 
                 <FunctionMenuButton mode={'name'} switchMode={props.switchMode} hidePanel={hidePanel}>Change Name</FunctionMenuButton>
                 <FunctionMenuButton mode={'edit'} switchMode={props.switchMode} hidePanel={hidePanel} selectBottlesInStock={props.selectBottlesInStock}>Change Bottles</FunctionMenuButton>
