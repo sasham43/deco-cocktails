@@ -10,13 +10,10 @@ const INITIAL_STATE = {
     slider: 0
 }
 
-const cocktailReducer = (state = INITIAL_STATE, action) => {
-    // console.log('cocktail reducing', state)
-    
+const cocktailReducer = (state = INITIAL_STATE, action) => {    
     const { current } = state
     switch (action.type){
         case 'ADD_COCKTAIL':
-            // console.log('adding', action)
             const new_cocktail = action.payload
             current.push(new_cocktail)
 
@@ -25,7 +22,6 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
             return newState
         case 'UPDATE_COCKTAILS':
             const updated = action.payload
-            // console.log('updated', updated)
             const updated_current = current.map(c=>{
                 if(c.id == updated.id){
                     return updated
@@ -58,7 +54,6 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
                 }
                 return c
             })
-            console.log('select action', select_id)
 
             const selectState = {current: selected}
 

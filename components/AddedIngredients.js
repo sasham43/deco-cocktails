@@ -28,9 +28,6 @@ function translateParts(parts) {
             return fraction
         }
     }
-    // if(split[0] == '0'){
-
-    // }
     return split[0]
 }
 
@@ -39,9 +36,8 @@ function sortedIngredients(ingredients) {
 }
 
 export function AddedIngredient(props) {
-    // console.log('added ingredient', props)
-
     var fractions = translateParts(props.parts)
+
     return (
         <TouchableOpacity 
             disabled={!props.toggleEditIngredient} 
@@ -94,7 +90,6 @@ const styles = StyleSheet.create({
         marginTop: 5,
         justifyContent: 'space-between',
         height: 90
-        // fontSize: 20
     },
     ingredient_name: {
       fontSize: 19,

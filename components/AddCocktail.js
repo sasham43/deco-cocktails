@@ -27,8 +27,7 @@ const mapDispatchToProps = dispatch => (
     }, dispatch)
 )
 const mapStateToProps = (state) => {
-    // console.log('mapping state', state)
-    const { cocktails, current, ui, stock } = state
+    const { cocktails, ui, stock } = state
     return { cocktails: cocktails, ui, stock }
 }
 
@@ -56,17 +55,13 @@ function Add(props){
     }
 
     function setName(name) {
-        // console.log('setting name', name)
         setNewCocktailIngredientName(name)
     }
     function setParts(parts) {
-        // console.log('setting part', newCocktailIngredient)
-        // console.log('setting part', parts)
         setNewCocktailIngredientParts(parts)
     }
     function editCocktailIngredient(id) {
         var ingredient = addedCocktailIngredients.find(a => a.id == id)
-        // setNewCocktailIngredient(ingredient)
         setNewCocktailIngredientName(ingredient.ingredient_name)
         setNewCocktailIngredientParts(ingredient.parts)
         setEditIngredientId(id)
@@ -74,7 +69,6 @@ function Add(props){
 
     function saveCocktail(){
         if(editCocktailId){
-            // props.addCocktail(new_cocktail)
             props.updateCocktails({
                 id: editCocktailId,
                 name: newCocktailName,
@@ -90,7 +84,6 @@ function Add(props){
     }
 
     async function addIngredientToCocktail() {
-        // if (!newCocktailIngredient.ingredient_name)
         if (!newCocktailIngredientName)
             return // don't allow empty ingredient names
 
@@ -122,7 +115,6 @@ function Add(props){
     }
 
     async function removeIngredientFromCocktail(){
-        // console.log('oh no')
         var ingredients = addedCocktailIngredients.filter(i=>i.id!=editIngredientId)
 
         setAddedCocktailIngredients(ingredients)
@@ -137,7 +129,6 @@ function Add(props){
         setNewCocktailIngredientName('')
         setNewCocktailIngredientParts(0)
         setAddedCocktailIngredients([])
-        // console.log('added cocktail ingredients', addedCocktailIngredients, newCocktailName, newCocktailIngredientName, newCocktailIngredientParts)
     }
     const { navigation, route } = props
     const { currentMode, switchMode } = useFunctionMenu()
@@ -151,7 +142,6 @@ function Add(props){
     },[isFocused])
 
     function loadParams(params){
-        // console.log('loading params', params)
         if(params && params.id){
             var cocktail = cocktails.find(c=>c.id == params.id)
             if(cocktail){
@@ -437,17 +427,6 @@ function Add(props){
 }
 
 const styles = StyleSheet.create({
-    // view: {
-    //     paddingTop: 10,
-    //     paddingLeft: 10,
-    //     paddingRight: 10,
-    //     // height: windowHeight - 100,
-    //     height: viewHeight,
-    //     marginTop: 50,
-    //     // backgroundColor: '#000',
-    //     // backgroundColor: '#fff',
-    //     alignItems: 'center'
-    // },
     input: {
         fontFamily: 'PoiretOne_400Regular',
         paddingTop: 10,
@@ -458,7 +437,6 @@ const styles = StyleSheet.create({
         borderColor: '#aaa',
         borderStyle: 'solid',
         fontSize: 18,
-        // width: windowWidth - 125,
         borderRightWidth: 0,
         borderLeftWidth: 0,
         borderTopWidth: 0,
@@ -503,6 +481,5 @@ const styles = StyleSheet.create({
     },
     tab_icon_container: {
         alignItems: 'center',
-        // marginBottom: -20
     },
 })

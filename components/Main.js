@@ -25,28 +25,7 @@ import { navigationRef } from '../utils/RootNavigation'
 
 import CornerIcon from '../assets/corner.svg'
 
-// const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
-
-// const persistConfig = {
-//     key: 'root', // maybe stock?
-//     storage: AsyncStorage
-// }
-// finish setting up state before adding persistance, leads to weird stuff
-//
-// const persistedReducer = persistReducer(persistConfig, cocktailReducer)
-// const persistedReducer = persistReducer(persistConfig, combineReducers({
-//     stock: stockReducer,
-//     cocktails: cocktailReducer
-// }))
-// const store = createStore(persistedReducer)
-// const store = createStore(combineReducers({
-//     stock: stockReducer,
-//     cocktails: cocktailReducer,
-//     ui: uiReducer,
-// }))
-// const persistor = persistStore(store) // not sure what to do with this
-// const store = createStore(stockReducer)
 
 const mapStateToProps = (state) => {
     const {  ui } = state
@@ -62,7 +41,6 @@ function Main(props){
                 close: TransitionSpecs.TransitionIOSSpec,
             },            
             cardStyleInterpolator: ({ current, next, layouts }) => {
-                // console.log('current, next ', current, next, layouts)
                 return {
                     cardStyle: {
                         opacity: current.progress.interpolate({

@@ -11,7 +11,6 @@ import { resetDefaultStock } from '../utils/StockActions'
 
 
 const mapStateToProps = (state) => {
-    // console.log('state', state)
     const { ui } = state
     return { ui }
 }
@@ -23,10 +22,9 @@ const mapDispatchToProps = dispatch => (
     }, dispatch)
 )
 export default connect(mapStateToProps, mapDispatchToProps)(About)
-// export default 
+
 function About (props){
     function resetDefault(type) {
-        console.log('removing cocktail', type)
         var reset, title
         if(type == 'cocktails'){
             reset = props.resetDefaultCocktails

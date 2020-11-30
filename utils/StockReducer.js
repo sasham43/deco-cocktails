@@ -81,8 +81,6 @@ const stockReducer = (state = INITIAL_STATE, action) => {
                 }
             })
 
-            // console.log('????',updated_stock,  new_current)
-
             const updatedState = {current: new_current, possible}
 
             return updatedState
@@ -124,7 +122,3 @@ const stockReducer = (state = INITIAL_STATE, action) => {
 }
 
 export default stockReducer
-
-// export default combineReducers({
-//     stock: stockReducer
-// })
