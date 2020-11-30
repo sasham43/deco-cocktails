@@ -80,7 +80,7 @@ function AddStock(props){
                         onChangeText={text => setNewStockName(text)} 
                         placeholder="New bottle..." 
                         placeholderTextColor={"grey"}
-                        // placeholderTextColor={props.theme.color}
+                        onFocus={()=>props.onFocus()}
                     />
                 </View>
             </View>
