@@ -34,8 +34,11 @@ function IngredientSlider(props){
         onPanResponderMove: (evt, gestureState) => {
             var value = parseInt(gestureState.dx / 15)
             var direction = gestureState.vx > 0 ? 'right' : 'left'
-            if((slider_value + value) > 480){
-                slider_value = 480
+            var slider_max = 1440
+            // var slider_max = 480
+            // console.log('slider value', slider_value, value)
+            if((slider_value + value) > slider_max){
+                slider_value = slider_max
             } else if ((slider_value - (value * -1)) < 0){
                 slider_value = 0
             } else {
