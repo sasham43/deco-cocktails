@@ -75,7 +75,7 @@ function Add(props){
                 ingredients: addedCocktailIngredients
             })
 
-            props.navigation.navigate('Stock')
+            props.navigation.navigate('CocktailList')
             // navigation.navigate('CocktailList')
             console.log('navigated', props.navigation, props.route)
         } else {
@@ -134,7 +134,7 @@ function Add(props){
         setNewCocktailIngredientParts(0)
         setAddedCocktailIngredients([])
     }
-    const { navigation, route } = props
+    const { route } = props
     const { currentMode, switchMode } = useFunctionMenu()
     
     // when cocktails load, check params and set
@@ -172,7 +172,7 @@ function Add(props){
         saveCocktail()
         resetNewCocktail()
 
-        navigation.navigate('AddCocktail', {})
+        // navigation.navigate('AddCocktail', {})
     }
 
     const ingredient_values = [
