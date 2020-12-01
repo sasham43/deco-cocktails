@@ -74,6 +74,10 @@ function Add(props){
                 name: newCocktailName,
                 ingredients: addedCocktailIngredients
             })
+
+            props.navigation.navigate('Stock')
+            // navigation.navigate('CocktailList')
+            console.log('navigated', props.navigation, props.route)
         } else {
             props.addCocktail({
                 id: generate(),
