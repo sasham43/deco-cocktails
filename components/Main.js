@@ -51,7 +51,8 @@ function Main(props){
                     overlayStyle: {}
                 }
             },
-            tabBarVisible: false
+            tabBarVisible: false,
+            unmountOnBlur: true
         }
         return (
             <NavigationContainer ref={navigationRef}>
