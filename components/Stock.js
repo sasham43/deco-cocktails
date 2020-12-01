@@ -11,7 +11,7 @@ import { useStock, useFunctionMenu } from '../utils/hooks'
 import InStockIcon from '../assets/in-stock'
 import TabIcon from '../assets/tab'
 import FunctionButtonIcon from '../assets/function-button.svg'
-import { updateStock, selectStock, deleteStock, updateInStock, selectBottlesInStock } from '../utils/StockActions'
+import { updateStock, selectStock, deleteStock, updateInStock, selectBottlesInStock, unselectAllBottles } from '../utils/StockActions'
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
@@ -27,6 +27,7 @@ const mapDispatchToProps = dispatch => (
         deleteStock,
         updateInStock,
         selectBottlesInStock,
+        unselectAllBottles,
     }, dispatch)
 )
 
@@ -72,16 +73,6 @@ function StockBottle(props) {
                     theme={props.theme}
                     currentMode={props.currentMode}
                 />
-                {/* <TouchableOpacity 
-                    onPress={()=>props.selectStock(props.bottle.id)}
-                >
-                    <InStockIcon 
-                        transform={[{ rotate: '-45deg' }]} 
-                        width={icon_size} 
-                        height={icon_size} 
-                        fill={props.bottle.selected ? props.theme.color : 'grey'}
-                    />
-                </TouchableOpacity> */}
             </View>
             <Pressable onPress={() => selectBottle(props.bottle.id)} style={[styles.label_container, props.theme, props.editStockId == props.bottle.id ? styles.selected_bottle : null]}>
                 <AppText style={[styles.label_text, { color: props.bottle.in_stock ? props.theme.color : 'grey'}]}>{props.bottle.label}</AppText>
@@ -190,6 +181,7 @@ function Stock(props){
                 editStockId={editStockId}
                 setEditId={setEditStockId}
                 selectBottlesInStock={props.selectBottlesInStock}
+                unselectAllBottles={props.unselectAllBottles}
             />
 
             <Footer
@@ -254,9 +246,24 @@ function FunctionMenu(props) {
                     onFocus={onFocus}
                 />
 
-                <FunctionMenuButton mode={'name'} switchMode={props.switchMode} hidePanel={hidePanel}>Change Name</FunctionMenuButton>
-                <FunctionMenuButton mode={'edit'} switchMode={props.switchMode} hidePanel={hidePanel} selectBottlesInStock={props.selectBottlesInStock}>Change Bottles</FunctionMenuButton>
-                <FunctionMenuButton mode={'delete'} switchMode={props.switchMode} hidePanel={hidePanel}>Remove Bottles</FunctionMenuButton>
+                <FunctionMenuButton 
+                    mode={'name'} 
+                    switchMode={props.switchMode} 
+                    hidePanel={hidePanel}
+                >Change Name</FunctionMenuButton>
+                <FunctionMenuButton 
+                    mode={'edit'} 
+                    switchMode={props.switchMode} 
+                    hidePanel={hidePanel} 
+                    // selectBottlesInStock={props.selectBottlesInStock}
+                    preSwitch={props.selectBottlesInStock}
+                >Change Bottles</FunctionMenuButton>
+                <FunctionMenuButton 
+                    mode={'delete'} 
+                    switchMode={props.switchMode} 
+                    hidePanel={hidePanel}
+                    preSwitch={props.unselectAllBottles}
+                >Remove Bottles</FunctionMenuButton>
             </View>
         </SlidingUpPanel>
     )
@@ -264,8 +271,9 @@ function FunctionMenu(props) {
 
 function FunctionMenuButton(props){
     function changeMode() {
-        if(props.mode == 'edit'){
-            props.selectBottlesInStock()
+        if(props.mode == 'edit' || props.mode == 'delete'){
+            props.preSwitch()
+            // props.selectBottlesInStock()
         }
         
         props.switchMode(props.mode)

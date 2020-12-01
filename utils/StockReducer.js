@@ -114,6 +114,13 @@ const stockReducer = (state = INITIAL_STATE, action) => {
                     return c
                 })
             }
+        case 'UNSELECT_ALL':
+            return {
+                current: current.map(c => {
+                    c.selected = false
+                    return c
+                })
+            }
         case 'RESET':
             return INITIAL_STATE
         default:
