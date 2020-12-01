@@ -65,7 +65,6 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
         case 'RESET':
             return INITIAL_STATE
         default:
-            // console.log('cocktail initial', current.length)
             return state
     }
 }

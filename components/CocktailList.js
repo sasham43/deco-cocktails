@@ -297,7 +297,6 @@ function FunctionMenu(props) {
 
     
     var top_height = (windowHeight - 135) > 0 ? windowHeight - 135 : 0
-    // console.log('window height', windowHeight, top_height)
     
     return (
         <SlidingUpPanel showBackdrop={false} draggableRange={{ top: top_height, bottom: 0}} ref={c=> setPanel(c)} onBottomReached={()=>props.setShowFunctionMenu(false)}>

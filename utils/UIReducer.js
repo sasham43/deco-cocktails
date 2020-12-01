@@ -86,7 +86,6 @@ const uiReducer = (state = INITIAL_STATE, action) => {
             var new_current = {}
             const new_dark_mode = action.payload
             var border
-            console.log('set dark mode', new_dark_mode)
             if (new_dark_mode) {
                 new_current = dark_theme
                 border = button_borders.dark_border
@@ -105,26 +104,6 @@ const uiReducer = (state = INITIAL_STATE, action) => {
             }
         default:
             return state
-        // default:
-        //     var new_current = {}
-        //     if(dark_mode){
-        //         new_current = dark_theme
-        //         border = button_borders.dark_border
-        //     } else {
-        //         new_current = light_theme
-        //         border = button_borders.light_border
-        //     }
-        //     const new_state = {
-        //         dark_mode, 
-        //         dark_theme, 
-        //         light_theme, 
-        //         current_theme: new_current, 
-        //         default_styles,
-        //         button_borders,
-        //         border_color: border}
-            
-        //     console.log('ui initial', dark_mode)
-        //     return new_state
     }
 }
 

@@ -47,7 +47,6 @@ export default function App(props) {
   
   store.subscribe(()=>{
     state = store.getState()
-    // console.log('get state', state.ui)
     setUI(state.ui)
   })
 
