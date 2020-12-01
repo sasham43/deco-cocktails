@@ -63,6 +63,21 @@ function StockBottle(props) {
             props.setEditId(id)
         }
     }
+    var text_color
+    if(props.currentMode == 'edit'){
+        if(props.bottle.selected){
+            text_color = props.theme.color
+        } else {
+            text_color = 'grey'
+        }
+    } else {
+        if(props.bottle.in_stock){
+            text_color = props.theme.color
+        } else {
+            text_color = 'grey'
+        }
+    }
+
     return (
         <View style={[styles.stock_bottle]}>
             <View style={[styles.switch_container, {opacity: show_icon}]}>
@@ -75,7 +90,7 @@ function StockBottle(props) {
                 />
             </View>
             <Pressable onPress={() => selectBottle(props.bottle.id)} style={[styles.label_container, props.theme, props.editStockId == props.bottle.id ? styles.selected_bottle : null]}>
-                <AppText style={[styles.label_text, { color: props.bottle.in_stock ? props.theme.color : 'grey'}]}>{props.bottle.label}</AppText>
+                <AppText style={[styles.label_text, { color: text_color}]}>{props.bottle.label}</AppText>
             </Pressable>
         </View>
     )
