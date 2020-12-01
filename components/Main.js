@@ -61,7 +61,7 @@ function Main(props){
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={60} height={60} />
                     <Title></Title>
-                    <Tab.Navigator  tabBar={props=> <Menu {...props} />} >
+                    <Tab.Navigator  tabBar={props=> <Menu {...props} />} backBehavior={"history"} >
                         <Tab.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Tab.Screen>
                         <Tab.Screen options={screen_options} name="About" style={styles.screen} component={About}></Tab.Screen>
                         <Tab.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Tab.Screen>
