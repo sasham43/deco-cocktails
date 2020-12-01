@@ -294,9 +294,13 @@ function FunctionMenu(props) {
     }
 
     const border_style = (Platform.OS == 'android' && props.dark_mode) ? { borderColor: props.theme.color, borderWidth: 1 } : null // add a border for Android in dark mode
+
+    
+    var top_height = (windowHeight - 135) > 0 ? windowHeight - 135 : 0
+    // console.log('window height', windowHeight, top_height)
     
     return (
-        <SlidingUpPanel showBackdrop={false} draggableRange={{ top: windowHeight - 135, bottom: 0}} ref={c=> setPanel(c)} onBottomReached={()=>props.setShowFunctionMenu(false)}>
+        <SlidingUpPanel showBackdrop={false} draggableRange={{ top: top_height, bottom: 0}} ref={c=> setPanel(c)} onBottomReached={()=>props.setShowFunctionMenu(false)}>
             <View style={ [styles.panel_container, props.theme, border_style] }>
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />

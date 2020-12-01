@@ -1,6 +1,6 @@
 // modules
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native'; 
 import { AppLoading } from 'expo'
 import { createStore, combineReducers } from 'redux'
@@ -40,8 +40,14 @@ export default function App(props) {
   })
 
   var state = store.getState()
+
+  useEffect(()=>{
+    setUI(state.ui)
+  },[state])
+  
   store.subscribe(()=>{
     state = store.getState()
+    // console.log('get state', state.ui)
     setUI(state.ui)
   })
 
