@@ -77,7 +77,7 @@ function Add(props){
 
             props.navigation.navigate('CocktailList')
             // navigation.navigate('CocktailList')
-            console.log('navigated', props.navigation, props.route)
+            // console.log('navigated', props.navigation, props.route)
         } else {
             props.addCocktail({
                 id: generate(),
@@ -141,9 +141,9 @@ function Add(props){
     useEffect(()=>{
         loadParams(route.params)
     },[cocktails])
-    useEffect(()=>{
-        loadParams(route.params)
-    },[isFocused])
+    // useEffect(()=>{
+    //     loadParams(route.params)
+    // },[isFocused])
 
     function loadParams(params){
         if(params && params.id){
