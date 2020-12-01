@@ -85,7 +85,7 @@ function Menu(props) {
                 </Pressable>
             </View>
             <View style={styles.link_container}>
-                <Pressable style={styles.link} onPress={()=>navigation.navigate('Stock')}>
+                <Pressable style={styles.link} onPress={() => navigation.navigate('Stock', { date: new Date().toString() })}>
                     <Animated.View style={[{ paddingRight: 10 }, { opacity: rightAnim }]}>
                         <InStockIcon transform={[{ rotate: '-45deg' }]} width={30} height={30} fill={props.ui.current_theme.color} />
                     </Animated.View>
