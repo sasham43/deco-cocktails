@@ -223,6 +223,7 @@ function CocktailList(props){
 }
 
 function Footer(props){
+    // console.log('footer styles', props.ui.default_styles.footerStyles)
     if(props.currentMode == 'delete'){
         function remove(){
             props.deleteCocktails()

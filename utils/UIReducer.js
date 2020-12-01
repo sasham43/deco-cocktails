@@ -1,7 +1,10 @@
-import { Dimensions, Platform } from 'react-native'
+import { Dimensions, Platform, useWindowDimensions } from 'react-native'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
+
+// const windowWidth = useWindowDimensions().width;
+// const windowHeight = useWindowDimensions().height;
 
 // handle some sort of adaptive screens
 var footerBottom
@@ -20,6 +23,7 @@ if(Platform.OS == 'android'){
 const titlePadding = 37 + 41 + 20
 const footerHeight = 25
 const viewHeight = windowHeight - (titlePadding + footerHeight)
+// console.log('wh', Dimensions.get('window'), footerBottom)
 
 const INITIAL_STATE = {
     dark_mode: false,
@@ -46,7 +50,7 @@ const INITIAL_STATE = {
         borderColor: '#aaa',
     },
     // current_theme: {},
-    border_color: '',
+    border_color: '#ccc',
     default_styles: {
         window: {
             width: windowWidth,

@@ -15,9 +15,11 @@ import { updateStock, selectStock, deleteStock, updateInStock, selectBottlesInSt
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
-const titlePadding = 37 + 41 + 20
-const footerHeight = 25
-const viewHeight = windowHeight - (titlePadding + footerHeight)
+// const titlePadding = 37 + 41 + 20
+// const footerHeight = 25
+// const viewHeight = windowHeight - (titlePadding + footerHeight)
+
+// console.log('wh', Dimensions.get('window'))
 
 
 const mapDispatchToProps = dispatch => (
@@ -113,6 +115,7 @@ function StockMap(props) {
 }
 
 function Footer(props) {
+    // console.log('footer styles', props.ui.default_styles.footerStyles)
     if (props.currentMode == 'delete') {
         function remove() {
             props.deleteStock()
@@ -188,6 +191,7 @@ function Stock(props){
             <FunctionMenu
                 showFunctionMenu={showFunctionMenu}
                 setShowFunctionMenu={setShowFunctionMenu}
+                ui={props.ui}
                 theme={props.ui.current_theme}
                 border={props.ui.border_color}
                 dark_mode={props.ui.dark_mode}
@@ -214,6 +218,7 @@ function Stock(props){
 
 function FunctionMenu(props) {
     const { panel, setPanel } = useFunctionMenu()
+    // const windowHeight = props.ui.default_styles.window.height
 
     useEffect(() => {
         if (props.showFunctionMenu) {
@@ -246,9 +251,11 @@ function FunctionMenu(props) {
     }
 
     const border_style = (Platform.OS == 'android' && props.dark_mode) ? { borderColor: props.theme.color, borderWidth: 1 } : null // add a border for Android in dark mode
+    var top_height = (windowHeight - 135) > 0 ? windowHeight - 135 : 0
+    // console.log('windowheight', top_height, windowHeight)
 
     return (
-        <SlidingUpPanel draggableRange={{ top: windowHeight - 135, bottom: props.editStockId ? bottom_height : 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
+        <SlidingUpPanel draggableRange={{ top: top_height, bottom: props.editStockId ? bottom_height : 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
             <View style={[styles.panel_container, props.theme, border_style]}>
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />
