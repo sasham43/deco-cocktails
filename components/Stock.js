@@ -37,6 +37,23 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Stock)
 
+function StockToggle(props){
+    if(props.currentMode != 'delete' && props.currentMode != 'edit') return null
+
+    return (
+        <Pressable
+            onPress={() => props.selectStock(props.bottle.id)}
+        >
+            <InStockIcon
+                transform={[{ rotate: '-45deg' }]}
+                width={props.icon_size}
+                height={props.icon_size}
+                fill={props.bottle.selected ? props.theme.color : 'grey'}
+            />
+        </Pressable>
+    )
+}
+
 function StockBottle(props) {
     var icon_size = 35
     var show_icon = props.currentMode == 'edit' || props.currentMode == 'delete' ? 1 : 0
@@ -48,7 +65,14 @@ function StockBottle(props) {
     return (
         <View style={[styles.stock_bottle]}>
             <View style={[styles.switch_container, {opacity: show_icon}]}>
-                <TouchableOpacity 
+                <StockToggle 
+                    selectStock={props.selectStock}
+                    icon_size={icon_size}
+                    bottle={props.bottle}
+                    theme={props.theme}
+                    currentMode={props.currentMode}
+                />
+                {/* <TouchableOpacity 
                     onPress={()=>props.selectStock(props.bottle.id)}
                 >
                     <InStockIcon 
@@ -57,7 +81,7 @@ function StockBottle(props) {
                         height={icon_size} 
                         fill={props.bottle.selected ? props.theme.color : 'grey'}
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
             <Pressable onPress={() => selectBottle(props.bottle.id)} style={[styles.label_container, props.theme, props.editStockId == props.bottle.id ? styles.selected_bottle : null]}>
                 <AppText style={[styles.label_text, { color: props.bottle.in_stock ? props.theme.color : 'grey'}]}>{props.bottle.label}</AppText>
@@ -258,7 +282,8 @@ function FunctionMenuButton(props){
 
 const styles = StyleSheet.create({
     stock: {
-        paddingLeft: 40
+        // paddingLeft: 40
+        paddingLeft: 10
     },
     scroll_view: {
         paddingTop: 15,
