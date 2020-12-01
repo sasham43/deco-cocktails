@@ -42,3 +42,9 @@ export const resetDefaultStock = () => (
         type: 'RESET'
     }
 )
+
+export const unselectAllBottles = () => (
+    {
+        type: 'UNSELECT_ALL'
+    }
+)
