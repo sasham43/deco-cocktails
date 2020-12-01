@@ -124,6 +124,7 @@ const stockReducer = (state = INITIAL_STATE, action) => {
         case 'RESET':
             return INITIAL_STATE
         default:
+            // console.log('stock initial', current.length)
             return state
     }
 }

@@ -39,7 +39,13 @@ const INITIAL_STATE = {
         dark_border: '#333',
         light_border: '#ccc'
     },
-    current_theme: {},
+    current_theme: {
+        backgroundColor: '#fff',
+        color: '#000',
+        shadowColor: 'rgba(50, 50, 50, 1)',
+        borderColor: '#aaa',
+    },
+    // current_theme: {},
     border_color: '',
     default_styles: {
         window: {
@@ -77,8 +83,10 @@ const uiReducer = (state = INITIAL_STATE, action) => {
     } = state
     switch (action.type){
         case 'SET_DARK_MODE':
+            var new_current = {}
             const new_dark_mode = action.payload
             var border
+            console.log('set dark mode', new_dark_mode)
             if (new_dark_mode) {
                 new_current = dark_theme
                 border = button_borders.dark_border
@@ -96,23 +104,27 @@ const uiReducer = (state = INITIAL_STATE, action) => {
                 border_color: border
             }
         default:
-            var new_current = {}
-            if(dark_mode){
-                new_current = dark_theme
-                border = button_borders.dark_border
-            } else {
-                new_current = light_theme
-                border = button_borders.light_border
-            }
-            const new_state = {
-                dark_mode, 
-                dark_theme, 
-                light_theme, 
-                current_theme: new_current, 
-                default_styles,
-                button_borders,
-                border_color: border}
-            return new_state
+            return state
+        // default:
+        //     var new_current = {}
+        //     if(dark_mode){
+        //         new_current = dark_theme
+        //         border = button_borders.dark_border
+        //     } else {
+        //         new_current = light_theme
+        //         border = button_borders.light_border
+        //     }
+        //     const new_state = {
+        //         dark_mode, 
+        //         dark_theme, 
+        //         light_theme, 
+        //         current_theme: new_current, 
+        //         default_styles,
+        //         button_borders,
+        //         border_color: border}
+            
+        //     console.log('ui initial', dark_mode)
+        //     return new_state
     }
 }
 
