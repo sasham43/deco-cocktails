@@ -141,9 +141,6 @@ function Add(props){
     useEffect(()=>{
         loadParams(route.params)
     },[cocktails])
-    // useEffect(()=>{
-    //     loadParams(route.params)
-    // },[isFocused])
 
     function loadParams(params){
         if(params && params.id){
