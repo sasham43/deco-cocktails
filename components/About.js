@@ -84,7 +84,7 @@ function About (props){
                 <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
                     <AppText style={styles.about_header}>Title</AppText>
                 </View>
-                <View style={{justifyContent: 'flex-end'}}>
+                <View style={{justifyContent: 'flex-end', paddingLeft: 10, paddingRight: 10}}>
                     <View style={styles.button_container}>
                         <AppButton press={()=>props.setTitle(menuTitle)}>Save</AppButton>
                         <TextInput 
