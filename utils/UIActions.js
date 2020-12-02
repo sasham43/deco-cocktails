@@ -4,3 +4,10 @@ export const setDarkMode = dark_mode => (
         payload: dark_mode
     }
 )
+
+export const setTitle = title => (
+    {
+        type: 'SET_TITLE',
+        payload: title
+    }
+)
