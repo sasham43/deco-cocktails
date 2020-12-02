@@ -49,7 +49,7 @@ function About (props){
         ]
         Alert.alert(title, msg, buttons)
     }
-    const [menuTitle, setMenuTitle] = useState(props.ui.title)
+    const [menuTitle, setMenuTitle] = useState(props.ui.title ? props.ui.title : '')
 
     // function changeMenuTitle(title){
     //     if()
