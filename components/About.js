@@ -51,6 +51,10 @@ function About (props){
     }
     const [menuTitle, setMenuTitle] = useState(props.ui.title)
 
+    // function changeMenuTitle(title){
+    //     if()
+    // }
+
     return (
         <ScrollView style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}>
             <View style={styles.about_content}>
@@ -80,15 +84,23 @@ function About (props){
                 <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
                     <AppText style={styles.about_header}>Title</AppText>
                 </View>
-                <View style={styles.button_container}>
-                    <AppButton press={()=>props.setTitle(menuTitle)}>Save</AppButton>
-                    <TextInput 
-                        value={menuTitle}
-                        onChangeText={val => setMenuTitle(val)} 
-                        style={[styles.input, props.ui.current_theme]}
-                        placeholder={"Menu Title..."}
-                        placeholderTextColor={"grey"}
-                    />
+                <View style={{justifyContent: 'flex-end'}}>
+                    <View style={styles.button_container}>
+                        <AppButton press={()=>props.setTitle(menuTitle)}>Save</AppButton>
+                        <TextInput 
+                            value={menuTitle}
+                            onChangeText={val => setMenuTitle(val)} 
+                            style={[styles.input, props.ui.current_theme]}
+                            placeholder={"Menu Title..."}
+                            placeholderTextColor={"grey"}
+                            maxLength={22}
+                        />
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', flex:1}}>
+                        <AppText style={{color: 'grey'}}>
+                            {menuTitle.length} / 22 letters
+                        </AppText>
+                    </View>
                 </View>
             </View>
             <View style={styles.about_content}>
