@@ -35,20 +35,10 @@ export function PartMap(props) {
 
 const styles = StyleSheet.create({
     part_map_container: {
-        // flex: 1,
         flexDirection: 'row',
-        // paddingLeft:10,
-        // paddingTop:10,
         justifyContent: 'flex-end'
-        // width: 100,
-        // height:100
     },
     part_container: {
-        // flex: 1,
         flexDirection: 'row',
-        // width: 100,
-        // height:100
     },
 })
-
-// export ShapeMap

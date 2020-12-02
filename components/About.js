@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, StyleSheet, ScrollView, Alert } from 'react-native'
+import React, { useState } from 'react'
+import { View, StyleSheet, ScrollView, Alert, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -8,6 +8,7 @@ import AppButton from './AppButton'
 import { setDarkMode } from '../utils/UIActions'
 import { resetDefaultCocktails } from '../utils/CocktailActions'
 import { resetDefaultStock } from '../utils/StockActions'
+import { setTitle } from '../utils/UIActions'
 
 
 const mapStateToProps = (state) => {
@@ -18,7 +19,8 @@ const mapDispatchToProps = dispatch => (
     bindActionCreators({
         setDarkMode,
         resetDefaultCocktails,
-        resetDefaultStock
+        resetDefaultStock,
+        setTitle
     }, dispatch)
 )
 export default connect(mapStateToProps, mapDispatchToProps)(About)
@@ -47,6 +49,8 @@ function About (props){
         ]
         Alert.alert(title, msg, buttons)
     }
+    const [menuTitle, setMenuTitle] = useState(props.ui.title)
+
     return (
         <ScrollView style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}>
             <View style={styles.about_content}>
@@ -74,6 +78,21 @@ function About (props){
             </View>
             <View style={styles.about_content}>
                 <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
+                    <AppText style={styles.about_header}>Title</AppText>
+                </View>
+                <View style={styles.button_container}>
+                    <AppButton press={()=>props.setTitle(menuTitle)}>Save</AppButton>
+                    <TextInput 
+                        value={menuTitle}
+                        onChangeText={val => setMenuTitle(val)} 
+                        style={[styles.input, props.ui.current_theme]}
+                        placeholder={"Menu Title..."}
+                        placeholderTextColor={"grey"}
+                    />
+                </View>
+            </View>
+            <View style={styles.about_content}>
+                <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
                     <AppText style={styles.about_header}>Reset Defaults</AppText>
                 </View>
                 <View style={styles.button_container}>
@@ -83,12 +102,6 @@ function About (props){
                     <View style={styles.about_button}>
                         <AppButton press={() => resetDefault('stock')}>Cabinet</AppButton>
                     </View>
-                    {/* <View style={styles.about_button}>
-                        <AppButton press={() => props.resetDefaultCocktails()}>Cocktails</AppButton>
-                    </View>
-                    <View style={styles.about_button}>
-                        <AppButton press={() => props.resetDefaultStock()}>Cabinet</AppButton>
-                    </View> */}
                 </View>
             </View>
         </ScrollView>
@@ -96,6 +109,23 @@ function About (props){
 }
 
 const styles = StyleSheet.create({
+    input: {
+        fontFamily: 'PoiretOne_400Regular',
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderWidth: 1,
+        borderColor: '#aaa',
+        borderStyle: 'solid',
+        fontSize: 18,
+        borderRightWidth: 0,
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
+        marginBottom: 5,
+        flex: 1,
+        marginLeft: 10,
+    },
     about: {
         paddingLeft: 40,
         paddingRight: 40,
