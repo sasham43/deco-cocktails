@@ -377,7 +377,7 @@ const styles = StyleSheet.create({
     scroll_view: {
         marginBottom: 25,
         // paddingLeft: 50,
-        paddingLeft: 10,
+        paddingLeft: 15,
         paddingRight: 10,
     },
     action_buttons: {
