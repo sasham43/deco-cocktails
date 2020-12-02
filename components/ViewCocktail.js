@@ -82,6 +82,7 @@ function ViewCocktail(props){
                     <AppText style={styles.category_title}>Ingredients</AppText>
                 </View>
                 <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={cocktail.ingredients} stock={props.stock.current} />
+                <View style={{ marginTop: 120, height: 20 }}></View>
             </ScrollView>
             <View style={[props.ui.default_styles.footerStyles, styles.button_container, props.ui.current_theme]}>
                 <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={editCocktail}>
