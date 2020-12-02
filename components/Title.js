@@ -17,7 +17,7 @@ class Title extends React.Component {
     }
 
     goToAbout = ()=>{
-        console.log('navigate')
+        // console.log('navigate')
         RootNavigation.navigate('About')
     }
 
