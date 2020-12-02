@@ -182,6 +182,10 @@ function Add(props){
             value: 'float'
         },
         {
+            label: 'rinse',
+            value: 'rinse'
+        },
+        {
             label: '1/4',
             value: 0.25
         },

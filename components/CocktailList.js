@@ -145,7 +145,7 @@ function CocktailToggle(props){
 }
 
 function filterIngredients(i){
-   return (i.parts != 0 && i.parts != 'dash' && i.parts != 'float')
+   return (i.parts != 0 && i.parts != 'dash' && i.parts != 'float' && i.parts != 'rinse')
 }
 
 
