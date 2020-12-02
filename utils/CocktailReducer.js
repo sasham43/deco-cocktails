@@ -148,7 +148,6 @@ function defaultCocktails() {
                 {
                     id: generate(),
                     ingredient_name: 'Red Wine',
-                    // parts: 0
                     parts: 'float'
                 },
             ]
@@ -192,7 +191,6 @@ function defaultCocktails() {
                     id: generate(),
                     ingredient_name: 'Angostura',
                     parts: 'dash'
-                    // parts: 0
                 },
             ]
         },
@@ -333,17 +331,17 @@ function defaultCocktails() {
                 {
                     id: generate(),
                     ingredient_name: 'Angostura',
-                    parts: 0
+                    parts: 'dash'
                 },
                 {
                     id: generate(),
                     ingredient_name: 'Peychauds',
-                    parts: 0
+                    parts: 'dash'
                 },
                 {
                     id: generate(),
                     ingredient_name: 'Absinthe',
-                    parts: 0
+                    parts: 'rinse'
                 },
             ]
         },
