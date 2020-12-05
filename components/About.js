@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     about: {
         paddingLeft: 40,
         paddingRight: 40,
+        paddingBottom: 10
     },
     about_header: {
         fontSize: 25,

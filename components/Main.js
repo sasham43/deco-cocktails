@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, AsyncStorage, View } from 'react-native'
+import { StyleSheet, StatusBar, View } from 'react-native'
 // import { NativeRouter, Route, Link } from "react-router-native"
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator,TransitionSpecs } from '@react-navigation/stack'
@@ -57,6 +57,7 @@ function Main(props){
         return (
             <NavigationContainer ref={navigationRef}>
                 <View style={[styles.container, props.ui.current_theme]}>
+                    <StatusBar barStyle={props.ui.dark_mode ? "dark-content": "light-content"}></StatusBar>
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={60} height={60} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
@@ -70,7 +71,8 @@ function Main(props){
                         <Tab.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Tab.Screen>
                         <Tab.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Tab.Screen>
                     </Tab.Navigator>
-                    <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 10, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}>
+                    <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}>
+                    {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}> */}
 
                     </View>
                 </View>
