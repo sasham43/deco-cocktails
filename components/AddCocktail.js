@@ -344,10 +344,19 @@ function Add(props){
     ]
     const [marginBottom, setMarginBottom] = useState(10)
 
-    Keyboard.addListener("keyboardWillShow", keyboardDidShow);
-    Keyboard.addListener("keyboardDidShow", keyboardDidShow);
-    Keyboard.addListener("keyboardWillHide", keyboardDidHide);
-    Keyboard.addListener("keyboardDidHide", keyboardDidHide);
+    useEffect(() => {
+        Keyboard.addListener("keyboardWillShow", keyboardDidShow);
+        Keyboard.addListener("keyboardDidShow", keyboardDidShow);
+        Keyboard.addListener("keyboardWillHide", keyboardDidHide);
+        Keyboard.addListener("keyboardDidHide", keyboardDidHide);
+
+        return function cleanup(){
+            Keyboard.removeListener("keyboardWillShow", keyboardDidShow)
+            Keyboard.removeListener("keyboardDidShow", keyboardDidShow)
+            Keyboard.removeListener("keyboardWillHide", keyboardDidHide)
+            Keyboard.removeListener("keyboardDidHide", keyboardDidHide)
+        }
+    })
 
     function keyboardDidShow(){
         setMarginBottom(100)
