@@ -194,6 +194,7 @@ function CocktailList(props){
     }
 
     return (
+        // <View style={[{ height: props.ui.default_styles.window.height}, props.ui.current_theme]}>
         <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}>
             <ScrollView style={[styles.scroll_view, currentMode == 'delete' ? {paddingLeft: 50}:null]}>
                 <CocktailListMap stock={props.stock.current} theme={props.ui.current_theme} cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} selectCocktail={props.selectCocktail} currentMode={currentMode}></CocktailListMap>
@@ -224,12 +225,14 @@ function CocktailList(props){
 
 function Footer(props){
     // console.log('footer styles', props.ui.default_styles.footerStyles)
+    // var bottom = {bottom: 10, borderColor: '#000', borderWidth: 1}
     if(props.currentMode == 'delete'){
         function remove(){
             props.deleteCocktails()
             props.switchMode('')
         }
         return (
+            // <View style={[props.ui.default_styles.footerStyles, bottom, styles.delete_footer, props.ui.current_theme]}>
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
                 <AppButton press={remove}>
                     Remove
@@ -241,6 +244,7 @@ function Footer(props){
         )
     } else if (props.currentMode == 'edit'){
         return (
+            // <View style={[props.ui.default_styles.footerStyles, bottom, styles.delete_footer, props.ui.current_theme]}>
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
                 <AppText style={styles.footer_button_text}>Change A Cocktail</AppText>
                 <AppButton press={() => props.switchMode('')}>
@@ -250,6 +254,7 @@ function Footer(props){
         )
     } else if (props.currentMode == 'select'){
         return (
+            // <View style={[props.ui.default_styles.footerStyles, bottom, styles.delete_footer, props.ui.current_theme]}>
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
                 <AppText style={styles.footer_button_text}>View A Cocktail</AppText>
                 <AppButton press={()=>props.switchMode('')}>
@@ -259,6 +264,7 @@ function Footer(props){
         )
     } else {
         return (
+            // <View style={[props.ui.default_styles.footerStyles, bottom, props.ui.current_theme]}>
             <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
                 <TouchableOpacity style={styles.function_button_container} onPress={() => props.toggleFunctionMenu()}>
                     <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
@@ -364,6 +370,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         flexDirection: 'row',
         flex: 1,
+        height: 75
     },  
     footer_button_text: {
         marginTop: 10,

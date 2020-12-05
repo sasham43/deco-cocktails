@@ -1,29 +1,43 @@
-import { Dimensions, Platform, useWindowDimensions } from 'react-native'
+import { Dimensions, Platform, StatusBar } from 'react-native'
+import * as Device from 'expo-device'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
+
+// const screen = Dimensions.get('screen')
 
 // const windowWidth = useWindowDimensions().width;
 // const windowHeight = useWindowDimensions().height;
 
 // handle some sort of adaptive screens
 var footerBottom
-if(Platform.OS == 'android'){
-    footerBottom = 0
+
+
+// const statusBarHeight = statusBar.currentHeight ? statusBar.currentHeight : 0
+const titlePadding = 37 + 41 + 20
+const footerHeight = 25
+const viewHeight = windowHeight - (titlePadding + footerHeight)
+// const statusBarHeight = StatusBar.currentHeight ? (StatusBar.currentHeight) : 0
+// const androidFooterHeight = (screen.height - (windowHeight + statusBarHeight))
+// console.log('wh', Dimensions.get('window'), footerBottom)
+// console.log('screen', screen, screen.height, windowHeight, statusBarHeight)
+// console.log('diff', statusBarHeight, androidFooterHeight)
+// console.log('info', Device.getPlatformFeaturesAsync())
+// console.log('other', Dimensions.get('status bar'))
+// Device.getPlatformFeaturesAsync().then(resp=>console.log('info', resp))
+if (Platform.OS == 'android') {
+    // footerBottom = 50
+    // footerBottom = statusBarHeight
+    footerBottom = 10
 } else {
-    if(windowHeight > 1000){
+    if (windowHeight > 1000) {
         footerBottom = 50
-    } else if (windowHeight > 700){
+    } else if (windowHeight > 700) {
         footerBottom = 75
     } else {
         footerBottom = 25
     }
 }
-
-const titlePadding = 37 + 41 + 20
-const footerHeight = 25
-const viewHeight = windowHeight - (titlePadding + footerHeight)
-// console.log('wh', Dimensions.get('window'), footerBottom)
 
 const INITIAL_STATE = {
     title: 'Crump Cocktails',
@@ -71,7 +85,7 @@ const INITIAL_STATE = {
             backgroundColor: 'rgba(255, 255, 255, 1)',
             zIndex: 10,
             position: 'absolute',
-            height: 75,
+            // height: 75,
             bottom: footerBottom,
         },
     }

@@ -120,7 +120,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     button_container: {
-        marginBottom: 60,
+        // marginBottom: 60,
+        marginBottom: 45,
         padding: 8
     },
 })
