@@ -1,35 +1,11 @@
-import { Dimensions, Platform, StatusBar } from 'react-native'
-// import * as Device from 'expo-device'
+import { Dimensions, Platform } from 'react-native'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-const screen = Dimensions.get('screen')
-
-// const windowWidth = useWindowDimensions().width;
-// const windowHeight = useWindowDimensions().height;
-
 // handle some sort of adaptive screens
 var footerBottom
-
-
-// const statusBarHeight = statusBar.currentHeight ? statusBar.currentHeight : 0
-const titlePadding = 37 + 41 + 20
-const footerHeight = 25
-var viewHeight = windowHeight - (titlePadding + footerHeight)
-const statusBarHeight = StatusBar.currentHeight ? (StatusBar.currentHeight) : 0
-// const androidFooterHeight = (screen.height - (windowHeight + statusBarHeight))
-// console.log('wh', Dimensions.get('window'), footerBottom)
-// console.log('screen', screen, screen.height, windowHeight, statusBarHeight)
-// console.log('diff', statusBarHeight, androidFooterHeight)
-// console.log('info', Device.getPlatformFeaturesAsync())
-// console.log('other', Dimensions.get('status bar'))
-// Device.getPlatformFeaturesAsync().then(resp=>console.log('info', resp))
-console.log('viewheight', screen.height, viewHeight, windowHeight)
 if (Platform.OS == 'android') {
-    // footerBottom = 50
-    // footerBottom = statusBarHeight
-    viewHeight = viewHeight - statusBarHeight
     footerBottom = 10
 } else {
     if (windowHeight > 1000) {
