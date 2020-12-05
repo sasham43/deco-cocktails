@@ -1,10 +1,10 @@
 import { Dimensions, Platform, StatusBar } from 'react-native'
-import * as Device from 'expo-device'
+// import * as Device from 'expo-device'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-// const screen = Dimensions.get('screen')
+const screen = Dimensions.get('screen')
 
 // const windowWidth = useWindowDimensions().width;
 // const windowHeight = useWindowDimensions().height;
@@ -16,8 +16,8 @@ var footerBottom
 // const statusBarHeight = statusBar.currentHeight ? statusBar.currentHeight : 0
 const titlePadding = 37 + 41 + 20
 const footerHeight = 25
-const viewHeight = windowHeight - (titlePadding + footerHeight)
-// const statusBarHeight = StatusBar.currentHeight ? (StatusBar.currentHeight) : 0
+var viewHeight = windowHeight - (titlePadding + footerHeight)
+const statusBarHeight = StatusBar.currentHeight ? (StatusBar.currentHeight) : 0
 // const androidFooterHeight = (screen.height - (windowHeight + statusBarHeight))
 // console.log('wh', Dimensions.get('window'), footerBottom)
 // console.log('screen', screen, screen.height, windowHeight, statusBarHeight)
@@ -25,9 +25,11 @@ const viewHeight = windowHeight - (titlePadding + footerHeight)
 // console.log('info', Device.getPlatformFeaturesAsync())
 // console.log('other', Dimensions.get('status bar'))
 // Device.getPlatformFeaturesAsync().then(resp=>console.log('info', resp))
+console.log('viewheight', screen.height, viewHeight, windowHeight)
 if (Platform.OS == 'android') {
     // footerBottom = 50
     // footerBottom = statusBarHeight
+    viewHeight = viewHeight - statusBarHeight
     footerBottom = 10
 } else {
     if (windowHeight > 1000) {
@@ -75,7 +77,8 @@ const INITIAL_STATE = {
             paddingTop: 10,
             paddingLeft: 10,
             paddingRight: 40,
-            height: viewHeight,
+            // height: viewHeight,
+            flex: 1,
             marginTop: 50, // account for menu
         },
         footerStyles: {

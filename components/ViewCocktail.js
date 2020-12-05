@@ -11,9 +11,9 @@ import AppButton from './AppButton'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
-const titlePadding = 37 + 41 + 10
-const footerHeight = 25
-const viewHeight = windowHeight - (titlePadding + footerHeight)
+// const titlePadding = 37 + 41 + 10
+// const footerHeight = 25
+// const viewHeight = windowHeight - (titlePadding + footerHeight)
 
 const mapStateToProps = (state) => {
     const { cocktails, ui, stock } = state
@@ -97,13 +97,13 @@ function ViewCocktail(props){
 }
 
 const styles = StyleSheet.create({
-    view: {
-        flex: 1,
-        paddingTop: 10,
-        paddingLeft: 40,
-        paddingRight: 40,
-        height: viewHeight,
-    },
+    // view: {
+    //     flex: 1,
+    //     paddingTop: 10,
+    //     paddingLeft: 40,
+    //     paddingRight: 40,
+    //     height: viewHeight,
+    // },
     cocktail_title: {
         // alignItems: 'center',
         textAlign: 'center',
@@ -121,7 +121,8 @@ const styles = StyleSheet.create({
     },
     button_container: {
         // marginBottom: 60,
-        marginBottom: 45,
+        // marginBottom: 45,
+        height: 120,
         padding: 8
     },
 })

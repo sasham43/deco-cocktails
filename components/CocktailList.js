@@ -194,8 +194,8 @@ function CocktailList(props){
     }
 
     return (
-        // <View style={[{ height: props.ui.default_styles.window.height}, props.ui.current_theme]}>
-        <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}>
+        // <View style={[{flex: 1}, props.ui.current_theme]}>
+        <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}> 
             <ScrollView style={[styles.scroll_view, currentMode == 'delete' ? {paddingLeft: 50}:null]}>
                 <CocktailListMap stock={props.stock.current} theme={props.ui.current_theme} cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} selectCocktail={props.selectCocktail} currentMode={currentMode}></CocktailListMap>
                 <View style={{marginTop:50, height: 20}}></View>
