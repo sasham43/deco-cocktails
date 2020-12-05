@@ -354,6 +354,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         flexDirection: 'row',
         flex: 1,
+        height: 75
+        // paddingBottom: 25
     }, 
     footer_button_text: {
         marginTop: 10,
