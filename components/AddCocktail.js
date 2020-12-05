@@ -482,7 +482,8 @@ const styles = StyleSheet.create({
     },
     save_cocktail: {
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
+        height: 75
     },
     tab_icon_container: {
         alignItems: 'center',
