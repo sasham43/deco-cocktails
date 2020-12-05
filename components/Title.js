@@ -11,34 +11,6 @@ const mapStateToProps = (state) => {
     const { ui } = state
     return { ui }
 } // export is at bottom
-// class Title extends React.Component {
-//     constructor(props){
-//         super(props)
-//     }
-
-//     goToAbout = ()=>{
-//         // console.log('navigate')
-//         RootNavigation.navigate('About')
-//     }
-
-//     shrinkText = () => {
-
-//     }
-
-//     render(){
-//         return (
-//             // <View style={styles.title}>
-
-//                 <Pressable onPressIn={()=>shrinkText()} onPressOut={()=>growText()} onLongPress={()=>this.goToAbout()} style={[this.props.ui.current_theme, styles.title]}>
-//                     <AppText style={styles.text}>
-//                         {/* <Text> */}
-//                             {this.props.ui.title ? this.props.ui.title : ''}
-//                         {/* </Text> */}
-//                     </AppText>
-//                 </Pressable>
-//         )
-//     }
-// }
 
 function Title(props){
     const [border, setBorder] = useState(props.ui.current_theme.backgroundColor)
@@ -56,8 +28,6 @@ function Title(props){
         setBorder(props.ui.current_theme.backgroundColor)
     }
     return (
-        // <View style={styles.title}>
-
         <Pressable onPressIn={() => shrinkText()} onPressOut={() => growText()} onLongPress={() => goToAbout()} style={[props.ui.current_theme, styles.title]}>
             <AppText style={[styles.text, {borderColor: border, borderBottomWidth: 1}]}>
                 {props.ui.title ? props.ui.title : ''}
@@ -69,22 +39,10 @@ function Title(props){
 
 const styles = StyleSheet.create({
     title: {
-        // borderColor: 'black',
-        // borderBottomWidth: 1,
-        // borderStyle: 'solid',
-        // alignSelf: 'center',
         alignItems: 'center',
         marginTop: 20,
-        // marginBottom: 50, // space for menu
-        // minHeight: 100,
         minHeight: 20,
-        // backgroundColor: 'red',
-        // minWidth: '40%',
         textAlign: 'center',
-        // flex: 1,
-        // flexDirection: 'row',
-        // borderWidth: 1,
-        // borderColor: 'black'
     },
     text: {
         fontSize: 35
