@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, ScrollView, Alert, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import AppText from './AppText'
 import AppButton from './AppButton'
@@ -56,7 +57,7 @@ function About (props){
     // }
 
     return (
-        <ScrollView style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}>
+        <KeyboardAwareScrollView style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}>
             <View style={styles.about_content}>
                 <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
                     <AppText style={styles.about_header}>About</AppText>
@@ -116,7 +117,7 @@ function About (props){
                     </View>
                 </View>
             </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
     )
 }
 
