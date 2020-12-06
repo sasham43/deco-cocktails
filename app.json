@@ -18,7 +18,8 @@
     ],
     "android": {
       "softwareKeyboardLayoutMode": "pan",
-      "permissions": []
+      "permissions": [],
+      "package": "com.crumpcocktails"
     },
     "ios": {
       "supportsTablet": true,
