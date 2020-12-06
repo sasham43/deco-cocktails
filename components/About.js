@@ -91,6 +91,7 @@ function About (props){
                         <TextInput 
                             value={menuTitle}
                             onChangeText={val => setMenuTitle(val)} 
+                            onSubmitEditing={()=>save()}
                             style={[styles.input, props.ui.current_theme]}
                             placeholder={"Menu Title..."}
                             placeholderTextColor={"grey"}
