@@ -4,18 +4,18 @@ const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
 // handle some sort of adaptive screens
-var footerBottom
-if (Platform.OS == 'android') {
-    footerBottom = 10
-} else {
-    if (windowHeight > 1000) {
-        footerBottom = 50
-    } else if (windowHeight > 700) {
-        footerBottom = 75
-    } else {
-        footerBottom = 25
-    }
-}
+var footerBottom = 10
+// if (Platform.OS == 'android') {
+//     footerBottom = 10
+// } else {
+//     if (windowHeight > 1000) {
+//         footerBottom = 50
+//     } else if (windowHeight > 700) {
+//         footerBottom = 75
+//     } else {
+//         footerBottom = 25
+//     }
+// }
 
 const INITIAL_STATE = {
     title: 'Crump Cocktails',
