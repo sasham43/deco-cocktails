@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import AppText from './AppText'
+import TabIcon from '../assets/tab'
 import * as RootNavigation from '../utils/RootNavigation'
 
 
@@ -30,12 +31,29 @@ function Title(props){
     return (
         <Pressable onPressIn={() => pressIn()} onPressOut={() => pressOut()} onLongPress={() => goToAbout()} style={[props.ui.current_theme, styles.title]}>
             <View style={{ borderColor: border, borderBottomWidth: 1 }}>
-                <AppText style={[styles.text]}>
+                {/* <AppText style={[styles.text]}>
                     {props.ui.title ? props.ui.title : ''}
-                </AppText>
+                </AppText> */}
+                <TitleText title={props.ui.title} theme={props.ui.current_theme} />
             </View>
         </Pressable>
     )
+}
+
+function TitleText(props){
+    if(props.title == ''){
+        return (
+            <View style={{height:50, marginTop: -10}}>
+                <TabIcon fill={props.theme.color} height={65} width={65}  />
+            </View>
+        )
+    } else {
+        return (
+            <AppText style={[styles.text]}>
+                {props.title ? props.title : ''}
+            </AppText>
+        )
+    }
 }
 
 
