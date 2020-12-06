@@ -22,11 +22,9 @@ function Title(props){
         RootNavigation.navigate('About')
     }
     function pressIn(){
-        // console.log('shrink', props.ui.current_theme.color)
         setBorder(props.ui.current_theme.color)
     }
     function pressOut(){
-        // console.log('grow')
         setBorder(props.ui.current_theme.backgroundColor)
     }
     return (

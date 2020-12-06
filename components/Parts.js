@@ -36,7 +36,8 @@ export function PartMap(props) {
 const styles = StyleSheet.create({
     part_map_container: {
         flexDirection: 'row',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        flexWrap: "wrap"
     },
     part_container: {
         flexDirection: 'row',
