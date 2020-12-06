@@ -37,6 +37,9 @@ function sortedIngredients(ingredients) {
 
 export function AddedIngredient(props) {
     var fractions = translateParts(props.parts)
+    if(fractions == 0){
+        fractions = '' // don't show a 0 for ingredients
+    }
 
     return (
         <TouchableOpacity 
