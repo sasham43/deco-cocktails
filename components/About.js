@@ -52,9 +52,9 @@ function About (props){
     }
     const [menuTitle, setMenuTitle] = useState(props.ui.title ? props.ui.title : '')
 
-    // function changeMenuTitle(title){
-    //     if()
-    // }
+    function save(){
+        props.setTitle(menuTitle)
+    }
 
     return (
         <KeyboardAwareScrollView style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}>
@@ -87,7 +87,7 @@ function About (props){
                 </View>
                 <View style={{justifyContent: 'flex-end', paddingLeft: 10, paddingRight: 10}}>
                     <View style={styles.button_container}>
-                        <AppButton press={()=>props.setTitle(menuTitle)}>Save</AppButton>
+                        <AppButton press={()=>save()}>Save</AppButton>
                         <TextInput 
                             value={menuTitle}
                             onChangeText={val => setMenuTitle(val)} 
