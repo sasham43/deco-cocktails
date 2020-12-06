@@ -4,7 +4,6 @@ import { generate } from 'shortid'
 var default_cocktails = defaultCocktails()
 
 const INITIAL_STATE = {
-    // cocktails: [...default_cocktails],
     current: [...default_cocktails],
     possible: [],
     slider: 0
@@ -80,12 +79,12 @@ function defaultCocktails() {
                 {
                     id: generate(),
                     ingredient_name: 'Gin',
-                    parts: 1
+                    parts: 2.5
                 },
                 {
                     id: generate(),
                     ingredient_name: 'Dry Vermouth',
-                    parts: 1
+                    parts: .5
                 },
             ]
         },
