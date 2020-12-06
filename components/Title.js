@@ -21,17 +21,21 @@ function Title(props){
     function goToAbout(){
         RootNavigation.navigate('About')
     }
-    function shrinkText(){
+    function pressIn(){
+        // console.log('shrink', props.ui.current_theme.color)
         setBorder(props.ui.current_theme.color)
     }
-    function growText(){
+    function pressOut(){
+        // console.log('grow')
         setBorder(props.ui.current_theme.backgroundColor)
     }
     return (
-        <Pressable onPressIn={() => shrinkText()} onPressOut={() => growText()} onLongPress={() => goToAbout()} style={[props.ui.current_theme, styles.title]}>
-            <AppText style={[styles.text, {borderColor: border, borderBottomWidth: 1}]}>
-                {props.ui.title ? props.ui.title : ''}
-            </AppText>
+        <Pressable onPressIn={() => pressIn()} onPressOut={() => pressOut()} onLongPress={() => goToAbout()} style={[props.ui.current_theme, styles.title]}>
+            <View style={{ borderColor: border, borderBottomWidth: 1 }}>
+                <AppText style={[styles.text]}>
+                    {props.ui.title ? props.ui.title : ''}
+                </AppText>
+            </View>
         </Pressable>
     )
 }
