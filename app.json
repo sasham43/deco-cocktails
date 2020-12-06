@@ -17,7 +17,8 @@
       "**/*"
     ],
     "android": {
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "permissions": []
     },
     "ios": {
       "supportsTablet": true,
@@ -25,9 +26,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "android": {
-      "permissions": []
     },
     "packagerOpts": {
       "config": "metro.config.js",
