@@ -95,6 +95,7 @@ function About (props){
                             placeholder={"Menu Title..."}
                             placeholderTextColor={"grey"}
                             maxLength={22}
+                            autoCapitalize={"words"}
                         />
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', flex:1}}>
