@@ -76,11 +76,11 @@ function ViewCocktail(props){
         <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}>
             <View>
                 <AppText style={styles.cocktail_title}>{cocktail.name}</AppText>
-            </View>
-            <ScrollView>
-                <View style={ styles.category_title_container }>
+                <View style={styles.category_title_container}>
                     <AppText style={styles.category_title}>Ingredients</AppText>
                 </View>
+            </View>
+            <ScrollView>
                 <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={cocktail.ingredients} stock={props.stock.current} />
                 <View style={{ marginTop: 120, height: 20 }}></View>
             </ScrollView>
