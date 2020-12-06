@@ -379,7 +379,7 @@ function Add(props){
                     placeholder="New cocktail name..."
                     clearButtonMode={"always"}
                     placeholderTextColor={"grey"}
-                    // placeholderTextColor={props.ui.current_theme.color}
+                    autoCapitalize={"words"}
                 />
 
                 <ScrollView style={{height: 300, paddingRight: 10}}>
