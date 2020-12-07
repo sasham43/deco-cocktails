@@ -11,6 +11,7 @@ import {
 } from '@expo-google-fonts/poiret-one'
 import { persistStore, persistReducer } from 'redux-persist'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import * as ScreenOrientation from 'expo-screen-orientation'
 
 import stockReducer from './utils/StockReducer'
 import cocktailReducer from './utils/CocktailReducer'
@@ -49,6 +50,9 @@ export default function App(props) {
     state = store.getState()
     setUI(state.ui)
   })
+
+  // attempt to lock orientation for iPad
+  ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
 
   // console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nloading...')
 
