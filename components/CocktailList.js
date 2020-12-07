@@ -102,18 +102,40 @@ function CocktailListMap(props) {
             })
         }
     }
+
+    const [pressFlag, setPressFlag] = useState(null)
+    function longPress(cocktail, currentMode){
+        // console.log('long press', cocktail, currentMode)
+        // if(currentMode == ''){
+        //     navigation.navigate('ViewCocktail', {
+        //         id: cocktail.id
+        //     })
+        // }
+        setPressFlag(cocktail.id)
+    }
+    function pressOut(cocktail){
+        if(pressFlag){
+            navigation.navigate('ViewCocktail', {
+                id: cocktail.id
+            })
+            setPressFlag(null) // might not be necessary if navigating
+        }
+    }
     
     return props.cocktails.map(cocktail =>
         
         (
-            <View style={[styles.cocktail_container, {position: 'relative', overflow: 'visible'}]} key={cocktail.id}>
+            <View style={[styles.cocktail_container, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
                 <View style={[{flex: 1, position: 'absolute', left: -40}]}>
                     <CocktailToggle cocktail={cocktail} theme={props.theme} selectCocktail={props.selectCocktail} currentMode={props.currentMode} />
                 </View>
                 <Pressable 
-                    disabled={props.currentMode != 'edit' && props.currentMode != 'delete' && props.currentMode != 'select'} 
+                    // disabled={props.currentMode != 'edit' && props.currentMode != 'delete' && props.currentMode != 'select'} 
                     onPress={() => selectCocktail(cocktail, props.currentMode)} 
                     style={[styles.cocktail, {flex:8}]} 
+                    // style={[styles.cocktail, {flex:8, shadowColor: props.theme.shadowColor}, pressFlag == cocktail.id ? styles.selected_cocktail : null ]} 
+                    onLongPress={()=>longPress(cocktail, props.currentMode)}
+                    onPressOut={()=>pressOut(cocktail)}
                 >
                     <View style={styles.cocktail_name_container}>
                         <AppText>
@@ -194,7 +216,6 @@ function CocktailList(props){
     }
 
     return (
-        // <View style={[{flex: 1}, props.ui.current_theme]}>
         <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}> 
             <ScrollView style={[styles.scroll_view, currentMode == 'delete' ? {paddingLeft: 50}:null]}>
                 <CocktailListMap stock={props.stock.current} theme={props.ui.current_theme} cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} selectCocktail={props.selectCocktail} currentMode={currentMode}></CocktailListMap>
@@ -352,7 +373,7 @@ const styles = StyleSheet.create({
         borderWidth: 1
     },
     cocktail: {
-        marginBottom: 60,
+        // marginBottom: 60,
     },
     cocktail_text: {
         fontSize: 20,
@@ -428,6 +449,16 @@ const styles = StyleSheet.create({
         marginBottom: -20
     },
     cocktail_container: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        padding: 10,
+        height: 90,
+        marginBottom: 35,
+        marginLeft: 5
+        // flex: 1
+    },
+    selected_cocktail: {
+        shadowOffset: { width: -4, height: -4, },
+        shadowOpacity: 0.3,
+        elevation: 10 // for Android
     }
 })
