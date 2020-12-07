@@ -392,7 +392,7 @@ function Add(props){
                     />
                 </ScrollView>
 
-                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
+                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "padding"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
                     <IngredientSlider
                         parts={newCocktailIngredientParts}
                         ingredient_values={ingredient_values} 
