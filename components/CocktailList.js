@@ -122,7 +122,7 @@ function CocktailListMap(props) {
     return props.cocktails.map(cocktail =>
         
         (
-            <View style={[styles.cocktail_container, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
+            <View style={[styles.cocktail_container, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor, borderColor: props.theme.borderColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
                 <View style={[{flex: 1, position: 'absolute', left: -40}]}>
                     <CocktailToggle cocktail={cocktail} theme={props.theme} selectCocktail={props.selectCocktail} currentMode={props.currentMode} />
                 </View>
@@ -456,6 +456,8 @@ const styles = StyleSheet.create({
     selected_cocktail: {
         shadowOffset: { width: -4, height: -4, },
         shadowOpacity: 0.3,
-        elevation: 10 // for Android
+        elevation: 10, // for Android,
+        borderWidth: 1,
+        // borderColor: 'grey'
     }
 })
