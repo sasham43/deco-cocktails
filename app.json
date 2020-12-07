@@ -23,7 +23,8 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.crumpcocktails"
+      "bundleIdentifier": "com.crumpcocktails",
+      "requireFullScreen": true
     },
     "web": {
       "favicon": "./assets/favicon.png"

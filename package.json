@@ -35,7 +35,8 @@
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
     "rn-sliding-up-panel": "^2.4.3",
-    "shortid": "^2.2.15"
+    "shortid": "^2.2.15",
+    "expo-screen-orientation": "~2.0.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
