@@ -127,10 +127,8 @@ function CocktailListMap(props) {
                     <CocktailToggle cocktail={cocktail} theme={props.theme} selectCocktail={props.selectCocktail} currentMode={props.currentMode} />
                 </View>
                 <Pressable 
-                    // disabled={props.currentMode != 'edit' && props.currentMode != 'delete' && props.currentMode != 'select'} 
                     onPress={() => selectCocktail(cocktail, props.currentMode)} 
                     style={[styles.cocktail, {flex:8}]} 
-                    // style={[styles.cocktail, {flex:8, shadowColor: props.theme.shadowColor}, pressFlag == cocktail.id ? styles.selected_cocktail : null ]} 
                     onLongPress={()=>longPress(cocktail, props.currentMode)}
                     onPressOut={()=>pressOut(cocktail)}
                 >
