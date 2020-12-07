@@ -105,13 +105,10 @@ function CocktailListMap(props) {
 
     const [pressFlag, setPressFlag] = useState(null)
     function longPress(cocktail, currentMode){
-        // console.log('long press', cocktail, currentMode)
-        // if(currentMode == ''){
-        //     navigation.navigate('ViewCocktail', {
-        //         id: cocktail.id
-        //     })
-        // }
-        setPressFlag(cocktail.id)
+        if(currentMode == '' || currentMode == 'select'){
+            setPressFlag(cocktail.id)
+        }
+
     }
     function pressOut(cocktail){
         if(pressFlag){
