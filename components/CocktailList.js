@@ -448,16 +448,13 @@ const styles = StyleSheet.create({
     cocktail_container: {
         flexDirection: 'row',
         padding: 10,
-        height: 90,
         marginBottom: 35,
         marginLeft: 5
-        // flex: 1
     },
     selected_cocktail: {
         shadowOffset: { width: -4, height: -4, },
         shadowOpacity: 0.3,
         elevation: 10, // for Android,
         borderWidth: 1,
-        // borderColor: 'grey'
     }
 })
