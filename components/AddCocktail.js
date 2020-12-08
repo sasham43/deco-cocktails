@@ -406,6 +406,7 @@ function Add(props){
                         style={[styles.input, {marginBottom: marginBottom}, props.ui.current_theme]} 
                         placeholder="Ingredient..." 
                         placeholderTextColor={"grey"}
+                        autoCapitalize={"words"}
                     />
                     <RNPickerSelect
                         key={newCocktailIngredientParts}
