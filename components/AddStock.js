@@ -78,6 +78,7 @@ function AddStock(props){
                         placeholder="New bottle..." 
                         placeholderTextColor={"grey"}
                         onFocus={()=>props.onFocus()}
+                        autoCapitalize={"words"}
                     />
                 </View>
             </View>
