@@ -289,6 +289,7 @@ function Footer(props){
 }
 
 function FunctionMenu(props) {
+    const [searchFocus, setSearchFocus] = useState(false)
     const { panel, setPanel } = useFunctionMenu()
     const navigation = useNavigation()
 
@@ -331,13 +332,14 @@ function FunctionMenu(props) {
                     <TabIcon fill={props.theme.color} height={65} width={65} />
                 </View>
                 <View style={[ null, styles.function_menu_button]}>
-                    <View style={{ opacity: 'search' == props.currentMode ? 1 : 0 }}>
+                    <View style={{ opacity: searchFocus ? 1 : 0 }}>
                         <InStockIcon fill={props.theme.color} transform={[{ rotate: '-45deg' }]} width={25} height={25} />
                     </View>
                     <TextInput 
                         value={props.cocktailSearch} 
                         onChangeText={(text) => props.setCocktailSearch(text)} 
-                        onFocus={()=>props.switchMode('search')} 
+                        onFocus={()=>setSearchFocus(true)}
+                        onBlur={()=>setSearchFocus(false)} 
                         placeholder="Search cocktails..." 
                         placeholderTextColor={"grey"}
                         clearButtonMode={"always"} 
