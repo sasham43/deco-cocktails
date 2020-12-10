@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Pressable, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 
@@ -15,8 +15,16 @@ export default connect(mapStateToProps)(AppButton)
 
 function AppButton(props) {
     const [pressed, setPressed] = useState(false)
+    const [disabled, setDisabled] = useState(false)
     const theme = props.ui.current_theme
     const border = props.ui.border_color
+
+    useEffect(()=>{
+        // console.log('appbutton', props.disabled)
+        if (props.disabled != undefined) {
+            setDisabled(props.disabled)
+        }
+    }, [props.disabled])
 
     function pressStyles(props) {
         if (!props.pressed) {
@@ -27,7 +35,7 @@ function AppButton(props) {
     }
     var icon_size = 15
     return (
-        <Pressable pressDelay={'none'} style={pressStyles} onPressIn={() => setPressed(true)} onPressOut={() => setPressed(false)} onPress={() => props.press()}>
+        <Pressable disabled={disabled} pressDelay={'none'} style={pressStyles} onPressIn={() => setPressed(true)} onPressOut={() => setPressed(false)} onPress={() => props.press()}>
             <CornerIcon fill={theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
             <CornerIcon fill={theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
             <CornerIcon fill={theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
