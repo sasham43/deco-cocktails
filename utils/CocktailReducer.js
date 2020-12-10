@@ -57,6 +57,13 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
             const selectState = {current: selected}
 
             return selectState
+        case 'UNSELECT_ALL':
+            return {
+                current: current.map(c => {
+                    c.selected = false
+                    return c
+                })
+            }
         case 'CHANGE_COCKTAIL_SLIDER':
             const slider_val = action.payload
 

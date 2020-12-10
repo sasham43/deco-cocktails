@@ -26,7 +26,7 @@ import { PartMap } from './Parts'
 import FunctionButtonIcon from '../assets/function-button.svg'
 import InStockIcon from '../assets/in-stock'
 import TabIcon from '../assets/tab'
-import { deleteCocktail, selectCocktail, deleteCocktails } from '../utils/CocktailActions'
+import { deleteCocktail, selectCocktail, deleteCocktails, unselectAllCocktails } from '../utils/CocktailActions'
 
 import { useStock, useFunctionMenu } from '../utils/hooks'
 
@@ -50,6 +50,7 @@ const mapDispatchToProps = dispatch => (
         deleteCocktail,
         selectCocktail,
         deleteCocktails,
+        unselectAllCocktails,
     }, dispatch)
 )
 export default connect(mapStateToProps, mapDispatchToProps)(CocktailList)
@@ -228,6 +229,7 @@ function CocktailList(props){
                 switchMode={switchMode}
                 theme={props.ui.current_theme}
                 dark_mode={props.ui.dark_mode}
+                unselectAllCocktails={props.unselectAllCocktails}
             />
 
             <Footer 
@@ -312,6 +314,11 @@ function FunctionMenu(props) {
         hidePanel()
     }
 
+    function removeMode(){
+        props.unselectAllCocktails()
+        props.switchMode('delete')
+    }
+
     const border_style = (Platform.OS == 'android' && props.dark_mode) ? { borderColor: props.theme.color, borderWidth: 1 } : null // add a border for Android in dark mode
 
     
@@ -340,7 +347,7 @@ function FunctionMenu(props) {
 
                 <FunctionMenuButton theme={props.theme} label={"View A Cocktail"} mode="select" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Change A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
-                <FunctionMenuButton theme={props.theme} label={"Remove Cocktails"} mode="delete" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
+                <FunctionMenuButton theme={props.theme} label={"Remove Cocktails"} mode="delete" switchMode={removeMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Add A Cocktail"} mode="add" switchMode={navigateToAdd} currentMode={props.currentMode} />
             </View>
         </SlidingUpPanel>        
