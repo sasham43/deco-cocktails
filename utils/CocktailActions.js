@@ -51,3 +51,9 @@ export const resetDefaultCocktails = () => (
         type: 'RESET'
     }
 )
+
+export const unselectAllCocktails = () => (
+    {
+        type: 'UNSELECT_ALL'
+    }
+)
