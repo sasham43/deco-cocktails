@@ -19,7 +19,8 @@
     "android": {
       "softwareKeyboardLayoutMode": "pan",
       "permissions": [],
-      "package": "com.crumpcocktails"
+      "package": "com.crumpcocktails",
+      "versionCode": 2
     },
     "ios": {
       "supportsTablet": true,
