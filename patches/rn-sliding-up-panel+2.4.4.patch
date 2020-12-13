@@ -1,0 +1,17 @@
+diff --git a/node_modules/rn-sliding-up-panel/SlidingUpPanel.js b/node_modules/rn-sliding-up-panel/SlidingUpPanel.js
+index a5553dc..08ba651 100644
+--- a/node_modules/rn-sliding-up-panel/SlidingUpPanel.js
++++ b/node_modules/rn-sliding-up-panel/SlidingUpPanel.js
+@@ -312,9 +312,9 @@ class SlidingUpPanel extends React.PureComponent {
+ 
+     this._storeKeyboardPosition(event.endCoordinates.screenY)
+ 
+-    const node = TextInput.State.currentlyFocusedField
+-      ? TextInput.State.currentlyFocusedField()
+-      : findNodeHandler(TextInput.State.currentlyFocusedInput());
++    const node = TextInput.State.currentlyFocusedInput
++      ? TextInput.State.currentlyFocusedInput()
++      : findNodeHandler(TextInput.State.currentlyFocusedField());
+ 
+     if (node != null) {
+       UIManager.viewIsDescendantOf(node, findNodeHandle(this._content), (isDescendant) => {
