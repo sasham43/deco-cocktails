@@ -32,7 +32,23 @@ function translateParts(parts) {
 }
 
 function sortedIngredients(ingredients) {
-    return _.orderBy(ingredients, 'parts', 'desc')
+    // console.log('ing', ingredients)
+    if(!ingredients) return []
+    // return _.orderBy(ingredients, 'parts', 'desc')
+    return ingredients.sort((a, b)=>{
+        var a_val = typeof a.parts == 'string' ? 0 : a.parts
+        var b_val = typeof b.parts == 'string' ? 0 : b.parts
+
+        // console.log(a_val, b_val)
+
+        if(a_val > b_val){
+            return -1
+        } else if (a_val < b_val){
+            return 1
+        } else {
+            return 0
+        }
+    })
 }
 
 export function AddedIngredient(props) {
