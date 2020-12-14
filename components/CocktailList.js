@@ -198,12 +198,12 @@ function CocktailList(props){
             var match
             if (c.ingredients && c.ingredients.length > 0) {
                 c.ingredients.forEach(i => {
-                    if (i.ingredient_name.toLowerCase().includes(cocktailSearch.toLowerCase())) {
+                    if (i.ingredient_name.toLowerCase().includes(cocktailSearch.toLowerCase().trim())) {
                         match = true
                     }
                 })
             }
-            if (c.name.toLowerCase().includes(cocktailSearch.toLowerCase())) {
+            if (c.name.toLowerCase().includes(cocktailSearch.toLowerCase().trim())) {
                 match = true
             }
 
