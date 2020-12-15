@@ -4,6 +4,7 @@ import _ from 'lodash'
 
 import AppText from './AppText'
 import { Part } from './Parts'
+import { sortedIngredients } from '../utils/sort'
 
 
 function translateParts(parts) {
@@ -31,25 +32,21 @@ function translateParts(parts) {
     return split[0]
 }
 
-function sortedIngredients(ingredients) {
-    // console.log('ing', ingredients)
-    if(!ingredients) return []
-    // return _.orderBy(ingredients, 'parts', 'desc')
-    return ingredients.sort((a, b)=>{
-        var a_val = typeof a.parts == 'string' ? 0 : a.parts
-        var b_val = typeof b.parts == 'string' ? 0 : b.parts
+// function sortedIngredients(ingredients) {
+//     if(!ingredients) return []
+//     return ingredients.sort((a, b)=>{
+//         var a_val = typeof a.parts == 'string' ? 0 : a.parts
+//         var b_val = typeof b.parts == 'string' ? 0 : b.parts
 
-        // console.log(a_val, b_val)
-
-        if(a_val > b_val){
-            return -1
-        } else if (a_val < b_val){
-            return 1
-        } else {
-            return 0
-        }
-    })
-}
+//         if(a_val > b_val){
+//             return -1
+//         } else if (a_val < b_val){
+//             return 1
+//         } else {
+//             return 0
+//         }
+//     })
+// }
 
 export function AddedIngredient(props) {
     var fractions = translateParts(props.parts)
