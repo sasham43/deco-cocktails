@@ -39,14 +39,14 @@ function AddStock(props){
         if(props.editStockId){
             props.updateStock({
                 id: props.editStockId,
-                label: newStockName,
+                label: newStockName.trim(),
                 in_stock: newStockIn
             })
             props.saveBottle()
         } else {
             props.addStock({
                 id: generate(),
-                label: newStockName,
+                label: newStockName.trim(),
                 in_stock: newStockIn
             })
         }

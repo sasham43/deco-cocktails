@@ -29,6 +29,7 @@ import TabIcon from '../assets/tab'
 import { deleteCocktail, selectCocktail, deleteCocktails, unselectAllCocktails } from '../utils/CocktailActions'
 
 import { useStock, useFunctionMenu } from '../utils/hooks'
+import { sortedIngredients } from '../utils/sort'
 
 
 const windowWidth = Dimensions.get('window').width
@@ -81,9 +82,9 @@ function NameMap(props) {
     )
 }
 
-function sortedIngredients(ingredients) {
-    return _.orderBy(ingredients, 'parts', 'desc')
-}
+// function sortedIngredients(ingredients) {
+//     return _.orderBy(ingredients, 'parts', 'desc')
+// }
 
 
 function CocktailListMap(props) {
