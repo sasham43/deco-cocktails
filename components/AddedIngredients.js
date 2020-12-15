@@ -77,7 +77,7 @@ export function AddedIngredient(props) {
 export function AddedIngredientMap(props) {
     var stock = props.stock ? props.stock : []
     return sortedIngredients(props.addedCocktailIngredients).map(a => {
-        var found = stock.find(s=>s.label == a.ingredient_name)
+        var found = stock.find(s=>s.label.trim() == a.ingredient_name.trim())
         var present = found ? true : false
 
         return (
