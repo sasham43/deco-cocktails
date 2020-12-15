@@ -32,22 +32,6 @@ function translateParts(parts) {
     return split[0]
 }
 
-// function sortedIngredients(ingredients) {
-//     if(!ingredients) return []
-//     return ingredients.sort((a, b)=>{
-//         var a_val = typeof a.parts == 'string' ? 0 : a.parts
-//         var b_val = typeof b.parts == 'string' ? 0 : b.parts
-
-//         if(a_val > b_val){
-//             return -1
-//         } else if (a_val < b_val){
-//             return 1
-//         } else {
-//             return 0
-//         }
-//     })
-// }
-
 export function AddedIngredient(props) {
     var fractions = translateParts(props.parts)
     if(fractions == 0){
@@ -106,19 +90,19 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 5,
         justifyContent: 'space-between',
-        // height: 90
     },
     ingredient_name: {
       fontSize: 19,
     },
     ingredient_text: {
       fontSize: 17,
+      marginTop: 4
     },
     inset: {
         marginLeft: 7
     },
     added_parts: {
-        marginTop: 8,
+        marginTop: 10,
         marginBottom: 4
     },
 })
