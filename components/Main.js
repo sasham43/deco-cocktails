@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
         zIndex: 10,
         position: 'absolute'
     },
-    top_right: { top: 10, right: 10 },
-    top_left: {  top: 10, left: 10, transform: [{ rotate: '-90deg' }] },
+    top_right: { top: 0, right: 10 },
+    top_left: {  top: 0, left: 10, transform: [{ rotate: '-90deg' }] },
     bottom_right: { bottom: 10, right: 10, transform: [{ rotate: '90deg' }] },
     bottom_left: { bottom: 10, left: 10, transform: [{ rotate: '180deg' }] }
 })
