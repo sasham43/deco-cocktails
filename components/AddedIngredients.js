@@ -56,6 +56,7 @@ export function AddedIngredient(props) {
     if(fractions == 0){
         fractions = '' // don't show a 0 for ingredients
     }
+    const ingredient_height = typeof fractions == 'string' ? { height: 0 } : null
 
     return (
         <TouchableOpacity 
@@ -69,7 +70,7 @@ export function AddedIngredient(props) {
         >
             <AppText style={[styles.ingredient_text, styles.ingredient_name, { color: props.in_stock ? props.theme.color : 'grey' }]}>{props.ingredient_name}</AppText>
             <AppText style={[styles.inset, styles.ingredient_text]}>{fractions}</AppText>
-            <Part style={[styles.inset, styles.added_parts]} parts={props.parts} last={true} />
+            <Part style={[styles.inset, styles.added_parts, ingredient_height]} parts={props.parts} last={true} />
         </TouchableOpacity>
     )
 }
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 5,
         justifyContent: 'space-between',
-        height: 90
+        // height: 90
     },
     ingredient_name: {
       fontSize: 19,
