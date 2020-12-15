@@ -59,11 +59,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(CocktailList)
 function Name(props) {
     if (props.last) {
         return (
-            <AppText style={{ color: props.in_stock ? props.theme.color : 'grey' }}> {props.ingredient_name}</AppText>
+            <View style={styles.name}>
+                <AppText style={{ color: props.in_stock ? props.theme.color : 'grey' }}> {props.ingredient_name}</AppText>
+            </View>
         )
     } else {
         return (
-            <AppText style={{ color: props.in_stock ? props.theme.color : 'grey' }}> {props.ingredient_name} |</AppText>
+            <View style={styles.name}>
+                <AppText style={{ color: props.in_stock ? props.theme.color : 'grey' }}> {props.ingredient_name}</AppText><AppText> |</AppText>
+            </View>
         )
     }
 }
@@ -466,5 +470,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         elevation: 10, // for Android,
         borderWidth: 1,
+    },
+    name: {
+        flexDirection: 'row'
     }
 })
