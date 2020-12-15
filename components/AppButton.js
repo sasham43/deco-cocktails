@@ -20,17 +20,17 @@ function AppButton(props) {
     const border = props.ui.border_color
 
     useEffect(()=>{
-        // console.log('appbutton', props.disabled)
         if (props.disabled != undefined) {
             setDisabled(props.disabled)
         }
     }, [props.disabled])
-
+    
     function pressStyles(props) {
+        var disabled_style = disabled ? {borderColor: 'rgba(0,0,0,0)'} : null
         if (!props.pressed) {
-            return [styles.button, {borderColor: border, backgroundColor: theme.backgroundColor}]
+            return [styles.button, { borderColor: border, backgroundColor: theme.backgroundColor }, disabled_style]
         } else {
-            return [styles.pressed_button, {borderColor: props.border, backgroundColor: theme.color}]
+            return [styles.pressed_button, {borderColor: props.border, backgroundColor: theme.color}, disabled_style]
         }
     }
     var icon_size = 15
@@ -40,7 +40,7 @@ function AppButton(props) {
             <CornerIcon fill={theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
             <CornerIcon fill={theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
             <CornerIcon fill={theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
-            <ButtonText pressed={pressed} theme={theme}>{props.children}</ButtonText>
+            <ButtonText pressed={pressed} theme={theme} style={disabled ? { color: 'grey' } : null}>{props.children}</ButtonText>
         </Pressable>
     )
 }
@@ -48,11 +48,11 @@ function AppButton(props) {
 function ButtonText(props) {
     if (props.pressed) {
         return (
-            <AppText style={[styles.button_pressed_text, {color: props.theme.backgroundColor}]}>{props.children}</AppText>
+            <AppText style={[styles.button_pressed_text, {color: props.theme.backgroundColor}, props.style]}>{props.children}</AppText>
         )
     } else {
         return (
-            <AppText style={[styles.button_text, {color: props.theme.color}]}>{props.children}</AppText>
+            <AppText style={[styles.button_text, {color: props.theme.color}, props.style]}>{props.children}</AppText>
         )
     }
 }

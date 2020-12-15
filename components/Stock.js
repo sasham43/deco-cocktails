@@ -273,6 +273,7 @@ function FunctionMenu(props) {
                     mode={'name'} 
                     switchMode={props.switchMode} 
                     hidePanel={hidePanel}
+                    disabled={props.currentMode == 'name'}
                 >Change Name</FunctionMenuButton>
                 <FunctionMenuButton 
                     mode={'edit'} 
@@ -280,12 +281,14 @@ function FunctionMenu(props) {
                     hidePanel={hidePanel} 
                     // selectBottlesInStock={props.selectBottlesInStock}
                     preSwitch={props.selectBottlesInStock}
+                    disabled={props.currentMode == 'name'}
                 >Change Bottles</FunctionMenuButton>
                 <FunctionMenuButton 
                     mode={'delete'} 
                     switchMode={props.switchMode} 
                     hidePanel={hidePanel}
                     preSwitch={props.unselectAllBottles}
+                    disabled={props.currentMode == 'name'}
                 >Remove Bottles</FunctionMenuButton>
             </View>
         </SlidingUpPanel>
@@ -303,10 +306,9 @@ function FunctionMenuButton(props){
 
         props.hidePanel()
     }
-
     return (
         <View>
-            <AppButton press={changeMode}>{props.children}</AppButton>
+            <AppButton disabled={props.disabled} press={changeMode}>{props.children}</AppButton>
         </View>
     )
 }
