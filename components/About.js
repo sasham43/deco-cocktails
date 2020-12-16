@@ -36,7 +36,7 @@ function About (props){
         } else if (type == 'stock'){
             reset = props.resetDefaultStock
             title = 'Reset cabinet to default?'
-            var msg = 'This will remove all new bottles from cabinet and cannot be undone'
+            var msg = 'This will remove all new bottles from your cabinet and cannot be undone'
         }
         
         // var msg = ''
