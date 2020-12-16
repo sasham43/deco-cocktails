@@ -59,8 +59,8 @@ export function AddedIngredientMap(props) {
     var stock = props.stock ? props.stock : []
     return sortedIngredients(props.addedCocktailIngredients).map(a => {
         var found = stock.find(s=>s.label.trim() == a.ingredient_name.trim())
-        // var present = found ? true : false
-        // console.log('instock', a.ingredient_name.trim(), found)
+        var in_stock = found ? found.in_stock : false
+
         return (
             <AddedIngredient 
                 theme={props.theme} 
@@ -68,7 +68,7 @@ export function AddedIngredientMap(props) {
                 ingredient_name={a.ingredient_name} 
                 parts={a.parts} editIngredientId={props.editIngredientId} 
                 toggleEditIngredient={props.toggleEditIngredient} 
-                in_stock={found.in_stock}
+                in_stock={in_stock}
             />
         )
     })
