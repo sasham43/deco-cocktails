@@ -108,6 +108,8 @@ function CocktailListMap(props) {
             navigation.navigate('AddCocktail', {
                 id: cocktail.id
             })
+        } else if (currentMode == 'delete'){
+            props.selectCocktail(cocktail.id)
         }
     }
 
