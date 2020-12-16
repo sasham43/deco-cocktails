@@ -31,13 +31,15 @@ function About (props){
         var reset, title
         if(type == 'cocktails'){
             reset = props.resetDefaultCocktails
-            title = 'Reset cocktails to default?  This will remove all new cocktails and cannot be undone'
+            title = 'Reset cocktails to default?'
+            var msg = 'This will remove all new cocktails and cannot be undone'
         } else if (type == 'stock'){
             reset = props.resetDefaultStock
-            title = 'Reset cabinet to default?  This will remove all new bottles from cabinet and cannot be undone'
+            title = 'Reset cabinet to default?'
+            var msg = 'This will remove all new bottles from cabinet and cannot be undone'
         }
         
-        var msg = ''
+        // var msg = ''
         var buttons = [
             {
                 text: 'Cancel',
