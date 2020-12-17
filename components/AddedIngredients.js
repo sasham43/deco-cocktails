@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     },
     added_ingredient: {
         paddingTop: 6,
-        paddingBottom: 6,
+        paddingBottom: 10,
         paddingLeft: 6,
         paddingRight: 6,
         marginLeft: 8,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     },
     ingredient_text: {
       fontSize: 17,
-      marginTop: 4
+    //   marginTop: 4
     },
     inset: {
         marginLeft: 7
