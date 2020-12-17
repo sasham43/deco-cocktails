@@ -2,7 +2,7 @@
   "expo": {
     "name": "Cocktails",
     "slug": "deco-cocktails",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -20,7 +20,7 @@
       "softwareKeyboardLayoutMode": "pan",
       "permissions": [],
       "package": "com.crumpcocktails",
-      "versionCode": 5
+      "versionCode": 6
     },
     "ios": {
       "supportsTablet": true,
