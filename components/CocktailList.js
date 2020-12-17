@@ -73,7 +73,7 @@ function Name(props) {
 }
 function NameMap(props) {
     function isInStock(name){
-        return props.current_stock.includes(name) 
+        return props.current_stock.includes(name.trim()) 
     }
     return (
         <View style={styles.name_container}>
