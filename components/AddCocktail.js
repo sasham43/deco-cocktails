@@ -478,7 +478,7 @@ const styles = StyleSheet.create({
     },
     new_ingredient: {
         marginTop: 15,
-        marginBottom: 110
+        marginBottom: '20%'
     },
     cocktail_name: {
         marginBottom: 25,
