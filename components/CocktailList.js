@@ -128,8 +128,19 @@ function CocktailListMap(props) {
             setPressFlag(null) // might not be necessary if navigating
         }
     }
+
+    function sortCocktails(a,b){
+        if(a.name > b.name){
+            return 1
+        } else if (a.name < b.name){
+            return -1
+        } else {
+            return 0
+        }
+    }
     
-    return props.cocktails.map(cocktail =>
+    // sort cocktails and return a View for each
+    return props.cocktails.sort(sortCocktails).map(cocktail =>
         
         (
             <View style={[styles.cocktail_container, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor, borderColor: props.theme.borderColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
