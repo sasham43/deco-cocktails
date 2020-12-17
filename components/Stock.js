@@ -99,7 +99,16 @@ function StockBottle(props) {
 }
 
 function StockMap(props) {
-    return props.stock.map(bottle => {
+    function sortStock(a,b){
+        if(a.label > b.label){
+            return 1
+        } else if (a.label < b.label){
+            return -1
+        } else {
+            return 0
+        }
+    }
+    return props.stock.sort(sortStock).map(bottle => {
         return (
             <StockBottle 
                 theme={props.theme} 
