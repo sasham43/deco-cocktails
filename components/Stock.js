@@ -63,6 +63,10 @@ function StockBottle(props) {
     function selectBottle(id){
         if(props.currentMode == 'name'){
             props.setEditId(id)
+        } else if (props.currentMode == 'edit'){
+            props.selectStock(id)
+        } else if (props.currentMode == 'delete'){
+            props.selectStock(id)
         }
     }
     var text_color
