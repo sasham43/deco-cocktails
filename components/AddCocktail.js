@@ -441,6 +441,11 @@ function Add(props){
     )
 }
 
+var mb = 110
+if (windowHeight < 700){
+    mb = 50
+}
+
 const styles = StyleSheet.create({
     input: {
         fontFamily: 'PoiretOne_400Regular',
@@ -478,7 +483,8 @@ const styles = StyleSheet.create({
     },
     new_ingredient: {
         marginTop: 15,
-        marginBottom: '20%'
+        marginBottom: mb
+        // marginBottom: 110
     },
     cocktail_name: {
         marginBottom: 25,
@@ -493,7 +499,8 @@ const styles = StyleSheet.create({
     save_cocktail: {
         paddingLeft: 10,
         paddingRight: 10,
-        height: 75
+        marginBottom: 10
+        // height: 75
     },
     tab_icon_container: {
         alignItems: 'center',
