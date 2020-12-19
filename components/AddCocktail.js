@@ -76,8 +76,6 @@ function Add(props){
             })
 
             props.navigation.navigate('CocktailList')
-            // navigation.navigate('CocktailList')
-            // console.log('navigated', props.navigation, props.route)
         } else {
             props.addCocktail({
                 id: generate(),
@@ -365,6 +363,10 @@ function Add(props){
         setMarginBottom(10)
     }
 
+    function onCancel() {
+        props.navigation.navigate('CocktailList')
+    }
+
     const placeholder = {
         label: 'Parts...',
         color: 'grey',
@@ -432,11 +434,40 @@ function Add(props){
 
                 </KeyboardAvoidingView>
             </View>
-            <View style={[props.ui.default_styles.footerStyles, styles.save_cocktail, props.ui.current_theme]}>
-                <AppButton disabled={addedCocktailIngredients.length == 0 || !newCocktailName} press={saveCocktailPress} theme={props.ui.current_theme} border={props.ui.border_color}>
-                    {editCocktailId ? "Save Cocktail" : "Add Cocktail"}
-                </AppButton>
+            <Footer 
+                ui={props.ui}
+                newCocktailName={newCocktailName}
+                addedCocktailIngredients={addedCocktailIngredients}
+                saveCocktailPress={saveCocktailPress}
+                editCocktailId={editCocktailId}
+                onCancel={onCancel}
+            />
+        </View>
+    )
+}
+
+function Footer(props){
+    if(props.editCocktailId){
+        return (
+            <View style={[props.ui.default_styles.footerStyles, styles.save_cocktail, {flexDirection: 'row'}, props.ui.current_theme]}>
+                <View  style={{flex:1}}>
+                    <AppButton disabled={props.addedCocktailIngredients.length == 0 || !props.newCocktailName} press={props.saveCocktailPress} theme={props.ui.current_theme} border={props.ui.border_color}>
+                        Save Cocktail
+                    </AppButton>
+                </View>
+                <View style={{flex:1, marginLeft: 10}}>
+                    <AppButton press={props.onCancel}>
+                        Cancel
+                    </AppButton>
+                </View>
             </View>
+        )
+    }
+    return (
+        <View style={[props.ui.default_styles.footerStyles, styles.save_cocktail, props.ui.current_theme]}>
+            <AppButton disabled={props.addedCocktailIngredients.length == 0 || !props.newCocktailName} press={props.saveCocktailPress} theme={props.ui.current_theme} border={props.ui.border_color}>
+                Add Cocktail
+            </AppButton>
         </View>
     )
 }
