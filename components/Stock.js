@@ -3,6 +3,7 @@ import { View, StyleSheet, Switch, Dimensions, TouchableOpacity, Pressable, Scro
 import SlidingUpPanel from 'rn-sliding-up-panel'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { useNavigation } from '@react-navigation/native'
 
 import AppText from './AppText'
 import AppButton from './AppButton'
@@ -15,11 +16,6 @@ import { updateStock, selectStock, deleteStock, updateInStock, selectBottlesInSt
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
-// const titlePadding = 37 + 41 + 20
-// const footerHeight = 25
-// const viewHeight = windowHeight - (titlePadding + footerHeight)
-
-// console.log('wh', Dimensions.get('window'))
 
 
 const mapDispatchToProps = dispatch => (
@@ -231,6 +227,7 @@ function Stock(props){
 
 function FunctionMenu(props) {
     const { panel, setPanel } = useFunctionMenu()
+    const navigation = useNavigation()
     // const windowHeight = props.ui.default_styles.window.height
 
     useEffect(() => {
@@ -262,6 +259,10 @@ function FunctionMenu(props) {
     function onFocus(){
         panel.show()
     }
+    function onBottomReached() {
+        if (navigation.isFocused())
+            props.setShowFunctionMenu(false)
+    }
 
     const border_style = (Platform.OS == 'android' && props.dark_mode) ? { borderColor: props.theme.color, borderWidth: 1 } : null // add a border for Android in dark mode
     // var top_height = (windowHeight - 135) > 0 ? windowHeight - 135 : 0
@@ -269,7 +270,7 @@ function FunctionMenu(props) {
     var top_height = (windowHeight - 210) > 0 ? windowHeight - 210 : 0
 
     return (
-        <SlidingUpPanel draggableRange={{ top: top_height, bottom: props.editStockId ? bottom_height : 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => props.setShowFunctionMenu(false)}>
+        <SlidingUpPanel draggableRange={{ top: top_height, bottom: props.editStockId ? bottom_height : 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => onBottomReached()}>
             <View style={[styles.panel_container, props.theme, border_style]}>
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />
