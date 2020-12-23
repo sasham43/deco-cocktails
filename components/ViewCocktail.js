@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Dimensions, ScrollView, Pressable, Alert, Text } from 'react-native'
+import React, { useState, useEffect, useRef } from 'react'
+import { View, StyleSheet, Dimensions, ScrollView, Pressable, Alert, Animated } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
@@ -9,6 +9,7 @@ import { AddedIngredientMap } from './AddedIngredients'
 import { deleteCocktail } from '../utils/CocktailActions'
 import AppButton from './AppButton'
 import Directions from './Directions'
+import HeaderIcon from './HeaderIcon'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
@@ -78,6 +79,63 @@ function ViewCocktail(props){
         props.deleteCocktail(cocktail.id)
     }
 
+    // if (state.index == 0) {
+        // currentPage = 'CocktailList'
+        var leftAnim = useRef(new Animated.Value(1)).current;
+        var rightAnim = useRef(new Animated.Value(0)).current;
+    // } else if (state.index == 2) {
+    //     // currentPage = 'Stock'
+    //     var leftAnim = useRef(new Animated.Value(0)).current;
+    //     var rightAnim = useRef(new Animated.Value(1)).current;
+    // } else {
+    //     var leftAnim = useRef(new Animated.Value(1)).current;
+    //     var rightAnim = useRef(new Animated.Value(1)).current;
+    // }
+
+    function handleFade() {
+        if (contentMode == 'ingredients') {
+            fadeLeftIn()
+            fadeRightOut()
+        } else if (contentMode == 'directions') {
+            fadeRightIn()
+            fadeLeftOut()
+        } else {
+            fadeLeftOut()
+            fadeRightOut()
+        }
+    }
+
+    const fadeTime = 1000
+    const fadeLeftIn = () => {
+        Animated.timing(leftAnim, {
+            toValue: 1,
+            duration: fadeTime,
+            useNativeDriver: true,
+        }).start()
+    }
+    const fadeRightIn = () => {
+        Animated.timing(rightAnim, {
+            toValue: 1,
+            duration: fadeTime,
+            useNativeDriver: true,
+        }).start()
+    }
+    const fadeLeftOut = () => {
+        Animated.timing(leftAnim, {
+            toValue: 0,
+            duration: fadeTime,
+            useNativeDriver: true,
+        }).start()
+    }
+    const fadeRightOut = () => {
+        Animated.timing(rightAnim, {
+            toValue: 0,
+            duration: fadeTime,
+            useNativeDriver: true,
+        }).start()
+    }
+    handleFade()
+
     return (
         <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}>
             <View style={styles.header}>
@@ -85,8 +143,10 @@ function ViewCocktail(props){
                 <View style={styles.header_buttons}>
                     <Pressable onPress={()=>changeContentMode('ingredients')} style={styles.category_title_container}>
                         <AppText style={styles.category_title}>Ingredients</AppText>
+                        <HeaderIcon direction={'left'} ui={props.ui} anim={leftAnim} />
                     </Pressable>
                     <Pressable onPress={()=>changeContentMode('directions')} style={styles.category_title_container}>
+                        <HeaderIcon direction={'right'} ui={props.ui} anim={rightAnim} />
                         <AppText style={styles.category_title}>Directions</AppText>
                     </Pressable>
                 </View>
