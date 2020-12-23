@@ -177,7 +177,8 @@ function defaultCocktails() {
                     ingredient_name: 'Campari',
                     parts: 1
                 },
-            ]
+            ],
+            directions: 'Mix Rye, Sweet Vermouth, and Campari with ice for 15 seconds.  Strain into a coupe glass.'
         },
         {
             id: generate(),
