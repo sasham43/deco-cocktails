@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import AppText from './AppText'
 import InStockIcon from '../assets/in-stock'
+import HeaderIcon from './HeaderIcon'
 
 const windowWidth = Dimensions.get('window').width
 
@@ -79,16 +80,18 @@ function Menu(props) {
             <View style={styles.link_container}>
                 <Pressable style={styles.link} onPress={()=>navigation.navigate('CocktailList', {date: new Date().toString()})}>
                     <AppText style={styles.link_text}>Cocktails</AppText>
-                    <Animated.View style={[{ paddingLeft: 10 }, { opacity: leftAnim }]}>
+                    <HeaderIcon direction={'left'} anim={leftAnim} ui={props.ui} />
+                    {/* <Animated.View style={[{ paddingLeft: 10 }, { opacity: leftAnim }]}>
                         <InStockIcon transform={[{ rotate: '135deg' }]} width={30} height={30} fill={props.ui.current_theme.color} />
-                    </Animated.View>
+                    </Animated.View> */}
                 </Pressable>
             </View>
             <View style={styles.link_container}>
                 <Pressable style={styles.link} onPress={() => navigation.navigate('Stock', { date: new Date().toString() })}>
-                    <Animated.View style={[{ paddingRight: 10 }, { opacity: rightAnim }]}>
+                    <HeaderIcon direction={'right'} anim={rightAnim} ui={props.ui} />
+                    {/* <Animated.View style={[{ paddingRight: 10 }, { opacity: rightAnim }]}>
                         <InStockIcon transform={[{ rotate: '-45deg' }]} width={30} height={30} fill={props.ui.current_theme.color} />
-                    </Animated.View>
+                    </Animated.View> */}
                     <AppText style={styles.link_text}>Cabinet</AppText>
                 </Pressable>
             </View>

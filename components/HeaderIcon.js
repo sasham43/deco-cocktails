@@ -13,5 +13,3 @@ export default function HeaderIcon(props){
         </Animated.View>
     )
 }
-
-{/* <InStockIcon transform={[{ rotate: '135deg' }]} width={30} height={30} fill={props.ui.current_theme.color} /> */}
