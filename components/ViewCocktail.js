@@ -174,9 +174,9 @@ function ScrollContent(props){
             <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={props.stock.current} />
         )
     } else {
-        var test = 'Mix ingredients, stir, ice'
+        // var test = 'Mix ingredients, stir, ice'
         return (
-            <Directions directions={test} />
+            <Directions directions={props.cocktail.directions} />
         )
     }
 }
@@ -191,7 +191,8 @@ const styles = StyleSheet.create({
     // },
     header_buttons: {
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        marginTop: 10
     },  
     cocktail_title: {
         // alignItems: 'center',
