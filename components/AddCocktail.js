@@ -542,7 +542,7 @@ function ScrollContent(props){
         )
     } else {
         return (
-            <DirectionsInput text={props.addedCocktailDirections} setText={props.setAddedCocktailDirections} />
+            <DirectionsInput ui={props.ui} text={props.addedCocktailDirections} setText={props.setAddedCocktailDirections} />
         )
     }
 }
