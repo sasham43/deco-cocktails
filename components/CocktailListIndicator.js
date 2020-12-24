@@ -3,20 +3,29 @@ import {Pressable, View, StyleSheet} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import InStockIcon from '../assets/in-stock'
+import AppText from './AppText'
 
 export default function CocktailListIndicator(props){
     var selection = []
     var selected = 0
-    if(props.sorted.length > 10){
-        selection = splitSorted(props.sorted, props.selected, 10)
-        selected = props.selected % 10
+    var space_left = false
+    var space_right = false
+    var chunk = 10
+    if(props.sorted.length > chunk){
+        var data = splitSorted(props.sorted, props.selected, chunk)
+        selection = data.split
+        selected = props.selected % chunk
+        space_left = data.space_left
+        space_right = data.space_right
     } else {
         selection = props.sorted
         selected = props.selected
     }
     return (
         <View style={styles.container}>
+            {space_left ? <AppText>...</AppText> : null}
             <IndicatorMap sorted={selection} theme={props.theme} selected={selected} />
+            {space_right ? <AppText>...</AppText> : null}
         </View>
     )
 }
@@ -39,12 +48,27 @@ function IndicatorMap(props){
 }
 
 function splitSorted(sorted, current, chunk_size){
+    var data = {
+        split: [],
+        space_left: false,
+        space_right: false
+    }
     for(var i = 0; i < sorted.length; i+=chunk_size){
         // console.log('chunks', i, current)
+        
         if(current >= i && current < i+chunk_size){
-            return sorted.slice(i, i + chunk_size)
+            if (i >= chunk_size) {
+                data.space_left = true
+            }
+            if (i < (sorted.length - 1) - chunk_size) {
+                data.space_right = true
+            }
+            data.split = sorted.slice(i, i + chunk_size)
+            // console.log('split', i, chunk_size, (sorted.length - 1) - chunk_size )
         }
     }
+
+    return data
 }
 
 const styles = StyleSheet.create({
