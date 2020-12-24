@@ -425,11 +425,6 @@ function Add(props){
     function onCancel() {
         props.navigation.navigate('CocktailList')
     }
-
-    const placeholder = {
-        label: 'Parts...',
-        color: 'grey',
-    };
     return (
         <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 40}]}>
             <View style={styles.new_ingredient_container}>
@@ -473,7 +468,20 @@ function Add(props){
                     /> */}
                 </ScrollView>
 
-                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "padding"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
+                <AddIngredientModal
+                    newCocktailIngredientParts={newCocktailIngredientParts}
+                    ingredient_values={ingredient_values}
+                    setParts={setParts}
+                    newCocktailIngredientName={newCocktailIngredientName}
+                    setName={setName}
+                    ui={props.ui}
+                    addIngredientToCocktail={addIngredientToCocktail}
+                    editIngredientId={editIngredientId}
+                    removeIngredientFromCocktail={removeIngredientFromCocktail}
+                    mode={contentMode}
+                    marginBottom={marginBottom}
+                />
+                {/* <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "padding"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
                     <IngredientSlider
                         parts={newCocktailIngredientParts}
                         ingredient_values={ingredient_values} 
@@ -511,7 +519,7 @@ function Add(props){
                         }
                     </View>
 
-                </KeyboardAvoidingView>
+                </KeyboardAvoidingView> */}
             </View>
             <Footer 
                 ui={props.ui}
@@ -526,7 +534,55 @@ function Add(props){
 }
 
 function AddIngredientModal(props){
-    
+    if(props.mode == 'ingredients'){
+        const placeholder = {
+            label: 'Parts...',
+            color: 'grey',
+        };
+        return (
+            <KeyboardAvoidingView behavior={"padding"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
+                    <IngredientSlider
+                        parts={props.newCocktailIngredientParts}
+                        ingredient_values={props.ingredient_values} 
+                        setParts={props.setParts}
+                    />
+                    <TextInput 
+                        key={`newCocktailIngredientName`} 
+                        clearButtonMode={"always"}  
+                        value={props.newCocktailIngredientName} 
+                        onChangeText={text => props.setName(text)} 
+                        style={[styles.input, {marginBottom: props.marginBottom}, props.ui.current_theme]} 
+                        placeholder="Ingredient..." 
+                        placeholderTextColor={"grey"}
+                        autoCapitalize={"words"}
+                    />
+                    <RNPickerSelect
+                        key={props.newCocktailIngredientParts}
+                        placeholder={placeholder}
+                        useNativeAndroidPickerStyle={false}
+                        style={{inputIOS: {...styles.inputIOS, color: props.ui.current_theme.color, borderColor: props.ui.border_color}}} 
+                        value={props.newCocktailIngredientParts}
+                        onValueChange={(val) => props.setParts(val)} 
+                        items={props.ingredient_values} 
+                    />
+                    
+                    <View>
+                        <AppButton press={props.addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
+                            {props.editIngredientId ? "Save Ingredient" : "Add Ingredient"}
+                        </AppButton>
+                        {props.editIngredientId ? 
+                            <AppButton press={props.removeIngredientFromCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
+                                Remove Ingredient
+                            </AppButton>
+                            : null
+                        }
+                    </View>
+
+                </KeyboardAvoidingView>
+        )
+    } else {
+        return null
+    }
 }
 
 function ScrollContent(props){
