@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import RNPickerSelect from 'react-native-picker-select'
 import { useIsFocused } from '@react-navigation/native'
+import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 import _ from 'lodash'
 
 import AppText from './AppText'
@@ -416,12 +417,24 @@ function Add(props){
     function keyboardDidHide(){
         setMarginBottom(10)
     }
+    function onSwipeLeft(state){
+        // console.log('left', state)
+        setContentMode('directions')
+    }
+    function onSwipeRight(state){
+        // console.log('right', state)
+        setContentMode('ingredients')
+    }
 
     function onCancel() {
         props.navigation.navigate('CocktailList')
     }
     return (
-        <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 40}]}>
+        <GestureRecognizer
+            onSwipeLeft={(state) => onSwipeLeft(state)}
+            onSwipeRight={(state) => onSwipeRight(state)}
+            style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 40}]}
+        >
             <View style={styles.new_ingredient_container}>
                 <TextInput
                     value={newCocktailName}
@@ -454,13 +467,6 @@ function Add(props){
                         setAddedCocktailDirections={setAddedCocktailDirections}
                         mode={contentMode} 
                     />
-                    {/* <AddedIngredientMap 
-                        theme={props.ui.current_theme} 
-                        addedCocktailIngredients={addedCocktailIngredients} 
-                        editIngredientId={editIngredientId} 
-                        toggleEditIngredient={toggleEditIngredient} 
-                        stock={props.stock.current}
-                    /> */}
                 </ScrollView>
 
                 <AddIngredientModal
@@ -476,45 +482,6 @@ function Add(props){
                     mode={contentMode}
                     marginBottom={marginBottom}
                 />
-                {/* <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "padding"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
-                    <IngredientSlider
-                        parts={newCocktailIngredientParts}
-                        ingredient_values={ingredient_values} 
-                        setParts={setParts}
-                    />
-                    <TextInput 
-                        key={`newCocktailIngredientName`} 
-                        clearButtonMode={"always"}  
-                        value={newCocktailIngredientName} 
-                        onChangeText={text => setName(text)} 
-                        style={[styles.input, {marginBottom: marginBottom}, props.ui.current_theme]} 
-                        placeholder="Ingredient..." 
-                        placeholderTextColor={"grey"}
-                        autoCapitalize={"words"}
-                    />
-                    <RNPickerSelect
-                        key={newCocktailIngredientParts}
-                        placeholder={placeholder}
-                        useNativeAndroidPickerStyle={false}
-                        style={{inputIOS: {...styles.inputIOS, color: props.ui.current_theme.color, borderColor: props.ui.border_color}}} 
-                        value={newCocktailIngredientParts}
-                        onValueChange={(val) => setParts(val)} 
-                        items={ingredient_values} 
-                    />
-                    
-                    <View>
-                        <AppButton press={addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
-                            {editIngredientId ? "Save Ingredient" : "Add Ingredient"}
-                        </AppButton>
-                        {editIngredientId ? 
-                            <AppButton press={removeIngredientFromCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
-                                Remove Ingredient
-                            </AppButton>
-                            : null
-                        }
-                    </View>
-
-                </KeyboardAvoidingView> */}
             </View>
             <Footer 
                 ui={props.ui}
@@ -524,7 +491,7 @@ function Add(props){
                 editCocktailId={editCocktailId}
                 onCancel={onCancel}
             />
-        </View>
+        </GestureRecognizer>            
     )
 }
 
