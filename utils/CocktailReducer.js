@@ -93,7 +93,8 @@ function defaultCocktails() {
                     ingredient_name: 'Dry Vermouth',
                     parts: .5
                 },
-            ]
+            ],
+            directions: 'Mix Gin with Dry Vermouth with ice for 15 seconds.  Garnish with an olive.'
         },
         {
             id: generate(),
@@ -109,7 +110,8 @@ function defaultCocktails() {
                     ingredient_name: 'Tonic',
                     parts: 2
                 },
-            ]
+            ],
+            directions: 'Mix Gin with ice in a rocks glass.  Add Tonic.'
         },
         {
             id: generate(),
@@ -130,7 +132,8 @@ function defaultCocktails() {
                     ingredient_name: 'Campari',
                     parts: 1
                 },
-            ]
+            ],
+            directions: 'Mix Gin, Sweet Vermouth, and Campari with ice for 15 seconds.  Strain into a coupe glass.'
         },
         {
             id: generate(),
@@ -156,7 +159,8 @@ function defaultCocktails() {
                     ingredient_name: 'Red Wine',
                     parts: 'float'
                 },
-            ]
+            ],
+            directions: 'Shake Rye, Lemon Juice, and Simple Syrup with ice for 15 seconds.  Strain into a rocks glass.  Float the red wine over the back of a barspoon.'
         },
         {
             id: generate(),
@@ -199,7 +203,8 @@ function defaultCocktails() {
                     ingredient_name: 'Angostura',
                     parts: 'dash'
                 },
-            ]
+            ],
+            directions: 'Mix Rye, Sweet Vermouth, and Angostura with ice for 15 seconds.  Strain into a rocks glass.  Garnish with a cherry.'
         },
         {
             id: generate(),
@@ -225,7 +230,8 @@ function defaultCocktails() {
                     ingredient_name: 'Maraschino Liquer',
                     parts: 1
                 },
-            ]
+            ],
+            directions: 'Shake Gin, Lime Juice, Green Chartreuse and Maraschino Liquer with ice for 15 seconds.  Strain into a chilled coupe glass.'
         },
         {
             id: generate(),
@@ -251,7 +257,8 @@ function defaultCocktails() {
                     ingredient_name: 'Cointreau',
                     parts: 1
                 },
-            ]
+            ],
+            directions: 'Shake Gin, Cocchi Americano, Lemon Juice, and Cointreau with ice for 15 seconds.  Strain into a chilled coupe glass.'
         },
         {
             id: generate(),
@@ -272,7 +279,8 @@ function defaultCocktails() {
                     ingredient_name: 'Cointreau',
                     parts: .75
                 },
-            ]
+            ],
+            directions: 'Shake Brandy, Lemon Juice, and Cointreau with ice for 15 seconds.  Strain into a chilled coupe glass rimmed with sugar.'
         },
         {
             id: generate(),
@@ -298,7 +306,8 @@ function defaultCocktails() {
                     ingredient_name: 'Champagne',
                     parts: 3
                 },
-            ]
+            ],
+            directions: 'Shake Gin, Lemon Juice, and Simple Syrup with ice for 15 seconds.  Strain into a champagne glass, top with Champagne.'
         },
         {
             id: generate(),
@@ -319,7 +328,8 @@ function defaultCocktails() {
                     ingredient_name: 'Cocchi Americano',
                     parts: .75
                 },
-            ]
+            ],
+            directions: `Three measures of Gordon's, one of vodka, half a measure of Kina Lillet.  Shake it very well until it's ice-cold, then add a large slice of lemon peel.`
         },
         {
             id: generate(),
@@ -350,7 +360,8 @@ function defaultCocktails() {
                     ingredient_name: 'Absinthe',
                     parts: 'rinse'
                 },
-            ]
+            ],
+            directions: 'Mix Rye, Brandy, Angostura, and Peychauds with ice for 15 seconds.  Strain into a rocks glass rinsed with Absinthe.'
         },
         {
             id: generate(),
@@ -376,7 +387,8 @@ function defaultCocktails() {
                     ingredient_name: 'Benedictine',
                     parts: .25
                 },
-            ]
+            ],
+            directions: 'Mix Rye, Sweet Vermouth, Brandy, and Benedictine with ice for 15 seconds.  Strain into a rocks glass.  Garnish with a cherry.'
         },
     ]
 }

@@ -182,13 +182,6 @@ function ScrollContent(props){
 }
 
 const styles = StyleSheet.create({
-    // view: {
-    //     flex: 1,
-    //     paddingTop: 10,
-    //     paddingLeft: 40,
-    //     paddingRight: 40,
-    //     height: viewHeight,
-    // },
     header_buttons: {
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -214,8 +207,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     button_container: {
-        // marginBottom: 60,
-        // marginBottom: 45,
         height: 120,
         padding: 8
     },
