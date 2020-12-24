@@ -431,8 +431,8 @@ function Add(props){
     }
     return (
         <GestureRecognizer
-            onSwipeLeft={(state) => onSwipeLeft(state)}
-            onSwipeRight={(state) => onSwipeRight(state)}
+            // onSwipeLeft={(state) => onSwipeLeft(state)}
+            // onSwipeRight={(state) => onSwipeRight(state)}
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 40}]}
         >
             <View style={styles.new_ingredient_container}>
