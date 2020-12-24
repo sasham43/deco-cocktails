@@ -64,7 +64,6 @@ function ViewCocktail(props){
         for(var i in sorted){
             var index = Number(i)
             if(sorted[index].id == cocktail.id){
-                console.log('i', i, index)
                 setCurrentIndex(index)
             }
         }
