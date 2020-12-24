@@ -78,7 +78,7 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
 export default cocktailReducer
 
 function defaultCocktails() {
-    return [
+    var cocktails = [
         {
             id: generate(),
             name: 'Martini',
@@ -391,4 +391,21 @@ function defaultCocktails() {
             directions: 'Mix Rye, Sweet Vermouth, Brandy, and Benedictine with ice for 15 seconds.  Strain into a rocks glass.  Garnish with a cherry.'
         },
     ]
+
+    // testing
+    for(var i = 0; i < 20; i++){
+        cocktails.push({
+            name: i,
+            id: generate(),
+            ingredients: [
+                {
+                    id: generate(),
+                    ingredient_name: 'Test',
+                    parts: 1
+                }
+            ]
+        })
+    }
+
+    return cocktails
 }
