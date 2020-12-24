@@ -1,5 +1,6 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {Pressable, View, StyleSheet} from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 import InStockIcon from '../assets/in-stock'
 
@@ -9,7 +10,6 @@ export default function CocktailListIndicator(props){
     if(props.sorted.length > 10){
         selection = splitSorted(props.sorted, props.selected, 10)
         selected = props.selected % 10
-        // console.log('selected', props.selected, selected)
     } else {
         selection = props.sorted
         selected = props.selected
@@ -22,12 +22,18 @@ export default function CocktailListIndicator(props){
 }
 
 function IndicatorMap(props){
+    const navigation = useNavigation()
+    function goToCocktail(id){
+        navigation.navigate('ViewCocktail', {
+            id: id
+        })
+    }
     return props.sorted.map((c, i) => {
         // console.log
         return (
-            <View key={i}>
+            <Pressable onPress={()=>{goToCocktail(c.id)}} key={i}>
                 <InStockIcon transform={[{ rotate: '-135deg' }]} width={15} height={15} fill={i==props.selected ? props.theme.color : 'grey'} />
-            </View>
+            </Pressable>
         )
     })
 }
