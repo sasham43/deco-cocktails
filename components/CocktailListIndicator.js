@@ -1,11 +1,11 @@
 import React from 'react'
-import {View} from 'react-native'
+import {View, StyleSheet} from 'react-native'
 
 import InStockIcon from '../assets/in-stock'
 
 export default function CocktailListIndicator(props){
     return (
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.container}>
             <IndicatorMap sorted={props.sorted} theme={props.theme} selected={props.selected} />
         </View>
     )
@@ -20,3 +20,14 @@ function IndicatorMap(props){
         )
     })
 }
+
+const styles = StyleSheet.create({
+    container: { 
+        flexDirection: 'row', 
+        justifyContent: 'space-between',
+        paddingLeft: 25,
+        paddingRight: 25,
+        marginBottom: 10,
+        marginTop: -10
+    }
+})
