@@ -3,6 +3,7 @@ import { View, StyleSheet, Dimensions, ScrollView, Pressable, Alert, Animated } 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 import AppText from './AppText'
 import { AddedIngredientMap } from './AddedIngredients'
@@ -10,12 +11,6 @@ import { deleteCocktail } from '../utils/CocktailActions'
 import AppButton from './AppButton'
 import {Directions} from './Directions'
 import HeaderIcon from './HeaderIcon'
-
-const windowWidth = Dimensions.get('window').width
-const windowHeight = Dimensions.get('window').height
-// const titlePadding = 37 + 41 + 10
-// const footerHeight = 25
-// const viewHeight = windowHeight - (titlePadding + footerHeight)
 
 const mapStateToProps = (state) => {
     const { cocktails, ui, stock } = state
@@ -79,18 +74,8 @@ function ViewCocktail(props){
         props.deleteCocktail(cocktail.id)
     }
 
-    // if (state.index == 0) {
-        // currentPage = 'CocktailList'
-        var leftAnim = useRef(new Animated.Value(1)).current;
-        var rightAnim = useRef(new Animated.Value(0)).current;
-    // } else if (state.index == 2) {
-    //     // currentPage = 'Stock'
-    //     var leftAnim = useRef(new Animated.Value(0)).current;
-    //     var rightAnim = useRef(new Animated.Value(1)).current;
-    // } else {
-    //     var leftAnim = useRef(new Animated.Value(1)).current;
-    //     var rightAnim = useRef(new Animated.Value(1)).current;
-    // }
+    var leftAnim = useRef(new Animated.Value(1)).current;
+    var rightAnim = useRef(new Animated.Value(0)).current;
 
     function handleFade() {
         if (contentMode == 'ingredients') {
@@ -136,8 +121,23 @@ function ViewCocktail(props){
     }
     handleFade()
 
+    function onSwipeLeft(state) {
+        // console.log('left', state)
+        // setContentMode('ingredients')
+        setContentMode('directions')
+    }
+    function onSwipeRight(state) {
+        // console.log('right', state)
+        // setContentMode('directions')
+        setContentMode('ingredients')
+    }
+
     return (
-        <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}>
+        <GestureRecognizer 
+            onSwipeLeft={()=>onSwipeLeft()}
+            onSwipeRight={()=>onSwipeRight()}
+            style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}
+        >
             <View style={styles.header}>
                 <AppText style={styles.cocktail_title}>{cocktail.name}</AppText>
                 <View style={styles.header_buttons}>
@@ -164,7 +164,7 @@ function ViewCocktail(props){
                     Remove Cocktail
                 </AppButton>
             </View>
-        </View>
+        </GestureRecognizer>
     )
 }
 
