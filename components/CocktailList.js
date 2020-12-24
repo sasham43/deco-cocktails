@@ -27,6 +27,7 @@ import FunctionButtonIcon from '../assets/function-button.svg'
 import InStockIcon from '../assets/in-stock'
 import TabIcon from '../assets/tab'
 import { deleteCocktail, selectCocktail, deleteCocktails, unselectAllCocktails } from '../utils/CocktailActions'
+import GestureRecognizer from 'react-native-swipe-gestures'
 
 import { useStock, useFunctionMenu } from '../utils/hooks'
 import { sortedIngredients } from '../utils/sort'
@@ -196,6 +197,7 @@ function CocktailList(props){
     const [cocktailSearch, setCocktailSearch] = useState('')
     const [filteredCocktails, setFilteredCocktails] = useState([])
     const [showFunctionMenu, setShowFunctionMenu] = useState(false)
+    const navigation = useNavigation()
 
     function toggleFunctionMenu() {
         setShowFunctionMenu(!showFunctionMenu)
@@ -231,8 +233,20 @@ function CocktailList(props){
         setFilteredCocktails(filtered)
     }
 
+    function onSwipeLeft(){
+        // cabinet
+        navigation.navigate('Stock')
+    }
+    function onSwipeRight(){
+        navigation.navigate('CocktailList')
+    }
+
     return (
-        <View style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}> 
+        <GestureRecognizer
+            onSwipeLeft={()=>onSwipeLeft()}
+            onSwipeRight={()=>onSwipeRight()}
+            style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}
+        > 
             <ScrollView style={[styles.scroll_view, currentMode == 'delete' ? {paddingLeft: 50}:null]}>
                 <CocktailListMap stock={props.stock.current} theme={props.ui.current_theme} cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} selectCocktail={props.selectCocktail} currentMode={currentMode}></CocktailListMap>
                 <View style={{marginTop:50, height: 20}}></View>
@@ -257,7 +271,7 @@ function CocktailList(props){
                 currentMode={currentMode} 
                 switchMode={switchMode} 
             />
-        </View>
+        </GestureRecognizer>
     )
 }
 
