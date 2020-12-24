@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, StyleSheet, TextInput, TouchableOpacity, Dimensions, KeyboardAvoidingView, ScrollView, Keyboard, PanResponder } from 'react-native'
+import { View, StyleSheet, TextInput, Pressable, Dimensions, KeyboardAvoidingView, ScrollView, Keyboard, Animated } from 'react-native'
 import { generate } from 'shortid'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -14,6 +14,8 @@ import { AddedIngredientMap } from './AddedIngredients'
 import IngredientSlider from './IngredientSlider'
 import { useCocktails, newCocktail, useFunctionMenu } from '../utils/hooks'
 import TabIcon from '../assets/tab.svg'
+import HeaderIcon from './HeaderIcon'
+import {DirectionsInput} from './Directions'
 
 import { addCocktail, updateCocktails } from '../utils/CocktailActions'
 
@@ -39,9 +41,11 @@ function Add(props){
     const [newCocktailIngredientName, setNewCocktailIngredientName] = useState('')
     const [newCocktailIngredientParts, setNewCocktailIngredientParts] = useState('')
     const [addedCocktailIngredients, setAddedCocktailIngredients] = useState([])
+    const [addedCocktailDirections, setAddedCocktailDirections] = useState('')
     const [newCocktailName, setNewCocktailName] = useState('')
     const [editIngredientId, setEditIngredientId] = useState('')
     const [editCocktailId, setEditCocktailId] = useState('')
+    const [contentMode, setContentMode] = useState('ingredients')
     const isFocused = useIsFocused()
 
     function toggleEditIngredient(id) {
@@ -139,6 +143,61 @@ function Add(props){
     useEffect(()=>{
         loadParams(route.params)
     },[cocktails])
+
+    var leftAnim = useRef(new Animated.Value(1)).current;
+    var rightAnim = useRef(new Animated.Value(0)).current;
+    // } else if (state.index == 2) {
+    //     // currentPage = 'Stock'
+    //     var leftAnim = useRef(new Animated.Value(0)).current;
+    //     var rightAnim = useRef(new Animated.Value(1)).current;
+    // } else {
+    //     var leftAnim = useRef(new Animated.Value(1)).current;
+    //     var rightAnim = useRef(new Animated.Value(1)).current;
+    // }
+
+    function handleFade() {
+        if (contentMode == 'ingredients') {
+            fadeLeftIn()
+            fadeRightOut()
+        } else if (contentMode == 'directions') {
+            fadeRightIn()
+            fadeLeftOut()
+        } else {
+            fadeLeftOut()
+            fadeRightOut()
+        }
+    }
+
+    const fadeTime = 1000
+    const fadeLeftIn = () => {
+        Animated.timing(leftAnim, {
+            toValue: 1,
+            duration: fadeTime,
+            useNativeDriver: true,
+        }).start()
+    }
+    const fadeRightIn = () => {
+        Animated.timing(rightAnim, {
+            toValue: 1,
+            duration: fadeTime,
+            useNativeDriver: true,
+        }).start()
+    }
+    const fadeLeftOut = () => {
+        Animated.timing(leftAnim, {
+            toValue: 0,
+            duration: fadeTime,
+            useNativeDriver: true,
+        }).start()
+    }
+    const fadeRightOut = () => {
+        Animated.timing(rightAnim, {
+            toValue: 0,
+            duration: fadeTime,
+            useNativeDriver: true,
+        }).start()
+    }
+    handleFade()
 
     function loadParams(params){
         if(params && params.id){
@@ -383,15 +442,35 @@ function Add(props){
                     placeholderTextColor={"grey"}
                     autoCapitalize={"words"}
                 />
+                <View style={styles.header_buttons}>
+                    <Pressable onPress={() => setContentMode('ingredients')} style={styles.category_title_container}>
+                        <AppText style={styles.category_title}>Ingredients</AppText>
+                        <HeaderIcon direction={'left'} ui={props.ui} anim={leftAnim} />
+                    </Pressable>
+                    <Pressable onPress={() => setContentMode('directions')} style={styles.category_title_container}>
+                        <HeaderIcon direction={'right'} ui={props.ui} anim={rightAnim} />
+                        <AppText style={styles.category_title}>Directions</AppText>
+                    </Pressable>
+                </View>
 
                 <ScrollView style={{height: 300, paddingRight: 10}}>
-                    <AddedIngredientMap 
+                    <ScrollContent 
+                        ui={props.ui}
+                        addedCocktailIngredients={addedCocktailIngredients}
+                        editIngredientId={editIngredientId}
+                        toggleEditIngredient={toggleEditIngredient}
+                        stock={props.stock}
+                        addedCocktailDirections={addedCocktailDirections}
+                        setAddedCocktailDirections={setAddedCocktailDirections}
+                        mode={contentMode} 
+                    />
+                    {/* <AddedIngredientMap 
                         theme={props.ui.current_theme} 
                         addedCocktailIngredients={addedCocktailIngredients} 
                         editIngredientId={editIngredientId} 
                         toggleEditIngredient={toggleEditIngredient} 
                         stock={props.stock.current}
-                    />
+                    /> */}
                 </ScrollView>
 
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "padding"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
@@ -444,6 +523,28 @@ function Add(props){
             />
         </View>
     )
+}
+
+function AddIngredientModal(props){
+    
+}
+
+function ScrollContent(props){
+    if(props.mode == 'ingredients'){
+        return (
+            <AddedIngredientMap
+                theme={props.ui.current_theme}
+                addedCocktailIngredients={props.addedCocktailIngredients}
+                editIngredientId={props.editIngredientId}
+                toggleEditIngredient={props.toggleEditIngredient}
+                stock={props.stock.current}
+            />
+        )
+    } else {
+        return (
+            <DirectionsInput text={props.addedCocktailDirections} setText={props.setAddedCocktailDirections} />
+        )
+    }
 }
 
 function Footer(props){
@@ -518,7 +619,7 @@ const styles = StyleSheet.create({
         // marginBottom: 110
     },
     cocktail_name: {
-        marginBottom: 25,
+        marginBottom: 10,
         fontSize: 22
     },  
     new_ingredient_container: {
@@ -535,5 +636,29 @@ const styles = StyleSheet.create({
     },
     tab_icon_container: {
         alignItems: 'center',
+    },
+    header_buttons: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        // marginTop: 10
+    },
+    cocktail_title: {
+        // alignItems: 'center',
+        textAlign: 'center',
+        fontSize: 22,
+        // flex: 2,
+    },
+    category_title: {
+        fontSize: 19
+    },
+    category_title_container: {
+        paddingLeft: 4,
+        width: 100,
+        marginTop: 10,
+        marginBottom: 8,
+        fontSize: 18,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center'
     },
 })

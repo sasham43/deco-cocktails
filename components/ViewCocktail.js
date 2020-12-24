@@ -8,7 +8,7 @@ import AppText from './AppText'
 import { AddedIngredientMap } from './AddedIngredients'
 import { deleteCocktail } from '../utils/CocktailActions'
 import AppButton from './AppButton'
-import Directions from './Directions'
+import {Directions} from './Directions'
 import HeaderIcon from './HeaderIcon'
 
 const windowWidth = Dimensions.get('window').width
