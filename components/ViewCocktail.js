@@ -11,6 +11,7 @@ import { deleteCocktail } from '../utils/CocktailActions'
 import AppButton from './AppButton'
 import {Directions} from './Directions'
 import HeaderIcon from './HeaderIcon'
+import CocktailListIndicator from './CocktailListIndicator'
 
 const mapStateToProps = (state) => {
     const { cocktails, ui, stock } = state
@@ -30,6 +31,8 @@ function ViewCocktail(props){
     const isFocused = useIsFocused()
     const [cocktail, setCocktail] = useState({})
     const [contentMode, setContentMode] = useState('ingredients')
+    const [sorted, setSorted] = useState([])
+    const [currentIndex, setCurrentIndex] = useState(0)
 
     useEffect(()=>{
         loadParams(props.route.params)
@@ -41,10 +44,29 @@ function ViewCocktail(props){
         loadParams(props.route.params)
     }, [props.route.params.id])
 
+    useEffect(()=>{
+        // console.log('ci', currentIndex)
+    }, [currentIndex])
+    useEffect(()=>{
+        findCurrentIndex()
+    })
+
     function loadParams(params){
         if(params.id){
             var cocktail = props.cocktails.current.find(c=>c.id == params.id)
             setCocktail(cocktail)
+
+            setSorted(props.cocktails.current.sort(sortCocktails))
+        }
+
+    }
+    function findCurrentIndex(){
+        for(var i in sorted){
+            var index = Number(i)
+            if(sorted[index].id == cocktail.id){
+                console.log('i', i, index)
+                setCurrentIndex(index)
+            }
         }
     }
     function editCocktail(){
@@ -77,7 +99,7 @@ function ViewCocktail(props){
         props.deleteCocktail(cocktail.id)
     }
     function findNextCocktail(id){
-        var sorted = props.cocktails.current.sort(sortCocktails)
+        // var sorted = props.cocktails.current.sort(sortCocktails)
         // console.log('sorted', sorted)
         for (var i in sorted) {
             var index = Number(i)
@@ -90,7 +112,7 @@ function ViewCocktail(props){
         }
     }
     function findPreviousCocktail(id){
-        var sorted = props.cocktails.current.sort(sortCocktails)
+        // var sorted = props.cocktails.current.sort(sortCocktails)
         for (var i in sorted) {
             var index = Number(i)
             // console.log('sorted item:', sorted[index])
@@ -165,7 +187,7 @@ function ViewCocktail(props){
 
         // go forward
         var nextCocktail = findNextCocktail(cocktail.id)
-        console.log('next', nextCocktail)
+        // console.log('next', nextCocktail)
         navigation.navigate('ViewCocktail', {
             id: nextCocktail.id
         })
@@ -187,6 +209,11 @@ function ViewCocktail(props){
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}
         >
             <View style={styles.header}>
+                <CocktailListIndicator
+                    sorted={sorted}
+                    selected={currentIndex}
+                    theme={props.ui.current_theme}
+                />
                 <AppText style={styles.cocktail_title}>{cocktail.name}</AppText>
                 <View style={styles.header_buttons}>
                     <Pressable onPress={()=>changeContentMode('ingredients')} style={styles.category_title_container}>
