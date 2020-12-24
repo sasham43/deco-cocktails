@@ -34,9 +34,9 @@ export function DirectionsInput(props){
 }
 var icon_distance = 0
 const styles = StyleSheet.create({
-    // directions_input_container: {
-
-    // },
+    directions_input_container: {
+        marginTop: 25
+    },
     directions_input: {
         fontFamily: 'PoiretOne_400Regular',
         paddingTop: 10,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         borderWidth: 1,
-        flexDirection: 'column',
+        // flexDirection: 'column',
         height: 150,
         flex: 1,
         alignItems: 'stretch',

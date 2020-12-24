@@ -456,7 +456,7 @@ function Add(props){
                     </Pressable>
                 </View>
 
-                <ScrollView style={{height: 300, paddingRight: 10}}>
+                <ScrollView style={{height: 300, paddingRight: currentMode == 'ingredients' ? 10 : 0}}>
                     <ScrollContent 
                         ui={props.ui}
                         addedCocktailIngredients={addedCocktailIngredients}
