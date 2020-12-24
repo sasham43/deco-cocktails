@@ -1,13 +1,25 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, TextInput } from 'react-native'
 
 import AppText from './AppText'
 
 
-export default function Directions(props){
+export function Directions(props){
     return (
         <View style={styles.directions}>
             <AppText style={styles.directions_text}>{props.directions}</AppText>
+        </View>
+    )
+}
+
+export function DirectionsInput(props){
+    return (
+        <View>
+            <TextInput
+                multiline={true}
+                numberOfLines={4}
+                onChangeText={(text) => props.setText(text)}
+                value={props.text} />
         </View>
     )
 }
