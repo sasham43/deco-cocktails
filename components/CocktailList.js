@@ -240,9 +240,13 @@ function CocktailList(props){
     function onSwipeRight(){
         navigation.navigate('CocktailList')
     }
+    const gestureConfig = {
+        gestureIsClickThreshold: 90
+    }
 
     return (
         <GestureRecognizer
+            config={gestureConfig}
             onSwipeLeft={()=>onSwipeLeft()}
             onSwipeRight={()=>onSwipeRight()}
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}
