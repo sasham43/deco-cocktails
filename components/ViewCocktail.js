@@ -37,6 +37,9 @@ function ViewCocktail(props){
     useEffect(()=>{
         loadParams(props.route.params)
     }, [isFocused])
+    useEffect(()=>{
+        loadParams(props.route.params)
+    }, [props.route.params.id])
 
     function loadParams(params){
         if(params.id){
@@ -72,6 +75,40 @@ function ViewCocktail(props){
     function removeThisCocktail(){
         navigation.navigate('CocktailList')
         props.deleteCocktail(cocktail.id)
+    }
+    function findNextCocktail(id){
+        var sorted = props.cocktails.current.sort(sortCocktails)
+        // console.log('sorted', sorted)
+        for (var i in sorted) {
+            var index = Number(i)
+            // console.log('sorted item:', sorted[index], index, index+1)
+            if (sorted[index].id == id) {
+                // if (index == 0) return 0
+                if (index == sorted.length - 1) return sorted[sorted.length - 1]
+                return sorted[index + 1]
+            }
+        }
+    }
+    function findPreviousCocktail(id){
+        var sorted = props.cocktails.current.sort(sortCocktails)
+        for (var i in sorted) {
+            var index = Number(i)
+            // console.log('sorted item:', sorted[index])
+            if(sorted[index].id == id){
+                if(index == 0) return 0
+                // if(index == sorted.length-1) return sorted[sorted.length-1]
+                return sorted[index-1]
+            }
+        }
+    }
+    function sortCocktails(a, b) {
+        if (a.name > b.name) {
+            return 1
+        } else if (a.name < b.name) {
+            return -1
+        } else {
+            return 0
+        }
     }
 
     var leftAnim = useRef(new Animated.Value(1)).current;
@@ -124,12 +161,23 @@ function ViewCocktail(props){
     function onSwipeLeft(state) {
         // console.log('left', state)
         // setContentMode('ingredients')
-        setContentMode('directions')
+        // setContentMode('directions')
+
+        // go forward
+        var nextCocktail = findNextCocktail(cocktail.id)
+        console.log('next', nextCocktail)
+        navigation.navigate('ViewCocktail', {
+            id: nextCocktail.id
+        })
     }
     function onSwipeRight(state) {
         // console.log('right', state)
         // setContentMode('directions')
-        setContentMode('ingredients')
+        // setContentMode('ingredients')
+        var previousCocktail = findPreviousCocktail(cocktail.id)
+        navigation.navigate('ViewCocktail', {
+            id: previousCocktail.id
+        })
     }
 
     return (
