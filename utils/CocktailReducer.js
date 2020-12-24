@@ -352,7 +352,7 @@ function defaultCocktails() {
                 },
                 {
                     id: generate(),
-                    ingredient_name: 'Peychauds',
+                    ingredient_name: `Peychaud's`,
                     parts: 'dash'
                 },
                 {
@@ -361,7 +361,7 @@ function defaultCocktails() {
                     parts: 'rinse'
                 },
             ],
-            directions: 'Mix Rye, Brandy, Angostura, and Peychauds with ice for 15 seconds.  Strain into a rocks glass rinsed with Absinthe.'
+            directions: `Mix Rye, Brandy, Angostura, and Peychaud's with ice for 15 seconds.  Strain into a rocks glass rinsed with Absinthe.`
         },
         {
             id: generate(),
