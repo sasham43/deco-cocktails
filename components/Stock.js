@@ -13,6 +13,7 @@ import InStockIcon from '../assets/in-stock'
 import TabIcon from '../assets/tab'
 import FunctionButtonIcon from '../assets/function-button.svg'
 import { updateStock, selectStock, deleteStock, updateInStock, selectBottlesInStock, unselectAllBottles } from '../utils/StockActions'
+import GestureRecognizer from 'react-native-swipe-gestures'
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
@@ -182,9 +183,21 @@ function Stock(props){
     const stock = props.stock.current
     const { toggleFunctionMenu, showFunctionMenu, setShowFunctionMenu, currentMode, switchMode } = useFunctionMenu()
     const [editStockId, setEditStockId] = useState()
+    const navigation = useNavigation()
+
+    function onSwipeLeft(){
+        navigation.navigate('Stock')
+    }
+    function onSwipeRight(){
+        navigation.navigate('CocktailList')
+    }
 
     return (
-        <View style={[styles.stock, props.ui.default_styles.viewStyles, props.ui.current_theme]}>
+        <GestureRecognizer 
+            onSwipeLeft={()=>onSwipeLeft()}
+            onSwipeRight={()=>onSwipeRight()}
+            style={[styles.stock, props.ui.default_styles.viewStyles, props.ui.current_theme]}
+        >
             <ScrollView style={styles.scroll_view}>
                 <StockMap 
                     theme={props.ui.current_theme} 
@@ -221,7 +234,7 @@ function Stock(props){
                 switchMode={switchMode}
                 setEditStockId={setEditStockId}
             />
-        </View>
+        </GestureRecognizer>
     )
 }
 
