@@ -76,7 +76,8 @@ function Add(props){
             props.updateCocktails({
                 id: editCocktailId,
                 name: newCocktailName,
-                ingredients: addedCocktailIngredients
+                ingredients: addedCocktailIngredients,
+                directions: addedCocktailDirections
             })
 
             props.navigation.navigate('CocktailList')
@@ -84,7 +85,8 @@ function Add(props){
             props.addCocktail({
                 id: generate(),
                 name: newCocktailName,
-                ingredients: addedCocktailIngredients
+                ingredients: addedCocktailIngredients,
+                directions: addedCocktailDirections
             })
         }
     }
@@ -135,6 +137,7 @@ function Add(props){
         setNewCocktailIngredientName('')
         setNewCocktailIngredientParts(0)
         setAddedCocktailIngredients([])
+        setAddedCocktailDirections('')
     }
     const { route } = props
     const { currentMode, switchMode } = useFunctionMenu()
@@ -146,14 +149,6 @@ function Add(props){
 
     var leftAnim = useRef(new Animated.Value(1)).current;
     var rightAnim = useRef(new Animated.Value(0)).current;
-    // } else if (state.index == 2) {
-    //     // currentPage = 'Stock'
-    //     var leftAnim = useRef(new Animated.Value(0)).current;
-    //     var rightAnim = useRef(new Animated.Value(1)).current;
-    // } else {
-    //     var leftAnim = useRef(new Animated.Value(1)).current;
-    //     var rightAnim = useRef(new Animated.Value(1)).current;
-    // }
 
     function handleFade() {
         if (contentMode == 'ingredients') {
