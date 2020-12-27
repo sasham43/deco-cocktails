@@ -263,14 +263,13 @@ function ViewCocktail(props){
                 // transparent={true}
                 visible={modalVisible}
             >
-                <View style={{ backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15,  flex: 1 }}>
+                <View style={{flexDirection: 'column', alignItems: 'center', backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15,  flex: 1 }}>
                     <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} />
-                    <View>
-                        {/* <AppText>Share This Image</AppText> */}
-                        <AppButton press={shareCocktail}>
+                    <View style={{flex:1, alignSelf: 'stretch'}}>
+                        <AppButton style={{flex:1}} press={shareCocktail}>
                             Share Image
                         </AppButton>
-                        <AppButton press={hideShareModal}>
+                        <AppButton style={{flex:1}} press={hideShareModal}>
                             Cancel
                         </AppButton>
                     </View>
@@ -279,18 +278,6 @@ function ViewCocktail(props){
         </GestureRecognizer>
     )
 }
-
-// function shareCocktail(){
-
-//     // var viewRef = useRef(ShareCocktail)
-//     // console.log('share')
-//     // captureRef(viewRef, {
-//     //     format: "jpg",
-//     //     quality: 0.8
-//     // }).then(uri=>{
-//     //     console.log('captured', uri)
-//     // })
-// }
 
 function ShareCocktail(props){
     function onCapture(uri){
@@ -306,7 +293,7 @@ function ShareCocktail(props){
     })
     return (
         <ViewShot 
-            style={[{backgroundColor: props.ui.current_theme.backgroundColor, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1}]}
+            style={[{ backgroundColor: props.ui.current_theme.backgroundColor,margin: 10, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1}, styles.share_modal]}
             captureMode="mount"
             onCapture={onCapture}
         >
@@ -317,15 +304,17 @@ function ShareCocktail(props){
             <View>
                 <AppText style={styles.cocktail_title}>{props.cocktail.name}</AppText>
             </View>
-            <View>
-                {/* <AppText style={styles.category_title}>Ingredients</AppText> */}
-                <View style={{justifyContent: 'center'}}>
-                    <AddedIngredientMap compact={true} name_style={{fontSize: 16}} theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={cocktail_stock} />
+            <View style={{justifyContent: 'flex-end'}}>
+                <View>
+                    {/* <AppText style={styles.category_title}>Ingredients</AppText> */}
+                    <View style={{justifyContent: 'center'}}>
+                        <AddedIngredientMap compact={true} name_style={{fontSize: 16}} theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={cocktail_stock} />
+                    </View>
                 </View>
-            </View>
-            <View>
-                {/* <AppText style={styles.category_title}>Directions</AppText> */}
-                <Directions directions={props.cocktail.directions} />
+                <View>
+                    {/* <AppText style={styles.category_title}>Directions</AppText> */}
+                    <Directions directions={props.cocktail.directions} />
+                </View>
             </View>
         </ViewShot>
     )
@@ -380,5 +369,11 @@ const styles = StyleSheet.create({
     top_right: { top: icon_distance, right: icon_distance },
     top_left: { top: icon_distance, left: icon_distance, transform: [{ rotate: '-90deg' }] },
     bottom_right: { bottom: icon_distance, right: icon_distance, transform: [{ rotate: '90deg' }] },
-    bottom_left: { bottom: icon_distance, left: icon_distance, transform: [{ rotate: '180deg' }] }
+    bottom_left: { bottom: icon_distance, left: icon_distance, transform: [{ rotate: '180deg' }] },
+    share_modal: {
+        maxHeight: 600,
+        maxWidth: 400,
+        minHeight: 500,
+        minWidth: 350
+    }
 })
