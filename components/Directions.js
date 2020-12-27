@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View, TextInput } from 'react-native'
 
 import AppText from './AppText'
 import CornerIcon from '../assets/corner'
 
 export function Directions(props){
+    const [directions, setDirections] = useState(props.directions)
+    if(directions.split('\n').length > 4){
+        setDirections(directions.replace(/\n/g, ' '))
+    }
     return (
         <View style={styles.directions}>
-            <AppText style={styles.directions_text}>{props.directions}</AppText>
+            <AppText style={styles.directions_text}>{directions}</AppText>
         </View>
     )
 }
@@ -30,12 +34,12 @@ export function DirectionsInput(props){
                     value={props.text}
                     placeholder={"Directions..."}
                     placeholderTextColor={"grey"}
-                    maxLength={240}
+                    maxLength={220}
                 />
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-end', flex: 1 }}>
                 <AppText style={{ color: 'grey' }}>
-                    {props.text.length} / 240 letters
+                    {props.text.length} / 220 letters
                         </AppText>
             </View><AppText></AppText>
         </View>

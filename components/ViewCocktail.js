@@ -281,7 +281,7 @@ function ViewCocktail(props){
 
 function ShareCocktail(props){
     function onCapture(uri){
-        console.log('captured', uri)
+        // console.log('captured', uri)
         props.setShareUri(uri)
     }
     var icon_size = 40
@@ -371,7 +371,7 @@ const styles = StyleSheet.create({
     bottom_right: { bottom: icon_distance, right: icon_distance, transform: [{ rotate: '90deg' }] },
     bottom_left: { bottom: icon_distance, left: icon_distance, transform: [{ rotate: '180deg' }] },
     share_modal: {
-        maxHeight: 600,
+        maxHeight: 575,
         maxWidth: 400,
         minHeight: 500,
         minWidth: 350
