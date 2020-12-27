@@ -16,20 +16,28 @@ export function DirectionsInput(props){
     var icon_size = 15
     return (
         <View style={styles.directions_input_container}>
-            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
-            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
-            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
-            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
-            <TextInput
-                style={[styles.directions_input, props.ui.current_theme]}
-                multiline={true}
-                numberOfLines={10}
-                onChangeText={(text) => props.setText(text)}
-                value={props.text} 
-                placeholder={"Directions..."}
-                placeholderTextColor={"grey"}
-                maxLength={240}
+            
+            <View>
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+                <TextInput
+                    style={[styles.directions_input, props.ui.current_theme]}
+                    multiline={true}
+                    numberOfLines={10}
+                    onChangeText={(text) => props.setText(text)}
+                    value={props.text}
+                    placeholder={"Directions..."}
+                    placeholderTextColor={"grey"}
+                    maxLength={240}
                 />
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-end', flex: 1 }}>
+                <AppText style={{ color: 'grey' }}>
+                    {props.text.length} / 240 letters
+                        </AppText>
+            </View><AppText></AppText>
         </View>
     )
 }
