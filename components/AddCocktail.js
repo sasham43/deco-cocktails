@@ -202,6 +202,7 @@ function Add(props){
                 setNewCocktailName(cocktail.name)
                 setAddedCocktailIngredients(cocktail.ingredients)
                 setEditCocktailId(params.id)
+                setAddedCocktailDirections(cocktail.directions)
             } else {
                 setNewCocktailName('')
                 setAddedCocktailIngredients([])
