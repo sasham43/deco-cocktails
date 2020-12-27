@@ -6,6 +6,8 @@ import InStockIcon from '../assets/in-stock'
 import AppText from './AppText'
 
 export default function CocktailListIndicator(props){
+    const navigation = useNavigation()
+
     var selection = []
     var selected = 0
     var space_left = false
@@ -21,13 +23,27 @@ export default function CocktailListIndicator(props){
         selection = props.sorted
         selected = props.selected
     }
+
+    function goBack(){
+        
+    }
+    function goForward(){
+        // find id of chunk + selected
+        // so if index == 8, we need to get id of 10 (range is 0-9)
+        var data = splitSorted(props.sorted, chunk, chunk)
+        var next_id = data.split[0].id
+
+        navigation.navigate('ViewCocktail', {
+            id: next_id
+        })
+    }
+
+
     return (
         <View style={styles.container}>
             <Ellipsis press={props.goBack} show={space_left} />
-            {/* {space_left ? <AppText>...</AppText> : null} */}
             <IndicatorMap sorted={selection} theme={props.theme} selected={selected} />
-            <Ellipsis press={props.goForward} show={space_right} />
-            {/* {space_right ? <AppText>...</AppText> : null} */}
+            <Ellipsis press={goForward} show={space_right} />
         </View>
     )
 }
@@ -55,6 +71,7 @@ function IndicatorMap(props){
         // console.log
         return (
             <Pressable onPress={()=>{goToCocktail(c.id)}} key={i}>
+                <AppText>{i}</AppText>
                 <InStockIcon transform={[{ rotate: '-135deg' }]} width={15} height={15} fill={i==props.selected ? props.theme.color : 'grey'} />
             </Pressable>
         )
