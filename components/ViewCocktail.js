@@ -196,8 +196,14 @@ function ViewCocktail(props){
             id: previousCocktail.id
         })
     }
-    function shareCocktail(){
+    function showShareModal(){
         setModalVisible(true)
+    }
+    function hideShareModal(){
+        setModalVisible(false)
+    }
+    function shareCocktail(){
+        console.log('share')
     }
 
     return (
@@ -230,7 +236,7 @@ function ViewCocktail(props){
                 <View style={{ marginTop: 120, height: 20 }}></View>
             </ScrollView>
             <View style={[props.ui.default_styles.footerStyles, styles.button_container, props.ui.current_theme]}>
-                <AppButton press={shareCocktail}>
+                <AppButton press={showShareModal}>
                     Share Cocktail
                 </AppButton>
                 <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={editCocktail}>
@@ -242,12 +248,20 @@ function ViewCocktail(props){
             </View>
             <Modal
                 animationType="slide"
-                transparent={true}
+                // transparent={true}
                 visible={modalVisible}
             >
-                <ShareCocktail cocktail={cocktail} ui={props.ui} stock={props.stock} />
-                <View>
-                    <AppText>Share This Image</AppText>
+                <View style={{ backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15,  flex: 1 }}>
+                    <ShareCocktail cocktail={cocktail} ui={props.ui} stock={props.stock} />
+                    <View>
+                        {/* <AppText>Share This Image</AppText> */}
+                        <AppButton press={shareCocktail}>
+                            Share Image
+                        </AppButton>
+                        <AppButton press={hideShareModal}>
+                            Cancel
+                        </AppButton>
+                    </View>
                 </View>
             </Modal>
         </GestureRecognizer>
