@@ -207,7 +207,7 @@ function ViewCocktail(props){
     function shareCocktail(){
         // console.log('share')
         Share.share({
-            message: 'Cocktail by Crump Cocktails',
+            message: `${cocktail.name} by Crump Cocktails`,
             url: shareUri
         })
             .then((res) => {
