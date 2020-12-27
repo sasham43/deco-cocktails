@@ -212,6 +212,8 @@ function ViewCocktail(props){
                     sorted={sorted}
                     selected={currentIndex}
                     theme={props.ui.current_theme}
+                    goBack={goBack}
+                    goForward={goForward}
                 />
                 <AppText style={styles.cocktail_title}>{cocktail.name}</AppText>
                 <View style={styles.header_buttons}>
@@ -240,6 +242,13 @@ function ViewCocktail(props){
             </View>
         </GestureRecognizer>
     )
+}
+
+function goBack(){
+    console.log('back')
+}
+function goForward(){
+    console.log('forward')
 }
 
 function ScrollContent(props){

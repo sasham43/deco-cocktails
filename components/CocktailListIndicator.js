@@ -23,11 +23,25 @@ export default function CocktailListIndicator(props){
     }
     return (
         <View style={styles.container}>
-            {space_left ? <AppText>...</AppText> : null}
+            <Ellipsis press={props.goBack} show={space_left} />
+            {/* {space_left ? <AppText>...</AppText> : null} */}
             <IndicatorMap sorted={selection} theme={props.theme} selected={selected} />
-            {space_right ? <AppText>...</AppText> : null}
+            <Ellipsis press={props.goForward} show={space_right} />
+            {/* {space_right ? <AppText>...</AppText> : null} */}
         </View>
     )
+}
+
+function Ellipsis(props){
+    if(props.show){
+        return (
+            <Pressable onPress={()=>props.press()}>
+                <AppText style={{color: 'grey'}}>...</AppText>
+            </Pressable>
+        )
+    } else {
+        return null
+    }
 }
 
 function IndicatorMap(props){
