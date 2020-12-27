@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, StyleSheet, Modal, ScrollView, Pressable, Alert, Animated } from 'react-native'
+import { View, StyleSheet, Modal, ScrollView, Pressable, Alert, Animated, Share } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import GestureRecognizer from 'react-native-swipe-gestures'
 // import { captureRef } from "react-native-view-shot"
 import ViewShot from "react-native-view-shot"
+// import Share from 'react-native-share'
 
 import AppText from './AppText'
 import { AddedIngredientMap } from './AddedIngredients'
@@ -37,6 +38,7 @@ function ViewCocktail(props){
     const [sorted, setSorted] = useState([])
     const [currentIndex, setCurrentIndex] = useState(0)
     const [modalVisible, setModalVisible] = useState(false)
+    const [shareUri, setShareUri] = useState('')
 
     useEffect(()=>{
         loadParams(props.route.params)
@@ -203,7 +205,17 @@ function ViewCocktail(props){
         setModalVisible(false)
     }
     function shareCocktail(){
-        console.log('share')
+        // console.log('share')
+        Share.share({
+            message: 'Cocktail by Crump Cocktails',
+            url: shareUri
+        })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                err && console.log(err);
+            })
     }
 
     return (
@@ -252,7 +264,7 @@ function ViewCocktail(props){
                 visible={modalVisible}
             >
                 <View style={{ backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15,  flex: 1 }}>
-                    <ShareCocktail cocktail={cocktail} ui={props.ui} stock={props.stock} />
+                    <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} />
                     <View>
                         {/* <AppText>Share This Image</AppText> */}
                         <AppButton press={shareCocktail}>
@@ -283,6 +295,7 @@ function ViewCocktail(props){
 function ShareCocktail(props){
     function onCapture(uri){
         console.log('captured', uri)
+        props.setShareUri(uri)
     }
     var icon_size = 40
     return (
