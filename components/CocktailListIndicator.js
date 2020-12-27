@@ -28,7 +28,6 @@ export default function CocktailListIndicator(props){
         // find id of selected - chunk?
         // so if index == 2, we need to get 9?
         var data = splitSorted(props.sorted, props.selected - chunk, chunk)
-        // console.log('data', data.split[data.split.length-1])
         var next_id = data.split[data.split.length - 1].id
 
         navigation.navigate('ViewCocktail', {
