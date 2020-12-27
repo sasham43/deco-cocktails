@@ -49,8 +49,8 @@ export function AddedIngredient(props) {
             ]} 
             onPress={() => props.toggleEditIngredient(props.id)}
         >
-            <AppText style={[styles.ingredient_text, styles.ingredient_name, { color: props.in_stock ? props.theme.color : 'grey' }]}>{props.ingredient_name}</AppText>
-            <AppText style={[styles.inset, styles.ingredient_text]}>{fractions}</AppText>
+            <AppText style={[styles.ingredient_text, styles.ingredient_name, { color: props.in_stock ? props.theme.color : 'grey' }, props.name_style]}>{props.ingredient_name}</AppText>
+            <AppText style={[styles.inset, styles.ingredient_text, props.name_style]}>{fractions}</AppText>
             <Part style={[styles.inset, styles.added_parts, ingredient_height]} parts={props.parts} last={true} />
         </TouchableOpacity>
     )
@@ -69,6 +69,7 @@ export function AddedIngredientMap(props) {
                 parts={a.parts} editIngredientId={props.editIngredientId} 
                 toggleEditIngredient={props.toggleEditIngredient} 
                 in_stock={in_stock}
+                name_style={props.name_style}
             />
         )
     })
@@ -96,7 +97,6 @@ const styles = StyleSheet.create({
     },
     ingredient_text: {
       fontSize: 17,
-    //   marginTop: 4
     },
     inset: {
         marginLeft: 7

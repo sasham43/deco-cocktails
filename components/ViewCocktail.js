@@ -291,7 +291,6 @@ function ShareCocktail(props){
             captureMode="mount"
             onCapture={onCapture}
         >
-
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
@@ -300,11 +299,11 @@ function ShareCocktail(props){
                 <AppText style={styles.cocktail_title}>{props.cocktail.name}</AppText>
             </View>
             <View>
-                <AppText>Ingredients</AppText>
-                <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={props.stock.current} />
+                <AppText style={styles.category_title}>Ingredients</AppText>
+                <AddedIngredientMap name_style={{fontSize: 16}} theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={props.stock.current} />
             </View>
             <View>
-                <AppText>Directions</AppText>
+                <AppText style={styles.category_title}>Directions</AppText>
                 <Directions directions={props.cocktail.directions} />
             </View>
         </ViewShot>
