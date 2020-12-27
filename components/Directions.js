@@ -28,6 +28,7 @@ export function DirectionsInput(props){
                 value={props.text} 
                 placeholder={"Directions..."}
                 placeholderTextColor={"grey"}
+                maxLength={240}
                 />
         </View>
     )
