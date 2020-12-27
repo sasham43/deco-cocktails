@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, StyleSheet, Dimensions, ScrollView, Pressable, Alert, Animated } from 'react-native'
+import { View, StyleSheet, Modal, ScrollView, Pressable, Alert, Animated } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
-import GestureRecognizer from 'react-native-swipe-gestures';
+import GestureRecognizer from 'react-native-swipe-gestures'
+import { captureRef } from "react-native-view-shot"
+// import ViewShot from "react-native-view-shot"
 
 import AppText from './AppText'
 import { AddedIngredientMap } from './AddedIngredients'
@@ -12,6 +14,7 @@ import AppButton from './AppButton'
 import {Directions} from './Directions'
 import HeaderIcon from './HeaderIcon'
 import CocktailListIndicator from './CocktailListIndicator'
+import CornerIcon from '../assets/corner'
 
 const mapStateToProps = (state) => {
     const { cocktails, ui, stock } = state
@@ -33,6 +36,7 @@ function ViewCocktail(props){
     const [contentMode, setContentMode] = useState('ingredients')
     const [sorted, setSorted] = useState([])
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [modalVisible, setModalVisible] = useState(false)
 
     useEffect(()=>{
         loadParams(props.route.params)
@@ -192,6 +196,9 @@ function ViewCocktail(props){
             id: previousCocktail.id
         })
     }
+    function shareCocktail(){
+        setModalVisible(true)
+    }
 
     return (
         <GestureRecognizer 
@@ -204,8 +211,6 @@ function ViewCocktail(props){
                     sorted={sorted}
                     selected={currentIndex}
                     theme={props.ui.current_theme}
-                    goBack={goBack}
-                    goForward={goForward}
                 />
                 <AppText style={styles.cocktail_title}>{cocktail.name}</AppText>
                 <View style={styles.header_buttons}>
@@ -225,6 +230,9 @@ function ViewCocktail(props){
                 <View style={{ marginTop: 120, height: 20 }}></View>
             </ScrollView>
             <View style={[props.ui.default_styles.footerStyles, styles.button_container, props.ui.current_theme]}>
+                <AppButton press={shareCocktail}>
+                    Share Cocktail
+                </AppButton>
                 <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={editCocktail}>
                     Change Cocktail
                 </AppButton>
@@ -232,15 +240,54 @@ function ViewCocktail(props){
                     Remove Cocktail
                 </AppButton>
             </View>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+            >
+                <ShareCocktail cocktail={cocktail} ui={props.ui} stock={props.stock} />
+                <View>
+                    <AppText>Share This Image</AppText>
+                </View>
+            </Modal>
         </GestureRecognizer>
     )
 }
 
-function goBack(){
-    console.log('back')
-}
-function goForward(){
-    console.log('forward')
+// function shareCocktail(){
+
+//     // var viewRef = useRef(ShareCocktail)
+//     // console.log('share')
+//     // captureRef(viewRef, {
+//     //     format: "jpg",
+//     //     quality: 0.8
+//     // }).then(uri=>{
+//     //     console.log('captured', uri)
+//     // })
+// }
+
+function ShareCocktail(props){
+    var icon_size = 40
+    return (
+        <View style={[{backgroundColor: props.ui.current_theme.backgroundColor, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1}]}>
+
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+            <View>
+                <AppText style={styles.cocktail_title}>{props.cocktail.name}</AppText>
+            </View>
+            <View>
+                <AppText>Ingredients</AppText>
+                <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={props.stock.current} />
+            </View>
+            <View>
+                <AppText>Directions</AppText>
+                <Directions directions={props.cocktail.directions} />
+            </View>
+        </View>
+    )
 }
 
 function ScrollContent(props){
@@ -255,7 +302,7 @@ function ScrollContent(props){
         )
     }
 }
-
+var icon_distance = 2
 const styles = StyleSheet.create({
     header_buttons: {
         flexDirection: 'row',
@@ -282,7 +329,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     button_container: {
-        height: 120,
+        // height: 120,
         padding: 8
     },
+    corner_icon: {
+        zIndex: 10,
+        position: 'absolute'
+    },
+    top_right: { top: icon_distance, right: icon_distance },
+    top_left: { top: icon_distance, left: icon_distance, transform: [{ rotate: '-90deg' }] },
+    bottom_right: { bottom: icon_distance, right: icon_distance, transform: [{ rotate: '90deg' }] },
+    bottom_left: { bottom: icon_distance, left: icon_distance, transform: [{ rotate: '180deg' }] }
 })
