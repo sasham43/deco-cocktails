@@ -481,6 +481,7 @@ function Add(props){
                     removeIngredientFromCocktail={removeIngredientFromCocktail}
                     mode={contentMode}
                     marginBottom={marginBottom}
+                    addedCocktailIngredients={addedCocktailIngredients}
                 />
             </View>
             <Footer 
@@ -529,7 +530,7 @@ function AddIngredientModal(props){
                     />
                     
                     <View>
-                        <AppButton press={props.addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
+                        <AppButton disabled={!props.editIngredientId && props.addedCocktailIngredients.length >= 8} press={props.addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
                             {props.editIngredientId ? "Save Ingredient" : "Add Ingredient"}
                         </AppButton>
                         {props.editIngredientId ? 
