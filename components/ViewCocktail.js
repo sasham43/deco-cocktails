@@ -298,6 +298,12 @@ function ShareCocktail(props){
         props.setShareUri(uri)
     }
     var icon_size = 40
+    var cocktail_stock = props.cocktail.ingredients.map(i=>{
+        return {
+            label: i.ingredient_name,
+            in_stock: true
+        }
+    })
     return (
         <ViewShot 
             style={[{backgroundColor: props.ui.current_theme.backgroundColor, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1}]}
@@ -313,7 +319,7 @@ function ShareCocktail(props){
             </View>
             <View>
                 <AppText style={styles.category_title}>Ingredients</AppText>
-                <AddedIngredientMap name_style={{fontSize: 16}} theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={props.stock.current} />
+                <AddedIngredientMap name_style={{fontSize: 16}} theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={cocktail_stock} />
             </View>
             <View>
                 <AppText style={styles.category_title}>Directions</AppText>
