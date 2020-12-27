@@ -25,12 +25,20 @@ export default function CocktailListIndicator(props){
     }
 
     function goBack(){
-        
+        // find id of selected - chunk?
+        // so if index == 2, we need to get 9?
+        var data = splitSorted(props.sorted, props.selected - chunk, chunk)
+        // console.log('data', data.split[data.split.length-1])
+        var next_id = data.split[data.split.length - 1].id
+
+        navigation.navigate('ViewCocktail', {
+            id: next_id
+        })
     }
     function goForward(){
         // find id of chunk + selected
         // so if index == 8, we need to get id of 10 (range is 0-9)
-        var data = splitSorted(props.sorted, chunk, chunk)
+        var data = splitSorted(props.sorted, props.selected + chunk, chunk)
         var next_id = data.split[0].id
 
         navigation.navigate('ViewCocktail', {
@@ -41,7 +49,7 @@ export default function CocktailListIndicator(props){
 
     return (
         <View style={styles.container}>
-            <Ellipsis press={props.goBack} show={space_left} />
+            <Ellipsis press={goBack} show={space_left} />
             <IndicatorMap sorted={selection} theme={props.theme} selected={selected} />
             <Ellipsis press={goForward} show={space_right} />
         </View>
@@ -71,7 +79,6 @@ function IndicatorMap(props){
         // console.log
         return (
             <Pressable onPress={()=>{goToCocktail(c.id)}} key={i}>
-                <AppText>{i}</AppText>
                 <InStockIcon transform={[{ rotate: '-135deg' }]} width={15} height={15} fill={i==props.selected ? props.theme.color : 'grey'} />
             </Pressable>
         )
