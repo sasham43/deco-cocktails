@@ -180,21 +180,13 @@ function ViewCocktail(props){
     handleFade()
 
     function onSwipeLeft(state) {
-        // console.log('left', state)
-        // setContentMode('ingredients')
-        // setContentMode('directions')
-
         // go forward
         var nextCocktail = findNextCocktail(cocktail.id)
-        // console.log('next', nextCocktail)
         navigation.navigate('ViewCocktail', {
             id: nextCocktail.id
         })
     }
     function onSwipeRight(state) {
-        // console.log('right', state)
-        // setContentMode('directions')
-        // setContentMode('ingredients')
         var previousCocktail = findPreviousCocktail(cocktail.id)
         navigation.navigate('ViewCocktail', {
             id: previousCocktail.id
