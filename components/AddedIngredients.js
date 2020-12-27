@@ -45,16 +45,36 @@ export function AddedIngredient(props) {
             style={[
                 styles.added_ingredient, 
                 props.theme,
+                {flexDirection: 'column', justifyContent: 'flex-start'},
+                props.compact ? {marginTop: 0, marginBottom: 0, paddingTop: 2, paddingBottom:2} : null,
                 props.editIngredientId == props.id ? { ...styles.selected_ingredient, shadowColor: props.theme.shadowColor, borderColor: props.theme.borderColor} : {borderWidth: 1, borderColor: props.theme.backgroundColor}, 
             ]} 
             onPress={() => props.toggleEditIngredient(props.id)}
         >
-            <AppText style={[styles.ingredient_text, styles.ingredient_name, { color: props.in_stock ? props.theme.color : 'grey' }, props.name_style]}>{props.ingredient_name}</AppText>
-            <AppText style={[styles.inset, styles.ingredient_text, props.name_style]}>{fractions}</AppText>
-            <Part style={[styles.inset, styles.added_parts, ingredient_height]} parts={props.parts} last={true} />
+            {props.compact ? <Compact fractions={fractions} parts={props.parts} in_stock={props.in_stock} theme={props.theme} ingredient_height={ingredient_height} ingredient_name={props.ingredient_name} /> : 
+            <View>
+                <AppText style={[styles.ingredient_text, styles.ingredient_name, { color: props.in_stock ? props.theme.color : 'grey' }, props.name_style]}>{props.ingredient_name}</AppText>
+                {/* <View style={{flexDirection: 'row'}}> */}
+                    <AppText style={[styles.inset, styles.ingredient_text, props.name_style]}>{fractions}</AppText>
+                    <Part style={[styles.inset, styles.added_parts, ingredient_height]} parts={props.parts} last={true} />
+                {/* </View> */}
+            </View>
+            }
         </TouchableOpacity>
     )
 }
+function Compact(props){
+    return (
+        <View>
+            <AppText style={[styles.ingredient_text, styles.ingredient_name, { color: props.in_stock ? props.theme.color : 'grey' }, props.name_style]}>{props.ingredient_name}</AppText>
+            <View style={{ flexDirection: 'row' }}>
+                <AppText style={[styles.inset, styles.ingredient_text, props.name_style]}>{props.fractions}</AppText>
+                <Part style={[styles.inset, styles.added_parts, props.ingredient_height]} parts={props.parts} last={true} />
+            </View>
+        </View>
+    )
+}
+
 export function AddedIngredientMap(props) {
     var stock = props.stock ? props.stock : []
     return sortedIngredients(props.addedCocktailIngredients).map(a => {
@@ -70,6 +90,7 @@ export function AddedIngredientMap(props) {
                 toggleEditIngredient={props.toggleEditIngredient} 
                 in_stock={in_stock}
                 name_style={props.name_style}
+                compact={props.compact}
             />
         )
     })
