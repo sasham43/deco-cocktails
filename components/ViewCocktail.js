@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import GestureRecognizer from 'react-native-swipe-gestures'
-import { captureRef } from "react-native-view-shot"
-// import ViewShot from "react-native-view-shot"
+// import { captureRef } from "react-native-view-shot"
+import ViewShot from "react-native-view-shot"
 
 import AppText from './AppText'
 import { AddedIngredientMap } from './AddedIngredients'
@@ -281,9 +281,16 @@ function ViewCocktail(props){
 // }
 
 function ShareCocktail(props){
+    function onCapture(uri){
+        console.log('captured', uri)
+    }
     var icon_size = 40
     return (
-        <View style={[{backgroundColor: props.ui.current_theme.backgroundColor, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1}]}>
+        <ViewShot 
+            style={[{backgroundColor: props.ui.current_theme.backgroundColor, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1}]}
+            captureMode="mount"
+            onCapture={onCapture}
+        >
 
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
@@ -300,7 +307,7 @@ function ShareCocktail(props){
                 <AppText>Directions</AppText>
                 <Directions directions={props.cocktail.directions} />
             </View>
-        </View>
+        </ViewShot>
     )
 }
 
