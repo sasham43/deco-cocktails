@@ -371,9 +371,11 @@ const styles = StyleSheet.create({
     bottom_right: { bottom: icon_distance, right: icon_distance, transform: [{ rotate: '90deg' }] },
     bottom_left: { bottom: icon_distance, left: icon_distance, transform: [{ rotate: '180deg' }] },
     share_modal: {
-        maxHeight: 575,
-        maxWidth: 400,
-        minHeight: 500,
-        minWidth: 350
+        // maxHeight: 575,
+        // maxWidth: 400,
+        // minHeight: 500,
+        // minWidth: 350
+        height: 575,
+        width: 400
     }
 })
