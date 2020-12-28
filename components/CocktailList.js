@@ -223,7 +223,8 @@ function CocktailList(props){
                     }
                 })
             }
-            if (c.name.toLowerCase().includes(cocktailSearch.toLowerCase().trim())) {
+            // console.log('c',c)
+            if (c.name && c.name.toLowerCase().includes(cocktailSearch.toLowerCase().trim())) {
                 match = true
             }
 

@@ -28,9 +28,9 @@ function AppButton(props) {
     function pressStyles(props) {
         var disabled_style = disabled ? {borderColor: 'rgba(0,0,0,0)'} : null
         if (!props.pressed) {
-            return [styles.button, { borderColor: border, backgroundColor: theme.backgroundColor }, disabled_style]
+            return [styles.button, { borderColor: border, backgroundColor: theme.backgroundColor }, props.style, disabled_style]
         } else {
-            return [styles.pressed_button, {borderColor: props.border, backgroundColor: theme.color}, disabled_style]
+            return [styles.pressed_button, {borderColor: props.border, backgroundColor: theme.color}, props.style, disabled_style]
         }
     }
     var icon_size = 15
