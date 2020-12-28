@@ -10,9 +10,9 @@ import {
     Animated, 
     Pressable, 
     KeyboardAvoidingView,
-    Keyboard,
+    Share,
     Platform,
-    Alert
+    Modal
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -26,8 +26,10 @@ import { PartMap } from './Parts'
 import FunctionButtonIcon from '../assets/function-button.svg'
 import InStockIcon from '../assets/in-stock'
 import TabIcon from '../assets/tab'
+import CornerIcon from '../assets/corner'
 import { deleteCocktail, selectCocktail, deleteCocktails, unselectAllCocktails } from '../utils/CocktailActions'
 import GestureRecognizer from 'react-native-swipe-gestures'
+import ViewShot from "react-native-view-shot"
 
 import { useStock, useFunctionMenu } from '../utils/hooks'
 import { sortedIngredients } from '../utils/sort'
@@ -154,7 +156,7 @@ function CocktailListMap(props) {
                     onLongPress={()=>longPress(cocktail, props.currentMode)}
                     onPressOut={()=>pressOut(cocktail)}
                 >
-                    <View style={styles.cocktail_name_container}>
+                    <View style={[styles.cocktail_name_container]}>
                         <AppText>
                             <Text style={[styles.cocktail_text, props.theme]}>
                                 {cocktail.name}
@@ -171,7 +173,7 @@ function CocktailListMap(props) {
 
 function CocktailToggle(props){
     var size = 35
-    if(props.currentMode == 'delete'){
+    if(props.currentMode == 'delete' || props.currentMode == 'share'){
         return (
             <Pressable onPress={() => props.selectCocktail(props.cocktail.id)}>
                 <AppText>{props.cocktail.selected}</AppText>
@@ -198,6 +200,9 @@ function CocktailList(props){
     const [filteredCocktails, setFilteredCocktails] = useState([])
     const [showFunctionMenu, setShowFunctionMenu] = useState(false)
     const navigation = useNavigation()
+
+    const [modalVisible, setModalVisible] = useState(false)
+    const [shareUri, setShareUri] = useState('')
 
     function toggleFunctionMenu() {
         setShowFunctionMenu(!showFunctionMenu)
@@ -244,6 +249,25 @@ function CocktailList(props){
     const gestureConfig = {
         gestureIsClickThreshold: 90
     }
+    function showShareModal(){
+        setModalVisible(true)
+    }
+    function hideShareModal(){
+        setModalVisible(false)
+    }
+    function shareMenu(){
+            // console.log('share')
+        Share.share({
+            message: `Menu by Crump Cocktails`,
+            url: shareUri
+        })
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            err && console.log(err);
+        })
+    }
 
     return (
         <GestureRecognizer
@@ -252,7 +276,7 @@ function CocktailList(props){
             onSwipeRight={()=>onSwipeRight()}
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}
         > 
-            <ScrollView style={[styles.scroll_view, currentMode == 'delete' ? {paddingLeft: 50}:null]}>
+            <ScrollView style={[styles.scroll_view, currentMode == 'delete' || currentMode == 'share' ? {paddingLeft: 50}:null]}>
                 <CocktailListMap stock={props.stock.current} theme={props.ui.current_theme} cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} selectCocktail={props.selectCocktail} currentMode={currentMode}></CocktailListMap>
                 <View style={{marginTop:50, height: 20}}></View>
             </ScrollView>
@@ -275,12 +299,71 @@ function CocktailList(props){
                 toggleFunctionMenu={toggleFunctionMenu} 
                 currentMode={currentMode} 
                 switchMode={switchMode} 
+                shareMenu={showShareModal}
             />
+
+            <Modal
+                animationType="slide"
+                // transparent={true}
+                visible={modalVisible}
+            >
+                <View style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15, flex: 1 }}>
+                    {/* <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} /> */}
+                    <ShareMenu ui={props.ui} setShareUri={setShareUri} cocktails={cocktails} />
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={[styles.share_btn, { marginRight: 5, flex: 1 }]} >
+                            <AppButton press={shareMenu}>
+                                Share Image
+                            </AppButton>
+                        </View>
+                        <View style={[styles.share_btn, { marginLeft: 5, flex: 1 }]} >
+                            <AppButton style={[styles.share_btn, { marginLeft: 100 }]} press={hideShareModal}>
+                                Cancel
+                            </AppButton>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </GestureRecognizer>
     )
 }
 
+function ShareMenu(props){
+    var filteredCocktails = props.cocktails.filter(c=>c.selected)
+    var cocktailStock = []
+    filteredCocktails.forEach(c=>{
+        c.ingredients.forEach(i=>{
+            var present = cocktailStock.find(cs=>cs.label == i.ingredient_name)
+            if(!present){
+                cocktailStock.push({
+                    label: i.ingredient_name,
+                    in_stock: true
+                })
+            }
+        })
+    })
+    function onCapture(uri){
+        console.log('captured menu uri', uri)
+        props.setShareUri(uri)
+    }
+    var icon_size = 50
+    return (
+        <ViewShot
+            style={[{ backgroundColor: props.ui.current_theme.backgroundColor, margin: 10, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1, flex: 1, width: 350 }]}
+            captureMode="mount"
+            onCapture={onCapture}
+        >
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+            <CocktailListMap stock={cocktailStock} theme={props.ui.current_theme} cocktails={filteredCocktails}></CocktailListMap>
+        </ViewShot>
+    )
+}
+
 function Footer(props){
+    // console.log('Footer', props.currentMode)
     if(props.currentMode == 'delete'){
         function remove(){
             props.deleteCocktails()
@@ -312,6 +395,18 @@ function Footer(props){
                 <AppButton press={()=>props.switchMode('')}>
                     Cancel
                 </AppButton>
+            </View>
+        )
+    } else if (props.currentMode == 'share'){
+        // console.log('sharefooter')
+        function share(){
+            props.shareMenu()
+            // props.switchMode('')
+        }
+        return (
+            <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
+                <AppButton press={share}>Share Menu</AppButton>
+                <AppButton press={()=>props.switchMode('')}>Cancel</AppButton>
             </View>
         )
     } else {
@@ -356,6 +451,10 @@ function FunctionMenu(props) {
         props.unselectAllCocktails()
         props.switchMode('delete')
     }
+    function shareMode(){
+        props.unselectAllCocktails()
+        props.switchMode('share')
+    }
     function onBottomReached(){
         if(navigation.isFocused())
             props.setShowFunctionMenu(false)
@@ -392,6 +491,7 @@ function FunctionMenu(props) {
                 <FunctionMenuButton theme={props.theme} label={"Change A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Remove Cocktails"} mode="delete" switchMode={removeMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Add A Cocktail"} mode="add" switchMode={navigateToAdd} currentMode={props.currentMode} />
+                <FunctionMenuButton theme={props.theme} label={"Share Menu"} mode="share" switchMode={shareMode} currentMode={props.currentMode} hidePanel={hidePanel} />
             </View>
         </SlidingUpPanel>        
     )
@@ -412,7 +512,7 @@ function FunctionMenuButton(props){
         <AppButton press={changeMode}>{props.label}</AppButton>
     )
 }
-
+const icon_distance = 10
 const styles = StyleSheet.create({
     list: {
         flex: 1,
@@ -509,5 +609,13 @@ const styles = StyleSheet.create({
     },
     name: {
         flexDirection: 'row'
-    }
+    },
+    corner_icon: {
+        zIndex: 10,
+        position: 'absolute'
+    },
+    top_right: { top: icon_distance, right: icon_distance },
+    top_left: { top: icon_distance, left: icon_distance, transform: [{ rotate: '-90deg' }] },
+    bottom_right: { bottom: icon_distance, right: icon_distance, transform: [{ rotate: '90deg' }] },
+    bottom_left: { bottom: icon_distance, left: icon_distance, transform: [{ rotate: '180deg' }] },
 })
