@@ -5,13 +5,14 @@ import AppText from './AppText'
 import CornerIcon from '../assets/corner'
 
 export function Directions(props){
-    const [directions, setDirections] = useState(props.directions)
+    const [directions, setDirections] = useState(props.directions ? props.directions : '')
+    // console.log('dir', directions, props.directions)
     if(directions.split('\n').length > 4){
         setDirections(directions.replace(/\n/g, ' '))
     }
     return (
-        <View style={styles.directions}>
-            <AppText style={styles.directions_text}>{directions}</AppText>
+        <View style={[styles.directions, props.style]}>
+            <AppText style={[styles.directions_text, props.style]}>{directions}</AppText>
         </View>
     )
 }

@@ -51,7 +51,7 @@ export function AddedIngredient(props) {
             ]} 
             onPress={() => props.toggleEditIngredient(props.id)}
         >
-            {props.compact ? <Compact fractions={fractions} parts={props.parts} in_stock={props.in_stock} theme={props.theme} ingredient_height={ingredient_height} ingredient_name={props.ingredient_name} /> : 
+            {props.compact ? <Compact fractions={fractions} parts={props.parts} in_stock={props.in_stock} theme={props.theme} ingredient_height={ingredient_height} ingredient_name={props.ingredient_name} name_style={props.name_style} /> : 
             <View>
                 <AppText style={[styles.ingredient_text, styles.ingredient_name, { color: props.in_stock ? props.theme.color : 'grey' }, props.name_style]}>{props.ingredient_name}</AppText>
                 {/* <View style={{flexDirection: 'row'}}> */}
@@ -64,6 +64,7 @@ export function AddedIngredient(props) {
     )
 }
 function Compact(props){
+    // console.log('font', props.name_style)
     return (
         <View>
             <AppText style={[styles.ingredient_text, styles.ingredient_name, { color: props.in_stock ? props.theme.color : 'grey' }, props.name_style]}>{props.ingredient_name}</AppText>

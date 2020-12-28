@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, StyleSheet, Modal, ScrollView, Pressable, Alert, Animated, Share } from 'react-native'
+import { View, StyleSheet, Modal, ScrollView, Pressable, Alert, Animated, Share, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
@@ -265,13 +265,17 @@ function ViewCocktail(props){
             >
                 <View style={{flexDirection: 'column', alignItems: 'center', backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15,  flex: 1 }}>
                     <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} />
-                    <View style={{flex:1, alignSelf: 'stretch'}}>
-                        <AppButton style={{flex:1}} press={shareCocktail}>
-                            Share Image
-                        </AppButton>
-                        <AppButton style={{flex:1}} press={hideShareModal}>
-                            Cancel
-                        </AppButton>
+                    <View style={{ flexDirection: 'row'}}>
+                        <View style={[styles.share_btn, { marginRight: 5, flex: 1 }]} >
+                            <AppButton press={shareCocktail}>
+                                Share Image
+                            </AppButton>
+                        </View>
+                        <View style={[styles.share_btn, { marginLeft: 5, flex: 1 }]} >
+                            <AppButton style={[styles.share_btn, {marginLeft: 100}]} press={hideShareModal}>
+                                Cancel
+                            </AppButton>
+                        </View>
                     </View>
                 </View>
             </Modal>
@@ -291,9 +295,13 @@ function ShareCocktail(props){
             in_stock: true
         }
     })
+    var small_screen = Dimensions.get('window').height < 700
+    var fontSize = small_screen ? 14 : 16
+    console.log('window', Dimensions.get('window').height, fontSize)
+    var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
     return (
         <ViewShot 
-            style={[{ backgroundColor: props.ui.current_theme.backgroundColor,margin: 10, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1}, styles.share_modal]}
+            style={[{ backgroundColor: props.ui.current_theme.backgroundColor,margin: 10, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1}, modal_style]}
             captureMode="mount"
             onCapture={onCapture}
         >
@@ -308,12 +316,12 @@ function ShareCocktail(props){
                 <View >
                     {/* <AppText style={styles.category_title}>Ingredients</AppText> */}
                     <View style={{justifyContent: 'center'}}>
-                        <AddedIngredientMap compact={true} name_style={{fontSize: 16}} theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={cocktail_stock} />
+                        <AddedIngredientMap compact={true} name_style={{fontSize: fontSize}} theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={cocktail_stock} />
                     </View>
                 </View>
                 <View >
                     {/* <AppText style={styles.category_title}>Directions</AppText> */}
-                    <Directions directions={props.cocktail.directions} />
+                    <Directions directions={props.cocktail.directions} style={{fontSize}} />
                 </View>
                 <View style={{ position: 'absolute', bottom: -15, flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
                     <View style={{flex: 1, alignItems: 'center'}}>
@@ -375,12 +383,20 @@ const styles = StyleSheet.create({
     top_left: { top: icon_distance, left: icon_distance, transform: [{ rotate: '-90deg' }] },
     bottom_right: { bottom: icon_distance, right: icon_distance, transform: [{ rotate: '90deg' }] },
     bottom_left: { bottom: icon_distance, left: icon_distance, transform: [{ rotate: '180deg' }] },
-    share_modal: {
+    small_share_modal: {
         // maxHeight: 575,
         // maxWidth: 400,
         // minHeight: 500,
         // minWidth: 350
-        height: 575,
-        width: 400
+        height: 550,
+        width: 350
+    },
+    large_share_modal: {
+        height: 600,
+        width: 350
+    },  
+    share_btn: {
+        // flex: 1,
+
     }
 })
