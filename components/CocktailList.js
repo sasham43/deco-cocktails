@@ -309,7 +309,7 @@ function CocktailList(props){
             >
                 <View style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15, flex: 1 }}>
                     {/* <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} /> */}
-                    <ShareMenu ui={props.ui} setShareUri={setShareUri} cocktails={cocktails} />
+                    <ShareMenu ui={props.ui} setShareUri={setShareUri} cocktails={cocktails} title={props.ui.title} />
                     <View style={{ flexDirection: 'row' }}>
                         <View style={[styles.share_btn, { marginRight: 5, flex: 1 }]} >
                             <AppButton press={shareMenu}>
@@ -357,6 +357,9 @@ function ShareMenu(props){
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+            <View style={{flexDirection: 'row', alignSelf: 'center'}}>
+                <AppText style={{fontSize: 30}}>{props.title}</AppText>
+            </View>
             <CocktailListMap stock={cocktailStock} theme={props.ui.current_theme} cocktails={filteredCocktails}></CocktailListMap>
         </ViewShot>
     )
