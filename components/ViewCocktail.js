@@ -304,16 +304,21 @@ function ShareCocktail(props){
             <View>
                 <AppText style={styles.cocktail_title}>{props.cocktail.name}</AppText>
             </View>
-            <View style={{justifyContent: 'flex-end'}}>
-                <View>
+            <View style={{justifyContent: 'flex-start', flex: 1, paddingTop: 5}}>
+                <View >
                     {/* <AppText style={styles.category_title}>Ingredients</AppText> */}
                     <View style={{justifyContent: 'center'}}>
                         <AddedIngredientMap compact={true} name_style={{fontSize: 16}} theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={cocktail_stock} />
                     </View>
                 </View>
-                <View>
+                <View >
                     {/* <AppText style={styles.category_title}>Directions</AppText> */}
                     <Directions directions={props.cocktail.directions} />
+                </View>
+                <View style={{ position: 'absolute', bottom: -15, flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
+                    <View style={{flex: 1, alignItems: 'center'}}>
+                        <AppText style={{fontSize: 10, color: 'grey'}}>Crump Cocktails</AppText>
+                    </View>
                 </View>
             </View>
         </ViewShot>
