@@ -63,13 +63,13 @@ function Name(props) {
     if (props.last) {
         return (
             <View style={styles.name}>
-                <AppText style={{ color: props.in_stock ? props.theme.color : 'grey' }}> {props.ingredient_name}</AppText>
+                <AppText style={{ fontSize: props.fontSize, color: props.in_stock ? props.theme.color : 'grey' }}> {props.ingredient_name}</AppText>
             </View>
         )
     } else {
         return (
             <View style={styles.name}>
-                <AppText style={{ color: props.in_stock ? props.theme.color : 'grey' }}> {props.ingredient_name}</AppText><AppText> |</AppText>
+                <AppText style={{ fontSize: props.fontSize, color: props.in_stock ? props.theme.color : 'grey' }}> {props.ingredient_name}</AppText><AppText> |</AppText>
             </View>
         )
     }
@@ -78,11 +78,12 @@ function NameMap(props) {
     function isInStock(name){
         return props.current_stock.includes(name.trim()) 
     }
+    // var fontSize = props.fontSize ? props.fontSize : null // ??
     return (
-        <View style={styles.name_container}>
+        <View style={[styles.name_container, props.size == 'small' ? {marginTop: 3} : null]}>
             {props.ingredients.map((ingredient, i) => (
                 <View key={`part-${i}`}>
-                    <Name theme={props.theme} in_stock={isInStock(ingredient.ingredient_name)} ingredient_name={ingredient.ingredient_name} last={(i + 1 == props.ingredients.length)} />
+                    <Name fontSize={props.fontSize} theme={props.theme} in_stock={isInStock(ingredient.ingredient_name)} ingredient_name={ingredient.ingredient_name} last={(i + 1 == props.ingredients.length)} />
                 </View>
             ))}
         </View>
@@ -141,12 +142,25 @@ function CocktailListMap(props) {
             return 0
         }
     }
+    // var nameSize = props.fontSize - 2
+    var marginBottom, fontSize, nameSize, shapeSize
+    if(props.size == 'small'){
+        nameSize = 9
+        marginBottom = 5
+        fontSize = 12
+        shapeSize = 5
+    } else {
+        marginBottom = 30
+        fontSize = 20
+        nameSize = 14
+        shapeSize = 9
+    }
     
     // sort cocktails and return a View for each
     return props.cocktails.sort(sortCocktails).map(cocktail =>
         
         (
-            <View style={[styles.cocktail_container, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor, borderColor: props.theme.borderColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
+            <View style={[styles.cocktail_container, {marginBottom: marginBottom}, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor, borderColor: props.theme.borderColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
                 <View style={[{flex: 1, position: 'absolute', left: -40}]}>
                     <CocktailToggle cocktail={cocktail} theme={props.theme} selectCocktail={props.selectCocktail} currentMode={props.currentMode} />
                 </View>
@@ -158,13 +172,13 @@ function CocktailListMap(props) {
                 >
                     <View style={[styles.cocktail_name_container]}>
                         <AppText>
-                            <Text style={[styles.cocktail_text, {fontSize: props.fontSize}, props.theme]}>
+                            <Text style={[styles.cocktail_text, {fontSize: fontSize}, props.theme]}>
                                 {cocktail.name}
                             </Text>
                         </AppText>
                     </View>
-                    <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(filterIngredients))} />
-                    <NameMap theme={props.theme} current_stock={current_stock} ingredients={sortedIngredients(cocktail.ingredients)} />
+                    <PartMap height={shapeSize} width={shapeSize} ingredients={sortedIngredients(cocktail.ingredients.filter(filterIngredients))} />
+                    <NameMap size={props.size} fontSize={nameSize} theme={props.theme} current_stock={current_stock} ingredients={sortedIngredients(cocktail.ingredients)} />
                 </Pressable>
             </View>
         )
@@ -277,7 +291,7 @@ function CocktailList(props){
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}
         > 
             <ScrollView style={[styles.scroll_view, currentMode == 'delete' || currentMode == 'share' ? {paddingLeft: 50}:null]}>
-                <CocktailListMap stock={props.stock.current} theme={props.ui.current_theme} cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} selectCocktail={props.selectCocktail} currentMode={currentMode}></CocktailListMap>
+                <CocktailListMap fontSize={styles.cocktail_text.fontSize} stock={props.stock.current} theme={props.ui.current_theme} cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} selectCocktail={props.selectCocktail} currentMode={currentMode}></CocktailListMap>
                 <View style={{marginTop:50, height: 20}}></View>
             </ScrollView>
 
@@ -333,20 +347,32 @@ function getShareStyle(ui, length){
     var height = ui.default_styles.window.height
     const style = {}
 
+    var small_font = 14
+    var large_font = 20
+    var small_margin = 20
+
     // small, e.g. iPhone 8
     if(width < 700){
         if(length <= 4) {
-            style.fontSize = 20
+            style.fontSize = large_font
         } else {
-            style.fontSize = 14
+            style.fontSize = small_font
+            style.marginBottom = small_margin
+            style.size = 'small'
         }
         style.menu_width = 350
     } else if (width > 1000){
-        style.fontSize = 14
+        style.fontSize = small_font
         style.menu_width = 700
     } else {
-        style.fontSize = 14
+        style.fontSize = small_font
         
+    }
+    
+    if(style.fontSize == small_font){
+        style.shape_size = 7
+    } else {
+        style.shape_size = 9
     }
     console.log('style', style)
 
@@ -368,7 +394,7 @@ function ShareMenu(props){
         })
     })
     function onCapture(uri){
-        console.log('captured menu uri', uri)
+        // console.log('captured menu uri', uri)
         props.setShareUri(uri)
     }
     var icon_size = 50 // generate this below?
@@ -386,7 +412,7 @@ function ShareMenu(props){
             <View style={{flexDirection: 'row', alignSelf: 'center'}}>
                 <AppText style={{fontSize: 30}}>{props.title}</AppText>
             </View>
-            <CocktailListMap fontSize={share_style.fontSize} stock={cocktailStock} theme={props.ui.current_theme} cocktails={filteredCocktails}></CocktailListMap>
+            <CocktailListMap size={share_style.size} marginBottom={share_style.marginBottom} fontSize={share_style.fontSize} shapeSize={share_style.shape_size} stock={cocktailStock} theme={props.ui.current_theme} cocktails={filteredCocktails}></CocktailListMap>
         </ViewShot>
     )
 }

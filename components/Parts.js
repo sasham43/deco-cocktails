@@ -6,6 +6,7 @@ import { ShapeMap } from './Shapes'
 
 
 export function Part(props) {
+    // console.log('Part', props.height)
     if (props.last) {
         return (
             <View style={[props.style, { flexDirection: 'row' }]}>
@@ -22,6 +23,7 @@ export function Part(props) {
     }
 }
 export function PartMap(props) {
+    // console.log('PartMap', props.height)
     return (
         <View style={styles.part_map_container}>
             {props.ingredients.map((ingredient, i) => (
