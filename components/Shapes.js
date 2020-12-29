@@ -73,11 +73,14 @@ function Shape(props) {
 }
 export function ShapeMap(props) {
     var shape_array = buildPartArray(props.parts)
+    var height = props.height ? props.height : 9
+    var width = props.width ? props.width : 9
+    
     return shape_array.map((part, i) => {
         var key = generate()
         return (
             <View key={key} style={[styles.shape_container, getShapeMargin(part)]}>
-                <ConnectedShape height={9} width={9} part={part} />
+                <ConnectedShape height={height} width={width} part={part} />
             </View>
         )
     })

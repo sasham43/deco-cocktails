@@ -9,13 +9,13 @@ export function Part(props) {
     if (props.last) {
         return (
             <View style={[props.style, { flexDirection: 'row' }]}>
-                <ShapeMap parts={props.parts} last={props.last} />
+                <ShapeMap height={props.height} width={props.width} parts={props.parts} last={props.last} />
             </View>
         )
     } else {
         return (
             <View style={{ flexDirection: 'row', marginRight: 10 }}>
-                <ShapeMap parts={props.parts} last={props.last} />
+                <ShapeMap height={props.height} width={props.width} parts={props.parts} last={props.last} />
                 <AppText>|</AppText>
             </View>
         )
@@ -26,7 +26,7 @@ export function PartMap(props) {
         <View style={styles.part_map_container}>
             {props.ingredients.map((ingredient, i) => (
                 <View style={styles.part_container} key={`part-${i}`}>
-                    <Part parts={ingredient.parts} last={(i + 1 == props.ingredients.length)} />
+                    <Part height={props.height} width={props.width} parts={ingredient.parts} last={(i + 1 == props.ingredients.length)} />
                 </View>
             ))}
         </View>
