@@ -63,7 +63,7 @@ function Name(props) {
     if (props.last) {
         return (
             <View style={styles.name}>
-                <AppText style={{ fontSize: props.fontSize, color: props.in_stock ? props.theme.color : 'grey' }}> {props.ingredient_name}</AppText>
+                <AppText style={{ fontSize: props.fontSize, color: props.in_stock ? props.theme.color : 'grey' }}> {props.ingredient_name}</AppText><AppText> </AppText>
             </View>
         )
     } else {
@@ -80,7 +80,7 @@ function NameMap(props) {
     }
     // var fontSize = props.fontSize ? props.fontSize : null // ??
     return (
-        <View style={[styles.name_container, props.size == 'small' ? {marginTop: 3} : null]}>
+        <View style={[styles.name_container, props.size == 'small' ? {marginTop: 6} : null]}>
             {props.ingredients.map((ingredient, i) => (
                 <View key={`part-${i}`}>
                     <Name fontSize={props.fontSize} theme={props.theme} in_stock={isInStock(ingredient.ingredient_name)} ingredient_name={ingredient.ingredient_name} last={(i + 1 == props.ingredients.length)} />
@@ -144,7 +144,12 @@ function CocktailListMap(props) {
     }
     // var nameSize = props.fontSize - 2
     var marginBottom, fontSize, nameSize, shapeSize
-    if(props.size == 'small'){
+    if(props.size == 'extra_small'){
+        nameSize = 8
+        marginBottom = 2
+        fontSize = 10
+        shapeSize = 4
+    } else if(props.size == 'small'){
         nameSize = 9
         marginBottom = 5
         fontSize = 12
@@ -358,7 +363,7 @@ function getShareStyle(ui, length){
         } else {
             style.fontSize = small_font
             style.marginBottom = small_margin
-            style.size = 'small'
+            style.size = 'extra_small'
         }
         style.menu_width = 350
     } else if (width > 1000){
@@ -366,13 +371,20 @@ function getShareStyle(ui, length){
         style.menu_width = 700
     } else {
         style.fontSize = small_font
-        
+        style.size = 'small'
     }
     
     if(style.fontSize == small_font){
         style.shape_size = 7
     } else {
         style.shape_size = 9
+    }
+    if(style.size == 'extra_small'){
+        style.titleSize = 20
+    } else if (style.size == 'small'){
+        style.titleSize = 25
+    } else {
+        style.titleSize = 30
     }
     console.log('style', style)
 
@@ -410,7 +422,7 @@ function ShareMenu(props){
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
             <View style={{flexDirection: 'row', alignSelf: 'center'}}>
-                <AppText style={{fontSize: 30}}>{props.title}</AppText>
+                <AppText style={{fontSize: share_style.titleSize}}>{props.title}</AppText>
             </View>
             <CocktailListMap size={share_style.size} marginBottom={share_style.marginBottom} fontSize={share_style.fontSize} shapeSize={share_style.shape_size} stock={cocktailStock} theme={props.ui.current_theme} cocktails={filteredCocktails}></CocktailListMap>
         </ViewShot>
@@ -663,7 +675,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     name: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     corner_icon: {
         zIndex: 10,
