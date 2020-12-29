@@ -158,7 +158,7 @@ function CocktailListMap(props) {
                 >
                     <View style={[styles.cocktail_name_container]}>
                         <AppText>
-                            <Text style={[styles.cocktail_text, props.theme]}>
+                            <Text style={[styles.cocktail_text, {fontSize: props.fontSize}, props.theme]}>
                                 {cocktail.name}
                             </Text>
                         </AppText>
@@ -328,6 +328,31 @@ function CocktailList(props){
     )
 }
 
+function getShareStyle(ui, length){
+    var width = ui.default_styles.window.width
+    var height = ui.default_styles.window.height
+    const style = {}
+
+    // small, e.g. iPhone 8
+    if(width < 700){
+        if(length <= 4) {
+            style.fontSize = 20
+        } else {
+            style.fontSize = 14
+        }
+        style.menu_width = 350
+    } else if (width > 1000){
+        style.fontSize = 14
+        style.menu_width = 700
+    } else {
+        style.fontSize = 14
+        
+    }
+    console.log('style', style)
+
+    return style
+}
+
 function ShareMenu(props){
     var filteredCocktails = props.cocktails.filter(c=>c.selected)
     var cocktailStock = []
@@ -346,10 +371,11 @@ function ShareMenu(props){
         console.log('captured menu uri', uri)
         props.setShareUri(uri)
     }
-    var icon_size = 50
+    var icon_size = 50 // generate this below?
+    const share_style = getShareStyle(props.ui, filteredCocktails.length)
     return (
         <ViewShot
-            style={[{ backgroundColor: props.ui.current_theme.backgroundColor, margin: 10, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1, flex: 1, width: 350 }]}
+            style={[{ backgroundColor: props.ui.current_theme.backgroundColor, margin: 10, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1, flex: 1, width: share_style.menu_width }]}
             captureMode="mount"
             onCapture={onCapture}
         >
@@ -360,7 +386,7 @@ function ShareMenu(props){
             <View style={{flexDirection: 'row', alignSelf: 'center'}}>
                 <AppText style={{fontSize: 30}}>{props.title}</AppText>
             </View>
-            <CocktailListMap stock={cocktailStock} theme={props.ui.current_theme} cocktails={filteredCocktails}></CocktailListMap>
+            <CocktailListMap fontSize={share_style.fontSize} stock={cocktailStock} theme={props.ui.current_theme} cocktails={filteredCocktails}></CocktailListMap>
         </ViewShot>
     )
 }
