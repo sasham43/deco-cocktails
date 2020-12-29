@@ -6,17 +6,18 @@ var default_cocktails = defaultCocktails()
 const INITIAL_STATE = {
     current: [...default_cocktails],
     possible: [],
-    slider: 0
+    slider: 0,
+    selected: []
 }
 
 const cocktailReducer = (state = INITIAL_STATE, action) => {    
-    const { current } = state
+    const { current, selected } = state
     switch (action.type){
         case 'ADD_COCKTAIL':
             const new_cocktail = action.payload
             current.push(new_cocktail)
 
-            const newState = {current}
+            const newState = {current, selected}
 
             return newState
         case 'UPDATE_COCKTAILS':
@@ -29,32 +30,32 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
                 }
             })
 
-            const updatedState = {current: updated_current}
+            const updatedState = {current: updated_current, selected}
 
             return updatedState
         case 'DELETE_COCKTAIL':
             const delete_id = action.payload
             const deleted = current.filter(c=>c.id != delete_id)
 
-            const deleteState = {current: deleted}
+            const deleteState = {current: deleted, selected}
 
             return deleteState
         case 'DELETE_COCKTAILS':
             const not_deleted = current.filter(c=>!c.selected)
 
-            const notDeleteState = {current: not_deleted}
+            const notDeleteState = {current: not_deleted, selected}
 
             return notDeleteState
         case 'SELECT_COCKTAIL':
             const select_id = action.payload
-            const selected = current.map(c=>{
+            const selected_cocktails = current.map(c=>{
                 if(c.id == select_id){
                     c.selected = !c.selected
                 }
                 return c
             })
 
-            const selectState = {current: selected}
+            const selectState = {current: selected_cocktails, selected: selected_cocktails.filter(s=>s.selected)}
 
             return selectState
         case 'UNSELECT_ALL':
@@ -62,12 +63,13 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
                 current: current.map(c => {
                     c.selected = false
                     return c
-                })
+                }),
+                selected
             }
         case 'CHANGE_COCKTAIL_SLIDER':
             const slider_val = action.payload
 
-            return {current, slider: slider_val}
+            return {current, slider: slider_val, selected}
         case 'RESET':
             return INITIAL_STATE
         default:
