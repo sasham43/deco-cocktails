@@ -114,6 +114,12 @@ function CocktailListMap(props) {
             })
         } else if (currentMode == 'delete'){
             props.selectCocktail(cocktail.id)
+        } else if (currentMode == 'share'){
+            if(props.selected < props.max){
+                props.selectCocktail(cocktail.id)
+            } else if (props.selected >= props.max && cocktail.selected){
+                props.selectCocktail(cocktail.id)
+            }
         }
     }
 
@@ -167,7 +173,7 @@ function CocktailListMap(props) {
         (
             <View style={[styles.cocktail_container, {marginBottom: marginBottom}, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor, borderColor: props.theme.borderColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
                 <View style={[{flex: 1, position: 'absolute', left: -40}]}>
-                    <CocktailToggle disabled={props.selected >= props.max} cocktail={cocktail} theme={props.theme} selectCocktail={props.selectCocktail} currentMode={props.currentMode} />
+                    <CocktailToggle cocktail={cocktail} theme={props.theme} selectCocktail={props.selectCocktail} currentMode={props.currentMode} />
                 </View>
                 <Pressable 
                     onPress={() => selectCocktail(cocktail, props.currentMode)} 
@@ -193,18 +199,18 @@ function CocktailListMap(props) {
 function CocktailToggle(props){
     // console.log('CocktailToggle', props.disabled)
     var size = 35
-    var disabled = props.disabled ? props.disabled : false
-    function selectCocktail(id){
-        if(!disabled){
-            props.selectCocktail(id)
-        } else if (props.cocktail.selected && disabled){
-            props.selectCocktail(id)
-        }
-        // console.log('disabled?', disabled, props.cocktail.selected)
-    }
+    // var disabled = props.disabled ? props.disabled : false
+    // function selectCocktail(id){
+    //     if(!disabled){
+    //         props.selectCocktail(id)
+    //     } else if (props.cocktail.selected && disabled){
+    //         props.selectCocktail(id)
+    //     }
+    //     // console.log('disabled?', disabled, props.cocktail.selected)
+    // }
     if(props.currentMode == 'delete' || props.currentMode == 'share'){
         return (
-            <Pressable onPress={() => selectCocktail(props.cocktail.id)}>
+            <Pressable onPress={() => props.selectCocktail(props.cocktail.id)}>
                 <AppText>{props.cocktail.selected}</AppText>
                 <InStockIcon transform={[{ rotate: '-45deg' }]} width={size} height={size} fill={props.cocktail.selected ? props.theme.color : 'grey'} />
             </Pressable>
@@ -283,10 +289,12 @@ function CocktailList(props){
     }
 
     function getScreenSize(ui){
-        var width = ui.default_styles.window.width
-        if(width < 700){
+        // var width = ui.default_styles.window.width
+        var height = ui.default_styles.window.height
+        console.log('height', height)
+        if(height < 820){
             return 'small'
-        } else if (width >= 700 && width < 850){
+        } else if (height >= 820 && height < 900){
             return 'medium'
         } else {
             return 'large'
@@ -444,7 +452,7 @@ function getShareStyle(ui, length){
     } else {
         style.titleSize = 30
     }
-    console.log('style', style)
+    // console.log('style', style)
 
     return style
 }
@@ -530,7 +538,7 @@ function Footer(props){
         }
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-                <AppButton press={share}>Share Menu ({props.selected}/{props.max})</AppButton>
+                <AppButton disabled={props.selected == 0} press={share}>Share Menu ({props.selected}/{props.max})</AppButton>
                 <AppButton press={()=>props.switchMode('')}>Cancel</AppButton>
             </View>
         )
