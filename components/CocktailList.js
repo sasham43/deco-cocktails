@@ -167,7 +167,7 @@ function CocktailListMap(props) {
         (
             <View style={[styles.cocktail_container, {marginBottom: marginBottom}, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor, borderColor: props.theme.borderColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
                 <View style={[{flex: 1, position: 'absolute', left: -40}]}>
-                    <CocktailToggle cocktail={cocktail} theme={props.theme} selectCocktail={props.selectCocktail} currentMode={props.currentMode} />
+                    <CocktailToggle disabled={props.selected >= props.max} cocktail={cocktail} theme={props.theme} selectCocktail={props.selectCocktail} currentMode={props.currentMode} />
                 </View>
                 <Pressable 
                     onPress={() => selectCocktail(cocktail, props.currentMode)} 
@@ -191,10 +191,20 @@ function CocktailListMap(props) {
 }
 
 function CocktailToggle(props){
+    // console.log('CocktailToggle', props.disabled)
     var size = 35
+    var disabled = props.disabled ? props.disabled : false
+    function selectCocktail(id){
+        if(!disabled){
+            props.selectCocktail(id)
+        } else if (props.cocktail.selected && disabled){
+            props.selectCocktail(id)
+        }
+        // console.log('disabled?', disabled, props.cocktail.selected)
+    }
     if(props.currentMode == 'delete' || props.currentMode == 'share'){
         return (
-            <Pressable onPress={() => props.selectCocktail(props.cocktail.id)}>
+            <Pressable onPress={() => selectCocktail(props.cocktail.id)}>
                 <AppText>{props.cocktail.selected}</AppText>
                 <InStockIcon transform={[{ rotate: '-45deg' }]} width={size} height={size} fill={props.cocktail.selected ? props.theme.color : 'grey'} />
             </Pressable>
@@ -211,13 +221,18 @@ function filterIngredients(i){
 
 function CocktailList(props){
     const cocktails = props.cocktails.current
+    // console.log('props.cocktails', props.cocktails.selected)
+    const selectedCocktails = props.cocktails.selected ? props.cocktails.selected : []
     const { 
         currentMode, 
         switchMode 
     } = useFunctionMenu()
     const [cocktailSearch, setCocktailSearch] = useState('')
     const [filteredCocktails, setFilteredCocktails] = useState([])
+    // const [selectedCocktailsLength, setSelectedCocktailsLength] = useState([])
+    const [shareMax, setShareMax] = useState(0)
     const [showFunctionMenu, setShowFunctionMenu] = useState(false)
+
     const navigation = useNavigation()
 
     const [modalVisible, setModalVisible] = useState(false)
@@ -233,6 +248,14 @@ function CocktailList(props){
     useEffect(()=>{
         filterCocktails()
     }, [props.route.params])
+    useEffect(()=>{
+        var screen_size = getScreenSize(props.ui)
+        var max = getShareMax(screen_size)
+        setShareMax(max)
+    }, [selectedCocktails])
+    // useEffect(()=>{
+    //     setSelectedCocktailsLength(filteredCocktails.filter(f => f.selected).length)
+    // }, [])
 
     function filterCocktails() {
         if (cocktailSearch == '') {
@@ -256,8 +279,31 @@ function CocktailList(props){
         })
 
         setFilteredCocktails(filtered)
+        // setSelectedCocktails(filtered.filter(f=>f.selected))
     }
 
+    function getScreenSize(ui){
+        var width = ui.default_styles.window.width
+        if(width < 700){
+            return 'small'
+        } else if (width >= 700 && width < 850){
+            return 'medium'
+        } else {
+            return 'large'
+        }
+    }
+    function getShareMax(screen_size){
+        switch(screen_size){
+            case 'extra_small':
+                return 4
+            case 'small':
+                return 7
+            case 'medium':
+                return 10
+            case 'large':
+                return 15
+        }
+    }
     function onSwipeLeft(){
         // cabinet
         navigation.navigate('Stock')
@@ -296,7 +342,17 @@ function CocktailList(props){
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}
         > 
             <ScrollView style={[styles.scroll_view, currentMode == 'delete' || currentMode == 'share' ? {paddingLeft: 50}:null]}>
-                <CocktailListMap fontSize={styles.cocktail_text.fontSize} stock={props.stock.current} theme={props.ui.current_theme} cocktails={filteredCocktails} deleteCocktail={props.deleteCocktail} selectCocktail={props.selectCocktail} currentMode={currentMode}></CocktailListMap>
+                <CocktailListMap 
+                    fontSize={styles.cocktail_text.fontSize} 
+                    stock={props.stock.current} 
+                    theme={props.ui.current_theme} 
+                    cocktails={filteredCocktails} 
+                    deleteCocktail={props.deleteCocktail} 
+                    selectCocktail={props.selectCocktail} 
+                    currentMode={currentMode}
+                    max={shareMax}
+                    selected={selectedCocktails.length}
+                ></CocktailListMap>
                 <View style={{marginTop:50, height: 20}}></View>
             </ScrollView>
 
@@ -319,6 +375,8 @@ function CocktailList(props){
                 currentMode={currentMode} 
                 switchMode={switchMode} 
                 shareMenu={showShareModal}
+                selected={selectedCocktails.length}
+                max={shareMax}
             />
 
             <Modal
@@ -472,7 +530,7 @@ function Footer(props){
         }
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-                <AppButton press={share}>Share Menu</AppButton>
+                <AppButton press={share}>Share Menu ({props.selected}/{props.max})</AppButton>
                 <AppButton press={()=>props.switchMode('')}>Cancel</AppButton>
             </View>
         )
