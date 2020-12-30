@@ -100,6 +100,7 @@ function NameMap(props) {
 function CocktailListMap(props) {
     const navigation = useNavigation()
     const [maxHeight, setMaxHeight] = useState(0)
+    const [marginBottom, setMarginBottom] = useState(35)
     // const [cocktailHeights, setCocktailHeights] = useState([0])
 
     // useEffect(()=>{
@@ -108,11 +109,16 @@ function CocktailListMap(props) {
     //     console.log('setting', maxHeight)
     // }, [cocktailHeights])
     useEffect(()=>{
+        if(props.share == true){
+            setMarginBottom(10)
+        }
+    }, [])
+    useEffect(()=>{
         console.log('changing max height', props.setShareMenuMax)
         if(props.setShareMenuMax){
             console.log('container height', (props.ui.default_styles.window.height - 117), props.ui.default_styles.window.height)
-            console.log('cocktail height', maxHeight+35, maxHeight)
-            props.setShareMenuMax(Math.floor((props.ui.default_styles.window.height - 117) / (maxHeight+35)))
+            console.log('cocktail height', maxHeight+10, maxHeight)
+            props.setShareMenuMax(Math.floor((props.ui.default_styles.window.height - 117) / (maxHeight+10)))
         }
     }, [maxHeight])
 
@@ -168,23 +174,23 @@ function CocktailListMap(props) {
         }
     }
     // var nameSize = props.fontSize - 2
-    var marginBottom, fontSize, nameSize, shapeSize
-    if(props.size == 'extra_small'){
-        nameSize = 8
-        marginBottom = 2
-        fontSize = 10
-        shapeSize = 4
-    } else if(props.size == 'small'){
-        nameSize = 9
-        marginBottom = 5
-        fontSize = 12
-        shapeSize = 5
-    } else {
-        marginBottom = 30
-        fontSize = 20
-        nameSize = 14
-        shapeSize = 9
-    }
+    // var marginBottom, fontSize, nameSize, shapeSize
+    // if(props.size == 'extra_small'){
+    //     nameSize = 8
+    //     marginBottom = 2
+    //     fontSize = 10
+    //     shapeSize = 4
+    // } else if(props.size == 'small'){
+    //     nameSize = 9
+    //     marginBottom = 5
+    //     fontSize = 12
+    //     shapeSize = 5
+    // } else {
+    //     marginBottom = 30
+    //     fontSize = 20
+    //     nameSize = 14
+    //     shapeSize = 9
+    // }
     function layout(evt, cocktail){
         // console.log('cocktail:', cocktail.name, evt.nativeEvent.layout.height, maxHeight)
         if (evt.nativeEvent.layout.height > maxHeight) {
@@ -211,13 +217,14 @@ function CocktailListMap(props) {
                 >
                     <View style={[styles.cocktail_name_container]}>
                         <AppText>
-                            <Text style={[styles.cocktail_text, {fontSize: fontSize}, props.theme]}>
-                                {cocktail.name} {maxHeight}
+                            <Text style={[styles.cocktail_text, props.theme]}>
+                                {cocktail.name} 
+                                {/* {maxHeight} */}
                             </Text>
                         </AppText>
                     </View>
-                    <PartMap height={shapeSize} width={shapeSize} ingredients={sortedIngredients(cocktail.ingredients.filter(filterIngredients))} />
-                    <NameMap size={props.size} fontSize={nameSize} theme={props.theme} current_stock={current_stock} ingredients={sortedIngredients(cocktail.ingredients)} />
+                    <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(filterIngredients))} />
+                    <NameMap theme={props.theme} current_stock={current_stock} ingredients={sortedIngredients(cocktail.ingredients)} />
                 </Pressable>
             </View>
         )
@@ -310,30 +317,30 @@ function CocktailList(props){
         // setSelectedCocktails(filtered.filter(f=>f.selected))
     }
 
-    function getScreenSize(ui){
-        // var width = ui.default_styles.window.width
-        var height = ui.default_styles.window.height
-        console.log('height', height)
-        if(height < 820){
-            return 'small'
-        } else if (height >= 820 && height < 900){
-            return 'medium'
-        } else {
-            return 'large'
-        }
-    }
-    function getShareMax(screen_size){
-        switch(screen_size){
-            case 'extra_small':
-                return 4
-            case 'small':
-                return 7
-            case 'medium':
-                return 10
-            case 'large':
-                return 15
-        }
-    }
+    // function getScreenSize(ui){
+    //     // var width = ui.default_styles.window.width
+    //     var height = ui.default_styles.window.height
+    //     console.log('height', height)
+    //     if(height < 820){
+    //         return 'small'
+    //     } else if (height >= 820 && height < 900){
+    //         return 'medium'
+    //     } else {
+    //         return 'large'
+    //     }
+    // }
+    // function getShareMax(screen_size){
+    //     switch(screen_size){
+    //         case 'extra_small':
+    //             return 4
+    //         case 'small':
+    //             return 7
+    //         case 'medium':
+    //             return 10
+    //         case 'large':
+    //             return 15
+    //     }
+    // }
     function onSwipeLeft(){
         // cabinet
         navigation.navigate('Stock')
@@ -352,8 +359,18 @@ function CocktailList(props){
     }
     function shareMenu(){
             // console.log('share')
+        // var title = props.ui.title == 'Crump Cocktails' ? 'Menu by Crump Cocktails' : 
+        var title
+        switch(title){
+            case 'Crump Cocktails':
+            case '':
+                title = 'Menu by Crump Cocktails'
+                break
+            default:
+                title = `${props.ui.title} by Crump Cocktails`
+        }
         Share.share({
-            message: `Menu by Crump Cocktails`,
+            message: title,
             url: shareUri
         })
         .then((res) => {
@@ -514,7 +531,9 @@ function ShareMenu(props){
             <View style={{flexDirection: 'row', alignSelf: 'center'}}>
                 <AppText style={{fontSize: share_style.titleSize}}>{props.title}</AppText>
             </View>
-            <CocktailListMap size={share_style.size} marginBottom={share_style.marginBottom} fontSize={share_style.fontSize} shapeSize={share_style.shape_size} stock={cocktailStock} theme={props.ui.current_theme} cocktails={filteredCocktails}></CocktailListMap>
+            <View style={{justifyContent: 'space-around', flexDirection: 'column', flex:1}}>
+                <CocktailListMap share={true} stock={cocktailStock} theme={props.ui.current_theme} cocktails={filteredCocktails}></CocktailListMap>
+            </View>
         </ViewShot>
     )
 }
