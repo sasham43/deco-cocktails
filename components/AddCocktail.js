@@ -445,6 +445,7 @@ function Add(props){
                     clearButtonMode={"always"}
                     placeholderTextColor={"grey"}
                     autoCapitalize={"words"}
+                    maxLength={100}
                 />
                 <View style={styles.header_buttons}>
                     <Pressable onPress={() => setContentMode('ingredients')} style={styles.category_title_container}>
@@ -519,6 +520,7 @@ function AddIngredientModal(props){
                         placeholder="Ingredient..." 
                         placeholderTextColor={"grey"}
                         autoCapitalize={"words"}
+                        maxLength={100}
                     />
                     <RNPickerSelect
                         key={props.newCocktailIngredientParts}
