@@ -254,7 +254,6 @@ function filterIngredients(i){
 
 function CocktailList(props){
     const cocktails = props.cocktails.current
-    // console.log('props.cocktails', props.cocktails.selected)
     const selectedCocktails = props.cocktails.selected ? props.cocktails.selected : []
     const { 
         currentMode, 
@@ -262,8 +261,6 @@ function CocktailList(props){
     } = useFunctionMenu()
     const [cocktailSearch, setCocktailSearch] = useState('')
     const [filteredCocktails, setFilteredCocktails] = useState([])
-    // const [selectedCocktailsLength, setSelectedCocktailsLength] = useState([])
-    // const [shareMax, setShareMax] = useState(0)
     const [showFunctionMenu, setShowFunctionMenu] = useState(false)
 
     const navigation = useNavigation()
@@ -283,15 +280,7 @@ function CocktailList(props){
     useEffect(()=>{
         filterCocktails()
     }, [props.route.params])
-    // useEffect(()=>{
-    //     var screen_size = getScreenSize(props.ui)
-    //     var max = getShareMax(screen_size)
-    //     setShareMax(max)
-    // }, [selectedCocktails])
-    // useEffect(()=>{
-    //     setSelectedCocktailsLength(filteredCocktails.filter(f => f.selected).length)
-    // }, [])
-
+  
     function filterCocktails() {
         if (cocktailSearch == '') {
             return setFilteredCocktails([...cocktails])
@@ -314,33 +303,8 @@ function CocktailList(props){
         })
 
         setFilteredCocktails(filtered)
-        // setSelectedCocktails(filtered.filter(f=>f.selected))
     }
 
-    // function getScreenSize(ui){
-    //     // var width = ui.default_styles.window.width
-    //     var height = ui.default_styles.window.height
-    //     console.log('height', height)
-    //     if(height < 820){
-    //         return 'small'
-    //     } else if (height >= 820 && height < 900){
-    //         return 'medium'
-    //     } else {
-    //         return 'large'
-    //     }
-    // }
-    // function getShareMax(screen_size){
-    //     switch(screen_size){
-    //         case 'extra_small':
-    //             return 4
-    //         case 'small':
-    //             return 7
-    //         case 'medium':
-    //             return 10
-    //         case 'large':
-    //             return 15
-    //     }
-    // }
     function onSwipeLeft(){
         // cabinet
         navigation.navigate('Stock')
@@ -456,22 +420,13 @@ function CocktailList(props){
 
 function getShareStyle(ui, length){
     var width = ui.default_styles.window.width
-    var height = ui.default_styles.window.height
+    // var height = ui.default_styles.window.height
     const style = {}
 
-    var small_font = 14
-    var large_font = 20
-    var small_margin = 20
 
     // small, e.g. iPhone 8
     if(width < 700){
-        // if(length <= 4) {
-        //     style.fontSize = large_font
-        // } else {
-        //     style.fontSize = small_font
-        //     style.marginBottom = small_margin
-        //     style.size = 'extra_small'
-        // }
+
         style.menu_width = 350
     } else if (width > 1000){
         // style.fontSize = small_font
@@ -480,20 +435,6 @@ function getShareStyle(ui, length){
         // style.fontSize = small_font
         // style.size = 'small'
     }
-    
-    // if(style.fontSize == small_font){
-    //     style.shape_size = 7
-    // } else {
-    //     style.shape_size = 9
-    // }
-    // if(style.size == 'extra_small'){
-    //     style.titleSize = 20
-    // } else if (style.size == 'small'){
-    //     style.titleSize = 25
-    // } else {
-    //     style.titleSize = 30
-    // }
-    // console.log('style', style)
 
     return style
 }
