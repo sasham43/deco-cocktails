@@ -44,6 +44,9 @@ const INITIAL_STATE = {
     },
     // current_theme: {},
     border_color: '#ccc',
+    share: {
+        menu_max: 4
+    },
     default_styles: {
         window: {
             width: windowWidth,
@@ -79,7 +82,8 @@ const uiReducer = (state = INITIAL_STATE, action) => {
         default_styles,
         button_borders,
         border_color,
-        title
+        title,
+        share
     } = state
     switch (action.type){
         case 'SET_DARK_MODE':
@@ -101,7 +105,8 @@ const uiReducer = (state = INITIAL_STATE, action) => {
                 default_styles,
                 button_borders,
                 border_color: border,
-                title
+                title,
+                share
             }
         case 'SET_TITLE':
             const new_title = action.payload
@@ -114,7 +119,25 @@ const uiReducer = (state = INITIAL_STATE, action) => {
                 default_styles,
                 button_borders,
                 border_color,
-                title: new_title
+                title: new_title,
+                share
+            }
+        case 'SET_SHARE_MENU_MAX':
+            const new_max = action.payload
+            console.log('setting share menu max', new_max)
+
+            return {
+                dark_mode,
+                dark_theme,
+                light_theme,
+                current_theme,
+                default_styles,
+                button_borders,
+                border_color,
+                title,
+                share: {
+                    menu_max: new_max
+                }
             }
         default:
             return state

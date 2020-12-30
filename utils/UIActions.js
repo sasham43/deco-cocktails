@@ -11,3 +11,10 @@ export const setTitle = title => (
         payload: title
     }
 )
+
+export const setShareMenuMax = max => (
+    {
+        type: 'SET_SHARE_MENU_MAX',
+        payload: max
+    }
+)

@@ -28,6 +28,7 @@ import InStockIcon from '../assets/in-stock'
 import TabIcon from '../assets/tab'
 import CornerIcon from '../assets/corner'
 import { deleteCocktail, selectCocktail, deleteCocktails, unselectAllCocktails } from '../utils/CocktailActions'
+import { setShareMenuMax } from '../utils/UIActions'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import ViewShot from "react-native-view-shot"
 
@@ -55,6 +56,7 @@ const mapDispatchToProps = dispatch => (
         selectCocktail,
         deleteCocktails,
         unselectAllCocktails,
+        setShareMenuMax
     }, dispatch)
 )
 export default connect(mapStateToProps, mapDispatchToProps)(CocktailList)
@@ -105,6 +107,14 @@ function CocktailListMap(props) {
     //     setMaxHeight(Math.max(...cocktailHeights))
     //     console.log('setting', maxHeight)
     // }, [cocktailHeights])
+    useEffect(()=>{
+        console.log('changing max height', props.setShareMenuMax)
+        if(props.setShareMenuMax){
+            console.log('container height', (props.ui.default_styles.window.height - 117), props.ui.default_styles.window.height)
+            console.log('cocktail height', maxHeight+35, maxHeight)
+            props.setShareMenuMax(Math.floor((props.ui.default_styles.window.height - 117) / (maxHeight+35)))
+        }
+    }, [maxHeight])
 
     const current_stock = props.stock.map(s=>{
         if(s.in_stock){
@@ -179,7 +189,8 @@ function CocktailListMap(props) {
         // console.log('cocktail:', cocktail.name, evt.nativeEvent.layout.height, maxHeight)
         if (evt.nativeEvent.layout.height > maxHeight) {
             setMaxHeight(evt.nativeEvent.layout.height)
-            console.log('mh', maxHeight, ((props.ui.default_styles.window.height-200) / maxHeight), Math.floor((props.ui.default_styles.window.height-200) / maxHeight))
+            // console.log('mh', maxHeight, ((props.ui.default_styles.window.height-200) / maxHeight), Math.floor((props.ui.default_styles.window.height-200) / maxHeight))
+            // props.setShareMenuMax()
         }
         // setCocktailHeights([...cocktailHeights, evt.nativeEvent.layout.height])
     }
@@ -245,13 +256,15 @@ function CocktailList(props){
     const [cocktailSearch, setCocktailSearch] = useState('')
     const [filteredCocktails, setFilteredCocktails] = useState([])
     // const [selectedCocktailsLength, setSelectedCocktailsLength] = useState([])
-    const [shareMax, setShareMax] = useState(0)
+    // const [shareMax, setShareMax] = useState(0)
     const [showFunctionMenu, setShowFunctionMenu] = useState(false)
 
     const navigation = useNavigation()
 
     const [modalVisible, setModalVisible] = useState(false)
     const [shareUri, setShareUri] = useState('')
+
+    const shareMax = props.ui.share.menu_max
 
     function toggleFunctionMenu() {
         setShowFunctionMenu(!showFunctionMenu)
@@ -263,11 +276,11 @@ function CocktailList(props){
     useEffect(()=>{
         filterCocktails()
     }, [props.route.params])
-    useEffect(()=>{
-        var screen_size = getScreenSize(props.ui)
-        var max = getShareMax(screen_size)
-        setShareMax(max)
-    }, [selectedCocktails])
+    // useEffect(()=>{
+    //     var screen_size = getScreenSize(props.ui)
+    //     var max = getShareMax(screen_size)
+    //     setShareMax(max)
+    // }, [selectedCocktails])
     // useEffect(()=>{
     //     setSelectedCocktailsLength(filteredCocktails.filter(f => f.selected).length)
     // }, [])
@@ -370,6 +383,7 @@ function CocktailList(props){
                     max={shareMax}
                     selected={selectedCocktails.length}
                     ui={props.ui}
+                    setShareMenuMax={props.setShareMenuMax}
                 ></CocktailListMap>
                 <View style={{marginTop:50, height: 20}}></View>
             </ScrollView>
