@@ -64,7 +64,7 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
                     c.selected = false
                     return c
                 }),
-                selected
+                selected: []
             }
         case 'CHANGE_COCKTAIL_SLIDER':
             const slider_val = action.payload
