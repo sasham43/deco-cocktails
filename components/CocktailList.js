@@ -114,10 +114,10 @@ function CocktailListMap(props) {
         }
     }, [])
     useEffect(()=>{
-        console.log('changing max height', props.setShareMenuMax)
+        // console.log('changing max height', props.setShareMenuMax)
         if(props.setShareMenuMax){
-            console.log('container height', (props.ui.default_styles.window.height - 117), props.ui.default_styles.window.height)
-            console.log('cocktail height', maxHeight+10, maxHeight)
+            // console.log('container height', (props.ui.default_styles.window.height - 117), props.ui.default_styles.window.height)
+            // console.log('cocktail height', maxHeight+10, maxHeight)
             props.setShareMenuMax(Math.floor((props.ui.default_styles.window.height - 117) / (maxHeight+10)))
         }
     }, [maxHeight])
@@ -207,7 +207,7 @@ function CocktailListMap(props) {
         (
             <View onLayout={(evt)=>layout(evt, cocktail)} style={[styles.cocktail_container, {marginBottom: marginBottom}, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor, borderColor: props.theme.borderColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
                 <View style={[{flex: 1, position: 'absolute', left: -40}]}>
-                    <CocktailToggle cocktail={cocktail} theme={props.theme} selectCocktail={props.selectCocktail} currentMode={props.currentMode} />
+                    <CocktailToggle cocktail={cocktail} theme={props.theme} selectCocktail={selectCocktail} currentMode={props.currentMode} />
                 </View>
                 <Pressable 
                     onPress={() => selectCocktail(cocktail, props.currentMode)} 
@@ -237,7 +237,7 @@ function CocktailToggle(props){
 
     if(props.currentMode == 'delete' || props.currentMode == 'share'){
         return (
-            <Pressable onPress={() => props.selectCocktail(props.cocktail.id)}>
+            <Pressable onPress={() => props.selectCocktail(props.cocktail, props.currentMode)}>
                 <AppText>{props.cocktail.selected}</AppText>
                 <InStockIcon transform={[{ rotate: '-45deg' }]} width={size} height={size} fill={props.cocktail.selected ? props.theme.color : 'grey'} />
             </Pressable>
@@ -424,7 +424,7 @@ function CocktailList(props){
                 currentMode={currentMode} 
                 switchMode={switchMode} 
                 shareMenu={showShareModal}
-                selected={selectedCocktails.length}
+                selected={selectedCocktails}
                 max={shareMax}
             />
 
@@ -465,34 +465,34 @@ function getShareStyle(ui, length){
 
     // small, e.g. iPhone 8
     if(width < 700){
-        if(length <= 4) {
-            style.fontSize = large_font
-        } else {
-            style.fontSize = small_font
-            style.marginBottom = small_margin
-            style.size = 'extra_small'
-        }
+        // if(length <= 4) {
+        //     style.fontSize = large_font
+        // } else {
+        //     style.fontSize = small_font
+        //     style.marginBottom = small_margin
+        //     style.size = 'extra_small'
+        // }
         style.menu_width = 350
     } else if (width > 1000){
-        style.fontSize = small_font
+        // style.fontSize = small_font
         style.menu_width = 700
     } else {
-        style.fontSize = small_font
-        style.size = 'small'
+        // style.fontSize = small_font
+        // style.size = 'small'
     }
     
-    if(style.fontSize == small_font){
-        style.shape_size = 7
-    } else {
-        style.shape_size = 9
-    }
-    if(style.size == 'extra_small'){
-        style.titleSize = 20
-    } else if (style.size == 'small'){
-        style.titleSize = 25
-    } else {
-        style.titleSize = 30
-    }
+    // if(style.fontSize == small_font){
+    //     style.shape_size = 7
+    // } else {
+    //     style.shape_size = 9
+    // }
+    // if(style.size == 'extra_small'){
+    //     style.titleSize = 20
+    // } else if (style.size == 'small'){
+    //     style.titleSize = 25
+    // } else {
+    //     style.titleSize = 30
+    // }
     // console.log('style', style)
 
     return style
@@ -529,7 +529,7 @@ function ShareMenu(props){
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
             <View style={{flexDirection: 'row', alignSelf: 'center'}}>
-                <AppText style={{fontSize: share_style.titleSize}}>{props.title}</AppText>
+                <AppText style={{fontSize: 30}}>{props.title}</AppText>
             </View>
             <View style={{justifyContent: 'space-around', flexDirection: 'column', flex:1}}>
                 <CocktailListMap share={true} stock={cocktailStock} theme={props.ui.current_theme} cocktails={filteredCocktails}></CocktailListMap>
@@ -581,7 +581,7 @@ function Footer(props){
         }
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-                <AppButton disabled={props.selected == 0} press={share}>Share Menu ({props.selected}/{props.max})</AppButton>
+                <AppButton disabled={props.selected == 0} press={share}>Share Menu ({props.selected.length}/{props.max})</AppButton>
                 <AppButton press={()=>props.switchMode('')}>Cancel</AppButton>
             </View>
         )

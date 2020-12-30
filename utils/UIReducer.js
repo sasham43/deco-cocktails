@@ -124,7 +124,7 @@ const uiReducer = (state = INITIAL_STATE, action) => {
             }
         case 'SET_SHARE_MENU_MAX':
             const new_max = action.payload
-            console.log('setting share menu max', new_max)
+            // console.log('setting share menu max', new_max)
 
             return {
                 dark_mode,
