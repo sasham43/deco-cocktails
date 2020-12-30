@@ -19,6 +19,8 @@ import { bindActionCreators } from 'redux'
 import { useNavigation } from '@react-navigation/native'
 import _ from 'lodash'
 import SlidingUpPanel from 'rn-sliding-up-panel'
+import GestureRecognizer from 'react-native-swipe-gestures'
+import ViewShot from "react-native-view-shot"
 
 import AppText from './AppText'
 import AppButton from './AppButton'
@@ -29,8 +31,6 @@ import TabIcon from '../assets/tab'
 import CornerIcon from '../assets/corner'
 import { deleteCocktail, selectCocktail, deleteCocktails, unselectAllCocktails } from '../utils/CocktailActions'
 import { setShareMenuMax } from '../utils/UIActions'
-import GestureRecognizer from 'react-native-swipe-gestures'
-import ViewShot from "react-native-view-shot"
 
 import { useStock, useFunctionMenu } from '../utils/hooks'
 import { sortedIngredients } from '../utils/sort'
@@ -529,13 +529,29 @@ function ShareMenu(props){
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
             <View style={{flexDirection: 'row', alignSelf: 'center'}}>
-                <AppText style={{fontSize: 30}}>{props.title}</AppText>
+                {/* <AppText style={{fontSize: 30}}>{props.title}</AppText> */}
+                <TitleText title={props.title} theme={props.ui.current_theme} />
             </View>
             <View style={{justifyContent: 'space-around', flexDirection: 'column', flex:1}}>
                 <CocktailListMap share={true} stock={cocktailStock} theme={props.ui.current_theme} cocktails={filteredCocktails}></CocktailListMap>
             </View>
         </ViewShot>
     )
+}
+function TitleText(props) {
+    if (props.title == '') {
+        return (
+            <View style={{ height: 50, marginTop: -10 }}>
+                <TabIcon fill={props.theme.color} height={65} width={65} />
+            </View>
+        )
+    } else {
+        return (
+            <AppText style={[{fontSize: 30}]}>
+                {props.title ? props.title : ''}
+            </AppText>
+        )
+    }
 }
 
 function Footer(props){
