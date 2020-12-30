@@ -97,6 +97,15 @@ function NameMap(props) {
 
 function CocktailListMap(props) {
     const navigation = useNavigation()
+    const [maxHeight, setMaxHeight] = useState(0)
+    // const [cocktailHeights, setCocktailHeights] = useState([0])
+
+    // useEffect(()=>{
+    //     console.log('ch', cocktailHeights)
+    //     setMaxHeight(Math.max(...cocktailHeights))
+    //     console.log('setting', maxHeight)
+    // }, [cocktailHeights])
+
     const current_stock = props.stock.map(s=>{
         if(s.in_stock){
             return s.label
@@ -166,12 +175,20 @@ function CocktailListMap(props) {
         nameSize = 14
         shapeSize = 9
     }
+    function layout(evt, cocktail){
+        // console.log('cocktail:', cocktail.name, evt.nativeEvent.layout.height, maxHeight)
+        if (evt.nativeEvent.layout.height > maxHeight) {
+            setMaxHeight(evt.nativeEvent.layout.height)
+            console.log('mh', maxHeight, ((props.ui.default_styles.window.height-200) / maxHeight), Math.floor((props.ui.default_styles.window.height-200) / maxHeight))
+        }
+        // setCocktailHeights([...cocktailHeights, evt.nativeEvent.layout.height])
+    }
     
     // sort cocktails and return a View for each
     return props.cocktails.sort(sortCocktails).map(cocktail =>
         
         (
-            <View style={[styles.cocktail_container, {marginBottom: marginBottom}, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor, borderColor: props.theme.borderColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
+            <View onLayout={(evt)=>layout(evt, cocktail)} style={[styles.cocktail_container, {marginBottom: marginBottom}, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor, borderColor: props.theme.borderColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
                 <View style={[{flex: 1, position: 'absolute', left: -40}]}>
                     <CocktailToggle cocktail={cocktail} theme={props.theme} selectCocktail={props.selectCocktail} currentMode={props.currentMode} />
                 </View>
@@ -184,7 +201,7 @@ function CocktailListMap(props) {
                     <View style={[styles.cocktail_name_container]}>
                         <AppText>
                             <Text style={[styles.cocktail_text, {fontSize: fontSize}, props.theme]}>
-                                {cocktail.name}
+                                {cocktail.name} {maxHeight}
                             </Text>
                         </AppText>
                     </View>
@@ -199,15 +216,7 @@ function CocktailListMap(props) {
 function CocktailToggle(props){
     // console.log('CocktailToggle', props.disabled)
     var size = 35
-    // var disabled = props.disabled ? props.disabled : false
-    // function selectCocktail(id){
-    //     if(!disabled){
-    //         props.selectCocktail(id)
-    //     } else if (props.cocktail.selected && disabled){
-    //         props.selectCocktail(id)
-    //     }
-    //     // console.log('disabled?', disabled, props.cocktail.selected)
-    // }
+
     if(props.currentMode == 'delete' || props.currentMode == 'share'){
         return (
             <Pressable onPress={() => props.selectCocktail(props.cocktail.id)}>
@@ -360,6 +369,7 @@ function CocktailList(props){
                     currentMode={currentMode}
                     max={shareMax}
                     selected={selectedCocktails.length}
+                    ui={props.ui}
                 ></CocktailListMap>
                 <View style={{marginTop:50, height: 20}}></View>
             </ScrollView>
