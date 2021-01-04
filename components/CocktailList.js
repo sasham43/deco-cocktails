@@ -12,7 +12,8 @@ import {
     KeyboardAvoidingView,
     Share,
     Platform,
-    Modal
+    Modal,
+    FlatList
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -101,32 +102,29 @@ function CocktailListMap(props) {
     const navigation = useNavigation()
     const [maxHeight, setMaxHeight] = useState(0)
     const [marginBottom, setMarginBottom] = useState(35)
-    // const [cocktailHeights, setCocktailHeights] = useState([0])
 
-    // useEffect(()=>{
-    //     console.log('ch', cocktailHeights)
-    //     setMaxHeight(Math.max(...cocktailHeights))
-    //     console.log('setting', maxHeight)
-    // }, [cocktailHeights])
     useEffect(()=>{
         if(props.share == true){
             setMarginBottom(10)
         }
+        console.log('stock', props.stock)
+        setCurrentStock(props.stock.map(s => {
+            if (s.in_stock) {
+                return s.label
+            }
+        }).filter(s => s))
     }, [])
     useEffect(()=>{
-        // console.log('changing max height', props.setShareMenuMax)
         if(props.setShareMenuMax){
-            // console.log('container height', (props.ui.default_styles.window.height - 117), props.ui.default_styles.window.height)
-            // console.log('cocktail height', maxHeight+10, maxHeight)
             props.setShareMenuMax(Math.floor((props.ui.default_styles.window.height - 117) / (maxHeight+10)))
         }
     }, [maxHeight])
 
-    const current_stock = props.stock.map(s=>{
-        if(s.in_stock){
-            return s.label
-        }
-    }).filter(s=>s) // remove nulls
+    // const current_stock = props.stock.map(s=>{
+    //     if(s.in_stock){
+    //         return s.label
+    //     }
+    // }).filter(s=>s) // remove nulls
 
     function selectCocktail(cocktail, currentMode) {
         if(currentMode == 'select'){
@@ -274,6 +272,81 @@ function CocktailList(props){
         setShowFunctionMenu(!showFunctionMenu)
     }
 
+
+    // map functions
+    // const navigation = useNavigation()
+    const [maxHeight, setMaxHeight] = useState(0)
+    const [marginBottom, setMarginBottom] = useState(35)
+    // const [current_stock, setCurrentStock] = useState([])
+
+    useEffect(() => {
+        if (props.share == true) {
+            setMarginBottom(10)
+        }
+        // console.log('props.stock', props.stock)
+        // setCurrentStock(props.stock.map(s => {
+        //     if (s.in_stock) {
+        //         return s.label
+        //     }
+        // }).filter(s => s))
+    }, [])
+    useEffect(() => {
+        if (props.setShareMenuMax) {
+            props.setShareMenuMax(Math.floor((props.ui.default_styles.window.height - 117) / (maxHeight + 10)))
+        }
+    }, [maxHeight])
+
+    const current_stock = props.stock.current.map(s => {
+        if (s.in_stock) {
+            return s.label
+        }
+    }).filter(s => s) // remove nulls
+
+    function selectCocktail(cocktail, currentMode) {
+        if (currentMode == 'select') {
+            navigation.navigate('ViewCocktail', {
+                id: cocktail.id
+            })
+        } else if (currentMode == 'edit') {
+            navigation.navigate('AddCocktail', {
+                id: cocktail.id
+            })
+        } else if (currentMode == 'delete') {
+            props.selectCocktail(cocktail.id)
+        } else if (currentMode == 'share') {
+            if (props.selected < props.max) {
+                props.selectCocktail(cocktail.id)
+            } else if (props.selected >= props.max && cocktail.selected) {
+                props.selectCocktail(cocktail.id)
+            }
+        }
+    }
+
+    const [pressFlag, setPressFlag] = useState(null)
+    function longPress(cocktail, currentMode) {
+        if (currentMode == '' || currentMode == 'select') {
+            setPressFlag(cocktail.id)
+        }
+
+    }
+    function pressOut(cocktail) {
+        if (pressFlag) {
+            navigation.navigate('ViewCocktail', {
+                id: cocktail.id
+            })
+            setPressFlag(null) // might not be necessary if navigating
+        }
+    }
+    function layout(evt, cocktail) {
+        // console.log('cocktail:', cocktail.name, evt.nativeEvent.layout.height, maxHeight)
+        if (evt.nativeEvent.layout.height > maxHeight) {
+            setMaxHeight(evt.nativeEvent.layout.height)
+            // console.log('mh', maxHeight, ((props.ui.default_styles.window.height-200) / maxHeight), Math.floor((props.ui.default_styles.window.height-200) / maxHeight))
+            // props.setShareMenuMax()
+        }
+        // setCocktailHeights([...cocktailHeights, evt.nativeEvent.layout.height])
+    }
+
     useEffect(() => {
         filterCocktails()
     }, [cocktailSearch, cocktails])
@@ -352,7 +425,7 @@ function CocktailList(props){
             onSwipeRight={()=>onSwipeRight()}
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}
         > 
-            <ScrollView style={[styles.scroll_view, currentMode == 'delete' || currentMode == 'share' ? {paddingLeft: 50}:null]}>
+            {/* <ScrollView style={[styles.scroll_view, currentMode == 'delete' || currentMode == 'share' ? {paddingLeft: 50}:null]}>
                 <CocktailListMap 
                     fontSize={styles.cocktail_text.fontSize} 
                     stock={props.stock.current} 
@@ -367,7 +440,38 @@ function CocktailList(props){
                     setShareMenuMax={props.setShareMenuMax}
                 ></CocktailListMap>
                 <View style={{marginTop:50, height: 20}}></View>
-            </ScrollView>
+            </ScrollView> */}
+            <FlatList
+                data={filteredCocktails}
+                renderItem={(data)=>{
+                    console.log('cocktail', cocktail)
+                    const cocktail = data.item
+                    return (
+                        <View onLayout={(evt) => layout(evt, cocktail)} style={[styles.cocktail_container, { marginBottom: marginBottom }, props.ui.current_theme, { position: 'relative', overflow: 'visible', shadowColor: props.ui.current_theme.shadowColor, borderColor: props.ui.current_theme.borderColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
+                            <View style={[{ flex: 1, position: 'absolute', left: -40 }]}>
+                                <CocktailToggle cocktail={cocktail} theme={props.ui.current_theme} selectCocktail={selectCocktail} currentMode={props.currentMode} />
+                            </View>
+                            <Pressable
+                                onPress={() => selectCocktail(cocktail, props.currentMode)}
+                                style={[styles.cocktail, { flex: 8 }]}
+                                onLongPress={() => longPress(cocktail, props.currentMode)}
+                                onPressOut={() => pressOut(cocktail)}
+                            >
+                                <View style={[styles.cocktail_name_container]}>
+                                    <AppText>
+                                        <Text style={[styles.cocktail_text, props.ui.current_theme]}>
+                                            {cocktail.name}
+                                            {/* {maxHeight} */}
+                                        </Text>
+                                    </AppText>
+                                </View>
+                                <PartMap ingredients={sortedIngredients(cocktail.ingredients.filter(filterIngredients))} />
+                                <NameMap theme={props.ui.current_theme} current_stock={current_stock} ingredients={sortedIngredients(cocktail.ingredients)} />
+                            </Pressable>
+                        </View>
+                    )
+                }}
+            />
 
             <FunctionMenu 
                 showFunctionMenu={showFunctionMenu}

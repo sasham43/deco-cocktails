@@ -395,7 +395,7 @@ function defaultCocktails() {
     ]
 
     // testing
-    for(var i = 0; i < 20; i++){
+    for(var i = 0; i < 200; i++){
         cocktails.push({
             name: String(i),
             id: generate(),
