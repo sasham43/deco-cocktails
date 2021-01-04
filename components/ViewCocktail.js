@@ -222,7 +222,7 @@ function ViewCocktail(props){
     }
     function toggleFunctionMenu() {
         setShowFunctionMenu(!showFunctionMenu)
-        console.log('toggle', showFunctionMenu)
+        // console.log('toggle', showFunctionMenu)
     }
 
     return (
@@ -250,7 +250,6 @@ function ViewCocktail(props){
                 </View>
             </View>
             <ScrollView>
-                {/* <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={cocktail.ingredients} stock={props.stock.current} /> */}
                 <ScrollContent ui={props.ui} cocktail={cocktail} stock={props.stock} mode={contentMode} />
                 <View style={{ marginTop: 120, height: 20 }}></View>
             </ScrollView>
@@ -264,26 +263,12 @@ function ViewCocktail(props){
                 ui={props.ui}
                 theme={props.ui.current_theme}
                 dark_mode={props.ui.dark_mode}
-                // unselectAllCocktails={props.unselectAllCocktails}
             />
-            {/* <View> */}
-                <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
-                    <Pressable style={styles.function_button_container} onPress={() => toggleFunctionMenu()}>
-                        <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
-                    </Pressable>
-                </View>
-            {/* </View> */}
-            {/* <View style={[props.ui.default_styles.footerStyles, styles.button_container, props.ui.current_theme]}>
-                <AppButton press={showShareModal}>
-                    Share Cocktail
-                </AppButton>
-                <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={editCocktail}>
-                    Change Cocktail
-                </AppButton>
-                <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={removeCocktail}>
-                    Remove Cocktail
-                </AppButton>
-            </View> */}
+            <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
+                <Pressable style={styles.function_button_container} onPress={() => toggleFunctionMenu()}>
+                    <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
+                </Pressable>
+            </View>
             <Modal
                 animationType="slide"
                 // transparent={true}
