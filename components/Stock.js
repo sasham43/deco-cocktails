@@ -57,7 +57,13 @@ function StockToggle(props){
 function StockBottle(props) {
     var icon_size = 35
     var show_icon = props.currentMode == 'edit' || props.currentMode == 'delete' ? 1 : 0
-    function selectBottle(id){
+    function selectBottle(id, long){
+        if(long){
+            console.log('edit id', id)
+            props.switchMode('name')
+            return props.setEditId(id)
+        }
+
         if(props.currentMode == 'name'){
             props.setEditId(id)
         } else if (props.currentMode == 'edit'){
@@ -92,7 +98,7 @@ function StockBottle(props) {
                     currentMode={props.currentMode}
                 />
             </View>
-            <Pressable onPress={() => selectBottle(props.bottle.id)} style={[styles.label_container, props.theme, props.editStockId == props.bottle.id ? styles.selected_bottle : null]}>
+            <Pressable onLongPress={()=>selectBottle(props.bottle.id, true)} onPress={() => selectBottle(props.bottle.id)} style={[styles.label_container, props.theme, props.editStockId == props.bottle.id ? styles.selected_bottle : null]}>
                 <AppText style={[styles.label_text, { color: text_color}]}>{props.bottle.label}</AppText>
             </Pressable>
         </View>
@@ -119,6 +125,7 @@ function StockMap(props) {
                 currentMode={props.currentMode} 
                 setEditId={props.setEditId}
                 editStockId={props.editStockId}
+                switchMode={props.switchMode}
             />
         )
     })
@@ -206,6 +213,7 @@ function Stock(props){
                     currentMode={currentMode}
                     setEditId={setEditStockId}
                     editStockId={editStockId}
+                    switchMode={switchMode}
                 />
                 <View style={{ marginTop: 150, height: 20 }}></View>
             </ScrollView>            
@@ -349,7 +357,8 @@ const styles = StyleSheet.create({
     },
     stock_bottle: {
         flexDirection: 'row',
-        marginBottom: 10
+        marginBottom: 10,
+        // borderBottomWidth: 1
     },  
     label_container: {
         alignSelf: 'center',
