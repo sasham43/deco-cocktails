@@ -268,7 +268,7 @@ function ViewCocktail(props){
                     <View style={{ flexDirection: 'row'}}>
                         <View style={[styles.share_btn, { marginRight: 5, flex: 1 }]} >
                             <AppButton press={shareCocktail}>
-                                Share Image
+                                Share
                             </AppButton>
                         </View>
                         <View style={[styles.share_btn, { marginLeft: 5, flex: 1 }]} >
