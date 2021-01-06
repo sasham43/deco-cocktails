@@ -325,7 +325,7 @@ function CocktailList(props){
             // console.log('share')
         // var title = props.ui.title == 'Crump Cocktails' ? 'Menu by Crump Cocktails' : 
         var title
-        switch(title){
+        switch(props.ui.title){
             case 'Crump Cocktails':
             case '':
                 title = 'Menu by Crump Cocktails'
