@@ -395,19 +395,19 @@ function defaultCocktails() {
     ]
 
     // testing
-    for(var i = 0; i < 20; i++){
-        cocktails.push({
-            name: String(i),
-            id: generate(),
-            ingredients: [
-                {
-                    id: generate(),
-                    ingredient_name: 'Test',
-                    parts: 1
-                }
-            ]
-        })
-    }
+    // for(var i = 0; i < 20; i++){
+    //     cocktails.push({
+    //         name: String(i),
+    //         id: generate(),
+    //         ingredients: [
+    //             {
+    //                 id: generate(),
+    //                 ingredient_name: 'Test',
+    //                 parts: 1
+    //             }
+    //         ]
+    //     })
+    // }
 
     return cocktails
 }
