@@ -59,7 +59,7 @@ function Ellipsis(props){
     if(props.show){
         return (
             <Pressable onPress={()=>props.press()}>
-                <AppText style={{color: 'grey'}}>...</AppText>
+                <AppText style={{color: 'grey', fontSize: 20}}>...</AppText>
             </Pressable>
         )
     } else {
