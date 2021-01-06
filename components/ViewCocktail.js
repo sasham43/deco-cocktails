@@ -214,10 +214,10 @@ function ViewCocktail(props){
             url: shareUri
         })
         .then((res) => {
-            console.log(res);
+            // console.log(res);
         })
         .catch((err) => {
-            err && console.log(err);
+            // err && console.log(err);
         })
     }
     function toggleFunctionMenu() {
