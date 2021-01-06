@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, TextInput } from 'react-native'
 
 import AppText from './AppText'
@@ -7,6 +7,11 @@ import CornerIcon from '../assets/corner'
 export function Directions(props){
     const [directions, setDirections] = useState(props.directions ? props.directions : '')
     // console.log('dir', directions, props.directions)
+
+    useEffect(()=>{
+        setDirections(props.directions)
+    }, [props.directions])
+
     if(directions.split('\n').length > 4){
         setDirections(directions.replace(/\n/g, ' '))
     }
