@@ -239,12 +239,12 @@ function ViewCocktail(props){
                 />
                 <AppText style={styles.cocktail_title}>{cocktail.name}</AppText>
                 <View style={styles.header_buttons}>
-                    <Pressable onPress={()=>changeContentMode('ingredients')} style={styles.category_title_container}>
+                    <Pressable onPress={()=>changeContentMode('ingredients')} style={[styles.category_title_container, {alignItems: 'center'}]}>
                         <AppText style={styles.category_title}>Ingredients</AppText>
-                        <HeaderIcon direction={'left'} ui={props.ui} anim={leftAnim} />
+                        <HeaderIcon style={{alignSelf: 'center'}} direction={'left'} ui={props.ui} anim={leftAnim} />
                     </Pressable>
-                    <Pressable onPress={()=>changeContentMode('directions')} style={styles.category_title_container}>
-                        <HeaderIcon direction={'right'} ui={props.ui} anim={rightAnim} />
+                    <Pressable onPress={()=>changeContentMode('directions')} style={[styles.category_title_container, {alignItems: 'center'}]}>
+                        <HeaderIcon style={{ alignSelf: 'center' }} direction={'right'} ui={props.ui} anim={rightAnim} />
                         <AppText style={styles.category_title}>Directions</AppText>
                     </Pressable>
                 </View>
