@@ -324,14 +324,14 @@ function FunctionMenu(props){
                     <TabIcon fill={props.theme.color} height={65} width={65} />
                 </View>
                 <View style={[ styles.button_container, props.ui.current_theme]}>
-                    <AppButton press={props.showShareModal}>
-                        Share Cocktail
-                    </AppButton>
                     <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={props.editCocktail}>
                         Change Cocktail
                     </AppButton>
                     <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={props.removeCocktail}>
                         Remove Cocktail
+                    </AppButton>
+                    <AppButton press={props.showShareModal}>
+                        Share Cocktail
                     </AppButton>
                 </View> 
             </View>
