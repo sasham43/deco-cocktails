@@ -369,13 +369,12 @@ function ShareCocktail(props){
                 <AppText style={styles.cocktail_title}>{props.cocktail.name}</AppText>
             </View>
             <View style={{justifyContent: 'flex-start', flex: 1, paddingTop: 5}}>
-                <View >
+                <View>
                     <View style={{justifyContent: 'center'}}>
                         <AddedIngredientMap compact={true} name_style={{fontSize: fontSize}} theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={cocktail_stock} />
                     </View>
                 </View>
-                <View >
-                    {/* <AppText style={styles.category_title}>Directions</AppText> */}
+                <View>
                     <Directions directions={props.cocktail.directions} style={{fontSize}} />
                 </View>
                 <View style={{ position: 'absolute', bottom: -15, flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
