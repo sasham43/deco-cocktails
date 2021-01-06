@@ -59,7 +59,7 @@ function StockBottle(props) {
     var show_icon = props.currentMode == 'edit' || props.currentMode == 'delete' ? 1 : 0
     function selectBottle(id, long){
         if(long){
-            console.log('edit id', id)
+            // console.log('edit id', id)
             props.switchMode('name')
             return props.setEditId(id)
         }
