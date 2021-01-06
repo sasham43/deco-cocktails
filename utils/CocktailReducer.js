@@ -96,7 +96,7 @@ function defaultCocktails() {
                     parts: .5
                 },
             ],
-            directions: 'Mix Gin with Dry Vermouth with ice for 15 seconds.  Garnish with an olive.'
+            directions: 'Stir Gin with Dry Vermouth with ice for 30 seconds.  Garnish with an olive.'
         },
         {
             id: generate(),
@@ -113,7 +113,7 @@ function defaultCocktails() {
                     parts: 2
                 },
             ],
-            directions: 'Mix Gin with ice in a rocks glass.  Add Tonic.'
+            directions: 'Stir Gin with ice in a rocks glass.  Add Tonic.'
         },
         {
             id: generate(),
@@ -135,7 +135,7 @@ function defaultCocktails() {
                     parts: 1
                 },
             ],
-            directions: 'Mix Gin, Sweet Vermouth, and Campari with ice for 15 seconds.  Strain into a coupe glass.'
+            directions: 'Stir Gin, Sweet Vermouth, and Campari with ice for 30 seconds.  Strain into a coupe glass.'
         },
         {
             id: generate(),
@@ -184,7 +184,7 @@ function defaultCocktails() {
                     parts: 1
                 },
             ],
-            directions: 'Mix Rye, Sweet Vermouth, and Campari with ice for 15 seconds.  Strain into a coupe glass.'
+            directions: 'Stir Rye, Sweet Vermouth, and Campari with ice for 30 seconds.  Strain into a coupe glass.'
         },
         {
             id: generate(),
@@ -206,7 +206,7 @@ function defaultCocktails() {
                     parts: 'dash'
                 },
             ],
-            directions: 'Mix Rye, Sweet Vermouth, and Angostura with ice for 15 seconds.  Strain into a rocks glass.  Garnish with a cherry.'
+            directions: 'Stir Rye, Sweet Vermouth, and Angostura with ice for 30 seconds.  Strain into a rocks glass.  Garnish with a cherry.'
         },
         {
             id: generate(),
@@ -363,7 +363,7 @@ function defaultCocktails() {
                     parts: 'rinse'
                 },
             ],
-            directions: `Mix Rye, Brandy, Angostura, and Peychaud's with ice for 15 seconds.  Strain into a rocks glass rinsed with Absinthe.`
+            directions: `Stir Rye, Brandy, Angostura, and Peychaud's with ice for 30 seconds.  Strain into a rocks glass rinsed with Absinthe.`
         },
         {
             id: generate(),
@@ -390,7 +390,7 @@ function defaultCocktails() {
                     parts: .25
                 },
             ],
-            directions: 'Mix Rye, Sweet Vermouth, Brandy, and Benedictine with ice for 15 seconds.  Strain into a rocks glass.  Garnish with a cherry.'
+            directions: 'Stir Rye, Sweet Vermouth, Brandy, and Benedictine with ice for 30 seconds.  Strain into a rocks glass.  Garnish with a cherry.'
         },
     ]
 
