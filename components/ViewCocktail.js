@@ -274,7 +274,7 @@ function ViewCocktail(props){
                 // transparent={true}
                 visible={modalVisible}
             >
-                <View style={{flexDirection: 'column', alignItems: 'center', backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15,  flex: 1 }}>
+                <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15,  flex: 1 }}>
                     <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} />
                     <View style={{ flexDirection: 'row'}}>
                         <View style={[styles.share_btn, { marginRight: 5, flex: 1 }]} >
@@ -353,7 +353,7 @@ function ShareCocktail(props){
     })
     var small_screen = Dimensions.get('window').height < 700
     var fontSize = small_screen ? 14 : 16
-    console.log('window', Dimensions.get('window').height, fontSize)
+    // console.log('window', Dimensions.get('window').height, fontSize)
     var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
     return (
         <ViewShot 
@@ -370,7 +370,6 @@ function ShareCocktail(props){
             </View>
             <View style={{justifyContent: 'flex-start', flex: 1, paddingTop: 5}}>
                 <View >
-                    {/* <AppText style={styles.category_title}>Ingredients</AppText> */}
                     <View style={{justifyContent: 'center'}}>
                         <AddedIngredientMap compact={true} name_style={{fontSize: fontSize}} theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={cocktail_stock} />
                     </View>
