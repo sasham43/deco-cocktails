@@ -475,6 +475,12 @@ function ShareMenu(props){
             </View>
             <View style={{justifyContent: 'space-around', flexDirection: 'column', flex:1}}>
                 <CocktailListMap share={true} stock={cocktailStock} theme={props.ui.current_theme} cocktails={filteredCocktails}></CocktailListMap>
+
+                <View style={{ position: 'absolute', bottom: -15, flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
+                    <View style={{ flex: 1, alignItems: 'center' }}>
+                        <AppText style={{ fontSize: 10, color: 'grey' }}>Crump Cocktails</AppText>
+                    </View>
+                </View>
             </View>
         </ViewShot>
     )
