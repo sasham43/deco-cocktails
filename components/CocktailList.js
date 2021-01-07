@@ -563,6 +563,7 @@ function FunctionMenu(props) {
     const [searchFocus, setSearchFocus] = useState(false)
     const { panel, setPanel } = useFunctionMenu()
     const navigation = useNavigation()
+    const [animatedValue, setAnimatedValue] = useState(new Animated.Value(0))
 
     useEffect(()=>{
         if (props.showFunctionMenu) {
@@ -610,7 +611,7 @@ function FunctionMenu(props) {
             draggableRange={{ top: top_height, bottom: 0}} 
             ref={c=> setPanel(c)} 
             onBottomReached={()=>onBottomReached()}
-            animatedValue={new Animated.Value(0)}
+            animatedValue={animatedValue}
         >
             <View style={ [styles.panel_container, props.theme, border_style] }>
                 <View style={styles.tab_icon_container}>
