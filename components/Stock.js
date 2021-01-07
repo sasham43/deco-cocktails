@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, Switch, Dimensions, TouchableOpacity, Pressable, ScrollView } from 'react-native'
+import { View, StyleSheet, Animated, Dimensions, TouchableOpacity, Pressable, ScrollView } from 'react-native'
 import SlidingUpPanel from 'rn-sliding-up-panel'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -289,7 +289,13 @@ function FunctionMenu(props) {
     var top_height = (windowHeight - 210) > 0 ? windowHeight - 210 : 0
 
     return (
-        <SlidingUpPanel draggableRange={{ top: top_height, bottom: props.editStockId ? bottom_height : 0 }} showBackdrop={false} ref={c => setPanel(c)} onBottomReached={() => onBottomReached()}>
+        <SlidingUpPanel 
+            draggableRange={{ top: top_height, bottom: props.editStockId ? bottom_height : 0 }} 
+            showBackdrop={false} 
+            ref={c => setPanel(c)} 
+            onBottomReached={() => onBottomReached()}
+            animatedValue={new Animated.Value(0)}
+        >
             <View style={[styles.panel_container, props.theme, border_style]}>
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />

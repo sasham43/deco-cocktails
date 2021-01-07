@@ -605,7 +605,13 @@ function FunctionMenu(props) {
     var top_height = (windowHeight - 210) > 0 ? windowHeight - 210 : 0
     
     return (
-        <SlidingUpPanel showBackdrop={false} draggableRange={{ top: top_height, bottom: 0}} ref={c=> setPanel(c)} onBottomReached={()=>onBottomReached()}>
+        <SlidingUpPanel 
+            showBackdrop={false} 
+            draggableRange={{ top: top_height, bottom: 0}} 
+            ref={c=> setPanel(c)} 
+            onBottomReached={()=>onBottomReached()}
+            animatedValue={new Animated.Value(0)}
+        >
             <View style={ [styles.panel_container, props.theme, border_style] }>
                 <View style={styles.tab_icon_container}>
                     <TabIcon fill={props.theme.color} height={65} width={65} />
