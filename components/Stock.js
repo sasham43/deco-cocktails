@@ -249,7 +249,7 @@ function Stock(props){
 function FunctionMenu(props) {
     const { panel, setPanel } = useFunctionMenu()
     const navigation = useNavigation()
-    // const windowHeight = props.ui.default_styles.window.height
+    const [animatedValue, setAnimatedValue] = useState(new Animated.Value(0))
 
     useEffect(() => {
         if (props.showFunctionMenu) {
@@ -273,8 +273,11 @@ function FunctionMenu(props) {
 
     function saveBottle(){
         props.setEditId(null)
-        hidePanel()
         props.switchMode('')
+        // wait for mode to be switched
+        window.setTimeout(()=>{
+            hidePanel()
+        })
     }
 
     function onFocus(){
@@ -294,7 +297,7 @@ function FunctionMenu(props) {
             showBackdrop={false} 
             ref={c => setPanel(c)} 
             onBottomReached={() => onBottomReached()}
-            animatedValue={new Animated.Value(0)}
+            animatedValue={animatedValue}
         >
             <View style={[styles.panel_container, props.theme, border_style]}>
                 <View style={styles.tab_icon_container}>
