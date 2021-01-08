@@ -162,14 +162,17 @@ function Footer(props) {
             </View>
         )
     } else if (props.currentMode == 'name'){
-        function cancel(){
-            props.switchMode('')
-            props.setEditStockId(null)
-        }
+        // function cancel(){
+        //     props.switchMode('')
+        //     props.setEditStockId(null)
+        //     // window.setTimeout(()=>{
+        //         props.hidePanel()
+        //     // })
+        // }
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
                 <AppText style={styles.footer_button_text}>Change A Name</AppText>
-                <AppButton press={cancel}>
+                <AppButton press={props.cancel}>
                     Cancel
                 </AppButton>
             </View>
@@ -197,6 +200,12 @@ function Stock(props){
     }
     function onSwipeRight(){
         navigation.navigate('CocktailList')
+    }
+    function cancel(){
+        setEditStockId(null)
+        switchMode('')
+        setShowFunctionMenu(false)
+        // console.log('hide', showFunctionMenu)
     }
 
     return (
@@ -241,6 +250,8 @@ function Stock(props){
                 currentMode={currentMode}
                 switchMode={switchMode}
                 setEditStockId={setEditStockId}
+                // hidePanel={hidePanel}
+                cancel={cancel}
             />
         </GestureRecognizer>
     )
@@ -259,8 +270,9 @@ function FunctionMenu(props) {
             }
         } else {
             if (panel)
-                panel.hide()
+                panel.hide() 
         }
+        // console.log('hideinfunctionmenu',props.showFunctionMenu, bottom_height, props.editStockId)
     }, [props.showFunctionMenu])
 
     function hidePanel() {
@@ -268,6 +280,11 @@ function FunctionMenu(props) {
             panel.hide()
         }
     }
+    useEffect(()=>{
+        if(!props.showFunctionMenu){
+            hidePanel()
+        }
+    }, [props.editStockId])
 
     var bottom_height = windowHeight < 700 ? 300 : 350
 
