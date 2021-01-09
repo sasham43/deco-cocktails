@@ -196,6 +196,9 @@ function ViewCocktail(props){
         })
     }
     function onSwipeRight(state) {
+        if(state.x0 < 150){
+            return navigation.goBack()
+        }
         var previousCocktail = findPreviousCocktail(cocktail.id)
         navigation.navigate('ViewCocktail', {
             id: previousCocktail.id
@@ -230,7 +233,7 @@ function ViewCocktail(props){
     return (
         <GestureRecognizer 
             onSwipeLeft={()=>onSwipeLeft()}
-            onSwipeRight={()=>onSwipeRight()}
+            onSwipeRight={(state)=>onSwipeRight(state)}
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}
         >
             <View style={styles.header}>

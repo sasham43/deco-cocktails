@@ -198,7 +198,10 @@ function Stock(props){
     function onSwipeLeft(){
         navigation.navigate('Stock')
     }
-    function onSwipeRight(){
+    function onSwipeRight(state){
+        if(state.x0 < 150){
+            return navigation.goBack()
+        }
         navigation.navigate('CocktailList')
     }
     function cancel(){
@@ -211,7 +214,7 @@ function Stock(props){
     return (
         <GestureRecognizer 
             onSwipeLeft={()=>onSwipeLeft()}
-            onSwipeRight={()=>onSwipeRight()}
+            onSwipeRight={(state)=>onSwipeRight(state)}
             style={[styles.stock, props.ui.default_styles.viewStyles, props.ui.current_theme]}
         >
             <ScrollView style={styles.scroll_view}>

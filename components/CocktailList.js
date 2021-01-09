@@ -309,7 +309,10 @@ function CocktailList(props){
         // cabinet
         navigation.navigate('Stock')
     }
-    function onSwipeRight(){
+    function onSwipeRight(state){
+        if(state.x0 < 150){
+            return navigation.goBack()
+        }
         navigation.navigate('CocktailList')
     }
     const gestureConfig = {
@@ -350,7 +353,7 @@ function CocktailList(props){
         <GestureRecognizer
             config={gestureConfig}
             onSwipeLeft={()=>onSwipeLeft()}
-            onSwipeRight={()=>onSwipeRight()}
+            onSwipeRight={(state)=>onSwipeRight(state)}
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}
         > 
             <ScrollView style={[styles.scroll_view, currentMode == 'delete' || currentMode == 'share' ? {paddingLeft: 50}:null]}>
