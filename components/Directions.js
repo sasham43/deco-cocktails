@@ -46,7 +46,7 @@ export function DirectionsInput(props){
             <View style={{ flexDirection: 'row', justifyContent: 'flex-end', flex: 1 }}>
                 <AppText style={{ color: 'grey' }}>
                     {props.text.length} / 220 letters
-                        </AppText>
+                </AppText>
             </View><AppText></AppText>
         </View>
     )
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
         height: 150,
         flex: 1,
         alignItems: 'stretch',
+        fontSize: 17
     },
     directions: {
         padding: 20
