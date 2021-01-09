@@ -12,7 +12,7 @@ export function Directions(props){
         setDirections(props.directions)
     }, [props.directions])
 
-    if(directions.split('\n').length > 4){
+    if(directions && directions.split('\n').length > 4){
         setDirections(directions.replace(/\n/g, ' '))
     }
     return (
