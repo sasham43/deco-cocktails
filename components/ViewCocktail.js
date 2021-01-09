@@ -215,9 +215,11 @@ function ViewCocktail(props){
         })
         .then((res) => {
             // console.log(res);
+            hideShareModal()
         })
         .catch((err) => {
             // err && console.log(err);
+            hideShareModal()
         })
     }
     function toggleFunctionMenu() {

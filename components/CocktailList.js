@@ -339,16 +339,11 @@ function CocktailList(props){
             url: shareUri
         })
         .then((res) => {
-            console.log('share' , res);
             hideShareModal()
         })
         .catch((err) => {
-            err && console.log(err);
             hideShareModal()
         })
-    }
-    function modalDismissed(){
-        console.log('modalDismissed')
     }
 
     return (
@@ -400,9 +395,7 @@ function CocktailList(props){
 
             <Modal
                 animationType="slide"
-                // transparent={true}
                 visible={modalVisible}
-                onDismiss={()=>modalDismissed()}
             >
                 <View style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15, flex: 1 }}>
                     {/* <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} /> */}
