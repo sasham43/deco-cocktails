@@ -524,7 +524,10 @@ function Footer(props){
     } else if (props.currentMode == 'edit'){
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-                <AppText style={styles.footer_button_text}>Change A Cocktail</AppText>
+                <AppText style={styles.footer_button_text}>
+                    Change Cocktail
+                    {/* Change A Cocktail */}
+                </AppText>
                 <AppButton press={() => props.switchMode('')}>
                     Cancel
                 </AppButton>
@@ -533,7 +536,10 @@ function Footer(props){
     } else if (props.currentMode == 'select'){
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-                <AppText style={styles.footer_button_text}>View A Cocktail</AppText>
+                <AppText style={styles.footer_button_text}>
+                    View Cocktail
+                    {/* View A Cocktail */}
+                </AppText>
                 <AppButton press={()=>props.switchMode('')}>
                     Cancel
                 </AppButton>
@@ -636,10 +642,10 @@ function FunctionMenu(props) {
                     />
                 </View>
 
-                <FunctionMenuButton theme={props.theme} label={"View A Cocktail"} mode="select" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
-                <FunctionMenuButton theme={props.theme} label={"Change A Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
+                <FunctionMenuButton theme={props.theme} label={"View Cocktail"} mode="select" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
+                <FunctionMenuButton theme={props.theme} label={"Change Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Remove Cocktails"} mode="delete" switchMode={removeMode} currentMode={props.currentMode} hidePanel={hidePanel} />
-                <FunctionMenuButton theme={props.theme} label={"Add A Cocktail"} mode="add" switchMode={navigateToAdd} currentMode={props.currentMode} />
+                <FunctionMenuButton theme={props.theme} label={"Add Cocktail"} mode="add" switchMode={navigateToAdd} currentMode={props.currentMode} />
                 <FunctionMenuButton theme={props.theme} label={"Share Menu"} mode="share" switchMode={shareMode} currentMode={props.currentMode} hidePanel={hidePanel} />
             </View>
         </SlidingUpPanel>        

@@ -171,7 +171,7 @@ function Footer(props) {
         // }
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
-                <AppText style={styles.footer_button_text}>Change A Name</AppText>
+                <AppText style={styles.footer_button_text}>Change Name</AppText>
                 <AppButton press={props.cancel}>
                     Cancel
                 </AppButton>
