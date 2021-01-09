@@ -3,6 +3,7 @@ import { View, StyleSheet, ScrollView, Alert, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import GestureRecognizer from 'react-native-swipe-gestures'
 
 import AppText from './AppText'
 import AppButton from './AppButton'
@@ -58,70 +59,81 @@ function About (props){
         props.setTitle(menuTitle)
     }
 
+    function swipeRight(state){
+        if(state.x0 < 150){
+            return props.navigation.goBack()
+        }
+    }
+
     return (
-        <KeyboardAwareScrollView style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}>
-            <View style={styles.about_content}>
-                <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
-                    <AppText style={styles.about_header}>About</AppText>
-                </View>
-                <View style={styles.text_container}>
-                    <AppText style={styles.text}>
-                        This app was made in Crump House with loving assistance from Bongo and Gomez.
-                    </AppText>
-                </View>
-            </View>
-            <View style={styles.about_content}>
-                <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
-                    <AppText style={styles.about_header}>Theme</AppText>
-                </View>
-                <View style={styles.button_container}>
-                    <View style={styles.about_button}>
-                        <AppButton  press={()=>props.setDarkMode(true)}>Dark</AppButton>
+        <GestureRecognizer
+            style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}
+            onSwipeRight={(state)=>swipeRight(state)}
+        >
+            <KeyboardAwareScrollView>
+                <View style={styles.about_content}>
+                    <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
+                        <AppText style={styles.about_header}>About</AppText>
                     </View>
-                    <View style={styles.about_button}>
-                        <AppButton press={()=>props.setDarkMode(false)}>Light</AppButton>
-                    </View>
-                </View>
-            </View>
-            <View style={styles.about_content}>
-                <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
-                    <AppText style={styles.about_header}>Title</AppText>
-                </View>
-                <View style={{justifyContent: 'flex-end', paddingLeft: 10, paddingRight: 10}}>
-                    <View style={styles.button_container}>
-                        <AppButton press={()=>save()}>Save</AppButton>
-                        <TextInput 
-                            value={menuTitle}
-                            onChangeText={val => setMenuTitle(val)} 
-                            onSubmitEditing={()=>save()}
-                            style={[styles.input, props.ui.current_theme]}
-                            placeholder={"Menu Title..."}
-                            placeholderTextColor={"grey"}
-                            maxLength={22}
-                            autoCapitalize={"words"}
-                        />
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', flex:1}}>
-                        <AppText style={{color: 'grey'}}>
-                            {menuTitle.length} / 22 letters
+                    <View style={styles.text_container}>
+                        <AppText style={styles.text}>
+                            This app was made in Crump House with loving assistance from Bongo and Gomez.
                         </AppText>
                     </View>
                 </View>
-            </View>
-            <View style={styles.about_content}>
-                <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
-                    <AppText style={styles.about_header}>Reset Defaults</AppText>
-                </View>
-                <View style={styles.button_container}>
-                    <View style={styles.about_button}>
-                        <AppButton press={() => resetDefault('cocktails')}>Cocktails</AppButton>
+                <View style={styles.about_content}>
+                    <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
+                        <AppText style={styles.about_header}>Theme</AppText>
                     </View>
-                    <View style={styles.about_button}>
-                        <AppButton press={() => resetDefault('stock')}>Cabinet</AppButton>
+                    <View style={styles.button_container}>
+                        <View style={styles.about_button}>
+                            <AppButton  press={()=>props.setDarkMode(true)}>Dark</AppButton>
+                        </View>
+                        <View style={styles.about_button}>
+                            <AppButton press={()=>props.setDarkMode(false)}>Light</AppButton>
+                        </View>
                     </View>
                 </View>
-            </View>
-        </KeyboardAwareScrollView>
+                <View style={styles.about_content}>
+                    <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
+                        <AppText style={styles.about_header}>Title</AppText>
+                    </View>
+                    <View style={{justifyContent: 'flex-end', paddingLeft: 10, paddingRight: 10}}>
+                        <View style={styles.button_container}>
+                            <AppButton press={()=>save()}>Save</AppButton>
+                            <TextInput 
+                                value={menuTitle}
+                                onChangeText={val => setMenuTitle(val)} 
+                                onSubmitEditing={()=>save()}
+                                style={[styles.input, props.ui.current_theme]}
+                                placeholder={"Menu Title..."}
+                                placeholderTextColor={"grey"}
+                                maxLength={22}
+                                autoCapitalize={"words"}
+                            />
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', flex:1}}>
+                            <AppText style={{color: 'grey'}}>
+                                {menuTitle.length} / 22 letters
+                            </AppText>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.about_content}>
+                    <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
+                        <AppText style={styles.about_header}>Reset Defaults</AppText>
+                    </View>
+                    <View style={styles.button_container}>
+                        <View style={styles.about_button}>
+                            <AppButton press={() => resetDefault('cocktails')}>Cocktails</AppButton>
+                        </View>
+                        <View style={styles.about_button}>
+                            <AppButton press={() => resetDefault('stock')}>Cabinet</AppButton>
+                        </View>
+                    </View>
+                </View>
+            </KeyboardAwareScrollView>
+        </GestureRecognizer>
     )
 }
 
