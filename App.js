@@ -68,6 +68,15 @@ export default function App(props) {
     )
   }
 
+  /*
+    Intro
+    1. Welcome
+    2. Function Menu Button
+      2.5 Function Menu example ?
+    3. Add custom cocktails
+    4. Manage cabinet
+    5. About screen
+  */
   const intro = [
     {
       key: 0,
