@@ -12,8 +12,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import AppText from './AppText'
+import AppButton from './AppButton'
 import FunctionButtonIcon from '../assets/function-button'
+import CornerIcon from '../assets/corner'
 import { setTutorialComplete } from '../utils/UIActions'
+
 
 const mapStateToProps = (state) => {
     const { cocktails, ui, stock } = state
@@ -21,11 +24,6 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        // deleteCocktail,
-        // selectCocktail,
-        // deleteCocktails,
-        // unselectAllCocktails,
-        // setShareMenuMax
         setTutorialComplete
     }, dispatch)
 )
@@ -39,42 +37,35 @@ function renderIntro({ item }) {
     return (
         <IntroSlide item={item} />
     )
-    // if(item.key == 0){
-    //     return (
-    //         <Welcome item={item} />
-    //     )
-    // } else if (item.key == 1){
-    //     return (
-    //         <FunctionMenuButton item={item} />
-    //     )
-    // } else if(item.key == 2){
-    //     return (
-    //         <View>
-    //             <View>
-    //                 <Text>{item.title}</Text>
-    //             </View>
-    //             <View>
-    //                 <Text>{item.text}</Text>
-    //             </View>
-    //         </View>
-    //     )
-    // }
-
-
 }
 
-function doneButton() {
+function IntroButton(props){
+    const icon_size = 15
     return (
-        <View>
-            <AppText>Done</AppText>
+        <View style={[styles.button, {borderColor: '#ccc'}]}>
+            <CornerIcon fill={'#000'} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={'#000'} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={'#000'} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={'#000'} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+            {/* <ButtonText pressed={pressed} theme={theme} style={disabled ? { color: 'grey' } : null}>{props.children}</ButtonText> */}
+            <AppText style={styles.button_text}>{props.children}</AppText>
         </View>
+    )
+}
+
+function doneButton(props) {
+    console.log('donebutton', props)
+    return (
+        <IntroButton>
+            <AppText>Done</AppText>
+        </IntroButton>
     )
 }
 function skipButton() {
     return (
-        <View>
+        <IntroButton>
             <AppText>Skip</AppText>
-        </View>
+        </IntroButton>
     )
 }
 
@@ -208,6 +199,7 @@ const windowWidth = Dimensions.get('window').width
 
 // console.log('windowHeight', windowHeight)
 // console.log('windowWidth', windowWidth)
+const icon_distance = -1
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
@@ -298,4 +290,23 @@ const styles = StyleSheet.create({
         height: 20,
         transform: [{ rotate: "45deg" }],
     },
+    button_text: {
+        fontSize: 23,
+        textAlign: 'center'
+    },
+    button: {
+        marginTop: 5,
+        marginBottom: 5,
+        borderWidth: 1,
+        padding: 8,
+        alignItems: 'center'
+    },
+    corner_icon: {
+        zIndex: 10,
+        position: 'absolute'
+    },
+    top_right: { top: icon_distance, right: icon_distance },
+    top_left: { top: icon_distance, left: icon_distance, transform: [{ rotate: '-90deg' }] },
+    bottom_right: { bottom: icon_distance, right: icon_distance, transform: [{ rotate: '90deg' }] },
+    bottom_left: { bottom: icon_distance, left: icon_distance, transform: [{ rotate: '180deg' }] }
 })
