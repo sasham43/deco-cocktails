@@ -211,12 +211,47 @@ function Stock(props){
         // console.log('hide', showFunctionMenu)
     }
 
+
+    // testing screenshots for Intro
+    function InfoBox() {
+        return (
+            <View style={{
+                position: 'absolute',
+                top: 80,
+                // bottom: 100,
+                // bottom: windowHeight,
+                // top: windowHeight - (windowHeight / 2),
+                // top: windowHeight - (375),
+                // left: (windowWidth / 2) - 150,
+                right: 30,
+                // left: 50,
+                backgroundColor: '#fff',
+                borderColor: '#000',
+                borderWidth: 1,
+                shadowOffset: { width: -4, height: -4, },
+                shadowOpacity: 0.3,
+                elevation: 10, // for Android,
+                padding: 15,
+                width: 200,
+                zIndex: 99
+            }}>
+                <View>
+                    <AppText>
+                        Manage your bar cabinet to keep track of what's in stock!
+                    </AppText>
+                </View>
+                {/* <CurvedArrow style={{ position: 'absolute', bottom: -30, right: 60 }} /> */}
+            </View>
+        )
+    }
+
     return (
         <GestureRecognizer 
             onSwipeLeft={()=>onSwipeLeft()}
             onSwipeRight={(state)=>onSwipeRight(state)}
             style={[styles.stock, props.ui.default_styles.viewStyles, props.ui.current_theme]}
         >
+            <InfoBox />
             <ScrollView style={styles.scroll_view}>
                 <StockMap 
                     theme={props.ui.current_theme} 

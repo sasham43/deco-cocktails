@@ -112,6 +112,14 @@ function Intro(props){
             image: require('../assets/screenshots/addcocktail.png'),
             backgroundColor: '#fff'
         },
+        {
+            key: '3',
+            title: 'Manage bar cabinet!',
+            text: '',
+            // image: '',
+            image: require('../assets/screenshots/cabinet.png'),
+            backgroundColor: '#fff'
+        }
     ]
     return (
         <AppIntroSlider
