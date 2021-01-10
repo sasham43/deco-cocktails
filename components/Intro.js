@@ -122,11 +122,11 @@ function FunctionMenuButton({item}){
                 {/* <Image source={require("../assets/screenshots/Welcome.png")} /> */}
                 <Image style={styles.image} resizeMode={'contain'} source={item.image} />
             </View>
-            {/* <View style={styles.info_box}>
+            <View style={styles.info_box}>
                 <AppText>
                     Press this icon to search, share, edit, and more!
                 </AppText>
-            </View> */}
+            </View>
         </View>
     )
 }
@@ -138,6 +138,7 @@ console.log('windowHeight', windowHeight)
 console.log('windowWidth', windowWidth)
 const styles = StyleSheet.create({
     container: {
+        position: 'relative',
         // padding: 10,
         // height: windowHeight
     },
@@ -161,6 +162,18 @@ const styles = StyleSheet.create({
         // aspectRatio: 1
     },
     info_box: {
-        position: 'absolute'
+        position: 'absolute',
+        // bottom: 10,
+        // bottom: windowHeight,
+        top: windowHeight - 400,
+        left: 50,
+        backgroundColor: '#fff',
+        borderColor: '#000',
+        borderWidth: 1,
+        shadowOffset: { width: -4, height: -4, },
+        shadowOpacity: 0.3,
+        elevation: 10, // for Android,
+        padding: 25,
+        width: 200,
     }
 })
