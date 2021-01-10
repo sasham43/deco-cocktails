@@ -127,15 +127,26 @@ function FunctionMenuButton({item}){
                     Press this icon to search, share, edit, and more!
                 </AppText>
             </View>
+            <View style={{position: 'absolute', top: windowHeight - 275, left: 150}}>
+                <CurvedTailArrow />
+            </View>
         </View>
     )
 }
+const CurvedTailArrow = () => {
+    return (
+        <View style={styles.curvedTailArrow}>
+            <View style={styles.curvedTailArrowTail} />
+            <View style={styles.curvedTailArrowTriangle} />
+        </View>
+    );
+};
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
 
-console.log('windowHeight', windowHeight)
-console.log('windowWidth', windowWidth)
+// console.log('windowHeight', windowHeight)
+// console.log('windowWidth', windowWidth)
 const styles = StyleSheet.create({
     container: {
         position: 'relative',
@@ -165,7 +176,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         // bottom: 10,
         // bottom: windowHeight,
-        top: windowHeight - 400,
+        top: windowHeight - 375,
         left: 50,
         backgroundColor: '#fff',
         borderColor: '#000',
@@ -175,5 +186,46 @@ const styles = StyleSheet.create({
         elevation: 10, // for Android,
         padding: 25,
         width: 200,
-    }
+    },
+    curvedTailArrow: {
+        backgroundColor: "transparent",
+        overflow: "visible",
+        width: 30,
+        height: 25,
+        transform: [{scale: 2}]
+    },
+    curvedTailArrowTriangle: {
+        backgroundColor: "transparent",
+        width: 0,
+        height: 0,
+        borderTopWidth: 9,
+        borderTopColor: "transparent",
+        borderRightWidth: 9,
+        borderRightColor: "black",
+        borderStyle: "solid",
+        transform: [{ rotate: "10deg" }],
+        position: "absolute",
+        bottom: 9,
+        right: 3,
+        overflow: "visible",
+    },
+    curvedTailArrowTail: {
+        backgroundColor: "transparent",
+        position: "absolute",
+        borderBottomColor: "transparent",
+        borderLeftColor: "transparent",
+        borderRightColor: "transparent",
+        borderBottomWidth: 0,
+        borderLeftWidth: 0,
+        borderRightWidth: 0,
+        borderTopWidth: 3,
+        borderTopColor: "black",
+        borderStyle: "solid",
+        borderTopLeftRadius: 12,
+        top: 1,
+        left: 0,
+        width: 20,
+        height: 20,
+        transform: [{ rotate: "45deg" }],
+    },
 })
