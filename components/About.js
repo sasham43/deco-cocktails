@@ -74,16 +74,6 @@ function About (props){
             <KeyboardAwareScrollView>
                 <View style={styles.about_content}>
                     <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
-                        <AppText style={styles.about_header}>About</AppText>
-                    </View>
-                    <View style={styles.text_container}>
-                        <AppText style={styles.text}>
-                            This app was made in Crump House with loving assistance from Bongo and Gomez.
-                        </AppText>
-                    </View>
-                </View>
-                <View style={styles.about_content}>
-                    <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
                         <AppText style={styles.about_header}>Theme</AppText>
                     </View>
                     <View style={styles.button_container}>
@@ -141,6 +131,16 @@ function About (props){
                         <View style={styles.about_button}>
                             <AppButton press={() => props.setTutorialComplete(false)}>View</AppButton>
                         </View>
+                    </View>
+                </View>
+                <View style={styles.about_content}>
+                    <View style={[styles.about_header_container, { borderColor: props.ui.border_color }]}>
+                        <AppText style={styles.about_header}>About</AppText>
+                    </View>
+                    <View style={styles.text_container}>
+                        <AppText style={styles.text}>
+                            This app was made in Crump House with loving assistance from Bongo and Gomez.
+                        </AppText>
                     </View>
                 </View>
             </KeyboardAwareScrollView>
