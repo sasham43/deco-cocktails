@@ -358,7 +358,7 @@ function CocktailList(props){
         return (
             <View style={{
                 position: 'absolute',
-                bottom: 100,
+                top: 10,
                 // bottom: windowHeight,
                 // top: windowHeight - (windowHeight / 2),
                 // top: windowHeight - (375),
@@ -372,17 +372,46 @@ function CocktailList(props){
                 elevation: 10, // for Android,
                 padding: 15,
                 width: 200,
-                zIndex: 99
+                zIndex: 199
             }}>
                 <View>
                     <AppText>
-                        Press here to search, share, edit, and more!
+                        Press and hold here to switch to dark mode, change title, and more!
                     </AppText>
                 </View>
-                <CurvedArrow style={{position: 'absolute', bottom: -30, right: 60}} />
+                <CurvedArrow style={{position: 'absolute', top: -30, right: 60, transform:[{scaleY:-1}]}} />
             </View>
         )
     }
+    // function InfoBox(){
+    //     return (
+    //         <View style={{
+    //             position: 'absolute',
+    //             bottom: 100,
+    //             // bottom: windowHeight,
+    //             // top: windowHeight - (windowHeight / 2),
+    //             // top: windowHeight - (375),
+    //             left: (windowWidth / 2) - 150,
+    //             // left: 50,
+    //             backgroundColor: '#fff',
+    //             borderColor: '#000',
+    //             borderWidth: 1,
+    //             shadowOffset: { width: -4, height: -4, },
+    //             shadowOpacity: 0.3,
+    //             elevation: 10, // for Android,
+    //             padding: 15,
+    //             width: 200,
+    //             zIndex: 99
+    //         }}>
+    //             <View>
+    //                 <AppText>
+    //                     Press here to search, share, edit, and more!
+    //                 </AppText>
+    //             </View>
+    //             <CurvedArrow style={{position: 'absolute', bottom: -30, right: 60}} />
+    //         </View>
+    //     )
+    // }
 
 
 
@@ -394,7 +423,7 @@ function CocktailList(props){
             onSwipeRight={(state)=>onSwipeRight(state)}
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}
         > 
-            <InfoBox />
+            {/* <InfoBox /> */}
             <ScrollView style={[styles.scroll_view, currentMode == 'delete' || currentMode == 'share' ? {paddingLeft: 50}:null]}>
                 <CocktailListMap 
                     fontSize={styles.cocktail_text.fontSize} 

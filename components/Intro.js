@@ -105,6 +105,14 @@ function Intro(props){
             backgroundColor: '#fff'
         },
         {
+            key: '4',
+            title: 'Press Title',
+            text: '',
+            // image: '',
+            image: require('../assets/screenshots/about.png'),
+            backgroundColor: '#fff'
+        },
+        {
             key: "2",
             title: 'Add custom cocktails!',
             text: '',
@@ -119,7 +127,7 @@ function Intro(props){
             // image: '',
             image: require('../assets/screenshots/cabinet.png'),
             backgroundColor: '#fff'
-        }
+        },
     ]
     return (
         <AppIntroSlider

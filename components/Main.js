@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, StatusBar, View } from 'react-native'
+import { StyleSheet, StatusBar, View, Dimensions } from 'react-native'
 // import { NativeRouter, Route, Link } from "react-router-native"
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator,TransitionSpecs } from '@react-navigation/stack'
@@ -7,6 +7,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 // import { Provider } from 'react-redux'
 import { createStore, combineReducers} from 'redux'
 import { connect} from 'react-redux'
+
+
+
+import CurvedArrow from './Arrow'
 
 // import stockReducer from '../utils/StockReducer'
 // import cocktailReducer from '../utils/CocktailReducer'
@@ -55,6 +59,38 @@ function Main(props){
             tabBarVisible: false,
             unmountOnBlur: true
         }
+
+
+        const windowWidth = Dimensions.get('window').width
+    function InfoBox() {
+        return (
+            <View style={{
+                position: 'absolute',
+                top: 90,
+                // bottom: windowHeight,
+                // top: windowHeight - (windowHeight / 2),
+                // top: windowHeight - (375),
+                left: (windowWidth / 2) - 100,
+                // left: 50,
+                backgroundColor: '#fff',
+                borderColor: '#000',
+                borderWidth: 1,
+                shadowOffset: { width: -4, height: -4, },
+                shadowOpacity: 0.3,
+                elevation: 10, // for Android,
+                padding: 15,
+                width: 200,
+                zIndex: 199
+            }}>
+                <View>
+                    <AppText>
+                        Press and hold on the title to switch to dark mode, change the title, and more!
+                    </AppText>
+                </View>
+                <CurvedArrow style={{ position: 'absolute', top: -30, right: 60, transform: [{ scaleY: -1 }] }} />
+            </View>
+        )
+    }
         
         if(!props.ui.tutorial_complete){
             return (
@@ -64,6 +100,7 @@ function Main(props){
             return (
                 <NavigationContainer ref={navigationRef}>
                     <View style={[styles.container, props.ui.current_theme]}>
+                        <InfoBox />
                         <StatusBar barStyle={props.ui.dark_mode ? "dark-content": "light-content"}></StatusBar>
                         <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
                         <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={60} height={60} />
