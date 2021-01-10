@@ -84,7 +84,7 @@ function Main(props){
             }}>
                 <View>
                     <AppText>
-                        Press and hold on the title to switch to dark mode, change the title, and more!
+                        Press and hold on the title to switch to dark mode or change the title!
                     </AppText>
                 </View>
                 <CurvedArrow style={{ position: 'absolute', top: -30, right: 60, transform: [{ scaleY: -1 }] }} />
