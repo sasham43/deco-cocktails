@@ -22,6 +22,7 @@ import Add from './AddCocktail'
 import AddStock from './AddStock'
 import ViewCocktail from './ViewCocktail'
 import { navigationRef } from '../utils/RootNavigation'
+import Intro from './Intro'
 
 import CornerIcon from '../assets/corner.svg'
 
@@ -54,30 +55,36 @@ function Main(props){
             tabBarVisible: false,
             unmountOnBlur: true
         }
-        return (
-            <NavigationContainer ref={navigationRef}>
-                <View style={[styles.container, props.ui.current_theme]}>
-                    <StatusBar barStyle={props.ui.dark_mode ? "dark-content": "light-content"}></StatusBar>
-                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
-                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={60} height={60} />
-                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
-                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={60} height={60} />
-                    <Title></Title>
-                    <Tab.Navigator  tabBar={props=> <Menu {...props} />} backBehavior={"history"} >
-                        <Tab.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Tab.Screen>
-                        <Tab.Screen options={screen_options} name="About" style={styles.screen} component={About}></Tab.Screen>
-                        <Tab.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Tab.Screen>
-                        <Tab.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Tab.Screen>
-                        <Tab.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Tab.Screen>
-                        <Tab.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Tab.Screen>
-                    </Tab.Navigator>
-                    {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
-                    <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}>
-
+        if(props.ui.first){
+            return (
+                <Intro />
+            )
+        } else {
+            return (
+                <NavigationContainer ref={navigationRef}>
+                    <View style={[styles.container, props.ui.current_theme]}>
+                        <StatusBar barStyle={props.ui.dark_mode ? "dark-content": "light-content"}></StatusBar>
+                        <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
+                        <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={60} height={60} />
+                        <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
+                        <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={60} height={60} />
+                        <Title></Title>
+                        <Tab.Navigator  tabBar={props=> <Menu {...props} />} backBehavior={"history"} >
+                            <Tab.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Tab.Screen>
+                            <Tab.Screen options={screen_options} name="About" style={styles.screen} component={About}></Tab.Screen>
+                            <Tab.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Tab.Screen>
+                            <Tab.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Tab.Screen>
+                            <Tab.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Tab.Screen>
+                            <Tab.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Tab.Screen>
+                        </Tab.Navigator>
+                        {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
+                        <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}>
+    
+                        </View>
                     </View>
-                </View>
-            </NavigationContainer>
-        )
+                </NavigationContainer>
+            )
+        }
     }
 
 const styles = StyleSheet.create({
