@@ -132,6 +132,16 @@ function About (props){
                         </View>
                     </View>
                 </View>
+                <View style={styles.about_content}>
+                    <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
+                        <AppText style={styles.about_header}>View Tutorial</AppText>
+                    </View>
+                    <View style={styles.button_container}>
+                        <View style={styles.about_button}>
+                            <AppButton press={() => console.log('tutorial')}>Tutorial</AppButton>
+                        </View>
+                    </View>
+                </View>
             </KeyboardAwareScrollView>
         </GestureRecognizer>
     )
