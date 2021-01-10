@@ -54,7 +54,7 @@ export default function App(props) {
   // attempt to lock orientation for iPad
   ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
 
-  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nloading...', ui.first)
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nloading...', ui.tutorial_complete)
 
   if(!fontsLoaded){
     return <AppLoading />
