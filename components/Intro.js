@@ -1,10 +1,10 @@
 import React from 'react'
-import { 
-    View, 
-    Text, 
-    StyleSheet, 
+import {
+    View,
+    Text,
+    StyleSheet,
     // Image, 
-    Dimensions 
+    Dimensions
 } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 import Image from 'react-native-scalable-image'
@@ -31,26 +31,29 @@ const mapDispatchToProps = dispatch => (
 export default connect(mapStateToProps, mapDispatchToProps)(Intro)
 
 function renderIntro({ item }) {
-    if(item.key == 0){
-        return (
-            <Welcome item={item} />
-        )
-    } else if (item.key == 1){
-        return (
-            <FunctionMenuButton item={item} />
-        )
-    } else if(item.key == 2){
-        return (
-            <View>
-                <View>
-                    <Text>{item.title}</Text>
-                </View>
-                <View>
-                    <Text>{item.text}</Text>
-                </View>
-            </View>
-        )
-    }
+    return (
+        <IntroSlide item={item} />
+    )
+    // if(item.key == 0){
+    //     return (
+    //         <Welcome item={item} />
+    //     )
+    // } else if (item.key == 1){
+    //     return (
+    //         <FunctionMenuButton item={item} />
+    //     )
+    // } else if(item.key == 2){
+    //     return (
+    //         <View>
+    //             <View>
+    //                 <Text>{item.title}</Text>
+    //             </View>
+    //             <View>
+    //                 <Text>{item.text}</Text>
+    //             </View>
+    //         </View>
+    //     )
+    // }
 
 
 }
@@ -71,21 +74,21 @@ function skipButton() {
 }
 
 // export default 
-function Intro(props){
+function Intro(props) {
 
     function onIntroDone() {
         // console.log('finished intro')
         props.setTutorialComplete(true)
     }
-/*
-  Intro
-  1. Welcome
-  2. Function Menu Button
-    2.5 Function Menu example ?
-  3. Add custom cocktails
-  4. Manage cabinet
-  5. About screen
-*/
+    /*
+      Intro
+      1. Welcome
+      2. Function Menu Button
+        2.5 Function Menu example ?
+      3. Add custom cocktails
+      4. Manage cabinet
+      5. About screen
+    */
     const intro = [
         {
             key: "0",
@@ -98,14 +101,31 @@ function Intro(props){
             key: "1",
             title: 'Make your own cocktails',
             text: '',
-            image: require('../assets/screenshots/Welcome.png'),
+            image: require('../assets/screenshots/functionmenubutton.png'),
+            backgroundColor: '#fff'
+        },
+        {
+            key: '4',
+            title: 'Press Title',
+            text: '',
+            // image: '',
+            image: require('../assets/screenshots/about.png'),
             backgroundColor: '#fff'
         },
         {
             key: "2",
-            title: 'Share cocktails with friends!',
+            title: 'Add custom cocktails!',
             text: '',
-            image: '',
+            // image: '',
+            image: require('../assets/screenshots/addcocktail.png'),
+            backgroundColor: '#fff'
+        },
+        {
+            key: '3',
+            title: 'Manage bar cabinet!',
+            text: '',
+            // image: '',
+            image: require('../assets/screenshots/cabinet.png'),
             backgroundColor: '#fff'
         },
     ]
@@ -124,7 +144,7 @@ function Intro(props){
 
 
 
-function Welcome(){
+function Welcome() {
     return (
         <View style={styles.container}>
             <View>
@@ -141,35 +161,28 @@ function Welcome(){
     )
 }
 
-function FunctionMenuButton({item}){
-    // console.log('item.image', item.image)
-    return (
-        <View style={styles.container}>
-            {/* <Image style={styles.image} source={{uri: "../assets/screenshots/Welcome.png"}} /> */}
-            <View style={[styles.image_container]}>
-                {/* <Image source={require("../assets/screenshots/Welcome.png")} /> */}
-                <Image 
-                    height={windowHeight-150} 
-                    // width={windowWidth-100}
-                    // width={100} 
-                    // height={windowHeight}
-                    resizeMode={'contain'} 
-                    // background={true}
-                    source={item.image} 
-                />
-                {/* <Image style={styles.image} resizeMode={'center'} source={item.image} /> */}
-
-                {/* <View style={styles.info_box}>
-                    <View>
-                        <AppText>
-                            Press this icon to search, share, edit, and more!
-                    </AppText>
-                    </View>
-                    <View style={{ position: 'absolute', bottom: -50, right: 50 }}>
-                        <CurvedTailArrow />
-                    </View>
-                </View> */}
+function IntroSlide({ item }) {
+    console.log('item.image', item.image)
+    if (item.image) {
+        return (
+            <View style={styles.container}>
+                <View style={[styles.image_container]}>
+                    <Image
+                        height={windowHeight - 150}
+                        resizeMode={'contain'}
+                        // background={true}
+                        source={item.image}
+                    />
+                </View>
             </View>
+        )
+    }
+
+    return (
+        <View>
+            <AppText>
+                {item.title}
+            </AppText>
         </View>
     )
 }
@@ -225,7 +238,7 @@ const styles = StyleSheet.create({
         // bottom: windowHeight,
         // top: windowHeight - (windowHeight / 2),
         // top: windowHeight - (375),
-        left: (windowWidth / 2)-150,
+        left: (windowWidth / 2) - 150,
         // left: 50,
         backgroundColor: '#fff',
         borderColor: '#000',
@@ -241,7 +254,7 @@ const styles = StyleSheet.create({
         overflow: "visible",
         width: 30,
         height: 25,
-        transform: [{scale: 2}]
+        transform: [{ scale: 2 }]
     },
     curvedTailArrowTriangle: {
         backgroundColor: "transparent",
