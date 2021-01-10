@@ -74,7 +74,7 @@ function skipButton() {
 function Intro(props){
 
     function onIntroDone() {
-        console.log('finished intro')
+        // console.log('finished intro')
         props.setTutorialComplete(true)
     }
 /*
