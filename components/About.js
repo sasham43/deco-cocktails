@@ -10,7 +10,7 @@ import AppButton from './AppButton'
 import { setDarkMode } from '../utils/UIActions'
 import { resetDefaultCocktails } from '../utils/CocktailActions'
 import { resetDefaultStock } from '../utils/StockActions'
-import { setTitle } from '../utils/UIActions'
+import { setTitle, setTutorialComplete } from '../utils/UIActions'
 
 
 const mapStateToProps = (state) => {
@@ -22,7 +22,8 @@ const mapDispatchToProps = dispatch => (
         setDarkMode,
         resetDefaultCocktails,
         resetDefaultStock,
-        setTitle
+        setTitle,
+        setTutorialComplete
     }, dispatch)
 )
 export default connect(mapStateToProps, mapDispatchToProps)(About)
@@ -134,11 +135,11 @@ function About (props){
                 </View>
                 <View style={styles.about_content}>
                     <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
-                        <AppText style={styles.about_header}>View Tutorial</AppText>
+                        <AppText style={styles.about_header}>Tutorial</AppText>
                     </View>
                     <View style={styles.button_container}>
                         <View style={styles.about_button}>
-                            <AppButton press={() => console.log('tutorial')}>Tutorial</AppButton>
+                            <AppButton press={() => props.setTutorialComplete(false)}>View</AppButton>
                         </View>
                     </View>
                 </View>
