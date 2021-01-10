@@ -29,13 +29,15 @@ const mapDispatchToProps = dispatch => (
 )
 export default connect(mapStateToProps, mapDispatchToProps)(Intro)
 
-function renderIntro({ item }) {
-    if(item.key == '0'){
-        return <Welcome />
+function renderIntro(props) {
+    // console.log('rendering', props.item)
+    
+    if(props.item.key == '0'){
+        return <Welcome ui={props.ui} />
     }
 
     return (
-        <IntroSlide item={item} />
+        <IntroSlide item={props.item} />
     )
 }
 
@@ -54,14 +56,15 @@ function IntroButton(props){
 }
 
 function doneButton(props) {
-    console.log('donebutton', props)
+    // console.log('donebutton', props)
     return (
         <IntroButton>
             <AppText>Done</AppText>
         </IntroButton>
     )
 }
-function skipButton() {
+function skipButton(props) {
+    // console.log('skipbutton', props)
     return (
         <IntroButton>
             <AppText>Skip</AppText>
@@ -71,6 +74,8 @@ function skipButton() {
 
 // export default 
 function Intro(props) {
+    // console.log('intro', props.ui)
+
 
     function onIntroDone() {
         // console.log('finished intro')
@@ -127,20 +132,23 @@ function Intro(props) {
     ]
     return (
         <AppIntroSlider
-            renderItem={renderIntro}
+            renderItem={(data)=>renderIntro({...data, ui: props.ui})}
+            // renderItem={renderIntro}
             data={intro}
             onDone={onIntroDone}
-            activeDotStyle={{ backgroundColor: '#000' }}
+            activeDotStyle={{ backgroundColor: props.ui.current_theme.color }}
             showSkipButton={true}
-            renderDoneButton={doneButton}
-            renderSkipButton={skipButton}
+            showNextButton={false}
+            showPrevButton={false}
+            renderDoneButton={(data)=>doneButton({...data, ui: props.ui})}
+            renderSkipButton={(data)=>skipButton({...data, ui: props.ui})}
         />
     )
 }
 
 
 
-function Welcome() {
+function Welcome(props) {
     return (
         <View style={styles.container}>
             <View style={{alignItems: 'center', paddingTop: 200}}>
@@ -154,7 +162,7 @@ function Welcome() {
                 </AppText>
             </View>
             <View style={{marginTop: 20}}>
-                <FunctionButtonIcon fill={'#000'} width={200} height={175} />
+                <FunctionButtonIcon fill={props.ui.current_theme.color} width={200} height={175} />
             </View>
         </View>
     )
