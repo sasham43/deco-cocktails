@@ -70,7 +70,8 @@ const INITIAL_STATE = {
             // height: 75,
             bottom: footerBottom,
         },
-    }
+    },
+    first: true
 }
 
 const uiReducer = (state = INITIAL_STATE, action) => {
