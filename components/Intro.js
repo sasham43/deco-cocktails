@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 
 import AppText from './AppText'
@@ -13,19 +13,20 @@ function renderIntro({ item }) {
         return (
             <FunctionMenuButton item={item} />
         )
+    } else if(item.key == 2){
+        return (
+            <View>
+                <View>
+                    <Text>{item.title}</Text>
+                </View>
+                <View>
+                    <Text>{item.text}</Text>
+                </View>
+            </View>
+        )
     }
 
 
-    return (
-        <View>
-            <View>
-                <Text>{item.title}</Text>
-            </View>
-            <View>
-                <Text>{item.text}</Text>
-            </View>
-        </View>
-    )
 }
 
 function onIntroDone() {
@@ -59,21 +60,21 @@ export default function Intro(props){
 */
     const intro = [
         {
-            key: 0,
+            key: "0",
             title: 'Welcome to the Hotel Crump!',
             text: 'The premier menu for custom cocktails',
             image: '',
             backgroundColor: '#fff'
         },
         {
-            key: 1,
+            key: "1",
             title: 'Make your own cocktails',
             text: '',
-            image: '',
+            image: require('../assets/screenshots/Welcome.png'),
             backgroundColor: '#fff'
         },
         {
-            key: 2,
+            key: "2",
             title: 'Share cocktails with friends!',
             text: '',
             image: '',
@@ -97,7 +98,7 @@ export default function Intro(props){
 
 function Welcome(){
     return (
-        <View>
+        <View style={styles.container}>
             <View>
                 <AppText>
                     Welcome To Hotel Crump!
@@ -112,21 +113,54 @@ function Welcome(){
     )
 }
 
-function FunctionMenuButton(item){
+function FunctionMenuButton({item}){
+    // console.log('item.image', item.image)
     return (
-        <View>
-            <Image src={item.image} />
-            <View style={styles.info_box}>
+        <View style={styles.container}>
+            {/* <Image style={styles.image} source={{uri: "../assets/screenshots/Welcome.png"}} /> */}
+            <View style={[styles.image_container]}>
+                {/* <Image source={require("../assets/screenshots/Welcome.png")} /> */}
+                <Image style={styles.image} resizeMode={'contain'} source={item.image} />
+            </View>
+            {/* <View style={styles.info_box}>
                 <AppText>
                     Press this icon to search, share, edit, and more!
                 </AppText>
-            </View>
+            </View> */}
         </View>
     )
 }
 
+const windowHeight = Dimensions.get('window').height
+const windowWidth = Dimensions.get('window').width
+
+console.log('windowHeight', windowHeight)
+console.log('windowWidth', windowWidth)
 const styles = StyleSheet.create({
     container: {
-        padding: 10
+        // padding: 10,
+        // height: windowHeight
+    },
+    image_container: {
+        // flex: 1
+        // width: windowWidth,
+        // height: windowHeight,
+    },
+    image: {
+        // width: null,
+        // height: null,
+        // flex: 1,
+        // resizeMode: 'contain'
+        // height: 100,
+        // width: 100,
+        height: windowHeight,
+        // transform: [{scale: .9}],
+        width: windowWidth,
+        position: 'absolute',
+        top: -100,
+        // aspectRatio: 1
+    },
+    info_box: {
+        position: 'absolute'
     }
 })
