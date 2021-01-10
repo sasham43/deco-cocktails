@@ -58,7 +58,7 @@ function Main(props){
         
         if(!props.ui.tutorial_complete){
             return (
-                <Intro />
+                <Intro ui={props.ui} />
             )
         } else {
             return (
