@@ -148,8 +148,8 @@ function Welcome() {
                     Welcome To Hotel Crump!
                 </AppText>
             </View>
-            <View style={{paddingTop: 50, paddingLeft: 15, paddingRight: 15}}>
-                <AppText style={{ fontSize: 20 }}>
+            <View style={{ alignItems: 'center', paddingTop: 50, paddingLeft: 15, paddingRight: 15}}>
+                <AppText style={{ fontSize: 20, textAlign: 'center' }}>
                     Home of the world-famous Crump Cocktails!
                 </AppText>
             </View>
