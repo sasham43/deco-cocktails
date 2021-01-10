@@ -18,3 +18,10 @@ export const setShareMenuMax = max => (
         payload: max
     }
 )
+
+export const setTutorialComplete = complete => (
+    {
+        type: 'SET_TUTORIAL_COMPLETE',
+        payload: complete
+    }
+)

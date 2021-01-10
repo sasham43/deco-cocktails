@@ -71,7 +71,7 @@ const INITIAL_STATE = {
             bottom: footerBottom,
         },
     },
-    first: true
+    tutorial_complete: false
 }
 
 const uiReducer = (state = INITIAL_STATE, action) => {
@@ -84,7 +84,8 @@ const uiReducer = (state = INITIAL_STATE, action) => {
         button_borders,
         border_color,
         title,
-        share
+        share,
+        tutorial_complete
     } = state
     switch (action.type){
         case 'SET_DARK_MODE':
@@ -107,7 +108,8 @@ const uiReducer = (state = INITIAL_STATE, action) => {
                 button_borders,
                 border_color: border,
                 title,
-                share
+                share,
+                tutorial_complete
             }
         case 'SET_TITLE':
             const new_title = action.payload
@@ -121,7 +123,8 @@ const uiReducer = (state = INITIAL_STATE, action) => {
                 button_borders,
                 border_color,
                 title: new_title,
-                share
+                share,
+                tutorial_complete
             }
         case 'SET_SHARE_MENU_MAX':
             const new_max = action.payload
@@ -138,7 +141,25 @@ const uiReducer = (state = INITIAL_STATE, action) => {
                 title,
                 share: {
                     menu_max: new_max
-                }
+                },
+                tutorial_complete
+            }
+        case 'SET_TUTORIAL_COMPLETE':
+            const complete = action.payload
+
+            console.log('setting complete', complete, action)
+
+            return {
+                dark_mode,
+                dark_theme,
+                light_theme,
+                current_theme,
+                default_styles,
+                button_borders,
+                border_color,
+                title,
+                share,
+                tutorial_complete: complete
             }
         default:
             return state

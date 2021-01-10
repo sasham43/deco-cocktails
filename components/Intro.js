@@ -8,8 +8,27 @@ import {
 } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 import Image from 'react-native-scalable-image'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import AppText from './AppText'
+import { setTutorialComplete } from '../utils/UIActions'
+
+const mapStateToProps = (state) => {
+    const { cocktails, ui, stock } = state
+    return { cocktails: cocktails, ui, stock }
+}
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        // deleteCocktail,
+        // selectCocktail,
+        // deleteCocktails,
+        // unselectAllCocktails,
+        // setShareMenuMax
+        setTutorialComplete
+    }, dispatch)
+)
+export default connect(mapStateToProps, mapDispatchToProps)(Intro)
 
 function renderIntro({ item }) {
     if(item.key == 0){
@@ -36,9 +55,6 @@ function renderIntro({ item }) {
 
 }
 
-function onIntroDone() {
-    console.log('finished intro')
-}
 function doneButton() {
     return (
         <View>
@@ -54,8 +70,13 @@ function skipButton() {
     )
 }
 
-export default function Intro(props){
+// export default 
+function Intro(props){
 
+    function onIntroDone() {
+        console.log('finished intro')
+        props.setTutorialComplete(true)
+    }
 /*
   Intro
   1. Welcome
