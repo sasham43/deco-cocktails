@@ -161,7 +161,7 @@ function Welcome() {
 }
 
 function IntroSlide({ item }) {
-    console.log('item.image', item.image)
+    // console.log('item.image', item.image)
     if (item.image) {
         return (
             <View style={styles.container}>
