@@ -98,7 +98,7 @@ function Intro(props){
             key: "1",
             title: 'Make your own cocktails',
             text: '',
-            image: require('../assets/screenshots/Welcome.png'),
+            image: require('../assets/screenshots/functionmenubutton.png'),
             backgroundColor: '#fff'
         },
         {

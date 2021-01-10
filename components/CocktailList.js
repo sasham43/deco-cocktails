@@ -36,6 +36,9 @@ import { useStock, useFunctionMenu } from '../utils/hooks'
 import { sortedIngredients } from '../utils/sort'
 
 
+import CurvedArrow from './Arrow'
+
+
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
@@ -349,6 +352,41 @@ function CocktailList(props){
         })
     }
 
+
+    // testing screenshots for Intro
+    function InfoBox(){
+        return (
+            <View style={{
+                position: 'absolute',
+                bottom: 100,
+                // bottom: windowHeight,
+                // top: windowHeight - (windowHeight / 2),
+                // top: windowHeight - (375),
+                left: (windowWidth / 2) - 150,
+                // left: 50,
+                backgroundColor: '#fff',
+                borderColor: '#000',
+                borderWidth: 1,
+                shadowOffset: { width: -4, height: -4, },
+                shadowOpacity: 0.3,
+                elevation: 10, // for Android,
+                padding: 15,
+                width: 200,
+                zIndex: 99
+            }}>
+                <View>
+                    <AppText>
+                        Press here to search, share, edit, and more!
+                    </AppText>
+                </View>
+                <CurvedArrow style={{position: 'absolute', bottom: -30, right: 60}} />
+            </View>
+        )
+    }
+
+
+
+
     return (
         <GestureRecognizer
             config={gestureConfig}
@@ -356,6 +394,7 @@ function CocktailList(props){
             onSwipeRight={(state)=>onSwipeRight(state)}
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}
         > 
+            <InfoBox />
             <ScrollView style={[styles.scroll_view, currentMode == 'delete' || currentMode == 'share' ? {paddingLeft: 50}:null]}>
                 <CocktailListMap 
                     fontSize={styles.cocktail_text.fontSize} 
