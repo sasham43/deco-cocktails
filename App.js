@@ -1,7 +1,7 @@
 // modules
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'; 
+import { StyleSheet, Text, View, SafeAreaView, Pressable } from 'react-native'; 
 import { AppLoading } from 'expo'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
@@ -12,6 +12,7 @@ import {
 import { persistStore, persistReducer } from 'redux-persist'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as ScreenOrientation from 'expo-screen-orientation'
+import AppIntroSlider from 'react-native-app-intro-slider'
 
 import stockReducer from './utils/StockReducer'
 import cocktailReducer from './utils/CocktailReducer'
@@ -54,10 +55,78 @@ export default function App(props) {
   // attempt to lock orientation for iPad
   ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
 
-  // console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nloading...')
+  function renderIntro({item}){
+    return (
+      <View>
+        <View>
+          <Text>{item.title}</Text>
+        </View>
+        <View>
+          <Text>{item.text}</Text>
+        </View>
+      </View>
+    )
+  }
+
+  const intro = [
+    {
+      key: 0,
+      title: 'Welcome to the Hotel Crump!',
+      text: 'The premier menu for custom cocktails',
+      image: '',
+      backgroundColor: '#fff'
+    },
+    {
+      key: 1,
+      title: 'Make your own cocktails',
+      text: '',
+      image: '',
+      backgroundColor: '#fff'
+    },
+    {
+      key: 2,
+      title: 'Share cocktails with friends!',
+      text: '',
+      image: '',
+      backgroundColor: '#fff'
+    },
+  ]
+  function onIntroDone(){
+    console.log('finished intro')
+  }
+  function doneButton(){
+    return (
+      <View>
+        <Text>Done</Text>
+      </View>
+    )
+  }
+  function skipButton(){
+    return (
+      <View>
+        <Text>Skip</Text>
+      </View>
+    )
+  }
+
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nloading...', ui.first)
 
   if(!fontsLoaded){
     return <AppLoading />
+  } else if (ui.first){
+    return (
+      <SafeAreaView style={[styles.container, { fontFamily: 'PoiretOne_400Regular' }, ui.current_theme]}>
+        <AppIntroSlider
+          renderItem={renderIntro}
+          data={intro}
+          onDone={onIntroDone}
+          activeDotStyle={{ backgroundColor: '#000' }}
+          showSkipButton={true}
+          renderDoneButton={doneButton}
+          renderSkipButton={skipButton}
+        />
+      </SafeAreaView>
+    )
   } else {
     return (
       <Provider store={store}>
