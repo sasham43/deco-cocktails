@@ -147,8 +147,6 @@ const uiReducer = (state = INITIAL_STATE, action) => {
         case 'SET_TUTORIAL_COMPLETE':
             const complete = action.payload
 
-            console.log('setting complete', complete, action)
-
             return {
                 dark_mode,
                 dark_theme,

@@ -55,7 +55,7 @@ function Main(props){
             tabBarVisible: false,
             unmountOnBlur: true
         }
-    console.log('Main', props.ui)
+        
         if(!props.ui.tutorial_complete){
             return (
                 <Intro />
