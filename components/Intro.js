@@ -1,6 +1,13 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
+import { 
+    View, 
+    Text, 
+    StyleSheet, 
+    // Image, 
+    Dimensions 
+} from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
+import Image from 'react-native-scalable-image'
 
 import AppText from './AppText'
 
@@ -120,15 +127,27 @@ function FunctionMenuButton({item}){
             {/* <Image style={styles.image} source={{uri: "../assets/screenshots/Welcome.png"}} /> */}
             <View style={[styles.image_container]}>
                 {/* <Image source={require("../assets/screenshots/Welcome.png")} /> */}
-                <Image style={styles.image} resizeMode={'contain'} source={item.image} />
-            </View>
-            <View style={styles.info_box}>
-                <AppText>
-                    Press this icon to search, share, edit, and more!
-                </AppText>
-            </View>
-            <View style={{position: 'absolute', top: windowHeight - 275, left: 150}}>
-                <CurvedTailArrow />
+                <Image 
+                    height={windowHeight-150} 
+                    // width={windowWidth-100}
+                    // width={100} 
+                    // height={windowHeight}
+                    resizeMode={'contain'} 
+                    // background={true}
+                    source={item.image} 
+                />
+                {/* <Image style={styles.image} resizeMode={'center'} source={item.image} /> */}
+
+                {/* <View style={styles.info_box}>
+                    <View>
+                        <AppText>
+                            Press this icon to search, share, edit, and more!
+                    </AppText>
+                    </View>
+                    <View style={{ position: 'absolute', bottom: -50, right: 50 }}>
+                        <CurvedTailArrow />
+                    </View>
+                </View> */}
             </View>
         </View>
     )
@@ -149,14 +168,20 @@ const windowWidth = Dimensions.get('window').width
 // console.log('windowWidth', windowWidth)
 const styles = StyleSheet.create({
     container: {
-        position: 'relative',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // position: 'relative',
         // padding: 10,
         // height: windowHeight
     },
     image_container: {
+        paddingTop: 50,
         // flex: 1
         // width: windowWidth,
         // height: windowHeight,
+        // paddingBottom: 300
+        paddingBottom: 200,
+        // paddingBottom: 150
     },
     image: {
         // width: null,
@@ -170,14 +195,17 @@ const styles = StyleSheet.create({
         width: windowWidth,
         position: 'absolute',
         top: -100,
+
         // aspectRatio: 1
     },
     info_box: {
         position: 'absolute',
-        // bottom: 10,
+        bottom: 300,
         // bottom: windowHeight,
-        top: windowHeight - 375,
-        left: 50,
+        // top: windowHeight - (windowHeight / 2),
+        // top: windowHeight - (375),
+        left: (windowWidth / 2)-150,
+        // left: 50,
         backgroundColor: '#fff',
         borderColor: '#000',
         borderWidth: 1,
