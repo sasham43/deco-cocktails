@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import AppText from './AppText'
+import FunctionButtonIcon from '../assets/function-button'
 import { setTutorialComplete } from '../utils/UIActions'
 
 const mapStateToProps = (state) => {
@@ -31,6 +32,10 @@ const mapDispatchToProps = dispatch => (
 export default connect(mapStateToProps, mapDispatchToProps)(Intro)
 
 function renderIntro({ item }) {
+    if(item.key == '0'){
+        return <Welcome />
+    }
+
     return (
         <IntroSlide item={item} />
     )
@@ -147,15 +152,18 @@ function Intro(props) {
 function Welcome() {
     return (
         <View style={styles.container}>
-            <View>
-                <AppText>
+            <View style={{alignItems: 'center', paddingTop: 200}}>
+                <AppText style={{fontSize: 30}}>
                     Welcome To Hotel Crump!
                 </AppText>
             </View>
-            <View>
-                <AppText>
-                    Home of the world famous Crump Cocktails!
+            <View style={{paddingTop: 50, paddingLeft: 15, paddingRight: 15}}>
+                <AppText style={{ fontSize: 20 }}>
+                    Home of the world-famous Crump Cocktails!
                 </AppText>
+            </View>
+            <View style={{marginTop: 20}}>
+                <FunctionButtonIcon fill={'#000'} width={200} height={175} />
             </View>
         </View>
     )
