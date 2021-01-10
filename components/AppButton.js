@@ -33,9 +33,12 @@ function AppButton(props) {
             return [styles.pressed_button, {borderColor: props.border, backgroundColor: theme.color}, props.style, disabled_style]
         }
     }
+    function press(){
+        if(props.press) props.press()
+    }
     var icon_size = 15
     return (
-        <Pressable disabled={disabled} pressDelay={'none'} style={pressStyles} onPressIn={() => setPressed(true)} onPressOut={() => setPressed(false)} onPress={() => props.press()}>
+        <Pressable disabled={disabled} pressDelay={'none'} style={pressStyles} onPressIn={() => setPressed(true)} onPressOut={() => setPressed(false)} onPress={() => press()}>
             <CornerIcon fill={theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
             <CornerIcon fill={theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
             <CornerIcon fill={theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
