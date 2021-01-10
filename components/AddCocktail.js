@@ -18,6 +18,8 @@ import TabIcon from '../assets/tab.svg'
 import HeaderIcon from './HeaderIcon'
 import {DirectionsInput} from './Directions'
 
+import CurvedArrow from './Arrow'
+
 import { addCocktail, updateCocktails } from '../utils/CocktailActions'
 
 const windowWidth = Dimensions.get('window').width
@@ -433,12 +435,52 @@ function Add(props){
     function onCancel() {
         props.navigation.navigate('CocktailList')
     }
+
+
+
+    // testing screenshots for Intro
+    function InfoBox() {
+        return (
+            <View style={{
+                position: 'absolute',
+                top: 120,
+                // bottom: 100,
+                // bottom: windowHeight,
+                // top: windowHeight - (windowHeight / 2),
+                // top: windowHeight - (375),
+                // left: (windowWidth / 2) - 150,
+                right: 30,
+                // left: 50,
+                backgroundColor: '#fff',
+                borderColor: '#000',
+                borderWidth: 1,
+                shadowOffset: { width: -4, height: -4, },
+                shadowOpacity: 0.3,
+                elevation: 10, // for Android,
+                padding: 15,
+                width: 200,
+                zIndex: 99
+            }}>
+                <View>
+                    <AppText>
+                        Add your own cocktails, or customize classics to your heart's content!
+                    </AppText>
+                </View>
+                {/* <CurvedArrow style={{ position: 'absolute', bottom: -30, right: 60 }} /> */}
+            </View>
+        )
+    }
+
+
+
+
     return (
         <GestureRecognizer
             // onSwipeLeft={(state) => onSwipeLeft(state)}
             onSwipeRight={(state) => onSwipeRight(state)}
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 40}]}
         >
+            <InfoBox />
             <View style={styles.new_ingredient_container}>
                 <TextInput
                     value={newCocktailName}
