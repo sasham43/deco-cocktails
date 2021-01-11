@@ -55,12 +55,15 @@ function Main(props){
             },
             tabBarVisible: false,
             unmountOnBlur: true,
-            headerTitle: props => <Menu { ...props } />,
-            headerBackTitleVisible: false,
-            headerLeft: null,
+            // headerTitle: props => <Menu { ...props } />,
+            // headerShown: false,
+            // headerBackTitleVisible: false,
+            // headerLeft: null,
+            header: props => <Menu {...props} />,
         }
         // const stack_options = {
-            
+        //     // header: props => <Menu {...props} />,
+        //     // headerStyle: {height: 50}
         // }
         
         if(!props.ui.tutorial_complete){
@@ -80,6 +83,7 @@ function Main(props){
                         <Stack.Navigator 
                             // options={stack_options} 
                             headerMode={"float"}  
+                            // headerMode={"screen"}  
                             // tabBar={props=> <Menu {...props} />} 
                             backBehavior={"history"} 
                         >
