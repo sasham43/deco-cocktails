@@ -72,19 +72,7 @@ function About (props){
             onSwipeRight={(state)=>swipeRight(state)}
         >
             <KeyboardAwareScrollView>
-                <View style={styles.about_content}>
-                    <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
-                        <AppText style={styles.about_header}>Theme</AppText>
-                    </View>
-                    <View style={styles.button_container}>
-                        <View style={styles.about_button}>
-                            <AppButton  press={()=>props.setDarkMode(true)}>Dark</AppButton>
-                        </View>
-                        <View style={styles.about_button}>
-                            <AppButton press={()=>props.setDarkMode(false)}>Light</AppButton>
-                        </View>
-                    </View>
-                </View>
+                
                 <View style={styles.about_content}>
                     <View style={[styles.about_header_container, {borderColor: props.ui.border_color}]}>
                         <AppText style={styles.about_header}>Title</AppText>
@@ -107,6 +95,19 @@ function About (props){
                             <AppText style={{color: 'grey'}}>
                                 {menuTitle.length} / 22 letters
                             </AppText>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.about_content}>
+                    <View style={[styles.about_header_container, { borderColor: props.ui.border_color }]}>
+                        <AppText style={styles.about_header}>Theme</AppText>
+                    </View>
+                    <View style={styles.button_container}>
+                        <View style={styles.about_button}>
+                            <AppButton press={() => props.setDarkMode(true)}>Dark</AppButton>
+                        </View>
+                        <View style={styles.about_button}>
+                            <AppButton press={() => props.setDarkMode(false)}>Light</AppButton>
                         </View>
                     </View>
                 </View>

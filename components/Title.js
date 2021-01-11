@@ -23,13 +23,13 @@ function Title(props){
         RootNavigation.navigate('About')
     }
     function pressIn(){
-        setBorder(props.ui.current_theme.color)
+        // setBorder(props.ui.current_theme.color)
     }
     function pressOut(){
         setBorder(props.ui.current_theme.backgroundColor)
     }
     return (
-        <Pressable onPressIn={() => pressIn()} onPressOut={() => pressOut()} onLongPress={() => goToAbout()} style={[props.ui.current_theme, styles.title]}>
+        <Pressable onPressIn={() => pressIn()} onPressOut={() => pressOut()} onPress={()=>goToAbout()} onLongPress={() => goToAbout()} style={[props.ui.current_theme, styles.title]}>
             <View style={{ borderColor: border, borderBottomWidth: 1 }}>
                 {/* <AppText style={[styles.text]}>
                     {props.ui.title ? props.ui.title : ''}
