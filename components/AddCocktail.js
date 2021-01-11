@@ -684,6 +684,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 })
