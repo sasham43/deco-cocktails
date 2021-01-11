@@ -44,11 +44,11 @@ function renderIntro(props) {
 function IntroButton(props){
     const icon_size = 15
     return (
-        <View style={[styles.button, {borderColor: '#ccc'}]}>
-            <CornerIcon fill={'#000'} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
-            <CornerIcon fill={'#000'} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
-            <CornerIcon fill={'#000'} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
-            <CornerIcon fill={'#000'} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+        <View style={[styles.button, {borderColor: props.ui.current_theme.borderColor}]}>
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
             {/* <ButtonText pressed={pressed} theme={theme} style={disabled ? { color: 'grey' } : null}>{props.children}</ButtonText> */}
             <AppText style={styles.button_text}>{props.children}</AppText>
         </View>
@@ -58,7 +58,7 @@ function IntroButton(props){
 function doneButton(props) {
     // console.log('donebutton', props)
     return (
-        <IntroButton>
+        <IntroButton ui={props.ui}>
             <AppText>Done</AppText>
         </IntroButton>
     )
@@ -66,7 +66,7 @@ function doneButton(props) {
 function skipButton(props) {
     // console.log('skipbutton', props)
     return (
-        <IntroButton>
+        <IntroButton ui={props.ui}>
             <AppText>Skip</AppText>
         </IntroButton>
     )
