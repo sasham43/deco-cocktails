@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { View, StyleSheet, Pressable, Animated, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
 
 import AppText from './AppText'
 import InStockIcon from '../assets/in-stock'
@@ -15,8 +16,12 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Menu)
 
 function Menu(props) {
-    const state = props.navigation.dangerouslyGetState()
-    const navigation = props.navigation
+    console.log('Menu', Object.keys(props))
+    const navigation = useNavigation()
+    const state = navigation.dangerouslyGetState()
+    // const navigation = navigation
+    // const state = props.navigation.dangerouslyGetState()
+    // const navigation = props.navigation
     var currentPage
     if(state.index == 0){
         currentPage = 'CocktailList'
@@ -108,7 +113,7 @@ const styles = StyleSheet.create({
         paddingLeft: 50,
         paddingRight: 50,
         height: 50,
-        position: 'absolute',
+        // position: 'absolute',
         top: 0,
         width: windowWidth,
     },
