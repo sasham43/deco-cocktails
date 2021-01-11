@@ -17,6 +17,11 @@ import FunctionButtonIcon from '../assets/function-button'
 import CornerIcon from '../assets/corner'
 import { setTutorialComplete } from '../utils/UIActions'
 
+const function_menu_button = require('../assets/screenshots/functionmenubutton.png')
+const about = require('../assets/screenshots/about.png')
+const add_cocktail = require('../assets/screenshots/addcocktail.png')
+const cabinet = require('../assets/screenshots/cabinet.png')
+
 
 const mapStateToProps = (state) => {
     const { cocktails, ui, stock } = state
@@ -90,6 +95,7 @@ function Intro(props) {
       4. Manage cabinet
       5. About screen
     */
+   
     const intro = [
         {
             key: "0",
@@ -102,7 +108,7 @@ function Intro(props) {
             key: "1",
             title: 'Make your own cocktails',
             text: '',
-            image: require('../assets/screenshots/functionmenubutton.png'),
+            image: function_menu_button,
             backgroundColor: '#fff'
         },
         {
@@ -110,7 +116,7 @@ function Intro(props) {
             title: 'Press Title',
             text: '',
             // image: '',
-            image: require('../assets/screenshots/about.png'),
+            image: about,
             backgroundColor: '#fff'
         },
         {
@@ -118,7 +124,7 @@ function Intro(props) {
             title: 'Add custom cocktails!',
             text: '',
             // image: '',
-            image: require('../assets/screenshots/addcocktail.png'),
+            image: add_cocktail,
             backgroundColor: '#fff'
         },
         {
@@ -126,7 +132,7 @@ function Intro(props) {
             title: 'Manage bar cabinet!',
             text: '',
             // image: '',
-            image: require('../assets/screenshots/cabinet.png'),
+            image: cabinet,
             backgroundColor: '#fff'
         },
     ]
