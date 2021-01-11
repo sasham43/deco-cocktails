@@ -16,24 +16,35 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Menu)
 
 function Menu(props) {
-    console.log('Menu', Object.keys(props))
     const navigation = useNavigation()
     const state = navigation.dangerouslyGetState()
     // const navigation = navigation
     // const state = props.navigation.dangerouslyGetState()
     // const navigation = props.navigation
-    var currentPage
-    if(state.index == 0){
-        currentPage = 'CocktailList'
+    var currentPage = state.routes[state.routes.length-1].name
+    console.log('Menu', currentPage)
+    var lastPage = state.routes[state.routes.length - 2] ? state.routes[state.routes.length - 2].name : ''
+    if(currentPage == 'CocktailList'){
+    // if(state.index == 0){
+        // currentPage = 'CocktailList'
         var leftAnim = useRef(new Animated.Value(1)).current;
         var rightAnim = useRef(new Animated.Value(0)).current;
-    } else if (state.index == 2){
-        currentPage = 'Stock'
+    } else if (currentPage == 'Stock'){
+    // } else if (state.index == 2){
+        // currentPage = 'Stock'
         var leftAnim = useRef(new Animated.Value(0)).current;
         var rightAnim = useRef(new Animated.Value(1)).current;
     } else {
-        var leftAnim = useRef(new Animated.Value(1)).current;
-        var rightAnim = useRef(new Animated.Value(1)).current;
+        if(lastPage == 'Stock'){
+            var leftAnim = useRef(new Animated.Value(0)).current;
+            var rightAnim = useRef(new Animated.Value(1)).current;
+        } else if (lastPage == 'CocktailList'){
+            var leftAnim = useRef(new Animated.Value(1)).current;
+            var rightAnim = useRef(new Animated.Value(0)).current;
+        } else {
+            // var leftAnim = useRef(new Animated.Value(1)).current;
+            // var rightAnim = useRef(new Animated.Value(1)).current;
+        }
     }
 
     function handleFade(){
@@ -44,8 +55,13 @@ function Menu(props) {
             fadeRightIn()
             fadeLeftOut()
         } else {
-            fadeLeftOut()
-            fadeRightOut()
+            if(lastPage == 'Stock'){
+                fadeRightOut()
+            } else if (lastPage == 'CocktailList'){
+                fadeLeftOut()
+            }
+            // fadeLeftOut()
+            // fadeRightOut()
         }
     }
         
@@ -58,6 +74,7 @@ function Menu(props) {
         }).start()
     }
     const fadeRightIn = () => {
+        console.log('fadeRightin', rightAnim)
         Animated.timing(rightAnim, {
             toValue: 1,
             duration: fadeTime,
@@ -78,7 +95,11 @@ function Menu(props) {
             useNativeDriver: true,
         }).start()
     }
-    handleFade()
+    // handleFade()
+    useEffect(()=>{
+        console.log('changing', currentPage, lastPage)
+        handleFade()
+    }, [currentPage])
 
     return (
         <View style={[styles.menu, props.ui.current_theme]}>
@@ -113,8 +134,9 @@ const styles = StyleSheet.create({
         paddingLeft: 50,
         paddingRight: 50,
         height: 50,
-        // position: 'absolute',
-        top: 0,
+        position: 'absolute',
+        // top: 0,
+        left: 0,
         width: windowWidth,
     },
     link_container: {
