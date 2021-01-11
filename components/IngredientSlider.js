@@ -66,6 +66,11 @@ function IngredientSlider(props){
                 label: label,
                 value: props.parts
             })
+        } else {
+            setIngredient({
+                label: '',
+                value: 0
+            })
         }
     }, [props.parts])
 
