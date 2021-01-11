@@ -58,7 +58,7 @@ const INITIAL_STATE = {
             paddingRight: 40,
             // height: viewHeight,
             flex: 1,
-            marginTop: 50, // account for menu
+            // marginTop: 50, // account for menu
         },
         footerStyles: {
             width: windowWidth - 40,

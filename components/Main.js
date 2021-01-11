@@ -26,7 +26,8 @@ import Intro from './Intro'
 
 import CornerIcon from '../assets/corner.svg'
 
-const Tab = createBottomTabNavigator()
+// const Tab = createBottomTabNavigator()
+const Stack = createStackNavigator()
 
 const mapStateToProps = (state) => {
     const {  ui } = state
@@ -53,8 +54,14 @@ function Main(props){
                 }
             },
             tabBarVisible: false,
-            unmountOnBlur: true
+            unmountOnBlur: true,
+            headerTitle: props => <Menu { ...props } />,
+            headerBackTitleVisible: false,
+            headerLeft: null,
         }
+        // const stack_options = {
+            
+        // }
         
         if(!props.ui.tutorial_complete){
             return (
@@ -70,14 +77,19 @@ function Main(props){
                         <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
                         <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={60} height={60} />
                         <Title></Title>
-                        <Tab.Navigator  tabBar={props=> <Menu {...props} />} backBehavior={"history"} >
-                            <Tab.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Tab.Screen>
-                            <Tab.Screen options={screen_options} name="About" style={styles.screen} component={About}></Tab.Screen>
-                            <Tab.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Tab.Screen>
-                            <Tab.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Tab.Screen>
-                            <Tab.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Tab.Screen>
-                            <Tab.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Tab.Screen>
-                        </Tab.Navigator>
+                        <Stack.Navigator 
+                            // options={stack_options} 
+                            headerMode={"float"}  
+                            // tabBar={props=> <Menu {...props} />} 
+                            backBehavior={"history"} 
+                        >
+                            <Stack.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Stack.Screen>
+                            <Stack.Screen options={screen_options} name="About" style={styles.screen} component={About}></Stack.Screen>
+                            <Stack.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Stack.Screen>
+                            <Stack.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
+                            <Stack.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
+                            <Stack.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Stack.Screen>
+                        </Stack.Navigator>
                         {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
                         <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}>
     
