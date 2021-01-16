@@ -6,6 +6,8 @@ import { useNavigation, useIsFocused } from '@react-navigation/native'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import ViewShot from "react-native-view-shot"
 import SlidingUpPanel from 'rn-sliding-up-panel'
+import QRCode from 'react-native-qrcode-svg'
+import * as Linking from 'expo-linking'
 
 import AppText from './AppText'
 import { AddedIngredientMap } from './AddedIngredients'
@@ -365,8 +367,17 @@ function ShareCocktail(props){
     })
     var small_screen = Dimensions.get('window').height < 700
     var fontSize = small_screen ? 14 : 16
-    // console.log('window', Dimensions.get('window').height, fontSize)
     var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
+
+    const [link, setLink] = useState()
+
+    useEffect(()=>{
+        // setLink(Linking.makeUrl('', props.cocktail))
+        setLink(Linking.makeUrl('', props.cocktail).replace('127.0.0.1', '192.168.1.17'))
+        // console.log('link', link, JSON.stringify(props.cocktail), JSON.parse(JSON.stringify(props.cocktail)))
+    },[])
+
+
     return (
         <ViewShot 
             style={[{ backgroundColor: props.ui.current_theme.backgroundColor,margin: 10, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1}, modal_style]}
@@ -388,6 +399,11 @@ function ShareCocktail(props){
                 </View>
                 <View>
                     <Directions directions={props.cocktail.directions} style={{fontSize}} />
+                </View>
+                <View>
+                    <QRCode size={200} value={link}>
+
+                    </QRCode>
                 </View>
                 <View style={{ position: 'absolute', bottom: -15, flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
                     <View style={{flex: 1, alignItems: 'center'}}>
