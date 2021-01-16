@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, StatusBar, View } from 'react-native'
 // import { NativeRouter, Route, Link } from "react-router-native"
 import { NavigationContainer } from '@react-navigation/native';
@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 // import { Provider } from 'react-redux'
 import { createStore, combineReducers} from 'redux'
 import { connect} from 'react-redux'
+import * as Linking from 'expo-linking'
 
 // import stockReducer from '../utils/StockReducer'
 // import cocktailReducer from '../utils/CocktailReducer'
@@ -56,6 +57,19 @@ function Main(props){
             tabBarVisible: false,
             unmountOnBlur: true
         }
+
+        useEffect(()=>{
+            Linking.addEventListener('url', (data)=>{
+                // console.log('not listening')
+                var url = data.url
+                let { path, queryParams } = Linking.parse(url);
+                console.log('listening to url', path, queryParams)
+            })
+
+            return function cleanup(){
+                Linking.removeEventListener('url')
+            }
+        }, [])
         
         if(!props.ui.tutorial_complete){
             return (
