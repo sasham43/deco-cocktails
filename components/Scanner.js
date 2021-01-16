@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, StyleSheet} from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner'
+import * as Linking from 'expo-linking'
 
 import AppText from './AppText'
 
@@ -10,6 +11,8 @@ export default function Scanner(props){
 
     function handleBarCodeScanned(data){
         console.log('scan', data)
+        var url = Linking.parse(data.data)
+        console.log('url', url)
     }
 
     useEffect(() => {
