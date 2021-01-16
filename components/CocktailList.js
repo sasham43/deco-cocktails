@@ -595,6 +595,10 @@ function FunctionMenu(props) {
         navigation.navigate('AddCocktail', { id: null })
         hidePanel()
     }
+    function navigateToScanner(){
+        navigation.navigate('Scanner', { id: null })
+        hidePanel()
+    }
 
     function removeMode(){
         props.unselectAllCocktails()
@@ -647,6 +651,7 @@ function FunctionMenu(props) {
                 <FunctionMenuButton theme={props.theme} label={"Remove Cocktails"} mode="delete" switchMode={removeMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Add Cocktail"} mode="add" switchMode={navigateToAdd} currentMode={props.currentMode} />
                 <FunctionMenuButton theme={props.theme} label={"Share Menu"} mode="share" switchMode={shareMode} currentMode={props.currentMode} hidePanel={hidePanel} />
+                <FunctionMenuButton theme={props.theme} label={"Scan Barcode"} mode="share" switchMode={navigateToScanner} currentMode={props.currentMode} hidePanel={hidePanel} />
             </View>
         </SlidingUpPanel>        
     )

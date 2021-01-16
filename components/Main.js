@@ -21,6 +21,7 @@ import Menu from './Menu'
 import Add from './AddCocktail'
 import AddStock from './AddStock'
 import ViewCocktail from './ViewCocktail'
+import Scanner from './Scanner'
 import { navigationRef } from '../utils/RootNavigation'
 import Intro from './Intro'
 
@@ -77,6 +78,7 @@ function Main(props){
                             <Tab.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Tab.Screen>
                             <Tab.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Tab.Screen>
                             <Tab.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Tab.Screen>
+                            <Tab.Screen options={screen_options} name="Scanner" style={styles.screen} component={Scanner}></Tab.Screen>
                         </Tab.Navigator>
                         {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
                         <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}>
