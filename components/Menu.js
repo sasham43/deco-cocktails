@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { View, StyleSheet, Pressable, Animated, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
+import Carousel from 'react-native-snap-carousel'
 
 import AppText from './AppText'
 import InStockIcon from '../assets/in-stock'
@@ -75,28 +76,77 @@ function Menu(props) {
     }
     handleFade()
 
+    const menuItems = [
+        {
+            name: 'Cocktails',
+            link: 'CocktailList'
+        },
+        {
+            name: 'Cabinet',
+            link: 'Stock'
+        },
+        {
+            name: 'Add',
+            link: 'AddCocktail'
+        },
+    ]
+
+    function pressItem(props){
+        console.log('press', props)
+        carousel.snapToItem(props.index)
+    }
+    function onSnap(index){
+        // console.log('on snap', data)
+        navigation.navigate(menuItems[index].link)
+    }
+
+    // const carouse
+    const [carousel, setCarousel] = useState(null)
+
+    function renderMenuItem(props){
+
+        return (
+            <Pressable onPress={()=>pressItem(props)} style={{justifyContent: 'center', alignItems: 'center'}}>
+                <AppText style={{fontSize: 20}}>{props.item.name}</AppText>
+            </Pressable>
+        )
+    }
+
     return (
-        <View style={[styles.menu, props.ui.current_theme]}>
-            <View style={styles.link_container}>
-                <Pressable style={styles.link} onPress={()=>navigation.navigate('CocktailList', {date: new Date().toString()})}>
-                    <AppText style={styles.link_text}>Cocktails</AppText>
-                    <HeaderIcon direction={'left'} anim={leftAnim} ui={props.ui} />
-                    {/* <Animated.View style={[{ paddingLeft: 10 }, { opacity: leftAnim }]}>
-                        <InStockIcon transform={[{ rotate: '135deg' }]} width={30} height={30} fill={props.ui.current_theme.color} />
-                    </Animated.View> */}
-                </Pressable>
-            </View>
-            <View style={styles.link_container}>
-                <Pressable style={styles.link} onPress={() => navigation.navigate('Stock', { date: new Date().toString() })}>
-                    <HeaderIcon direction={'right'} anim={rightAnim} ui={props.ui} />
-                    {/* <Animated.View style={[{ paddingRight: 10 }, { opacity: rightAnim }]}>
-                        <InStockIcon transform={[{ rotate: '-45deg' }]} width={30} height={30} fill={props.ui.current_theme.color} />
-                    </Animated.View> */}
-                    <AppText style={styles.link_text}>Cabinet</AppText>
-                </Pressable>
-            </View>
+        <View style={[styles.menu, {borderColor: '#000', borderWidth:1}, props.ui.current_theme]}>
+            <Carousel
+                data={menuItems}
+                renderItem={renderMenuItem}
+                itemWidth={100}
+                itemHeight={50}
+                sliderWidth={props.ui.default_styles.window.width}
+                sliderHeight={50}
+                ref={c => setCarousel(c)}
+                onSnapToItem={onSnap}
+            />
         </View>
     )
+
+
+
+
+
+    // return (
+    //     <View style={[styles.menu, props.ui.current_theme]}>
+    //         <View style={styles.link_container}>
+    //             <Pressable style={styles.link} onPress={()=>navigation.navigate('CocktailList', {date: new Date().toString()})}>
+    //                 <AppText style={styles.link_text}>Cocktails</AppText>
+    //                 <HeaderIcon direction={'left'} anim={leftAnim} ui={props.ui} />
+    //             </Pressable>
+    //         </View>
+    //         <View style={styles.link_container}>
+    //             <Pressable style={styles.link} onPress={() => navigation.navigate('Stock', { date: new Date().toString() })}>
+    //                 <HeaderIcon direction={'right'} anim={rightAnim} ui={props.ui} />
+    //                 <AppText style={styles.link_text}>Cabinet</AppText>
+    //             </Pressable>
+    //         </View>
+    //     </View>
+    // )
 }
 
 const styles = StyleSheet.create({
