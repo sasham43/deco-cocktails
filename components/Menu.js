@@ -101,6 +101,10 @@ function Menu(props) {
             name: 'View',
             link: 'ViewCocktail'
         },
+        {
+            name: 'About',
+            link: 'About'
+        },
     ]
 
     function pressItem(props){
