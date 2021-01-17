@@ -21,62 +21,67 @@ function Menu(props) {
     const state = props.navigation.dangerouslyGetState()
     const navigation = props.navigation
     var currentPage
-    if(state.index == 0){
-        currentPage = 'CocktailList'
-        var leftAnim = useRef(new Animated.Value(1)).current;
-        var rightAnim = useRef(new Animated.Value(0)).current;
-    } else if (state.index == 2){
-        currentPage = 'Stock'
-        var leftAnim = useRef(new Animated.Value(0)).current;
-        var rightAnim = useRef(new Animated.Value(1)).current;
-    } else {
-        var leftAnim = useRef(new Animated.Value(1)).current;
-        var rightAnim = useRef(new Animated.Value(1)).current;
-    }
+    // if(state.index == 0){
+    //     currentPage = 'CocktailList'
+    //     var leftAnim = useRef(new Animated.Value(1)).current;
+    //     var rightAnim = useRef(new Animated.Value(0)).current;
+    // } else if (state.index == 2){
+    //     currentPage = 'Stock'
+    //     var leftAnim = useRef(new Animated.Value(0)).current;
+    //     var rightAnim = useRef(new Animated.Value(1)).current;
+    // } else {
+    //     var leftAnim = useRef(new Animated.Value(1)).current;
+    //     var rightAnim = useRef(new Animated.Value(1)).current;
+    // }
 
-    function handleFade(){
-        if (currentPage == 'CocktailList') {
-            fadeLeftIn()
-            fadeRightOut()
-        } else if (currentPage == 'Stock') {
-            fadeRightIn()
-            fadeLeftOut()
-        } else {
-            fadeLeftOut()
-            fadeRightOut()
-        }
-    }
+    // function handleFade(){
+    //     if (currentPage == 'CocktailList') {
+    //         fadeLeftIn()
+    //         fadeRightOut()
+    //     } else if (currentPage == 'Stock') {
+    //         fadeRightIn()
+    //         fadeLeftOut()
+    //     } else {
+    //         fadeLeftOut()
+    //         fadeRightOut()
+    //     }
+    // }
         
-    const fadeTime = 1000
-    const fadeLeftIn = () => {
-        Animated.timing(leftAnim, {
-            toValue: 1,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    const fadeRightIn = () => {
-        Animated.timing(rightAnim, {
-            toValue: 1,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    const fadeLeftOut = () => {
-        Animated.timing(leftAnim, {
-            toValue: 0,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    const fadeRightOut = () => {
-        Animated.timing(rightAnim, {
-            toValue: 0,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    handleFade()
+    // const fadeTime = 1000
+    // const fadeLeftIn = () => {
+    //     Animated.timing(leftAnim, {
+    //         toValue: 1,
+    //         duration: fadeTime,
+    //         useNativeDriver: true,
+    //     }).start()
+    // }
+    // const fadeRightIn = () => {
+    //     Animated.timing(rightAnim, {
+    //         toValue: 1,
+    //         duration: fadeTime,
+    //         useNativeDriver: true,
+    //     }).start()
+    // }
+    // const fadeLeftOut = () => {
+    //     Animated.timing(leftAnim, {
+    //         toValue: 0,
+    //         duration: fadeTime,
+    //         useNativeDriver: true,
+    //     }).start()
+    // }
+    // const fadeRightOut = () => {
+    //     Animated.timing(rightAnim, {
+    //         toValue: 0,
+    //         duration: fadeTime,
+    //         useNativeDriver: true,
+    //     }).start()
+    // }
+    // handleFade()
+
+    useEffect(()=>{
+        // console.log('state.index', state.index)
+        carousel.snapToItem(state.index)
+    }, [state.index])
 
     const menuItems = [
         {
@@ -94,7 +99,7 @@ function Menu(props) {
     ]
 
     function pressItem(props){
-        console.log('press', props)
+        // console.log('press', props)
         carousel.snapToItem(props.index)
     }
     function onSnap(index){
