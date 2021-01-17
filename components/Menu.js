@@ -113,7 +113,7 @@ function Menu(props) {
     }
     function onSnap(index){
         // console.log('on snap', data)
-        navigation.navigate(menuItems[index].link)
+        navigation.navigate(menuItems[index].link, {id:null})
     }
 
     // const carouse
