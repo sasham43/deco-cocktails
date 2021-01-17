@@ -420,7 +420,8 @@ function Add(props){
     }
     function onSwipeLeft(state){
         // console.log('left', state)
-        setContentMode('directions')
+        // setContentMode('directions')
+        props.navigation.navigate('ViewCocktail')
     }
     function onSwipeRight(state){
         // console.log('right', state)
@@ -428,6 +429,7 @@ function Add(props){
         if(state.x0 < 150){
             return props.navigation.goBack()
         }
+        props.navigation.navigate('Stock')
     }
 
     function onCancel() {
@@ -435,7 +437,7 @@ function Add(props){
     }
     return (
         <GestureRecognizer
-            // onSwipeLeft={(state) => onSwipeLeft(state)}
+            onSwipeLeft={(state) => onSwipeLeft(state)}
             onSwipeRight={(state) => onSwipeRight(state)}
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 40}]}
         >

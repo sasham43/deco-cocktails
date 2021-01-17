@@ -64,12 +64,14 @@ function About (props){
         if(state.x0 < 150){
             return props.navigation.goBack()
         }
+        props.navigation.navigate('ViewCocktail')
     }
 
     return (
         <GestureRecognizer
             style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}
             onSwipeRight={(state)=>swipeRight(state)}
+            // onSwipeLeft={(state)=>swipeLeft(state)}
         >
             <KeyboardAwareScrollView>
                 <View style={styles.about_content}>

@@ -196,7 +196,7 @@ function Stock(props){
     const navigation = useNavigation()
 
     function onSwipeLeft(){
-        navigation.navigate('Stock')
+        navigation.navigate('AddCocktail')
     }
     function onSwipeRight(state){
         if(state.x0 < 150){
