@@ -119,22 +119,42 @@ function Menu(props) {
     }
     const icon_size = 15
     return (
-        <View style={[styles.menu, {borderColor: '#000', borderWidth:0}, props.ui.current_theme]}>
-            <Carousel
-                data={menuItems}
-                renderItem={renderMenuItem}
-                itemWidth={100}
-                itemHeight={icon_size + 20}
-                sliderWidth={props.ui.default_styles.window.width}
-                sliderHeight={icon_size + 20}
-                ref={c => setCarousel(c)}
-                onSnapToItem={onSnap}
-            />
-            <View style={{position: 'absolute', marginTop: 10, borderColor: props.ui.border_color,borderWidth:1, width:100, height: 40, top: 10, left: (props.ui.default_styles.window.width / 2)-50}}>
-                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
-                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
-                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
-                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+        <View style={[styles.menu, {borderColor: '#000', borderTopWidth:0}, props.ui.current_theme]}>
+            {/* <View style={{marginLeft: 0}}> */}
+                <Carousel
+                    data={menuItems}
+                    renderItem={renderMenuItem}
+                    itemWidth={100}
+                    itemHeight={icon_size + 20}
+                    sliderWidth={props.ui.default_styles.window.width-20}
+                    sliderHeight={icon_size + 20}
+                    ref={c => setCarousel(c)}
+                    onSnapToItem={onSnap}
+                    containerCustomStyle={{zIndex:10, marginRight:10}}
+                />
+            {/* </View> */}
+            <View style={{
+                position: 'absolute', 
+                borderLeftWidth:0,
+                borderRightWidth:0, 
+                marginTop: 10,
+                borderColor: props.ui.border_color,
+                borderWidth:1,
+                // width:100,
+                // alignSelf: 'center',
+                marginLeft: 10,
+                width: props.ui.default_styles.window.width-20,
+                height: 40,
+                top: 0,
+                zIndex:-1
+                // left: (props.ui.default_styles.window.width / 2)-50}
+            }}>
+                <View style={{position: 'absolute', width:100, height:38, alignSelf: 'center'}}>
+                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
+                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
+                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
+                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+                </View>
                 <View style={{alignSelf: 'center', marginTop: -10}}>
                     <InStockIcon transform={[{ rotate: '45deg' }]} fill={props.ui.current_theme.color} height={20} width={20} />
                 </View>
@@ -174,9 +194,12 @@ const styles = StyleSheet.create({
         alignContent: 'flex-start',
         // paddingLeft: 50,
         // paddingRight: 50,
-        paddingTop: 30,
-        // height: 50,
-        height: 100,
+        paddingTop: 20,
+        // marginTop:10,
+        paddingLeft: 10,
+        // paddingTop: 10,
+        height: 50,
+        // height: 100,
         position: 'absolute',
         top: 0,
         width: windowWidth,
