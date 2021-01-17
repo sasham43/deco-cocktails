@@ -420,7 +420,7 @@ var icon_distance = 2
 const windowWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
     header: {
-        marginTop: 10
+        marginTop: 20
     },
     header_buttons: {
         flexDirection: 'row',
