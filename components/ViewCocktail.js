@@ -46,6 +46,7 @@ function ViewCocktail(props){
         currentMode,
         switchMode
     } = useFunctionMenu()
+    // const [params, setParams] = useState(props.route.params)
 
     useEffect(()=>{
         loadParams(props.route.params)
@@ -70,8 +71,12 @@ function ViewCocktail(props){
             setCocktail(cocktail)
 
             setSorted(props.cocktails.current.sort(sortCocktails))
-        }
+        } else {
+            var cocktail = props.cocktails.current[0]
+            setCocktail(cocktail)
 
+            setSorted(props.cocktails.current.sort(sortCocktails))
+        }
     }
     function findCurrentIndex(){
         for(var i in sorted){
@@ -414,10 +419,13 @@ function ScrollContent(props){
 var icon_distance = 2
 const windowWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
+    header: {
+        marginTop: 10
+    },
     header_buttons: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 10
+        marginTop: 10,
     },  
     cocktail_title: {
         // alignItems: 'center',
