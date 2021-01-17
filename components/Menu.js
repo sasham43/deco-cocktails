@@ -5,6 +5,7 @@ import Carousel from 'react-native-snap-carousel'
 
 import AppText from './AppText'
 import InStockIcon from '../assets/in-stock'
+import MenuSelectIcon from '../assets/menu-select'
 import HeaderIcon from './HeaderIcon'
 
 const windowWidth = Dimensions.get('window').width
@@ -102,28 +103,33 @@ function Menu(props) {
 
     // const carouse
     const [carousel, setCarousel] = useState(null)
+    const icon_size = 90
 
     function renderMenuItem(props){
 
         return (
-            <Pressable onPress={()=>pressItem(props)} style={{justifyContent: 'center', alignItems: 'center'}}>
+            <Pressable onPress={()=>pressItem(props)} style={{justifyContent: 'center', alignContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
                 <AppText style={{fontSize: 20}}>{props.item.name}</AppText>
             </Pressable>
         )
     }
 
     return (
-        <View style={[styles.menu, {borderColor: '#000', borderWidth:1}, props.ui.current_theme]}>
+        <View style={[styles.menu, {borderColor: '#000', borderWidth:0}, props.ui.current_theme]}>
             <Carousel
                 data={menuItems}
                 renderItem={renderMenuItem}
                 itemWidth={100}
-                itemHeight={50}
+                itemHeight={icon_size + 20}
                 sliderWidth={props.ui.default_styles.window.width}
-                sliderHeight={50}
+                sliderHeight={icon_size + 20}
                 ref={c => setCarousel(c)}
                 onSnapToItem={onSnap}
             />
+            <View style={{position: 'absolute', top: 0, left: (props.ui.default_styles.window.width / 2)-45}}>
+                {/* <InStockIcon transform={[{ rotate: '-135deg' }]} fill={props.ui.current_theme.color} height={20} width={20} /> */}
+                <MenuSelectIcon fill={props.ui.current_theme.color} height={icon_size} width={icon_size} transform={[{scaleX:1.2}]} />
+            </View>
         </View>
     )
 
@@ -155,9 +161,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignContent: 'flex-start',
-        paddingLeft: 50,
-        paddingRight: 50,
-        height: 50,
+        // paddingLeft: 50,
+        // paddingRight: 50,
+        paddingTop: 30,
+        // height: 50,
+        height: 100,
         position: 'absolute',
         top: 0,
         width: windowWidth,
