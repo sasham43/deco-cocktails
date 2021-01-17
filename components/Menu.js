@@ -131,6 +131,7 @@ function Menu(props) {
                     ref={c => setCarousel(c)}
                     onSnapToItem={onSnap}
                     containerCustomStyle={{zIndex:10, marginRight:10}}
+                    inactiveSlideScale={0.7}
                 />
             {/* </View> */}
             <View style={{
@@ -155,7 +156,7 @@ function Menu(props) {
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
                 </View>
-                <View style={{alignSelf: 'center', marginTop: -10}}>
+                <View style={{alignSelf: 'center', marginTop: -10, backgroundColor: props.ui.current_theme.backgroundColor}}>
                     <InStockIcon transform={[{ rotate: '45deg' }]} fill={props.ui.current_theme.color} height={20} width={20} />
                 </View>
                 {/* <MenuSelectIcon fill={props.ui.current_theme.color} height={icon_size} width={icon_size} transform={[{scaleX:1.2}]} /> */}
