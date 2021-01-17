@@ -242,11 +242,12 @@ function ViewCocktail(props){
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}
         >
             <View style={styles.header}>
-                <CocktailListIndicator
+                <AppMenu items={sorted} />
+                {/* <CocktailListIndicator
                     sorted={sorted}
                     selected={currentIndex}
                     theme={props.ui.current_theme}
-                />
+                /> */}
                 <AppText style={styles.cocktail_title}>{cocktail.name}</AppText>
                 <View style={styles.header_buttons}>
                     <Pressable onPress={()=>changeContentMode('ingredients')} style={[styles.category_title_container, {alignItems: 'center'}]}>
