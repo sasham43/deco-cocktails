@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Carousel from 'react-native-snap-carousel'
 
 import AppText from './AppText'
+import AppMenu from './AppMenu'
 import InStockIcon from '../assets/in-stock'
 // import MenuSelectIcon from '../assets/menu-select'
 import CornerIcon from '../assets/corner'
@@ -78,11 +79,11 @@ function Menu(props) {
     // }
     // handleFade()
 
-    useEffect(()=>{
-        // console.log('state.index', state.index)
-        if(carousel)
-        carousel.snapToItem(state.index)
-    }, [state.index])
+    // useEffect(()=>{
+    //     // console.log('state.index', state.index)
+    //     if(carousel)
+    //     carousel.snapToItem(state.index)
+    // }, [state.index])
 
     const menuItems = [
         {
@@ -107,76 +108,88 @@ function Menu(props) {
         },
     ]
 
-    function pressItem(props){
-        // console.log('press', props)
-        carousel.snapToItem(props.index)
-    }
-    function onSnap(index){
+    // function pressItem(carousel, props){
+    //     // console.log('press', props)
+    //     carousel.snapToItem(props.index)
+    // }
+    function onSnap(carousel, index){
         // console.log('on snap', data)
         navigation.navigate(menuItems[index].link, {id:null})
     }
 
     // const carouse
-    const [carousel, setCarousel] = useState(null)
+    // const [carousel, setCarousel] = useState(null)
     // const icon_size = 90
 
-    function renderMenuItem(props){
+    // function renderMenuItem(props){
 
-        return (
-            // <AppButton press={()=>pressItem(props)}>
-            //     {props.item.name}
-            // </AppButton>
-            <Pressable onPress={()=>pressItem(props)} style={{justifyContent: 'center', alignContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-                <AppText style={{fontSize: 20}}>{props.item.name}</AppText>
-            </Pressable>
-        )
-    }
+    //     return (
+    //         // <AppButton press={()=>pressItem(props)}>
+    //         //     {props.item.name}
+    //         // </AppButton>
+    //         <Pressable onPress={()=>pressItem(props)} style={{justifyContent: 'center', alignContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+    //             <AppText style={{fontSize: 20}}>{props.item.name}</AppText>
+    //         </Pressable>
+    //     )
+    // }
     const icon_size = 15
+
     return (
-        <View style={[styles.menu, {borderColor: '#000', borderTopWidth:0}, props.ui.current_theme]}>
-            {/* <View style={{marginLeft: 0}}> */}
-                <Carousel
-                    data={menuItems}
-                    renderItem={renderMenuItem}
-                    itemWidth={100}
-                    itemHeight={icon_size + 20}
-                    sliderWidth={props.ui.default_styles.window.width-20}
-                    sliderHeight={icon_size + 20}
-                    ref={c => setCarousel(c)}
-                    onSnapToItem={onSnap}
-                    containerCustomStyle={{zIndex:10, marginRight:10}}
-                    inactiveSlideScale={0.7}
-                />
-            {/* </View> */}
-            <View style={{
-                position: 'absolute', 
-                borderLeftWidth:0,
-                borderRightWidth:0, 
-                marginTop: 10,
-                borderColor: props.ui.border_color,
-                borderWidth:1,
-                // width:100,
-                // alignSelf: 'center',
-                marginLeft: 10,
-                width: props.ui.default_styles.window.width-20,
-                height: 40,
-                top: 0,
-                zIndex:-1
-                // left: (props.ui.default_styles.window.width / 2)-50}
-            }}>
-                <View style={{position: 'absolute', width:100, height:38, alignSelf: 'center'}}>
-                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
-                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
-                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
-                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
-                </View>
-                <View style={{alignSelf: 'center', marginTop: -10, backgroundColor: props.ui.current_theme.backgroundColor}}>
-                    <InStockIcon transform={[{ rotate: '45deg' }]} fill={props.ui.current_theme.color} height={20} width={20} />
-                </View>
-                {/* <MenuSelectIcon fill={props.ui.current_theme.color} height={icon_size} width={icon_size} transform={[{scaleX:1.2}]} /> */}
-            </View>
-        </View>
+        <AppMenu
+            style={[styles.menu, { borderColor: '#000', borderTopWidth: 0 }, props.ui.current_theme]}
+            index={state.index}
+            items={menuItems}
+            // pressItem={pressItem}
+            // renderMenuItem={renderMenuItem}
+            onSnap={onSnap}
+            icon_size={icon_size}
+        />
     )
+    // return (
+    //     <View style={[styles.menu, {borderColor: '#000', borderTopWidth:0}, props.ui.current_theme]}>
+    //         {/* <View style={{marginLeft: 0}}> */}
+    //             <Carousel
+    //                 data={menuItems}
+    //                 renderItem={renderMenuItem}
+    //                 itemWidth={100}
+    //                 itemHeight={icon_size + 20}
+    //                 sliderWidth={props.ui.default_styles.window.width-20}
+    //                 sliderHeight={icon_size + 20}
+    //                 ref={c => setCarousel(c)}
+    //                 onSnapToItem={onSnap}
+    //                 containerCustomStyle={{zIndex:10, marginRight:10}}
+    //                 inactiveSlideScale={0.7}
+    //             />
+    //         {/* </View> */}
+    //         <View style={{
+    //             position: 'absolute', 
+    //             borderLeftWidth:0,
+    //             borderRightWidth:0, 
+    //             marginTop: 10,
+    //             borderColor: props.ui.border_color,
+    //             borderWidth:1,
+    //             // width:100,
+    //             // alignSelf: 'center',
+    //             marginLeft: 10,
+    //             width: props.ui.default_styles.window.width-20,
+    //             height: 40,
+    //             top: 0,
+    //             zIndex:-1
+    //             // left: (props.ui.default_styles.window.width / 2)-50}
+    //         }}>
+    //             <View style={{position: 'absolute', width:100, height:38, alignSelf: 'center'}}>
+    //                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
+    //                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
+    //                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
+    //                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+    //             </View>
+    //             <View style={{alignSelf: 'center', marginTop: -10, backgroundColor: props.ui.current_theme.backgroundColor}}>
+    //                 <InStockIcon transform={[{ rotate: '45deg' }]} fill={props.ui.current_theme.color} height={20} width={20} />
+    //             </View>
+    //             {/* <MenuSelectIcon fill={props.ui.current_theme.color} height={icon_size} width={icon_size} transform={[{scaleX:1.2}]} /> */}
+    //         </View>
+    //     </View>
+    // )
 
 
 
