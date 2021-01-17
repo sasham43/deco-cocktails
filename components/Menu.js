@@ -80,6 +80,7 @@ function Menu(props) {
 
     useEffect(()=>{
         // console.log('state.index', state.index)
+        if(carousel)
         carousel.snapToItem(state.index)
     }, [state.index])
 
@@ -93,8 +94,12 @@ function Menu(props) {
             link: 'Stock'
         },
         {
-            name: 'Add',
+            name: 'Create',
             link: 'AddCocktail'
+        },
+        {
+            name: 'View',
+            link: 'ViewCocktail'
         },
     ]
 
