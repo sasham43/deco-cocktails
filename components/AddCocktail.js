@@ -419,13 +419,9 @@ function Add(props){
         setMarginBottom(10)
     }
     function onSwipeLeft(state){
-        // console.log('left', state)
-        // setContentMode('directions')
         props.navigation.navigate('ViewCocktail')
     }
     function onSwipeRight(state){
-        // console.log('right', state)
-        // setContentMode('ingredients')
         if(state.x0 < 150){
             return props.navigation.goBack()
         }
@@ -433,7 +429,8 @@ function Add(props){
     }
 
     function onCancel() {
-        props.navigation.navigate('CocktailList')
+        // props.navigation.navigate('CocktailList')
+        resetNewCocktail()
     }
     return (
         <GestureRecognizer
@@ -592,10 +589,17 @@ function Footer(props){
         )
     }
     return (
-        <View style={[props.ui.default_styles.footerStyles, styles.save_cocktail, props.ui.current_theme]}>
-            <AppButton disabled={props.addedCocktailIngredients.length == 0 || !props.newCocktailName} press={props.saveCocktailPress} theme={props.ui.current_theme} border={props.ui.border_color}>
-                Add Cocktail
-            </AppButton>
+        <View style={[props.ui.default_styles.footerStyles, styles.save_cocktail, {flexDirection: 'row'}, props.ui.current_theme]}>
+            <View style={{flex:1}}>
+                <AppButton disabled={props.addedCocktailIngredients.length == 0 || !props.newCocktailName} press={props.saveCocktailPress} theme={props.ui.current_theme} border={props.ui.border_color}>
+                    Create Cocktail
+                </AppButton>
+            </View>
+            <View style={{ flex: 1, marginLeft: 10 }}>
+                <AppButton press={props.onCancel}>
+                    Cancel
+                </AppButton>
+            </View>
         </View>
     )
 }
