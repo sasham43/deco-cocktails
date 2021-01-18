@@ -196,19 +196,21 @@ function ViewCocktail(props){
 
     function onSwipeLeft(state) {
         // go forward
-        var nextCocktail = findNextCocktail(cocktail.id)
-        navigation.navigate('ViewCocktail', {
-            id: nextCocktail.id
-        })
+        navigation.navigate('About')
+        // var nextCocktail = findNextCocktail(cocktail.id)
+        // navigation.navigate('ViewCocktail', {
+        //     id: nextCocktail.id
+        // })
     }
     function onSwipeRight(state) {
         if(state.x0 < 150){
             return navigation.goBack()
         }
-        var previousCocktail = findPreviousCocktail(cocktail.id)
-        navigation.navigate('ViewCocktail', {
-            id: previousCocktail.id
-        })
+        navigation.navigate('AddCocktail')
+        // var previousCocktail = findPreviousCocktail(cocktail.id)
+        // navigation.navigate('ViewCocktail', {
+        //     id: previousCocktail.id
+        // })
     }
     function showShareModal(){
         setModalVisible(true)
