@@ -45,11 +45,13 @@ export default connect(mapStateToProps)(Main)
 
 function Main(props){
     const [modalVisible, setModalVisible] = useState(false) // handle links into app
+    const [importCocktail, setImportCocktail] = useState({})
     Linking.addEventListener('url', handleUrl)
 
     function handleUrl(data) {
         let { path, queryParams } = Linking.parse(data.url)
         console.log('opening from url', path, queryParams)
+        setImportCocktail(queryParams)
         setModalVisible(true)
     }
     var screen_options = {
@@ -101,7 +103,7 @@ function Main(props){
                             animationType="slide"
                             visible={modalVisible}
                         >
-                            <ImportCocktail />
+                            <ImportCocktail cocktail={importCocktail} />
                         </Modal>
                     </View>
                     {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
