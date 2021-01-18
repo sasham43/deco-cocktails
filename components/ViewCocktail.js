@@ -298,6 +298,39 @@ function ShareContainer(props){
     }
 }
 
+function translateCocktail(cocktail){
+    var new_cocktail = {}
+    var include = [
+        'directions',
+        'name'
+    ]
+
+    for(var prop in cocktail){
+        if(prop == 'ingredients'){
+            for(var i in cocktail.ingredients){
+                new_cocktail[`${i}n`] = cocktail.ingredients[i].ingredient_name
+                new_cocktail[`${i}p`] = cocktail.ingredients[i].parts
+            }
+        } else if (include.includes(prop)) {
+            // new_cocktail[prop] = cocktail[prop]
+            switch(prop){
+                case 'name':
+                    new_cocktail['n'] = cocktail[prop]
+                    break;
+                case 'directions':
+                    new_cocktail['d'] = cocktail[prop]
+                    break;
+            }
+        } else {
+            console.log('not include?', prop, prop in include)
+        }
+    }
+
+    console.log('translated', new_cocktail)
+
+    return new_cocktail
+}
+
 function ShareQR(props){
     function onCapture(uri){
         props.setShareUri(uri)
@@ -308,7 +341,7 @@ function ShareQR(props){
     var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
     const icon_size = 40
 
-    const link = Linking.makeUrl('', props.cocktail)
+    const link = Linking.makeUrl('', translateCocktail(props.cocktail))
 
     return (
         <ViewShot 

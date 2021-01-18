@@ -39,27 +39,52 @@ function ImportCocktail(props){
         const new_cocktail = {
             ingredients: []
         }
-        var index = -1 // so we can increment to 0
+        // var index = -1 // so we can increment to 0
         for(var prop in imported){
             console.log('prop', prop)
-            if(prop.includes('ingredients')){
-                if(prop.includes('id')){
-                    index++
-                    new_cocktail.ingredients[index] = {
-                        id: generate()
-                    }
-                } else if (prop.includes('ingredient_name')){
-                    new_cocktail.ingredients[index].ingredient_name =  imported[prop]
-                    // new_cocktail.ingredients[index] = {
-                    //     ingredient_name: imported[prop]
-                    // }
-                } else if (prop.includes('parts')){
-                    new_cocktail.ingredients[index].parts = imported[prop]
-                }
+
+            if(prop == 'n'){
+                new_cocktail['name'] = imported[prop]
+            } else if (prop == 'd'){
+                new_cocktail['directions'] = imported[prop]
             } else {
-                new_cocktail[prop] = imported[prop]
+                var num = parseInt(prop)
+                var type = prop.replace(`${num}`, '')
+
+                if(!new_cocktail.ingredients[num]){
+                    new_cocktail.ingredients[num] = {}
+                }
+
+                if(type == 'n'){
+                    new_cocktail.ingredients[num].ingredient_name = imported[prop]
+                } else if (type == 'p'){
+                    new_cocktail.ingredients[num].parts = imported[prop]
+                }
             }
+
+
+            // if(prop.includes('ingredients')){
+            //     if(prop.includes('id')){
+            //         index++
+            //         new_cocktail.ingredients[index] = {
+            //             id: generate()
+            //         }
+            //     } else if (prop.includes('ingredient_name')){
+            //         new_cocktail.ingredients[index].ingredient_name =  imported[prop]
+            //         // new_cocktail.ingredients[index] = {
+            //         //     ingredient_name: imported[prop]
+            //         // }
+            //     } else if (prop.includes('parts')){
+            //         new_cocktail.ingredients[index].parts = imported[prop]
+            //     }
+            // } else {
+            //     new_cocktail[prop] = imported[prop]
+            // }
         }
+        new_cocktail.ingredients = new_cocktail.ingredients.map(i=>{
+            return {...i, id: generate()}
+        })
+        new_cocktail.id = generate()
         // setCocktail(new_cocktail)
         console.log('new cocktail', new_cocktail)
         return new_cocktail
@@ -78,7 +103,7 @@ function ImportCocktail(props){
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
                 <View>
-                    <AppText style={styles.cocktail_title}>{props.cocktail.name}</AppText>
+                    <AppText style={styles.cocktail_title}>{cocktail.name}</AppText>
                 </View>
                 <CompactView ui={props.ui} cocktail={cocktail} stock={props.stock.current}  />
             </View>
