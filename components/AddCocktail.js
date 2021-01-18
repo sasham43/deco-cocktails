@@ -164,7 +164,7 @@ function Add(props){
         }
     }
 
-    const fadeTime = 1000
+    const fadeTime = 200
     const fadeLeftIn = () => {
         Animated.timing(leftAnim, {
             toValue: 1,
