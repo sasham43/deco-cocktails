@@ -9,6 +9,8 @@ import AppButton from './AppButton'
 import {CompactView} from './CompactView'
 import CornerIcon from '../assets/corner'
 
+import { addCocktail } from '../utils/CocktailActions'
+
 const mapStateToProps = (state) => {
     const { ui, stock } = state
     return { ui, stock }
@@ -17,6 +19,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
         // deleteCocktail
+        addCocktail
     }, dispatch)
 )
 export default connect(mapStateToProps, mapDispatchToProps)(ImportCocktail)
@@ -29,6 +32,8 @@ function ImportCocktail(props){
     var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
     function importCocktail(){
         console.log('import')
+        props.addCocktail(cocktail)
+        props.hide()
     }
     function translateCocktail(imported){
         const new_cocktail = {
