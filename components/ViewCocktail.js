@@ -258,8 +258,8 @@ function ViewCocktail(props){
                             onSnap={shareSnap}
                             itemStyle={{ width: 100, fontSize: 16, textAlign: 'center', marginLeft: 0, paddingTop: 2, flexWrap: 'wrap' }}
                             itemWidth={100}
-                            style={{height:50, position: 'relative', flexDirection: 'row', paddingTop: 20}}
-                            sliderWidth={200}
+                            style={{height:50, position: 'relative', flexDirection: 'row', paddingTop: 20, marginLeft: 20}}
+                            sliderWidth={props.ui.default_styles.window.width}
                             items={shareItems}
                             name={"Share"}
                             icon_size={15}
@@ -355,7 +355,13 @@ function ShareQR(props){
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
             <View style={[{ position: 'absolute', top: 15 }]}>
                 <AppText style={[styles.cocktail_title]}>{props.cocktail.name}</AppText>
+                <View style={{marginTop: 50, padding: 20}}>
+                    <AppText style={{ textAlign: 'center'}}>
+                        Scan this code to import {props.cocktail.name} into Crump Cocktails!
+                    </AppText>
+                </View>
             </View>
+
             <QRCode
                 value={link}
                 size={props.ui.default_styles.window.width - 200}
