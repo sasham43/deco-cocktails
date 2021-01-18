@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 // import { Provider } from 'react-redux'
 import { createStore, combineReducers} from 'redux'
 import { connect} from 'react-redux'
+import * as Linking from 'expo-linking'
 
 // import stockReducer from '../utils/StockReducer'
 // import cocktailReducer from '../utils/CocktailReducer'
@@ -33,6 +34,14 @@ const mapStateToProps = (state) => {
     return { ui }
 }
 export default connect(mapStateToProps)(Main)
+
+// handle links into app
+Linking.addEventListener('url', handleUrl)
+
+function handleUrl(data){
+    let { path, queryParams } = Linking.parse(data.url)
+    console.log('opening from url', path, queryParams)
+}
 
 function Main(props){
         var screen_options = {
