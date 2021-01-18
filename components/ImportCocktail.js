@@ -94,7 +94,7 @@ function ImportCocktail(props){
         </View>
     )
 }
-const icon_distance = -1
+const icon_distance = 2
 const styles = StyleSheet.create({
     small_share_modal: {
         // maxHeight: 575,
