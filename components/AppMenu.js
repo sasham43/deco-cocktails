@@ -17,6 +17,7 @@ export default connect(mapStateToProps)(AppMenu)
 
 function AppMenu(props){
     const [carousel, setCarousel] = useState(null)
+    const itemStyle = props.itemStyle ? props.itemStyle : {}
 
     useEffect(() => {
         // console.log('state.index', state.index)
@@ -33,11 +34,8 @@ function AppMenu(props){
     function renderMenuItem(props) {
 
         return (
-            // <AppButton press={()=>pressItem(props)}>
-            //     {props.item.name}
-            // </AppButton>
-            <Pressable onPress={() => pressItem(props)} style={{ justifyContent: 'center', alignContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-                <AppText style={{ fontSize: 20 }}>{props.item.name}</AppText>
+            <Pressable onPress={() => pressItem(props)} style={[{ justifyContent: 'center', alignContent: 'center', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }, itemStyle]}>
+                <AppText style={[{ fontSize: 20 }, itemStyle]}>{props.item.name}</AppText>
             </Pressable>
         )
     }
@@ -48,9 +46,10 @@ function AppMenu(props){
             <Carousel
                 data={props.items}
                 renderItem={renderMenuItem}
-                itemWidth={100}
+                itemWidth={props.itemWidth}
                 itemHeight={props.icon_size + 20}
-                sliderWidth={props.ui.default_styles.window.width - 20}
+                sliderWidth={props.sliderWidth}
+                // sliderWidth={props.ui.default_styles.window.width - 20}
                 sliderHeight={props.icon_size + 20}
                 ref={c => setCarousel(c)}
                 onSnapToItem={index=> props.onSnap(carousel, index)}
@@ -68,13 +67,15 @@ function AppMenu(props){
                 // width:100,
                 // alignSelf: 'center',
                 marginLeft: 10,
-                width: props.ui.default_styles.window.width - 20,
+                // width: props.ui.default_styles.window.width,
+                width: props.sliderWidth,
+                // width: props.ui.default_styles.window.width - 20,
                 height: 40,
                 top: 0,
                 zIndex: -1
                 // left: (props.ui.default_styles.window.width / 2)-50}
             }}>
-                <View style={{ position: 'absolute', width: 100, height: 38, alignSelf: 'center' }}>
+                <View style={{ position: 'absolute', width: props.itemWidth, height: 38, alignSelf: 'center' }}>
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={props.icon_size} height={props.icon_size} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={props.icon_size} height={props.icon_size} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={props.icon_size} height={props.icon_size} />

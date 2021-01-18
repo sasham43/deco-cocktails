@@ -141,6 +141,8 @@ function Menu(props) {
             items={menuItems}
             // pressItem={pressItem}
             // renderMenuItem={renderMenuItem}
+            sliderWidth={props.ui.default_styles.window.width - 20}
+            itemWidth={100}
             onSnap={onSnap}
             icon_size={icon_size}
         />

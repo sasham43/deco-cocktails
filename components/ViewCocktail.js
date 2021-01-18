@@ -8,6 +8,7 @@ import ViewShot from "react-native-view-shot"
 import SlidingUpPanel from 'rn-sliding-up-panel'
 
 import AppText from './AppText'
+import AppMenu from './AppMenu'
 import { AddedIngredientMap } from './AddedIngredients'
 import { deleteCocktail } from '../utils/CocktailActions'
 import AppButton from './AppButton'
@@ -235,6 +236,14 @@ function ViewCocktail(props){
         // console.log('toggle', showFunctionMenu)
     }
 
+    function onSnap(carousel, index){
+        console.log('index', index)
+        var cocktail = sorted[index]
+        navigation.navigate('ViewCocktail', {
+            id: cocktail.id
+        })
+    }
+
     return (
         <GestureRecognizer 
             onSwipeLeft={()=>onSwipeLeft()}
@@ -242,13 +251,22 @@ function ViewCocktail(props){
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}
         >
             <View style={styles.header}>
-                <AppMenu items={sorted} />
+                <AppMenu 
+                    onSnap={onSnap}
+                    itemStyle={{width: 175, fontSize:16, textAlign: 'center', marginLeft:10, paddingTop:2}}
+                    style={{height:50,  position: 'relative', flexDirection: 'row', paddingTop:20}}
+                    sliderWidth={props.ui.default_styles.window.width-100}
+                    itemWidth={175}
+                    index={currentIndex} 
+                    items={sorted} 
+                    icon_size={15}
+                />
                 {/* <CocktailListIndicator
                     sorted={sorted}
                     selected={currentIndex}
                     theme={props.ui.current_theme}
                 /> */}
-                <AppText style={styles.cocktail_title}>{cocktail.name}</AppText>
+                {/* <AppText style={styles.cocktail_title}>{cocktail.name}</AppText> */}
                 <View style={styles.header_buttons}>
                     <Pressable onPress={()=>changeContentMode('ingredients')} style={[styles.category_title_container, {alignItems: 'center'}]}>
                         <AppText style={styles.category_title}>Ingredients</AppText>
