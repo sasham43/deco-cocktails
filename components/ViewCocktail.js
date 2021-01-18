@@ -7,6 +7,7 @@ import GestureRecognizer from 'react-native-swipe-gestures'
 import ViewShot from "react-native-view-shot"
 import SlidingUpPanel from 'rn-sliding-up-panel'
 import QRCode from 'react-native-qrcode-svg'
+import * as Linking from 'expo-linking'
 
 import AppText from './AppText'
 import AppMenu from './AppMenu'
@@ -305,6 +306,9 @@ function ShareQR(props){
     // console.log('window', Dimensions.get('window').height, fontSize)
     var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
     const icon_size = 40
+
+    const link = Linking.makeUrl('', props.cocktail)
+
     return (
         <ViewShot 
             style = { [{ position: 'relative', backgroundColor: props.ui.current_theme.backgroundColor, margin: 10, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1, justifyContent: 'center', alignItems: 'center' }, modal_style]}
@@ -319,7 +323,8 @@ function ShareQR(props){
                 <AppText style={[styles.cocktail_title]}>{props.cocktail.name}</AppText>
             </View>
             <QRCode
-                value={"Hello"}
+                value={link}
+                size={props.ui.default_styles.window.width - 200}
             />
             <View style={{position: 'absolute', bottom: 25, flex:1, flexDirection:'row', alignItems: 'center', left: (props.ui.default_styles.window.width / 2) - 40}} >
                 <ShareAttribution share={true} />
