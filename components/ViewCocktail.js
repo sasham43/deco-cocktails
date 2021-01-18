@@ -388,7 +388,7 @@ function FunctionMenu(props){
 function CompactView(props){
     var small_screen = Dimensions.get('window').height < 700
     var fontSize = small_screen ? 14 : 16
-    console.log('fjfkdls', props.stock)
+    // console.log('fjfkdls', props.stock)
     return (
         <View style={{ justifyContent: 'flex-start', flex: 1, paddingTop: 5 }}>
             <View>
@@ -467,18 +467,18 @@ function ShareCocktail(props){
     )
 }
 
-function ScrollContent(props){
-    if(props.mode == 'ingredients'){
-        return (
-            <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={props.stock.current} />
-        )
-    } else {
-        // var test = 'Mix ingredients, stir, ice'
-        return (
-            <Directions directions={props.cocktail.directions} />
-        )
-    }
-}
+// function ScrollContent(props){
+//     if(props.mode == 'ingredients'){
+//         return (
+//             <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={props.stock.current} />
+//         )
+//     } else {
+//         // var test = 'Mix ingredients, stir, ice'
+//         return (
+//             <Directions directions={props.cocktail.directions} />
+//         )
+//     }
+// }
 var icon_distance = 2
 const windowWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
