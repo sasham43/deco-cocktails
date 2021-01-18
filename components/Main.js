@@ -55,6 +55,7 @@ function Main(props){
                 }
             },
             tabBarVisible: false,
+            // unmountOnBlur: false,
             unmountOnBlur: true
         }
 
@@ -87,11 +88,11 @@ function Main(props){
                         <Title></Title>
                         <Tab.Navigator  tabBar={props=> <Menu {...props} />} backBehavior={"history"} >
                             <Tab.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Tab.Screen>
-                            <Tab.Screen options={screen_options} name="About" style={styles.screen} component={About}></Tab.Screen>
                             <Tab.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Tab.Screen>
                             <Tab.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Tab.Screen>
-                            <Tab.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Tab.Screen>
                             <Tab.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Tab.Screen>
+                            <Tab.Screen options={screen_options} name="About" style={styles.screen} component={About}></Tab.Screen>
+                            <Tab.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Tab.Screen>
                             <Tab.Screen options={screen_options} name="Scanner" style={styles.screen} component={Scanner}></Tab.Screen>
                         </Tab.Navigator>
                         {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
