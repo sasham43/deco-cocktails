@@ -47,7 +47,7 @@ function ViewCocktail(props){
         currentMode,
         switchMode
     } = useFunctionMenu()
-    const [params, setParams] = useState(props.route.params)
+    const [params, setParams] = useState(props.route.params ? props.route.params : {id:null})
 
     useEffect(()=>{
         // console.log('view []')
@@ -152,54 +152,6 @@ function ViewCocktail(props){
             return 0
         }
     }
-
-    // var leftAnim = useRef(new Animated.Value(1)).current;
-    // var rightAnim = useRef(new Animated.Value(0)).current;
-
-    // function handleFade() {
-    //     if (contentMode == 'ingredients') {
-    //         fadeLeftIn()
-    //         fadeRightOut()
-    //     } else if (contentMode == 'directions') {
-    //         fadeRightIn()
-    //         fadeLeftOut()
-    //     } else {
-    //         fadeLeftOut()
-    //         fadeRightOut()
-    //     }
-    // }
-
-    // const fadeTime = 1000
-    // const fadeLeftIn = () => {
-    //     Animated.timing(leftAnim, {
-    //         toValue: 1,
-    //         duration: fadeTime,
-    //         useNativeDriver: true,
-    //     }).start()
-    // }
-    // const fadeRightIn = () => {
-    //     Animated.timing(rightAnim, {
-    //         toValue: 1,
-    //         duration: fadeTime,
-    //         useNativeDriver: true,
-    //     }).start()
-    // }
-    // const fadeLeftOut = () => {
-    //     Animated.timing(leftAnim, {
-    //         toValue: 0,
-    //         duration: fadeTime,
-    //         useNativeDriver: true,
-    //     }).start()
-    // }
-    // const fadeRightOut = () => {
-    //     Animated.timing(rightAnim, {
-    //         toValue: 0,
-    //         duration: fadeTime,
-    //         useNativeDriver: true,
-    //     }).start()
-    // }
-    // handleFade()
-
     function onSwipeLeft(state) {
         // go forward
         navigation.navigate('About')
@@ -257,6 +209,7 @@ function ViewCocktail(props){
                     index={currentIndex} 
                     items={sorted} 
                     icon_size={15}
+                    name={"View"}
                 />
             </View>
             <ScrollView style={{padding: 20}}>

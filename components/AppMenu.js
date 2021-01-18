@@ -24,7 +24,7 @@ function AppMenu(props){
         if (carousel){
             // console.log('snapping')
             window.setTimeout(()=>{
-                carousel.snapToItem(props.index, false)
+                carousel.snapToItem(props.index, props.name == "View" ? false : true)
             },100)
         }
     }, [props.index])

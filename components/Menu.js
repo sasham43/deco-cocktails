@@ -135,65 +135,17 @@ function Menu(props) {
     const icon_size = 15
 
     return (
-        // <View style={[styles.menu,props.ui.current_theme]}>
             <AppMenu
                 style={styles.menu}
                 index={state.index}
                 items={menuItems}
-                // pressItem={pressItem}
-                // renderMenuItem={renderMenuItem}
                 sliderWidth={props.ui.default_styles.window.width - 20}
                 itemWidth={100}
                 onSnap={onSnap}
                 icon_size={icon_size}
+                name={"Menu"}
             />
-        //{/* </View> */}
     )
-    // return (
-    //     <View style={[styles.menu, {borderColor: '#000', borderTopWidth:0}, props.ui.current_theme]}>
-    //         {/* <View style={{marginLeft: 0}}> */}
-    //             <Carousel
-    //                 data={menuItems}
-    //                 renderItem={renderMenuItem}
-    //                 itemWidth={100}
-    //                 itemHeight={icon_size + 20}
-    //                 sliderWidth={props.ui.default_styles.window.width-20}
-    //                 sliderHeight={icon_size + 20}
-    //                 ref={c => setCarousel(c)}
-    //                 onSnapToItem={onSnap}
-    //                 containerCustomStyle={{zIndex:10, marginRight:10}}
-    //                 inactiveSlideScale={0.7}
-    //             />
-    //         {/* </View> */}
-    //         <View style={{
-    //             position: 'absolute', 
-    //             borderLeftWidth:0,
-    //             borderRightWidth:0, 
-    //             marginTop: 10,
-    //             borderColor: props.ui.border_color,
-    //             borderWidth:1,
-    //             // width:100,
-    //             // alignSelf: 'center',
-    //             marginLeft: 10,
-    //             width: props.ui.default_styles.window.width-20,
-    //             height: 40,
-    //             top: 0,
-    //             zIndex:-1
-    //             // left: (props.ui.default_styles.window.width / 2)-50}
-    //         }}>
-    //             <View style={{position: 'absolute', width:100, height:38, alignSelf: 'center'}}>
-    //                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
-    //                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
-    //                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
-    //                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
-    //             </View>
-    //             <View style={{alignSelf: 'center', marginTop: -10, backgroundColor: props.ui.current_theme.backgroundColor}}>
-    //                 <InStockIcon transform={[{ rotate: '45deg' }]} fill={props.ui.current_theme.color} height={20} width={20} />
-    //             </View>
-    //             {/* <MenuSelectIcon fill={props.ui.current_theme.color} height={icon_size} width={icon_size} transform={[{scaleX:1.2}]} /> */}
-    //         </View>
-    //     </View>
-    // )
 }
 
 const icon_distance = -1
