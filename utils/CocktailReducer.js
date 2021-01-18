@@ -113,7 +113,7 @@ function defaultCocktails() {
                     parts: 2
                 },
             ],
-            directions: 'Stir Gin with ice in a rocks glass.  Add Tonic.'
+            directions: 'Stir Gin with ice in a rocks glass.  Add Tonic.  Garnish with a wedge of lime.'
         },
         {
             id: generate(),
