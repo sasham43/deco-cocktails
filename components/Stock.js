@@ -38,17 +38,38 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Stock)
 
 function StockToggle(props){
-    if(props.currentMode != 'delete' && props.currentMode != 'edit') return null
+    // if(props.currentMode != 'delete' && props.currentMode != 'edit') return null
+    function press(){
+        if (props.currentMode != 'delete' && props.currentMode != 'edit') return
+        props.selectStock(props.bottle.id)
+    }
+    
+    var fill
+    if (props.currentMode == 'edit' || props.currentMode == 'delete') {
+        if (props.bottle.selected) {
+            fill = props.theme.color
+        } else {
+            fill = 'grey'
+        }
+    } else {
+        if (props.bottle.in_stock) {
+            fill = props.theme.color
+        } else {
+            fill = 'grey'
+        }
+    }
 
     return (
         <Pressable
-            onPress={() => props.selectStock(props.bottle.id)}
+            onPress={press}
+            // onPress={() => props.selectStock(props.bottle.id)}
         >
             <InStockIcon
                 transform={[{ rotate: '-45deg' }]}
                 width={props.icon_size}
                 height={props.icon_size}
-                fill={props.bottle.selected ? props.theme.color : 'grey'}
+                fill={fill}
+                // fill={props.bottle.selected ? props.theme.color : 'grey'}
             />
         </Pressable>
     )
@@ -89,7 +110,7 @@ function StockBottle(props) {
 
     return (
         <View style={[styles.stock_bottle]}>
-            <View style={[styles.switch_container, {opacity: show_icon}]}>
+            <View style={[styles.switch_container, {opacity: 1}]}>
                 <StockToggle 
                     selectStock={props.selectStock}
                     icon_size={icon_size}
