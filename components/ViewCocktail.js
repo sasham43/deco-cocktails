@@ -205,7 +205,7 @@ function ViewCocktail(props){
             name: 'QR Code'
         }
     ]
-    function shareSnap(index){
+    function shareSnap(carousel, index){
         setShareIndex(index)
     }
 
@@ -287,6 +287,7 @@ function ViewCocktail(props){
 }
 
 function ShareContainer(props){
+    console.log('share container', props.index)
     if(props.index == 0){
         return (
             <ShareCocktail setShareUri={props.setShareUri} cocktail={props.cocktail} ui={props.ui} stock={props.stock} />
@@ -353,7 +354,7 @@ function ShareQR(props){
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
-            <View style={[{ position: 'absolute', top: 15 }]}>
+            <View style={[{ position: 'absolute', top: 25 }]}>
                 <AppText style={[styles.cocktail_title]}>{props.cocktail.name}</AppText>
                 <View style={{marginTop: 50, padding: 20}}>
                     <AppText style={{ textAlign: 'center'}}>
