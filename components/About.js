@@ -145,6 +145,7 @@ function About (props){
                         </AppText>
                     </View>
                 </View>
+                <View style={{height:20}}></View>
             </KeyboardAwareScrollView>
         </GestureRecognizer>
     )
@@ -180,7 +181,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     about_content: {
-        marginBottom: 25,
+        marginTop: 10,
+        marginBottom: 15,
         // paddingTop: 15,
     },
     text_container: {
