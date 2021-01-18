@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     StyleSheet, 
     StatusBar, 
@@ -47,6 +47,14 @@ function Main(props){
     const [modalVisible, setModalVisible] = useState(false) // handle links into app
     const [importCocktail, setImportCocktail] = useState({})
     Linking.addEventListener('url', handleUrl)
+
+    useEffect(()=>{
+        const url = Linking.getInitialURL()
+        if(url && url.url){
+            console.log('url', url)
+            handleUrl(url)
+        }
+    }, [])
 
     function handleUrl(data) {
         let { path, queryParams } = Linking.parse(data.url)
