@@ -20,8 +20,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(ImportCocktail)
 // export default 
 function ImportCocktail(props){
     return (
-        <View>
+        <View style={{padding: 50, justifyContent: 'center'}}>
             <AppText>Import Cocktail</AppText>
+            <AppText>{props.cocktail.name}</AppText>
         </View>
     )
 }
