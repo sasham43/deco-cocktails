@@ -304,15 +304,26 @@ function ShareQR(props){
     var fontSize = small_screen ? 14 : 16
     // console.log('window', Dimensions.get('window').height, fontSize)
     var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
+    const icon_size = 40
     return (
         <ViewShot 
-            style = { [{ backgroundColor: props.ui.current_theme.backgroundColor, margin: 10, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1, justifyContent: 'center', alignItems: 'center' }, modal_style]}
+            style = { [{ position: 'relative', backgroundColor: props.ui.current_theme.backgroundColor, margin: 10, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1, justifyContent: 'center', alignItems: 'center' }, modal_style]}
             captureMode = "mount"
             onCapture = { onCapture }
         >
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+            <View style={[{ position: 'absolute', top: 15 }]}>
+                <AppText style={[styles.cocktail_title]}>{props.cocktail.name}</AppText>
+            </View>
             <QRCode
                 value={"Hello"}
             />
+            <View style={{position: 'absolute', bottom: 25, flex:1, flexDirection:'row', alignItems: 'center', left: (props.ui.default_styles.window.width / 2) - 40}} >
+                <ShareAttribution share={true} />
+            </View>
         </ViewShot>
     )
 }
