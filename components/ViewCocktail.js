@@ -6,6 +6,7 @@ import { useNavigation, useIsFocused } from '@react-navigation/native'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import ViewShot from "react-native-view-shot"
 import SlidingUpPanel from 'rn-sliding-up-panel'
+import QRCode from 'react-native-qrcode-svg'
 
 import AppText from './AppText'
 import AppMenu from './AppMenu'
@@ -48,6 +49,7 @@ function ViewCocktail(props){
         switchMode
     } = useFunctionMenu()
     const [params, setParams] = useState(props.route.params ? props.route.params : {id:null})
+    const [shareIndex, setShareIndex] = useState(0)
 
     useEffect(()=>{
         // console.log('view []')
@@ -193,6 +195,18 @@ function ViewCocktail(props){
         loadParams(cocktail)
     }
 
+    const shareItems = [
+        {
+            name: 'Picture'
+        },
+        {
+            name: 'QR Code'
+        }
+    ]
+    function shareSnap(index){
+        setShareIndex(index)
+    }
+
     return (
         <GestureRecognizer 
             onSwipeLeft={()=>onSwipeLeft()}
@@ -237,7 +251,21 @@ function ViewCocktail(props){
                 visible={modalVisible}
             >
                 <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15,  flex: 1 }}>
-                    <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} />
+                    <View>
+                        <AppMenu
+                            onSnap={shareSnap}
+                            itemStyle={{ width: 100, fontSize: 16, textAlign: 'center', marginLeft: 0, paddingTop: 2, flexWrap: 'wrap' }}
+                            itemWidth={100}
+                            style={{height:50, position: 'relative', flexDirection: 'row', paddingTop: 20}}
+                            sliderWidth={200}
+                            items={shareItems}
+                            name={"Share"}
+                            icon_size={15}
+                            index={shareIndex}
+                        />
+                    </View>
+                    <ShareContainer index={shareIndex} setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} />
+                    {/* <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} /> */}
                     <View style={{ flexDirection: 'row'}}>
                         <View style={[styles.share_btn, { marginRight: 5, flex: 1 }]} >
                             <AppButton press={shareCocktail}>
@@ -253,6 +281,39 @@ function ViewCocktail(props){
                 </View>
             </Modal>
         </GestureRecognizer>
+    )
+}
+
+function ShareContainer(props){
+    if(props.index == 0){
+        return (
+            <ShareCocktail setShareUri={props.setShareUri} cocktail={props.cocktail} ui={props.ui} stock={props.stock} />
+        )
+    } else {
+        return (
+            <ShareQR setShareUri={props.setShareUri} cocktail={props.cocktail} ui={props.ui} />
+        )
+    }
+}
+
+function ShareQR(props){
+    function onCapture(uri){
+        props.setShareUri(uri)
+    }
+    var small_screen = Dimensions.get('window').height < 700
+    var fontSize = small_screen ? 14 : 16
+    // console.log('window', Dimensions.get('window').height, fontSize)
+    var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
+    return (
+        <ViewShot 
+            style = { [{ backgroundColor: props.ui.current_theme.backgroundColor, margin: 10, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1, justifyContent: 'center', alignItems: 'center' }, modal_style]}
+            captureMode = "mount"
+            onCapture = { onCapture }
+        >
+            <QRCode
+                value={"Hello"}
+            />
+        </ViewShot>
     )
 }
 
