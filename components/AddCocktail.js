@@ -447,7 +447,7 @@ function Add(props){
                     clearButtonMode={"always"}
                     placeholderTextColor={"grey"}
                     autoCapitalize={"words"}
-                    maxLength={100}
+                    maxLength={50}
                 />
                 <View style={styles.header_buttons}>
                     <Pressable onPress={() => setContentMode('ingredients')} style={styles.category_title_container}>
