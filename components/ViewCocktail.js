@@ -37,7 +37,7 @@ function ViewCocktail(props){
     const navigation = useNavigation()
     const isFocused = useIsFocused()
     const [cocktail, setCocktail] = useState({})
-    const [contentMode, setContentMode] = useState('ingredients')
+    // const [contentMode, setContentMode] = useState('ingredients')
     const [sorted, setSorted] = useState([])
     const [currentIndex, setCurrentIndex] = useState(0)
     const [modalVisible, setModalVisible] = useState(false)
@@ -114,9 +114,9 @@ function ViewCocktail(props){
         Alert.alert(title, msg, buttons)
     }
 
-    function changeContentMode(mode){
-        setContentMode(mode)
-    }
+    // function changeContentMode(mode){
+    //     setContentMode(mode)
+    // }
 
     function removeThisCocktail(){
         navigation.navigate('CocktailList')
@@ -153,70 +153,62 @@ function ViewCocktail(props){
         }
     }
 
-    var leftAnim = useRef(new Animated.Value(1)).current;
-    var rightAnim = useRef(new Animated.Value(0)).current;
+    // var leftAnim = useRef(new Animated.Value(1)).current;
+    // var rightAnim = useRef(new Animated.Value(0)).current;
 
-    function handleFade() {
-        if (contentMode == 'ingredients') {
-            fadeLeftIn()
-            fadeRightOut()
-        } else if (contentMode == 'directions') {
-            fadeRightIn()
-            fadeLeftOut()
-        } else {
-            fadeLeftOut()
-            fadeRightOut()
-        }
-    }
+    // function handleFade() {
+    //     if (contentMode == 'ingredients') {
+    //         fadeLeftIn()
+    //         fadeRightOut()
+    //     } else if (contentMode == 'directions') {
+    //         fadeRightIn()
+    //         fadeLeftOut()
+    //     } else {
+    //         fadeLeftOut()
+    //         fadeRightOut()
+    //     }
+    // }
 
-    const fadeTime = 1000
-    const fadeLeftIn = () => {
-        Animated.timing(leftAnim, {
-            toValue: 1,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    const fadeRightIn = () => {
-        Animated.timing(rightAnim, {
-            toValue: 1,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    const fadeLeftOut = () => {
-        Animated.timing(leftAnim, {
-            toValue: 0,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    const fadeRightOut = () => {
-        Animated.timing(rightAnim, {
-            toValue: 0,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    handleFade()
+    // const fadeTime = 1000
+    // const fadeLeftIn = () => {
+    //     Animated.timing(leftAnim, {
+    //         toValue: 1,
+    //         duration: fadeTime,
+    //         useNativeDriver: true,
+    //     }).start()
+    // }
+    // const fadeRightIn = () => {
+    //     Animated.timing(rightAnim, {
+    //         toValue: 1,
+    //         duration: fadeTime,
+    //         useNativeDriver: true,
+    //     }).start()
+    // }
+    // const fadeLeftOut = () => {
+    //     Animated.timing(leftAnim, {
+    //         toValue: 0,
+    //         duration: fadeTime,
+    //         useNativeDriver: true,
+    //     }).start()
+    // }
+    // const fadeRightOut = () => {
+    //     Animated.timing(rightAnim, {
+    //         toValue: 0,
+    //         duration: fadeTime,
+    //         useNativeDriver: true,
+    //     }).start()
+    // }
+    // handleFade()
 
     function onSwipeLeft(state) {
         // go forward
         navigation.navigate('About')
-        // var nextCocktail = findNextCocktail(cocktail.id)
-        // navigation.navigate('ViewCocktail', {
-        //     id: nextCocktail.id
-        // })
     }
     function onSwipeRight(state) {
         if(state.x0 < 150){
             return navigation.goBack()
         }
         navigation.navigate('AddCocktail')
-        // var previousCocktail = findPreviousCocktail(cocktail.id)
-        // navigation.navigate('ViewCocktail', {
-        //     id: previousCocktail.id
-        // })
     }
     function showShareModal(){
         setModalVisible(true)
@@ -246,11 +238,7 @@ function ViewCocktail(props){
 
     function onSnap(carousel, index){
         var cocktail = sorted[index]
-        // console.log('onSnap', index, sorted[index].name )
         loadParams(cocktail)
-        // navigation.navigate('ViewCocktail', {
-        //     id: cocktail.id
-        // })
     }
 
     return (
@@ -270,27 +258,9 @@ function ViewCocktail(props){
                     items={sorted} 
                     icon_size={15}
                 />
-                {/* <CocktailListIndicator
-                    sorted={sorted}
-                    selected={currentIndex}
-                    theme={props.ui.current_theme}
-                /> */}
-                {/* <AppText style={styles.cocktail_title}>{cocktail.name}</AppText> */}
-                {/* <View style={styles.header_buttons}>
-                    <Pressable onPress={()=>changeContentMode('ingredients')} style={[styles.category_title_container, {alignItems: 'center'}]}>
-                        <AppText style={styles.category_title}>Ingredients</AppText>
-                        <HeaderIcon style={{alignSelf: 'center'}} direction={'left'} ui={props.ui} anim={leftAnim} />
-                    </Pressable>
-                    <Pressable onPress={()=>changeContentMode('directions')} style={[styles.category_title_container, {alignItems: 'center'}]}>
-                        <HeaderIcon style={{ alignSelf: 'center' }} direction={'right'} ui={props.ui} anim={rightAnim} />
-                        <AppText style={styles.category_title}>Directions</AppText>
-                    </Pressable>
-                </View> */}
             </View>
             <ScrollView style={{padding: 20}}>
                 <CompactView ui={props.ui} cocktail={cocktail} stock={props.stock.current} />
-                {/* <ScrollContent ui={props.ui} cocktail={cocktail} stock={props.stock} mode={contentMode} />
-                <View style={{ marginTop: 120, height: 20 }}></View> */}
             </ScrollView>
             <FunctionMenu
                 showFunctionMenu={showFunctionMenu}
@@ -448,37 +418,11 @@ function ShareCocktail(props){
                 <AppText style={styles.cocktail_title}>{props.cocktail.name}</AppText>
             </View>
             <CompactView ui={props.ui} cocktail={props.cocktail} stock={cocktail_stock} share={true} />
-            {/* <View style={{justifyContent: 'flex-start', flex: 1, paddingTop: 5}}>
-                <View>
-                    <View style={{justifyContent: 'center'}}>
-                        <AddedIngredientMap compact={true} name_style={{fontSize: fontSize}} theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={cocktail_stock} />
-                    </View>
-                </View>
-                <View>
-                    <Directions directions={props.cocktail.directions} style={{fontSize}} />
-                </View>
-                <View style={{ position: 'absolute', bottom: -15, flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
-                    <View style={{flex: 1, alignItems: 'center'}}>
-                        <AppText style={{fontSize: 10, color: 'grey'}}>Crump Cocktails</AppText>
-                    </View>
-                </View>
-            </View> */}
         </ViewShot>
     )
 }
 
-// function ScrollContent(props){
-//     if(props.mode == 'ingredients'){
-//         return (
-//             <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={props.stock.current} />
-//         )
-//     } else {
-//         // var test = 'Mix ingredients, stir, ice'
-//         return (
-//             <Directions directions={props.cocktail.directions} />
-//         )
-//     }
-// }
+
 var icon_distance = 2
 const windowWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
