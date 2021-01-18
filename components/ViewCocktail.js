@@ -50,27 +50,27 @@ function ViewCocktail(props){
     const [params, setParams] = useState(props.route.params)
 
     useEffect(()=>{
-        console.log('view []')
+        // console.log('view []')
         loadParams(params)
     }, [])
     useEffect(()=>{
-        console.log('view isFocused')
+        // console.log('view isFocused')
         loadParams(params)
     }, [isFocused])
     useEffect(()=>{
-        console.log('view params.id')
+        // console.log('view params.id')
         loadParams(params)
     }, [params.id])
 
     useEffect(()=>{
-        console.log('ci', currentIndex)
+        // console.log('ci', currentIndex)
     }, [currentIndex])
     useEffect(()=>{
         findCurrentIndex()
     })
 
     function loadParams(params){
-        console.log('loading params', params.id)
+        // console.log('loading params', params.id)
         if(params.id){
             var cocktail = props.cocktails.current.find(c=>c.id == params.id)
             setCocktail(cocktail)
@@ -246,7 +246,7 @@ function ViewCocktail(props){
 
     function onSnap(carousel, index){
         var cocktail = sorted[index]
-        console.log('onSnap', index, sorted[index].name )
+        // console.log('onSnap', index, sorted[index].name )
         loadParams(cocktail)
         // navigation.navigate('ViewCocktail', {
         //     id: cocktail.id
