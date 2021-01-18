@@ -20,11 +20,10 @@ function AppMenu(props){
     const itemStyle = props.itemStyle ? props.itemStyle : {}
 
     useEffect(() => {
-        console.log('appmenu index', props.index)
+        // console.log('appmenu index', props.index)
         if (carousel){
-            console.log('snapping')
+            // console.log('snapping')
             window.setTimeout(()=>{
-
                 carousel.snapToItem(props.index, false)
             },100)
         }
@@ -37,10 +36,10 @@ function AppMenu(props){
     
 
     function renderMenuItem(props) {
-
+        const fontSize = props.item.name.length < 25 ? 20 : 16
         return (
             <Pressable onPress={() => pressItem(props)} style={[{ justifyContent: 'center', alignContent: 'center', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }, itemStyle]}>
-                <AppText style={[{ fontSize: 20, flexShrink:1 }, itemStyle]}>{props.item.name}</AppText>
+                <AppText style={[{ fontSize: 20, flexShrink:1 }, itemStyle, {fontSize}]}>{props.item.name}</AppText>
             </Pressable>
         )
     }

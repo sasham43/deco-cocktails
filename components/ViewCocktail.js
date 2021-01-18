@@ -263,7 +263,7 @@ function ViewCocktail(props){
                 <AppMenu 
                     onSnap={onSnap}
                     itemStyle={{width: 175, fontSize:16, textAlign: 'center', marginLeft:0, paddingTop:2, flexWrap: 'wrap'}}
-                    style={{height:50,  position: 'relative', flexDirection: 'row', paddingTop:20}}
+                    style={{height:52,  position: 'relative', flexDirection: 'row', paddingTop:20}}
                     sliderWidth={props.ui.default_styles.window.width-50}
                     itemWidth={175}
                     index={currentIndex} 
