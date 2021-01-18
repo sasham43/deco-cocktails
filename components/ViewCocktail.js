@@ -47,36 +47,42 @@ function ViewCocktail(props){
         currentMode,
         switchMode
     } = useFunctionMenu()
-    // const [params, setParams] = useState(props.route.params)
+    const [params, setParams] = useState(props.route.params)
 
     useEffect(()=>{
-        loadParams(props.route.params)
+        console.log('view []')
+        loadParams(params)
     }, [])
     useEffect(()=>{
-        loadParams(props.route.params)
+        console.log('view isFocused')
+        loadParams(params)
     }, [isFocused])
     useEffect(()=>{
-        loadParams(props.route.params)
-    }, [props.route.params.id])
+        console.log('view params.id')
+        loadParams(params)
+    }, [params.id])
 
     useEffect(()=>{
-        // console.log('ci', currentIndex)
+        console.log('ci', currentIndex)
     }, [currentIndex])
     useEffect(()=>{
         findCurrentIndex()
     })
 
     function loadParams(params){
+        console.log('loading params', params.id)
         if(params.id){
             var cocktail = props.cocktails.current.find(c=>c.id == params.id)
             setCocktail(cocktail)
 
             setSorted(props.cocktails.current.sort(sortCocktails))
+            // findCurrentIndex()
         } else {
             var cocktail = props.cocktails.current[0]
             setCocktail(cocktail)
 
             setSorted(props.cocktails.current.sort(sortCocktails))
+            // findCurrentIndex()
         }
     }
     function findCurrentIndex(){
@@ -116,27 +122,27 @@ function ViewCocktail(props){
         navigation.navigate('CocktailList')
         props.deleteCocktail(cocktail.id)
     }
-    function findNextCocktail(id){
-        for (var i in sorted) {
-            var index = Number(i)
-            if (sorted[index].id == id) {
-                if (index == sorted.length - 1) return sorted[sorted.length - 1]
-                return sorted[index + 1]
-            }
-        }
-    }
-    function findPreviousCocktail(id){
-        // var sorted = props.cocktails.current.sort(sortCocktails)
-        for (var i in sorted) {
-            var index = Number(i)
-            // console.log('sorted item:', sorted[index])
-            if(sorted[index].id == id){
-                if(index == 0) return 0
-                // if(index == sorted.length-1) return sorted[sorted.length-1]
-                return sorted[index-1]
-            }
-        }
-    }
+    // function findNextCocktail(id){
+    //     for (var i in sorted) {
+    //         var index = Number(i)
+    //         if (sorted[index].id == id) {
+    //             if (index == sorted.length - 1) return sorted[sorted.length - 1]
+    //             return sorted[index + 1]
+    //         }
+    //     }
+    // }
+    // function findPreviousCocktail(id){
+    //     // var sorted = props.cocktails.current.sort(sortCocktails)
+    //     for (var i in sorted) {
+    //         var index = Number(i)
+    //         // console.log('sorted item:', sorted[index])
+    //         if(sorted[index].id == id){
+    //             if(index == 0) return 0
+    //             // if(index == sorted.length-1) return sorted[sorted.length-1]
+    //             return sorted[index-1]
+    //         }
+    //     }
+    // }
     function sortCocktails(a, b) {
         if (a.name > b.name) {
             return 1
@@ -239,11 +245,12 @@ function ViewCocktail(props){
     }
 
     function onSnap(carousel, index){
-        console.log('index', index)
         var cocktail = sorted[index]
-        navigation.navigate('ViewCocktail', {
-            id: cocktail.id
-        })
+        console.log('onSnap', index, sorted[index].name )
+        loadParams(cocktail)
+        // navigation.navigate('ViewCocktail', {
+        //     id: cocktail.id
+        // })
     }
 
     return (

@@ -20,10 +20,12 @@ function AppMenu(props){
     const itemStyle = props.itemStyle ? props.itemStyle : {}
 
     useEffect(() => {
-        // console.log('state.index', state.index)
-        if (carousel)
+        // console.log('appmenu index', props.index)
+        if (carousel){
+            // console.log('snapping')
             carousel.snapToItem(props.index)
-    }, [props.index])
+        }
+    })
 
     function pressItem(props) {
         // console.log('press', props)
@@ -42,6 +44,15 @@ function AppMenu(props){
 
     // console.log('ui', props.ui.current_theme)
 
+    function onSnap(index){
+        // console.log('appmenu onsnap  ')
+        props.onSnap(carousel, index)
+    }
+    // function getItemLayout(data, index){
+    //     // console.log('data', data, index)
+    //     return { length: data.length, offset: props.index, index: index}
+    // }
+
     return (
         <View style={[props.style, props.ui.current_theme]}>
             {/* <View style={{marginLeft: 0}}> */}
@@ -54,10 +65,14 @@ function AppMenu(props){
                 // sliderWidth={props.ui.default_styles.window.width - 20}
                 sliderHeight={props.icon_size + 20}
                 ref={c => setCarousel(c)}
-                onSnapToItem={index=> props.onSnap(carousel, index)}
+                onSnapToItem={index=> onSnap(index)}
+                // onSnapToItem={index=> props.onSnap(carousel, index)}
                 containerCustomStyle={{ zIndex: 10, marginRight: 20, marginLeft: 20 }}
                 contentContainerCustomStyle={{marginLeft:-10}}
                 inactiveSlideScale={0.7}
+                // initialScrollIndex={props.index}
+                // getItemLayout={getItemLayout}
+                // firstItem={props.index}
             />
             {/* </View> */}
             <View style={{
