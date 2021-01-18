@@ -54,6 +54,9 @@ function Main(props){
         setImportCocktail(queryParams)
         setModalVisible(true)
     }
+    function hideImportModal(){
+        setModalVisible(false)
+    }
     var screen_options = {
         headerShown: true, 
         transitionSpec: {
@@ -103,7 +106,7 @@ function Main(props){
                             animationType="slide"
                             visible={modalVisible}
                         >
-                            <ImportCocktail cocktail={importCocktail} />
+                            <ImportCocktail hide={hideImportModal} cocktail={importCocktail} />
                         </Modal>
                     </View>
                     {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
