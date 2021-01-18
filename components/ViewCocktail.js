@@ -248,14 +248,14 @@ function ViewCocktail(props){
         <GestureRecognizer 
             onSwipeLeft={()=>onSwipeLeft()}
             onSwipeRight={(state)=>onSwipeRight(state)}
-            style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}
+            style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 10}]}
         >
             <View style={styles.header}>
                 <AppMenu 
                     onSnap={onSnap}
-                    itemStyle={{width: 175, fontSize:16, textAlign: 'center', marginLeft:10, paddingTop:2}}
+                    itemStyle={{width: 175, fontSize:16, textAlign: 'center', marginLeft:0, paddingTop:2, flexWrap: 'wrap'}}
                     style={{height:50,  position: 'relative', flexDirection: 'row', paddingTop:20}}
-                    sliderWidth={props.ui.default_styles.window.width-100}
+                    sliderWidth={props.ui.default_styles.window.width-50}
                     itemWidth={175}
                     index={currentIndex} 
                     items={sorted} 
@@ -439,7 +439,8 @@ var icon_distance = 2
 const windowWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
     header: {
-        marginTop: 20
+        marginTop: 20,
+        marginLeft: 10,
     },
     header_buttons: {
         flexDirection: 'row',

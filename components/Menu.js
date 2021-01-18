@@ -135,17 +135,19 @@ function Menu(props) {
     const icon_size = 15
 
     return (
-        <AppMenu
-            style={[styles.menu, { borderColor: '#000', borderTopWidth: 0 }, props.ui.current_theme]}
-            index={state.index}
-            items={menuItems}
-            // pressItem={pressItem}
-            // renderMenuItem={renderMenuItem}
-            sliderWidth={props.ui.default_styles.window.width - 20}
-            itemWidth={100}
-            onSnap={onSnap}
-            icon_size={icon_size}
-        />
+        // <View style={[styles.menu,props.ui.current_theme]}>
+            <AppMenu
+                style={styles.menu}
+                index={state.index}
+                items={menuItems}
+                // pressItem={pressItem}
+                // renderMenuItem={renderMenuItem}
+                sliderWidth={props.ui.default_styles.window.width - 20}
+                itemWidth={100}
+                onSnap={onSnap}
+                icon_size={icon_size}
+            />
+        //{/* </View> */}
     )
     // return (
     //     <View style={[styles.menu, {borderColor: '#000', borderTopWidth:0}, props.ui.current_theme]}>
@@ -192,27 +194,6 @@ function Menu(props) {
     //         </View>
     //     </View>
     // )
-
-
-
-
-
-    // return (
-    //     <View style={[styles.menu, props.ui.current_theme]}>
-    //         <View style={styles.link_container}>
-    //             <Pressable style={styles.link} onPress={()=>navigation.navigate('CocktailList', {date: new Date().toString()})}>
-    //                 <AppText style={styles.link_text}>Cocktails</AppText>
-    //                 <HeaderIcon direction={'left'} anim={leftAnim} ui={props.ui} />
-    //             </Pressable>
-    //         </View>
-    //         <View style={styles.link_container}>
-    //             <Pressable style={styles.link} onPress={() => navigation.navigate('Stock', { date: new Date().toString() })}>
-    //                 <HeaderIcon direction={'right'} anim={rightAnim} ui={props.ui} />
-    //                 <AppText style={styles.link_text}>Cabinet</AppText>
-    //             </Pressable>
-    //         </View>
-    //     </View>
-    // )
 }
 
 const icon_distance = -1
@@ -226,13 +207,16 @@ const styles = StyleSheet.create({
         // paddingRight: 50,
         paddingTop: 20,
         // marginTop:10,
-        paddingLeft: 10,
+        // paddingLeft: 10,
+        // marginLeft: 10,
         // paddingTop: 10,
         height: 50,
+        // height: 45,
         // height: 100,
         position: 'absolute',
         top: 0,
         width: windowWidth,
+        borderColor: '#000', borderTopWidth: 0,
     },
     link_container: {
         paddingTop: 10,

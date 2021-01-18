@@ -35,13 +35,15 @@ function AppMenu(props){
 
         return (
             <Pressable onPress={() => pressItem(props)} style={[{ justifyContent: 'center', alignContent: 'center', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }, itemStyle]}>
-                <AppText style={[{ fontSize: 20 }, itemStyle]}>{props.item.name}</AppText>
+                <AppText style={[{ fontSize: 20, flexShrink:1 }, itemStyle]}>{props.item.name}</AppText>
             </Pressable>
         )
     }
 
+    // console.log('ui', props.ui.current_theme)
+
     return (
-        <View style={props.style}>
+        <View style={[props.style, props.ui.current_theme]}>
             {/* <View style={{marginLeft: 0}}> */}
             <Carousel
                 data={props.items}
@@ -53,7 +55,8 @@ function AppMenu(props){
                 sliderHeight={props.icon_size + 20}
                 ref={c => setCarousel(c)}
                 onSnapToItem={index=> props.onSnap(carousel, index)}
-                containerCustomStyle={{ zIndex: 10, marginRight: 10 }}
+                containerCustomStyle={{ zIndex: 10, marginRight: 20, marginLeft: 20 }}
+                contentContainerCustomStyle={{marginLeft:-10}}
                 inactiveSlideScale={0.7}
             />
             {/* </View> */}
@@ -70,12 +73,13 @@ function AppMenu(props){
                 // width: props.ui.default_styles.window.width,
                 width: props.sliderWidth,
                 // width: props.ui.default_styles.window.width - 20,
-                height: 40,
+                // height: 40,
+                height: props.style.height-10,
                 top: 0,
                 zIndex: -1
                 // left: (props.ui.default_styles.window.width / 2)-50}
             }}>
-                <View style={{ position: 'absolute', width: props.itemWidth, height: 38, alignSelf: 'center' }}>
+                <View style={{ position: 'absolute', width: props.itemWidth+5, height: props.style.height-12, alignSelf: 'center' }}>
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={props.icon_size} height={props.icon_size} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={props.icon_size} height={props.icon_size} />
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={props.icon_size} height={props.icon_size} />
