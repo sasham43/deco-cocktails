@@ -20,12 +20,15 @@ function AppMenu(props){
     const itemStyle = props.itemStyle ? props.itemStyle : {}
 
     useEffect(() => {
-        // console.log('appmenu index', props.index)
+        console.log('appmenu index', props.index)
         if (carousel){
-            // console.log('snapping')
-            carousel.snapToItem(props.index)
+            console.log('snapping')
+            window.setTimeout(()=>{
+
+                carousel.snapToItem(props.index, false)
+            },100)
         }
-    })
+    }, [props.index])
 
     function pressItem(props) {
         // console.log('press', props)
@@ -70,8 +73,17 @@ function AppMenu(props){
                 containerCustomStyle={{ zIndex: 10, marginRight: 20, marginLeft: 20 }}
                 contentContainerCustomStyle={{marginLeft:-10}}
                 inactiveSlideScale={0.7}
+                // initialNumToRender={props.items.length}
+                // removeClippedSubviews={false}
                 // initialScrollIndex={props.index}
                 // getItemLayout={getItemLayout}
+                // getItemLayout={(data, index) => (
+                //     {
+                //         length: props.itemWidth,
+                //         offset: props.itemWidth * index,
+                //         index
+                //     }
+                // )}
                 // firstItem={props.index}
             />
             {/* </View> */}
