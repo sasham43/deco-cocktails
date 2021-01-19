@@ -8,6 +8,7 @@ import AppText from './AppText'
 import AppButton from './AppButton'
 import {CompactView} from './CompactView'
 import CornerIcon from '../assets/corner'
+import {translateForImport} from '../utils/translate'
 
 import { addCocktail } from '../utils/CocktailActions'
 
@@ -26,7 +27,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(ImportCocktail)
 
 // export default 
 function ImportCocktail(props){
-    const [cocktail, setCocktail] = useState(translateCocktail(props.cocktail))
+    const [cocktail, setCocktail] = useState(translateForImport(props.cocktail))
 
     var small_screen = Dimensions.get('window').height < 700
     var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
@@ -35,60 +36,41 @@ function ImportCocktail(props){
         props.addCocktail(cocktail)
         props.hide()
     }
-    function translateCocktail(imported){
-        const new_cocktail = {
-            ingredients: []
-        }
-        // var index = -1 // so we can increment to 0
-        for(var prop in imported){
-            console.log('prop', prop)
+    // function translateCocktail(imported){
+    //     const new_cocktail = {
+    //         ingredients: []
+    //     }
+    //     // var index = -1 // so we can increment to 0
+    //     for(var prop in imported){
+    //         console.log('prop', prop)
 
-            if(prop == 'n'){
-                new_cocktail['name'] = imported[prop]
-            } else if (prop == 'd'){
-                new_cocktail['directions'] = imported[prop]
-            } else {
-                var num = parseInt(prop)
-                var type = prop.replace(`${num}`, '')
+    //         if(prop == 'n'){
+    //             new_cocktail['name'] = imported[prop]
+    //         } else if (prop == 'd'){
+    //             new_cocktail['directions'] = imported[prop]
+    //         } else {
+    //             var num = parseInt(prop)
+    //             var type = prop.replace(`${num}`, '')
 
-                if(!new_cocktail.ingredients[num]){
-                    new_cocktail.ingredients[num] = {}
-                }
+    //             if(!new_cocktail.ingredients[num]){
+    //                 new_cocktail.ingredients[num] = {}
+    //             }
 
-                if(type == 'n'){
-                    new_cocktail.ingredients[num].ingredient_name = imported[prop]
-                } else if (type == 'p'){
-                    new_cocktail.ingredients[num].parts = imported[prop]
-                }
-            }
-
-
-            // if(prop.includes('ingredients')){
-            //     if(prop.includes('id')){
-            //         index++
-            //         new_cocktail.ingredients[index] = {
-            //             id: generate()
-            //         }
-            //     } else if (prop.includes('ingredient_name')){
-            //         new_cocktail.ingredients[index].ingredient_name =  imported[prop]
-            //         // new_cocktail.ingredients[index] = {
-            //         //     ingredient_name: imported[prop]
-            //         // }
-            //     } else if (prop.includes('parts')){
-            //         new_cocktail.ingredients[index].parts = imported[prop]
-            //     }
-            // } else {
-            //     new_cocktail[prop] = imported[prop]
-            // }
-        }
-        new_cocktail.ingredients = new_cocktail.ingredients.map(i=>{
-            return {...i, id: generate()}
-        })
-        new_cocktail.id = generate()
-        // setCocktail(new_cocktail)
-        console.log('new cocktail', new_cocktail)
-        return new_cocktail
-    }
+    //             if(type == 'n'){
+    //                 new_cocktail.ingredients[num].ingredient_name = imported[prop]
+    //             } else if (type == 'p'){
+    //                 new_cocktail.ingredients[num].parts = imported[prop]
+    //             }
+    //         }
+    //     }
+    //     new_cocktail.ingredients = new_cocktail.ingredients.map(i=>{
+    //         return {...i, id: generate()}
+    //     })
+    //     new_cocktail.id = generate()
+    //     // setCocktail(new_cocktail)
+    //     console.log('new cocktail', new_cocktail)
+    //     return new_cocktail
+    // }
     // function hideShareModal(){
     //     props.hide()
     // }
