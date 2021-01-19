@@ -31,6 +31,7 @@ import { navigationRef } from '../utils/RootNavigation'
 import Intro from './Intro'
 import ImportCocktail from './ImportCocktail'
 
+
 import CornerIcon from '../assets/corner.svg'
 
 const Tab = createBottomTabNavigator()
@@ -44,7 +45,7 @@ export default connect(mapStateToProps)(Main)
 
 
 function Main(props){
-    const [modalVisible, setModalVisible] = useState(false) // handle links into app
+    const [importModalVisible, setImportModalVisible] = useState(false) // handle links into app
     const [importCocktail, setImportCocktail] = useState({})
     Linking.addEventListener('url', handleUrl)
 
@@ -60,10 +61,10 @@ function Main(props){
         let { path, queryParams } = Linking.parse(data.url)
         console.log('opening from url', path, queryParams)
         setImportCocktail(queryParams)
-        setModalVisible(true)
+        setImportModalVisible(true)
     }
     function hideImportModal(){
-        setModalVisible(false)
+        setImportModalVisible(false)
     }
     var screen_options = {
         headerShown: true, 
@@ -102,7 +103,10 @@ function Main(props){
                     <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={60} height={60} />
                     <Title></Title>
                     <Tab.Navigator  tabBar={props=> <Menu {...props} />} backBehavior={"history"} >
-                        <Tab.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Tab.Screen>
+                        <Tab.Screen options={screen_options} name="CocktailList" style={styles.screen}>
+                            {(props)=><CocktailList {...props} handleUrl={handleUrl} />}
+                        </Tab.Screen>
+                        {/* <Tab.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Tab.Screen> */}
                         <Tab.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Tab.Screen>
                         <Tab.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Tab.Screen>
                         <Tab.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Tab.Screen>
@@ -112,11 +116,12 @@ function Main(props){
                     <View>
                         <Modal
                             animationType="slide"
-                            visible={modalVisible}
+                            visible={importModalVisible}
                         >
                             <ImportCocktail hide={hideImportModal} cocktail={importCocktail} />
                         </Modal>
                     </View>
+                    {/* */}
                     {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
                     <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}>
 

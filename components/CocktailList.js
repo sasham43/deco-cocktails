@@ -31,6 +31,7 @@ import TabIcon from '../assets/tab'
 import CornerIcon from '../assets/corner'
 import { deleteCocktail, selectCocktail, deleteCocktails, unselectAllCocktails } from '../utils/CocktailActions'
 import { setShareMenuMax } from '../utils/UIActions'
+import PhotoScan from './PhotoScan'
 
 import { useStock, useFunctionMenu } from '../utils/hooks'
 import { sortedIngredients } from '../utils/sort'
@@ -234,7 +235,8 @@ function CocktailList(props){
 
     const navigation = useNavigation()
 
-    const [modalVisible, setModalVisible] = useState(false)
+    const [shareModalVisible, setShareModalVisible] = useState(false)
+    const [scanModalVisible, setScanModalVisible] = useState(false)
     const [shareUri, setShareUri] = useState('')
 
     const shareMax = props.ui.share.menu_max
@@ -249,6 +251,12 @@ function CocktailList(props){
     useEffect(()=>{
         filterCocktails()
     }, [props.route.params])
+
+    useEffect(()=>{
+        if(currentMode == 'scan'){
+            showScanModal()
+        }
+    }, [currentMode])
   
     function filterCocktails() {
         if (cocktailSearch == '') {
@@ -288,11 +296,18 @@ function CocktailList(props){
         gestureIsClickThreshold: 90
     }
     function showShareModal(){
-        setModalVisible(true)
+        setShareModalVisible(true)
     }
     function hideShareModal(){
-        console.log('hideShareModal')
-        setModalVisible(false)
+        // console.log('hideShareModal')
+        setShareModalVisible(false)
+    }
+    function showScanModal(){
+        setScanModalVisible(true)
+    }
+    function hideScanModal(){
+        // console.log('hideScanModal')
+        setScanModalVisible(false)
     }
     function shareMenu(){
             // console.log('share')
@@ -365,9 +380,19 @@ function CocktailList(props){
                 max={shareMax}
             />
 
+            <View>
+                <Modal
+                    animationType="slide"
+                    visible={scanModalVisible}
+                >
+                    <PhotoScan hideModal={hideScanModal} handleUrl={props.handleUrl} ui={props.ui} />
+                    {/* <ImportCocktail hide={hideScanModal} cocktail={importCocktail} /> */}
+                </Modal>
+            </View>
+
             <Modal
                 animationType="slide"
-                visible={modalVisible}
+                visible={shareModalVisible}
             >
                 <View style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15, flex: 1 }}>
                     {/* <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} /> */}
@@ -615,6 +640,7 @@ function FunctionMenu(props) {
                 <FunctionMenuButton theme={props.theme} label={"Change Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Remove Cocktails"} mode="delete" switchMode={removeMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Create Cocktail"} mode="add" switchMode={navigateToAdd} currentMode={props.currentMode} />
+                <FunctionMenuButton theme={props.theme} label={"Scan"} mode="scan" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Share Menu"} mode="share" switchMode={shareMode} currentMode={props.currentMode} hidePanel={hidePanel} />
             </View>
         </SlidingUpPanel>        
