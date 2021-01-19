@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Animated, Easing } from 'react-native'
+import { View, StyleSheet, Animated, Easing, SafeAreaView } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import * as Linking from 'expo-linking'
 
@@ -7,7 +7,8 @@ import * as Linking from 'expo-linking'
 import AppText from './AppText'
 import AppButton from './AppButton'
 import FunctionButtonIcon from '../assets/function-button'
-import {translateForImport} from '../utils/translate'
+import CornerIcon from '../assets/corner'
+// import {translateForImport} from '../utils/translate'
 
 
 export default function PhotoScan(props){
@@ -24,9 +25,9 @@ export default function PhotoScan(props){
     const handleBarCodeScanned = ({ type, data }) => {
         setScanned(true);
         // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-        const parsed = Linking.parse(data)
-        console.log(parsed)
-        console.log('data', data)
+        // const parsed = Linking.parse(data)
+        // console.log(parsed)
+        // console.log('data', data)
 
         // props.addCocktail(parsed)
         // props.showImportModal(parsed)
@@ -42,22 +43,28 @@ export default function PhotoScan(props){
     }
 
     return (
-        <View style={{padding: 50}}>
-            <View>
-                <AppText>Scan</AppText>
-            </View>
-            <View>
-                <BarCodeScanner
-                    onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-                    style={{height: 300, width: 300}}
-                />
-                {/* {scanned && <AppButton title={'Tap to Scan Again'} press={() => setScanned(false)}>Scan Again</AppButton>} */}
-                <ScanText fill={props.ui.current_theme.color} scanned={scanned} setScanned={()=>setScanned(false)} />
-                <View style={{marginTop: 100}}>
-                    <AppButton press={props.hideModal}>Cancel</AppButton>
+        <SafeAreaView style={{padding: 50}}>
+            <View style={{padding:40}}>
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={60} height={60} />
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={60} height={60} />
+                {/* <View>
+                    <AppText>Scan</AppText>
+                </View> */}
+                <View>
+                    <BarCodeScanner
+                        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+                        style={{height: 300, width: 300}}
+                    />
+                    {/* {scanned && <AppButton title={'Tap to Scan Again'} press={() => setScanned(false)}>Scan Again</AppButton>} */}
+                    <ScanText fill={props.ui.current_theme.color} scanned={scanned} setScanned={()=>setScanned(false)} />
+                    <View style={{marginTop: 100}}>
+                        <AppButton press={props.hideModal}>Cancel</AppButton>
+                    </View>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 
@@ -93,7 +100,7 @@ function ScanText(props){
 
         return (
             <View style={{padding: 10, textAlign: 'center'}}>
-                <AppText style={{textAlign: 'center'}}>Scanning...</AppText>
+                <AppText style={{textAlign: 'center', fontSize: 18}}>Scanning...</AppText>
                 <View style={{position: 'relative'}}>
                     <Animated.View
                         // style={position}
@@ -129,3 +136,16 @@ function ScanText(props){
         )
     }
 }
+
+
+const styles = StyleSheet.create({
+
+    corner_icon: {
+        zIndex: 10,
+        position: 'absolute'
+    },
+    top_right: { top: 0, right: 10 },
+    top_left: { top: 0, left: 10, transform: [{ rotate: '-90deg' }] },
+    bottom_right: { bottom: 10, right: 10, transform: [{ rotate: '90deg' }] },
+    bottom_left: { bottom: 10, left: 10, transform: [{ rotate: '180deg' }] }
+})
