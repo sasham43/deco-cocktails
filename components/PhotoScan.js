@@ -43,16 +43,30 @@ export default function PhotoScan(props){
     return (
         <View style={{padding: 50}}>
             <View>
-                <AppText>Scan</AppText>
+                <AppText>Scann</AppText>
             </View>
             <View>
                 <BarCodeScanner
                     onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-                    // style={StyleSheet.absoluteFillObject}
                     style={{height: 300, width: 300}}
                 />
-                {scanned && <AppButton title={'Tap to Scan Again'} press={() => setScanned(false)}>Scan Again</AppButton>}
+                {/* {scanned && <AppButton title={'Tap to Scan Again'} press={() => setScanned(false)}>Scan Again</AppButton>} */}
+                <ScanText scanned={scanned} setScanned={()=>setScanned(false)} />
             </View>
         </View>
     )
+}
+
+function ScanText(props){
+    if(props.scanned){
+        return (
+            <AppButton press={props.setScanned}>Scan Again</AppButton>
+        )
+    } else {
+        return (
+            <View style={{padding: 10, textAlign: 'center'}}>
+                <AppText style={{textAlign: 'center'}}>Scanning...</AppText>
+            </View>
+        )
+    }
 }
