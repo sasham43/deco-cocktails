@@ -6,6 +6,7 @@ import * as Linking from 'expo-linking'
 
 import AppText from './AppText'
 import AppButton from './AppButton'
+import AppMenu from './AppMenu'
 import FunctionButtonIcon from '../assets/function-button'
 import CornerIcon from '../assets/corner'
 // import {translateForImport} from '../utils/translate'
@@ -14,6 +15,7 @@ import CornerIcon from '../assets/corner'
 export default function PhotoScan(props){
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(0)
 
     useEffect(() => {
         (async () => {
@@ -42,9 +44,31 @@ export default function PhotoScan(props){
         return <AppText>No access to camera</AppText>;
     }
 
+    function onSnap(carousel, index){
+        setCurrentIndex(index)
+    }
+    const items = [{
+        name: 'Scan'
+    }, {
+        name: 'Import Photo'
+    }]
+
     return (
         <SafeAreaView style={{padding: 50}}>
             <View style={{padding:40}}>
+                <View style={styles.header}>
+                    <AppMenu
+                        onSnap={onSnap}
+                        itemStyle={{ width: 120, fontSize: 16, textAlign: 'center', marginLeft: 0, paddingTop: 2, flexWrap: 'wrap' }}
+                        style={{ height: 52, position: 'relative', flexDirection: 'row', paddingTop: 20 }}
+                        sliderWidth={props.ui.default_styles.window.width - 60}
+                        itemWidth={120}
+                        index={currentIndex}
+                        items={items}
+                        icon_size={15}
+                        name={"Scan"}
+                    />
+                </View>
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={60} height={60} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
@@ -52,20 +76,34 @@ export default function PhotoScan(props){
                 {/* <View>
                     <AppText>Scan</AppText>
                 </View> */}
-                <View>
-                    <BarCodeScanner
-                        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-                        style={{height: 300, width: 300}}
-                    />
-                    {/* {scanned && <AppButton title={'Tap to Scan Again'} press={() => setScanned(false)}>Scan Again</AppButton>} */}
-                    <ScanText fill={props.ui.current_theme.color} scanned={scanned} setScanned={()=>setScanned(false)} />
-                    <View style={{marginTop: 100}}>
-                        <AppButton press={props.hideModal}>Cancel</AppButton>
-                    </View>
+                <ScanContent index={currentIndex} ui={props.ui} setScanned={setScanned} handleBarCodeScanned={handleBarCodeScanned} scanned={scanned} />
+                <View style={{marginTop: 100}}>
+                    <AppButton press={props.hideModal}>Cancel</AppButton>
                 </View>
             </View>
         </SafeAreaView>
     )
+}
+
+function ScanContent(props){
+    if(props.index == 0){
+        return (
+            <View>
+                <BarCodeScanner
+                    onBarCodeScanned={props.scanned ? undefined : props.handleBarCodeScanned}
+                    style={{ height: 300, width: 300 }}
+                />
+                {/* {scanned && <AppButton title={'Tap to Scan Again'} press={() => setScanned(false)}>Scan Again</AppButton>} */}
+                <ScanText fill={props.ui.current_theme.color} scanned={props.scanned} setScanned={() => props.setScanned(false)} />
+            </View>
+        )
+    } else {
+        return (
+            <View>
+                <AppText>Import</AppText>
+            </View>
+        )
+    }
 }
 
 function ScanText(props){
@@ -139,7 +177,11 @@ function ScanText(props){
 
 
 const styles = StyleSheet.create({
-
+    header: {
+        marginTop: -20,
+        marginLeft: -20,
+        marginBottom: 20
+    },
     corner_icon: {
         zIndex: 10,
         position: 'absolute'

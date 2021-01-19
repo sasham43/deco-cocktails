@@ -126,27 +126,6 @@ function ViewCocktail(props){
         navigation.navigate('CocktailList')
         props.deleteCocktail(cocktail.id)
     }
-    // function findNextCocktail(id){
-    //     for (var i in sorted) {
-    //         var index = Number(i)
-    //         if (sorted[index].id == id) {
-    //             if (index == sorted.length - 1) return sorted[sorted.length - 1]
-    //             return sorted[index + 1]
-    //         }
-    //     }
-    // }
-    // function findPreviousCocktail(id){
-    //     // var sorted = props.cocktails.current.sort(sortCocktails)
-    //     for (var i in sorted) {
-    //         var index = Number(i)
-    //         // console.log('sorted item:', sorted[index])
-    //         if(sorted[index].id == id){
-    //             if(index == 0) return 0
-    //             // if(index == sorted.length-1) return sorted[sorted.length-1]
-    //             return sorted[index-1]
-    //         }
-    //     }
-    // }
     function sortCocktails(a, b) {
         if (a.name > b.name) {
             return 1
