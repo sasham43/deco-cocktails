@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, StyleSheet, Animated, Easing, SafeAreaView } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import * as Linking from 'expo-linking'
+import * as ImagePicker from 'expo-image-picker'
 
 
 import AppText from './AppText'
@@ -76,7 +77,14 @@ export default function PhotoScan(props){
                 {/* <View>
                     <AppText>Scan</AppText>
                 </View> */}
-                <ScanContent index={currentIndex} ui={props.ui} setScanned={setScanned} handleBarCodeScanned={handleBarCodeScanned} scanned={scanned} />
+                <ScanContent 
+                    index={currentIndex} 
+                    ui={props.ui} 
+                    setScanned={setScanned} 
+                    handleBarCodeScanned={handleBarCodeScanned} 
+                    scanned={scanned} 
+                    // handleUrl={props.handleUrl}
+                />
                 <View style={{marginTop: 100}}>
                     <AppButton press={props.hideModal}>Cancel</AppButton>
                 </View>
@@ -101,9 +109,52 @@ function ScanContent(props){
         return (
             <View>
                 <AppText>Import</AppText>
+                <ImportImage handleBarCodeScanned={props.handleBarCodeScanned} />
             </View>
         )
     }
+}
+
+function ImportImage(props){
+    const [image, setImage] = useState(null);
+
+    useEffect(() => {
+        (async () => {
+            if (Platform.OS !== 'web') {
+                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                if (status !== 'granted') {
+                    alert('Sorry, we need camera roll permissions to make this work!');
+                }
+            }
+        })();
+    }, [])
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: false,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        console.log(result);
+
+        if (!result.cancelled) {
+            // setImage(result.uri);
+            const qr = await BarCodeScanner.scanFromURLAsync(result.uri)
+
+            console.log('qr result', qr)
+            if(qr.length > 0){
+                props.handleBarCodeScanned(qr[0])
+            }
+        }
+    };
+
+    return (
+        <View>
+            <AppButton press={pickImage}>Select Photo</AppButton>
+        </View>
+    )
 }
 
 function ScanText(props){
