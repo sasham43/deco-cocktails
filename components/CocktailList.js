@@ -308,6 +308,7 @@ function CocktailList(props){
     function hideScanModal(){
         // console.log('hideScanModal')
         setScanModalVisible(false)
+        switchMode('')
     }
     function shareMenu(){
             // console.log('share')
