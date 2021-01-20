@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Animated, Easing, SafeAreaView } from 'react-native'
+import { View, Image, StyleSheet, Animated, Easing, SafeAreaView } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import * as Linking from 'expo-linking'
 import * as ImagePicker from 'expo-image-picker'
@@ -55,8 +55,8 @@ export default function PhotoScan(props){
     }]
 
     return (
-        <SafeAreaView style={{padding: 50}}>
-            <View style={{padding:40}}>
+        <SafeAreaView style={[{padding: 50, flex: 1}, props.ui.current_theme]}>
+            <View style={{padding:40, flex: 1}}>
                 <View style={styles.header}>
                     <AppMenu
                         onSnap={onSnap}
@@ -102,7 +102,7 @@ function ScanContent(props){
                     style={{ height: 300, width: 300 }}
                 />
                 {/* {scanned && <AppButton title={'Tap to Scan Again'} press={() => setScanned(false)}>Scan Again</AppButton>} */}
-                <ScanText fill={props.ui.current_theme.color} scanned={props.scanned} setScanned={() => props.setScanned(false)} />
+                <ScanText ui={props.ui} fill={props.ui.current_theme.color} scanned={props.scanned} setScanned={() => props.setScanned(false)} />
             </View>
         )
     } else {
@@ -140,7 +140,7 @@ function ImportImage(props){
         console.log(result);
 
         if (!result.cancelled) {
-            // setImage(result.uri);
+            setImage(result.uri);
             const qr = await BarCodeScanner.scanFromURLAsync(result.uri)
 
             console.log('qr result', qr)
@@ -153,6 +153,7 @@ function ImportImage(props){
     return (
         <View>
             <AppButton press={pickImage}>Select Photo</AppButton>
+            <Image style={{flex:1}} uri={image} />
         </View>
     )
 }
@@ -202,7 +203,7 @@ function ScanText(props){
                     >
                         <View style={{
                             // backgroundColor: 'rgba(250,250,250,1)',
-                            backgroundColor: '#fff',
+                            backgroundColor: props.ui.current_theme.backgroundColor,
                             // backgroundColor: 'rgba(0,50,50,1)',
                             // backgroundColor: '#000000',
                             // borderTopWidth:1,
