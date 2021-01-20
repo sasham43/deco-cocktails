@@ -56,7 +56,7 @@ export default function PhotoScan(props){
 
     return (
         <SafeAreaView style={[{padding: 50, flex: 1}, props.ui.current_theme]}>
-            <View style={{padding:40, flex: 1}}>
+            <View style={{padding:40, flex: 1, justifyContent: 'space-between'}}>
                 <View style={styles.header}>
                     <AppMenu
                         onSnap={onSnap}
@@ -77,15 +77,17 @@ export default function PhotoScan(props){
                 {/* <View>
                     <AppText>Scan</AppText>
                 </View> */}
-                <ScanContent 
-                    index={currentIndex} 
-                    ui={props.ui} 
-                    setScanned={setScanned} 
-                    handleBarCodeScanned={handleBarCodeScanned} 
-                    scanned={scanned} 
-                    // handleUrl={props.handleUrl}
-                />
-                <View style={{marginTop: 100}}>
+                <View style={{flex:10}}>
+                    <ScanContent 
+                        index={currentIndex} 
+                        ui={props.ui} 
+                        setScanned={setScanned} 
+                        handleBarCodeScanned={handleBarCodeScanned} 
+                        scanned={scanned} 
+                        // handleUrl={props.handleUrl}
+                    />
+                </View>
+                <View style={{position: 'relative', bottom: 0, flex: 1}}>
                     <AppButton press={props.hideModal}>Cancel</AppButton>
                 </View>
             </View>
