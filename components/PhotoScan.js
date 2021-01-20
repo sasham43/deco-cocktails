@@ -77,7 +77,7 @@ export default function PhotoScan(props){
                 {/* <View>
                     <AppText>Scan</AppText>
                 </View> */}
-                <View style={{flex:10}}>
+                <View style={{flex:5}}>
                     <ScanContent 
                         index={currentIndex} 
                         ui={props.ui} 
@@ -87,6 +87,7 @@ export default function PhotoScan(props){
                         // handleUrl={props.handleUrl}
                     />
                 </View>
+                    <ImportImage ui={props.ui} handleBarCodeScanned={props.handleBarCodeScanned} />
                 <View style={{position: 'relative', bottom: 0, flex: 1}}>
                     <AppButton press={props.hideModal}>Cancel</AppButton>
                 </View>
@@ -104,14 +105,14 @@ function ScanContent(props){
                     style={{ height: 300, width: 300 }}
                 />
                 {/* {scanned && <AppButton title={'Tap to Scan Again'} press={() => setScanned(false)}>Scan Again</AppButton>} */}
-                <ScanText ui={props.ui} fill={props.ui.current_theme.color} scanned={props.scanned} setScanned={() => props.setScanned(false)} />
+                {/* <ScanText ui={props.ui} fill={props.ui.current_theme.color} scanned={props.scanned} setScanned={() => props.setScanned(false)} /> */}
             </View>
         )
     } else {
         return (
             <View >
                 {/* <AppText>Import</AppText> */}
-                <ImportImage ui={props.ui} handleBarCodeScanned={props.handleBarCodeScanned} />
+                <ImportImage ui={props.ui} handleBarCodeScanned={props.handleBarCodeScanned} fill={props.ui.current_theme.color} scanned={props.scanned} setScanned={() => props.setScanned(false)} />
             </View>
         )
     }
@@ -119,7 +120,7 @@ function ScanContent(props){
 
 function ImportImage(props){
     const [image, setImage] = useState(null);
-    const [qrStatus, setQrStatus] = useState('none')
+    const [qrStatus, setQrStatus] = useState('scanning')
 
     useEffect(() => {
         (async () => {
@@ -165,14 +166,17 @@ function ImportImage(props){
 
     return (
         <View>
-            <View style={{position: 'relative', height: 100, borderWidth: 1, borderColor: props.ui.current_theme.color, justifyContent: 'center'}}>
+            <View style={{position: 'relative', padding: 10, borderWidth: 1, borderColor: props.ui.current_theme.color, justifyContent: 'flex-start'}}>
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right_small]} width={15} height={15} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left_small]} width={15} height={15} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right_small]} width={15} height={15} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left_small]} width={15} height={15} />
 
                 {/* <AppText>Status:</AppText> */}
+                {/* <ScanAnimation ui={props.ui} fill={props.ui.current_theme.color} scanned={props.scanned} setScanned={() => props.setScanned(false)} /> */}
+                <View style={{margin:5, borderWidth:0}}>
                 <ScanMsg status={qrStatus} />
+                </View>
             </View>
             <AppButton press={pickImage}>Select Photo</AppButton>
             {/* <Image style={{ flex: 1, borderWidth: 1, width: 200, height: 200 }} source={{ uri: image}} resizeMode={'contain'} /> */}
@@ -198,15 +202,21 @@ function ScanMsg(props){
     } else if(props.status == 'not_found'){
         return (
             <AppText style={styles.scan_msg}>
-                No QR code found.  Try another photo!
+                No QR code found.  Try another photo or scan a QR code!
             </AppText>
         )
+    } else if (props.status == 'scanning'){
+        return (
+            <AppText style={styles.scan_msg}>Scanning...</AppText>
+        )
     } else {
-        return null
+        return (
+            <AppText>Scanning...</AppText>
+        )
     }
 }
 
-function ScanText(props){
+function ScanAnimation(props){
     if(props.scanned){
         return (
             <AppButton press={props.setScanned}>Scan Again</AppButton>
@@ -237,8 +247,8 @@ function ScanText(props){
         ).start()
 
         return (
-            <View style={{padding: 10, textAlign: 'center'}}>
-                <AppText style={{textAlign: 'center', fontSize: 18}}>Scanning...</AppText>
+            <View style={{padding: 0, marginTop: 0, textAlign: 'center'}}>
+                {/* <AppText style={{textAlign: 'center', fontSize: 18}}>Scanning...</AppText> */}
                 <View style={{position: 'relative'}}>
                     <Animated.View
                         // style={position}
@@ -279,7 +289,10 @@ function ScanText(props){
 const styles = StyleSheet.create({
     scan_msg: {
         textAlign: 'center',
-        fontSize: 14
+        fontSize: 14,
+        // position: 'absolute',
+        // flexDirection: 'row',
+        // flex: 1
     },
     header: {
         marginTop: -20,
