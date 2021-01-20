@@ -107,8 +107,8 @@ function ScanContent(props){
         )
     } else {
         return (
-            <View>
-                <AppText>Import</AppText>
+            <View >
+                {/* <AppText>Import</AppText> */}
                 <ImportImage handleBarCodeScanned={props.handleBarCodeScanned} />
             </View>
         )
@@ -121,10 +121,12 @@ function ImportImage(props){
     useEffect(() => {
         (async () => {
             if (Platform.OS !== 'web') {
-                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-                if (status !== 'granted') {
-                    alert('Sorry, we need camera roll permissions to make this work!');
-                }
+                // says this function is undefined, not sure why it doesn't exist
+                //
+                // const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                // if (status !== 'granted') {
+                //     alert('Sorry, we need camera roll permissions to make this work!');
+                // }
             }
         })();
     }, [])
@@ -135,15 +137,18 @@ function ImportImage(props){
             allowsEditing: false,
             aspect: [4, 3],
             quality: 1,
+            base64: true
         });
 
-        console.log(result);
+        console.log(result.base64);
 
         if (!result.cancelled) {
             setImage(result.uri);
+            // setImage(`data:image/jpeg;base64,${result.base64}`);
+            console.log('image:', image)
             const qr = await BarCodeScanner.scanFromURLAsync(result.uri)
 
-            console.log('qr result', qr)
+            // console.log('qr result', qr, image)
             if(qr.length > 0){
                 props.handleBarCodeScanned(qr[0])
             }
@@ -153,7 +158,7 @@ function ImportImage(props){
     return (
         <View>
             <AppButton press={pickImage}>Select Photo</AppButton>
-            <Image style={{flex:1}} uri={image} />
+            {/* <Image style={{ flex: 1, borderWidth: 1, width: 200, height: 200 }} source={{ uri: image}} resizeMode={'contain'} /> */}
         </View>
     )
 }
