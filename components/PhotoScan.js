@@ -109,7 +109,7 @@ function ScanContent(props){
         return (
             <View >
                 {/* <AppText>Import</AppText> */}
-                <ImportImage handleBarCodeScanned={props.handleBarCodeScanned} />
+                <ImportImage ui={props.ui} handleBarCodeScanned={props.handleBarCodeScanned} />
             </View>
         )
     }
@@ -117,6 +117,7 @@ function ScanContent(props){
 
 function ImportImage(props){
     const [image, setImage] = useState(null);
+    const [qrStatus, setQrStatus] = useState('none')
 
     useEffect(() => {
         (async () => {
@@ -140,7 +141,7 @@ function ImportImage(props){
             base64: true
         });
 
-        console.log(result.base64);
+        // console.log(result.base64);
 
         if (!result.cancelled) {
             setImage(result.uri);
@@ -150,17 +151,57 @@ function ImportImage(props){
 
             // console.log('qr result', qr, image)
             if(qr.length > 0){
+                setQrStatus('found')
+                await wait(400)
+                console.log('finished wait')
                 props.handleBarCodeScanned(qr[0])
+            } else {
+                setQrStatus('not_found')
             }
         }
     };
 
     return (
         <View>
+            <View style={{position: 'relative', height: 100, borderWidth: 1, borderColor: props.ui.current_theme.color, justifyContent: 'center'}}>
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right_small]} width={15} height={15} />
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left_small]} width={15} height={15} />
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right_small]} width={15} height={15} />
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left_small]} width={15} height={15} />
+
+                {/* <AppText>Status:</AppText> */}
+                <ScanMsg status={qrStatus} />
+            </View>
             <AppButton press={pickImage}>Select Photo</AppButton>
             {/* <Image style={{ flex: 1, borderWidth: 1, width: 200, height: 200 }} source={{ uri: image}} resizeMode={'contain'} /> */}
         </View>
     )
+}
+
+function wait(time){
+    return new Promise((resolve)=>{
+        setTimeout(()=>{
+            resolve()
+        },time)
+    })
+}
+
+function ScanMsg(props){
+    if(props.status == 'found'){
+        return (
+            <AppText style={styles.scan_msg}>
+                QR code found!  Importing recipe...
+            </AppText>
+        )
+    } else if(props.status == 'not_found'){
+        return (
+            <AppText style={styles.scan_msg}>
+                No QR code found.  Try another photo!
+            </AppText>
+        )
+    } else {
+        return null
+    }
 }
 
 function ScanText(props){
@@ -234,6 +275,10 @@ function ScanText(props){
 
 
 const styles = StyleSheet.create({
+    scan_msg: {
+        textAlign: 'center',
+        fontSize: 14
+    },
     header: {
         marginTop: -20,
         marginLeft: -20,
@@ -246,5 +291,9 @@ const styles = StyleSheet.create({
     top_right: { top: 0, right: 10 },
     top_left: { top: 0, left: 10, transform: [{ rotate: '-90deg' }] },
     bottom_right: { bottom: 10, right: 10, transform: [{ rotate: '90deg' }] },
-    bottom_left: { bottom: 10, left: 10, transform: [{ rotate: '180deg' }] }
+    bottom_left: { bottom: 10, left: 10, transform: [{ rotate: '180deg' }] },
+    top_right_small: { top: 2, right: 2 },
+    top_left_small: { top: 2, left: 2, transform: [{ rotate: '-90deg' }] },
+    bottom_right_small: { bottom: 2, right: 2, transform: [{ rotate: '90deg' }] },
+    bottom_left_small: { bottom: 2, left: 2, transform: [{ rotate: '180deg' }] },
 })
