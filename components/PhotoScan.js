@@ -58,7 +58,8 @@ export default function PhotoScan(props){
         <SafeAreaView style={[{padding: 50, flex: 1}, props.ui.current_theme]}>
             <View style={{padding:40, flex: 1, justifyContent: 'space-between'}}>
                 <View style={styles.header}>
-                    <AppMenu
+                    <AppText style={{fontSize: 25, textAlign: 'center'}}>Scan</AppText>
+                    {/* <AppMenu
                         onSnap={onSnap}
                         itemStyle={{ width: 120, fontSize: 16, textAlign: 'center', marginLeft: 0, paddingTop: 2, flexWrap: 'wrap' }}
                         style={{ height: 52, position: 'relative', flexDirection: 'row', paddingTop: 20 }}
@@ -68,7 +69,7 @@ export default function PhotoScan(props){
                         items={items}
                         icon_size={15}
                         name={"Scan"}
-                    />
+                    /> */}
                 </View>
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={60} height={60} />
@@ -77,17 +78,21 @@ export default function PhotoScan(props){
                 {/* <View>
                     <AppText>Scan</AppText>
                 </View> */}
-                <View style={{flex:5}}>
-                    <ScanContent 
+                <View style={{ flex: 5, border: props.ui.current_theme.color, borderWidth:1, marginBottom: 10}}>
+                    <BarCodeScanner
+                        onBarCodeScanned={props.scanned ? undefined : props.handleBarCodeScanned}
+                        style={{flex: 1,border: props.ui.current_theme.color }}
+                    />
+                    {/* <ScanContent 
                         index={currentIndex} 
                         ui={props.ui} 
                         setScanned={setScanned} 
                         handleBarCodeScanned={handleBarCodeScanned} 
                         scanned={scanned} 
                         // handleUrl={props.handleUrl}
-                    />
+                    /> */}
                 </View>
-                    <ImportImage ui={props.ui} handleBarCodeScanned={props.handleBarCodeScanned} />
+                <ImportImage ui={props.ui} handleBarCodeScanned={props.handleBarCodeScanned} />
                 <View style={{position: 'relative', bottom: 0, flex: 1}}>
                     <AppButton press={props.hideModal}>Cancel</AppButton>
                 </View>
@@ -102,7 +107,7 @@ function ScanContent(props){
             <View>
                 <BarCodeScanner
                     onBarCodeScanned={props.scanned ? undefined : props.handleBarCodeScanned}
-                    style={{ height: 300, width: 300 }}
+                    style={{ height: 300 }}
                 />
                 {/* {scanned && <AppButton title={'Tap to Scan Again'} press={() => setScanned(false)}>Scan Again</AppButton>} */}
                 {/* <ScanText ui={props.ui} fill={props.ui.current_theme.color} scanned={props.scanned} setScanned={() => props.setScanned(false)} /> */}
