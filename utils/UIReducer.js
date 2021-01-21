@@ -53,7 +53,7 @@ const INITIAL_STATE = {
             height: windowHeight
         },
         viewStyles: {
-            paddingTop: 10,
+            // paddingTop: 10,
             paddingLeft: 10,
             paddingRight: 40,
             // height: viewHeight,

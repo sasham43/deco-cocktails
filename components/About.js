@@ -64,12 +64,14 @@ function About (props){
         if(state.x0 < 150){
             return props.navigation.goBack()
         }
+        props.navigation.navigate('ViewCocktail')
     }
 
     return (
         <GestureRecognizer
             style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}
             onSwipeRight={(state)=>swipeRight(state)}
+            // onSwipeLeft={(state)=>swipeLeft(state)}
         >
             <KeyboardAwareScrollView>
                 <View style={styles.about_content}>
@@ -143,6 +145,7 @@ function About (props){
                         </AppText>
                     </View>
                 </View>
+                <View style={{height:20}}></View>
             </KeyboardAwareScrollView>
         </GestureRecognizer>
     )
@@ -178,7 +181,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     about_content: {
-        marginBottom: 25,
+        marginTop: 10,
+        marginBottom: 15,
         // paddingTop: 15,
     },
     text_container: {

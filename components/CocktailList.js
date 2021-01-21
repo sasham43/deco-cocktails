@@ -31,6 +31,7 @@ import TabIcon from '../assets/tab'
 import CornerIcon from '../assets/corner'
 import { deleteCocktail, selectCocktail, deleteCocktails, unselectAllCocktails } from '../utils/CocktailActions'
 import { setShareMenuMax } from '../utils/UIActions'
+import PhotoScan from './PhotoScan'
 
 import { useStock, useFunctionMenu } from '../utils/hooks'
 import { sortedIngredients } from '../utils/sort'
@@ -101,23 +102,14 @@ function CocktailListMap(props) {
     const navigation = useNavigation()
     const [maxHeight, setMaxHeight] = useState(0)
     const [marginBottom, setMarginBottom] = useState(35)
-    // const [cocktailHeights, setCocktailHeights] = useState([0])
 
-    // useEffect(()=>{
-    //     console.log('ch', cocktailHeights)
-    //     setMaxHeight(Math.max(...cocktailHeights))
-    //     console.log('setting', maxHeight)
-    // }, [cocktailHeights])
     useEffect(()=>{
         if(props.share == true){
             setMarginBottom(10)
         }
     }, [])
     useEffect(()=>{
-        // console.log('changing max height', props.setShareMenuMax)
         if(props.setShareMenuMax){
-            // console.log('container height', (props.ui.default_styles.window.height - 117), props.ui.default_styles.window.height)
-            // console.log('cocktail height', maxHeight+10, maxHeight)
             props.setShareMenuMax(Math.floor((props.ui.default_styles.window.height - 117) / (maxHeight+10)))
         }
     }, [maxHeight])
@@ -173,39 +165,18 @@ function CocktailListMap(props) {
             return 0
         }
     }
-    // var nameSize = props.fontSize - 2
-    // var marginBottom, fontSize, nameSize, shapeSize
-    // if(props.size == 'extra_small'){
-    //     nameSize = 8
-    //     marginBottom = 2
-    //     fontSize = 10
-    //     shapeSize = 4
-    // } else if(props.size == 'small'){
-    //     nameSize = 9
-    //     marginBottom = 5
-    //     fontSize = 12
-    //     shapeSize = 5
-    // } else {
-    //     marginBottom = 30
-    //     fontSize = 20
-    //     nameSize = 14
-    //     shapeSize = 9
-    // }
+    
     function layout(evt, cocktail){
-        // console.log('cocktail:', cocktail.name, evt.nativeEvent.layout.height, maxHeight)
         if (evt.nativeEvent.layout.height > maxHeight) {
             setMaxHeight(evt.nativeEvent.layout.height)
-            // console.log('mh', maxHeight, ((props.ui.default_styles.window.height-200) / maxHeight), Math.floor((props.ui.default_styles.window.height-200) / maxHeight))
-            // props.setShareMenuMax()
         }
-        // setCocktailHeights([...cocktailHeights, evt.nativeEvent.layout.height])
     }
     
     // sort cocktails and return a View for each
     return props.cocktails.sort(sortCocktails).map(cocktail =>
         
         (
-            <View onLayout={(evt)=>layout(evt, cocktail)} style={[styles.cocktail_container, {marginBottom: marginBottom}, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor, borderColor: props.theme.borderColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
+            <View onLayout={(evt)=>layout(evt, cocktail)} style={[styles.cocktail_container, {marginBottom: marginBottom, marginTop: 10}, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor, borderColor: props.theme.borderColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
                 <View style={[{flex: 1, position: 'absolute', left: -40}]}>
                     <CocktailToggle cocktail={cocktail} theme={props.theme} selectCocktail={selectCocktail} currentMode={props.currentMode} />
                 </View>
@@ -218,8 +189,7 @@ function CocktailListMap(props) {
                     <View style={[styles.cocktail_name_container]}>
                         <AppText>
                             <Text style={[styles.cocktail_text, props.theme]}>
-                                {cocktail.name} 
-                                {/* {maxHeight} */}
+                                {cocktail.name}
                             </Text>
                         </AppText>
                     </View>
@@ -265,7 +235,8 @@ function CocktailList(props){
 
     const navigation = useNavigation()
 
-    const [modalVisible, setModalVisible] = useState(false)
+    const [shareModalVisible, setShareModalVisible] = useState(false)
+    const [scanModalVisible, setScanModalVisible] = useState(false)
     const [shareUri, setShareUri] = useState('')
 
     const shareMax = props.ui.share.menu_max
@@ -280,6 +251,12 @@ function CocktailList(props){
     useEffect(()=>{
         filterCocktails()
     }, [props.route.params])
+
+    useEffect(()=>{
+        if(currentMode == 'scan'){
+            showScanModal()
+        }
+    }, [currentMode])
   
     function filterCocktails() {
         if (cocktailSearch == '') {
@@ -319,11 +296,19 @@ function CocktailList(props){
         gestureIsClickThreshold: 90
     }
     function showShareModal(){
-        setModalVisible(true)
+        setShareModalVisible(true)
     }
     function hideShareModal(){
-        console.log('hideShareModal')
-        setModalVisible(false)
+        // console.log('hideShareModal')
+        setShareModalVisible(false)
+    }
+    function showScanModal(){
+        setScanModalVisible(true)
+    }
+    function hideScanModal(){
+        // console.log('hideScanModal')
+        setScanModalVisible(false)
+        switchMode('')
     }
     function shareMenu(){
             // console.log('share')
@@ -396,9 +381,19 @@ function CocktailList(props){
                 max={shareMax}
             />
 
+            <View>
+                <Modal
+                    animationType="slide"
+                    visible={scanModalVisible}
+                >
+                    <PhotoScan hideModal={hideScanModal} handleUrl={props.handleUrl} ui={props.ui} />
+                    {/* <ImportCocktail hide={hideScanModal} cocktail={importCocktail} /> */}
+                </Modal>
+            </View>
+
             <Modal
                 animationType="slide"
-                visible={modalVisible}
+                visible={shareModalVisible}
             >
                 <View style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15, flex: 1 }}>
                     {/* <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} /> */}
@@ -645,7 +640,8 @@ function FunctionMenu(props) {
                 <FunctionMenuButton theme={props.theme} label={"View Cocktail"} mode="select" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Change Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Remove Cocktails"} mode="delete" switchMode={removeMode} currentMode={props.currentMode} hidePanel={hidePanel} />
-                <FunctionMenuButton theme={props.theme} label={"Add Cocktail"} mode="add" switchMode={navigateToAdd} currentMode={props.currentMode} />
+                <FunctionMenuButton theme={props.theme} label={"Create Cocktail"} mode="add" switchMode={navigateToAdd} currentMode={props.currentMode} />
+                <FunctionMenuButton theme={props.theme} label={"Scan"} mode="scan" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Share Menu"} mode="share" switchMode={shareMode} currentMode={props.currentMode} hidePanel={hidePanel} />
             </View>
         </SlidingUpPanel>        
