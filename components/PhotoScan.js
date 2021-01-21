@@ -67,44 +67,26 @@ export default function PhotoScan(props){
             <View style={{padding:40, flex: 1, justifyContent: 'space-between'}}>
                 <View style={styles.header}>
                     <AppText style={{fontSize: 25, textAlign: 'center'}}>Scan</AppText>
-                    {/* <AppMenu
-                        onSnap={onSnap}
-                        itemStyle={{ width: 120, fontSize: 16, textAlign: 'center', marginLeft: 0, paddingTop: 2, flexWrap: 'wrap' }}
-                        style={{ height: 52, position: 'relative', flexDirection: 'row', paddingTop: 20 }}
-                        sliderWidth={props.ui.default_styles.window.width - 60}
-                        itemWidth={120}
-                        index={currentIndex}
-                        items={items}
-                        icon_size={15}
-                        name={"Scan"}
-                    /> */}
                 </View>
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={60} height={60} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={60} height={60} />
-                {/* <View>
-                    <AppText>Scan</AppText>
-                </View> */}
+
                 <View style={{ flex: 5, border: props.ui.current_theme.color, borderWidth:1, marginBottom: 10}}>
-                    <CornerIcon fill={props.ui.current_theme.backgroundColor} style={[styles.corner_icon, styles.top_right_scanner]} width={30} height={30} />
-                    <CornerIcon fill={props.ui.current_theme.backgroundColor} style={[styles.corner_icon, styles.top_left_scanner]} width={30} height={30} />
-                    <CornerIcon fill={props.ui.current_theme.backgroundColor} style={[styles.corner_icon, styles.bottom_right_scanner]} width={30} height={30} />
-                    <CornerIcon fill={props.ui.current_theme.backgroundColor} style={[styles.corner_icon, styles.bottom_left_scanner]} width={30} height={30} />
+                    <CornerIcon fill={'#fff'} style={[styles.corner_icon, styles.top_right_scanner]} width={30} height={30} />
+                    <CornerIcon fill={'#fff'} style={[styles.corner_icon, styles.top_left_scanner]} width={30} height={30} />
+                    <CornerIcon fill={'#fff'} style={[styles.corner_icon, styles.bottom_right_scanner]} width={30} height={30} />
+                    <CornerIcon fill={'#fff'} style={[styles.corner_icon, styles.bottom_left_scanner]} width={30} height={30} />
                     <BarCodeScanner
                         onBarCodeScanned={props.scanned ? undefined : handleBarCodeScanned}
                         style={{flex: 1,border: props.ui.current_theme.color }}
                     />
-                    {/* <ScanContent 
-                        index={currentIndex} 
-                        ui={props.ui} 
-                        setScanned={setScanned} 
-                        handleBarCodeScanned={handleBarCodeScanned} 
-                        scanned={scanned} 
-                        // handleUrl={props.handleUrl}
-                    /> */}
                 </View>
-                <ImportImage status={qrStatus} ui={props.ui} handleBarCodeScanned={handleBarCodeScanned} />
+                <View style={{flex:2}}>
+
+                    <ImportImage status={qrStatus} ui={props.ui} handleBarCodeScanned={handleBarCodeScanned} />
+                </View>
                 <View style={{position: 'relative', bottom: 0, flex: 1}}>
                     <AppButton press={props.hideModal}>Cancel</AppButton>
                 </View>
@@ -182,8 +164,8 @@ function ImportImage(props){
     };
 
     return (
-        <View>
-            <View style={{position: 'relative', padding: 10, borderWidth: 1, borderColor: props.ui.current_theme.color, justifyContent: 'flex-start'}}>
+        <View style={{flex:1}}>
+            <View style={{ flex:2, position: 'relative', padding: 10, borderWidth: 1, borderColor: props.ui.current_theme.color, justifyContent: 'center'}}>
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right_small]} width={15} height={15} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left_small]} width={15} height={15} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right_small]} width={15} height={15} />
@@ -195,7 +177,7 @@ function ImportImage(props){
                 <ScanMsg status={props.status} />
                 </View>
             </View>
-            <AppButton press={pickImage}>Select Photo</AppButton>
+            <AppButton style={{flex:1}} press={pickImage}>Select Photo</AppButton>
             {/* <Image style={{ flex: 1, borderWidth: 1, width: 200, height: 200 }} source={{ uri: image}} resizeMode={'contain'} /> */}
         </View>
     )
