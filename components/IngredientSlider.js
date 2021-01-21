@@ -29,7 +29,7 @@ function IngredientSlider(props){
         onMoveShouldSetPanResponder: (evt, gestureState) => true,
         onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
         onPanResponderMove: (evt, gestureState) => {
-            var value = parseInt(gestureState.dx / 15)
+            var value = parseInt(gestureState.dx / 10)
             var direction = gestureState.vx > 0 ? 'right' : 'left'
             var slider_max = 1440
             if((slider_value + value) > slider_max){
@@ -65,6 +65,11 @@ function IngredientSlider(props){
             setIngredient({
                 label: label,
                 value: props.parts
+            })
+        } else {
+            setIngredient({
+                label: '',
+                value: 0
             })
         }
     }, [props.parts])

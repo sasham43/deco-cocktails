@@ -1,5 +1,10 @@
-import React from 'react'
-import { StyleSheet, StatusBar, View } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import {
+    StyleSheet, 
+    StatusBar, 
+    View,
+    Modal
+} from 'react-native'
 // import { NativeRouter, Route, Link } from "react-router-native"
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator,TransitionSpecs } from '@react-navigation/stack'
@@ -7,6 +12,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 // import { Provider } from 'react-redux'
 import { createStore, combineReducers} from 'redux'
 import { connect} from 'react-redux'
+import * as Linking from 'expo-linking'
 
 // import stockReducer from '../utils/StockReducer'
 // import cocktailReducer from '../utils/CocktailReducer'
@@ -23,6 +29,8 @@ import AddStock from './AddStock'
 import ViewCocktail from './ViewCocktail'
 import { navigationRef } from '../utils/RootNavigation'
 import Intro from './Intro'
+import ImportCocktail from './ImportCocktail'
+
 
 import CornerIcon from '../assets/corner.svg'
 
@@ -35,7 +43,30 @@ const mapStateToProps = (state) => {
 }
 export default connect(mapStateToProps)(Main)
 
+
+
 function Main(props){
+    const [importModalVisible, setImportModalVisible] = useState(false) // handle links into app
+    const [importCocktail, setImportCocktail] = useState({})
+    Linking.addEventListener('url', handleUrl)
+
+    useEffect(() => {
+        const url = Linking.getInitialURL()
+        if (url && url.url) {
+            console.log('url', url)
+            handleUrl(url)
+        }
+    }, [])
+
+    function handleUrl(data) {
+        let { path, queryParams } = Linking.parse(data.url)
+        console.log('opening from url', path, queryParams)
+        setImportCocktail(queryParams)
+        setImportModalVisible(true)
+    }
+    function hideImportModal() {
+        setImportModalVisible(false)
+    }
         var screen_options = {
             headerShown: true, 
             transitionSpec: {
@@ -59,7 +90,7 @@ function Main(props){
             // headerShown: false,
             // headerBackTitleVisible: false,
             // headerLeft: null,
-            header: props => <Menu {...props} />,
+            // header: props => <Menu {...props} />,
         }
         // const stack_options = {
         //     // header: props => <Menu {...props} />,
@@ -87,22 +118,43 @@ function Main(props){
                             // tabBar={props=> <Menu {...props} />} 
                             backBehavior={"history"} 
                         >
-                            <Stack.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Stack.Screen>
-                            <Stack.Screen options={screen_options} name="About" style={styles.screen} component={About}></Stack.Screen>
-                            <Stack.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Stack.Screen>
-                            <Stack.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
-                            <Stack.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
-                            <Stack.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Stack.Screen>
+                            <Stack.Screen         options={({ navigation, route }) => ({
+                                header: props => <Menu {...props} route={route} />,
+                                })} name="CocktailList" style={styles.screen}
+                            >
+                                {(props) => <CocktailList {...props} handleUrl={handleUrl} />}
+                            </Stack.Screen>
+                            <Stack.Screen         options={({ navigation, route }) => ({
+                                header: props => <Menu {...props} route={route} />,
+                                })} name="About" style={styles.screen} component={About}></Stack.Screen>
+                            <Stack.Screen         options={({ navigation, route }) => ({
+                                header: props => <Menu {...props} route={route} />,
+                                })} name="Stock" style={styles.screen} component={Stock}></Stack.Screen>
+                            <Stack.Screen         options={({ navigation, route }) => ({
+                                header: props => <Menu {...props} route={route} />,
+                                })} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
+                            <Stack.Screen         options={({ navigation, route }) => ({
+                                header: props => <Menu {...props} route={route} />,
+                                })} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
+                            <Stack.Screen         options={({ navigation, route }) => ({
+                                header: props => <Menu {...props} route={route} />,
+                                })} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Stack.Screen>
                         </Stack.Navigator>
-                        {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
-                        <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}>
-    
+                        <View>
+                            <Modal
+                                animationType="slide"
+                                visible={importModalVisible}
+                            >
+                                <ImportCocktail hide={hideImportModal} cocktail={importCocktail} />
+                            </Modal>
                         </View>
+                        {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
+                        <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}></View>
                     </View>
                 </NavigationContainer>
-            )
-        }
-    }
+                )
+            }
+}
 
 const styles = StyleSheet.create({
     container: {
