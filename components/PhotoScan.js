@@ -16,7 +16,9 @@ import CornerIcon from '../assets/corner'
 export default function PhotoScan(props){
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
-    const [currentIndex, setCurrentIndex] = useState(0)
+    // const [currentIndex, setCurrentIndex] = useState(0)
+
+    const [qrStatus, setQrStatus] = useState('scanning')
 
     useEffect(() => {
         (async () => {
@@ -25,7 +27,7 @@ export default function PhotoScan(props){
         })();
     }, [])
 
-    const handleBarCodeScanned = ({ type, data }) => {
+    const handleBarCodeScanned = async ({ type, data }) => {
         setScanned(true);
         // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
         // const parsed = Linking.parse(data)
@@ -34,8 +36,14 @@ export default function PhotoScan(props){
 
         // props.addCocktail(parsed)
         // props.showImportModal(parsed)
-        props.handleUrl({url: data})
-        props.hideModal()
+        if(data){
+            setQrStatus('found')
+            await wait(400)
+            props.handleUrl({url: data})
+            props.hideModal()
+        } else {
+            setQrStatus('not_found')
+        }
     }
 
     if (hasPermission === null) {
@@ -45,14 +53,14 @@ export default function PhotoScan(props){
         return <AppText>No access to camera</AppText>;
     }
 
-    function onSnap(carousel, index){
-        setCurrentIndex(index)
-    }
-    const items = [{
-        name: 'Scan'
-    }, {
-        name: 'Import Photo'
-    }]
+    // function onSnap(carousel, index){
+    //     setCurrentIndex(index)
+    // }
+    // const items = [{
+    //     name: 'Scan'
+    // }, {
+    //     name: 'Import Photo'
+    // }]
 
     return (
         <SafeAreaView style={[{padding: 50, flex: 1}, props.ui.current_theme]}>
@@ -79,8 +87,12 @@ export default function PhotoScan(props){
                     <AppText>Scan</AppText>
                 </View> */}
                 <View style={{ flex: 5, border: props.ui.current_theme.color, borderWidth:1, marginBottom: 10}}>
+                    <CornerIcon fill={props.ui.current_theme.backgroundColor} style={[styles.corner_icon, styles.top_right_scanner]} width={30} height={30} />
+                    <CornerIcon fill={props.ui.current_theme.backgroundColor} style={[styles.corner_icon, styles.top_left_scanner]} width={30} height={30} />
+                    <CornerIcon fill={props.ui.current_theme.backgroundColor} style={[styles.corner_icon, styles.bottom_right_scanner]} width={30} height={30} />
+                    <CornerIcon fill={props.ui.current_theme.backgroundColor} style={[styles.corner_icon, styles.bottom_left_scanner]} width={30} height={30} />
                     <BarCodeScanner
-                        onBarCodeScanned={props.scanned ? undefined : props.handleBarCodeScanned}
+                        onBarCodeScanned={props.scanned ? undefined : handleBarCodeScanned}
                         style={{flex: 1,border: props.ui.current_theme.color }}
                     />
                     {/* <ScanContent 
@@ -92,7 +104,7 @@ export default function PhotoScan(props){
                         // handleUrl={props.handleUrl}
                     /> */}
                 </View>
-                <ImportImage ui={props.ui} handleBarCodeScanned={props.handleBarCodeScanned} />
+                <ImportImage status={qrStatus} ui={props.ui} handleBarCodeScanned={handleBarCodeScanned} />
                 <View style={{position: 'relative', bottom: 0, flex: 1}}>
                     <AppButton press={props.hideModal}>Cancel</AppButton>
                 </View>
@@ -101,31 +113,30 @@ export default function PhotoScan(props){
     )
 }
 
-function ScanContent(props){
-    if(props.index == 0){
-        return (
-            <View>
-                <BarCodeScanner
-                    onBarCodeScanned={props.scanned ? undefined : props.handleBarCodeScanned}
-                    style={{ height: 300 }}
-                />
-                {/* {scanned && <AppButton title={'Tap to Scan Again'} press={() => setScanned(false)}>Scan Again</AppButton>} */}
-                {/* <ScanText ui={props.ui} fill={props.ui.current_theme.color} scanned={props.scanned} setScanned={() => props.setScanned(false)} /> */}
-            </View>
-        )
-    } else {
-        return (
-            <View >
-                {/* <AppText>Import</AppText> */}
-                <ImportImage ui={props.ui} handleBarCodeScanned={props.handleBarCodeScanned} fill={props.ui.current_theme.color} scanned={props.scanned} setScanned={() => props.setScanned(false)} />
-            </View>
-        )
-    }
-}
+// function ScanContent(props){
+//     if(props.index == 0){
+//         return (
+//             <View>
+//                 <BarCodeScanner
+//                     onBarCodeScanned={props.scanned ? undefined : props.handleBarCodeScanned}
+//                     style={{ height: 300 }}
+//                 />
+//                 {/* {scanned && <AppButton title={'Tap to Scan Again'} press={() => setScanned(false)}>Scan Again</AppButton>} */}
+//                 {/* <ScanText ui={props.ui} fill={props.ui.current_theme.color} scanned={props.scanned} setScanned={() => props.setScanned(false)} /> */}
+//             </View>
+//         )
+//     } else {
+//         return (
+//             <View >
+//                 {/* <AppText>Import</AppText> */}
+//                 <ImportImage ui={props.ui} handleBarCodeScanned={props.handleBarCodeScanned} fill={props.ui.current_theme.color} scanned={props.scanned} setScanned={() => props.setScanned(false)} />
+//             </View>
+//         )
+//     }
+// }
 
 function ImportImage(props){
     const [image, setImage] = useState(null);
-    const [qrStatus, setQrStatus] = useState('scanning')
 
     useEffect(() => {
         (async () => {
@@ -159,12 +170,13 @@ function ImportImage(props){
 
             // console.log('qr result', qr, image)
             if(qr.length > 0){
-                setQrStatus('found')
-                await wait(400)
+                // setQrStatus('found')
+                // await wait(400)
                 console.log('finished wait')
                 props.handleBarCodeScanned(qr[0])
             } else {
-                setQrStatus('not_found')
+                props.handleBarCodeScanned({})
+            //     // setQrStatus('not_found')
             }
         }
     };
@@ -180,7 +192,7 @@ function ImportImage(props){
                 {/* <AppText>Status:</AppText> */}
                 {/* <ScanAnimation ui={props.ui} fill={props.ui.current_theme.color} scanned={props.scanned} setScanned={() => props.setScanned(false)} /> */}
                 <View style={{margin:5, borderWidth:0}}>
-                <ScanMsg status={qrStatus} />
+                <ScanMsg status={props.status} />
                 </View>
             </View>
             <AppButton press={pickImage}>Select Photo</AppButton>
@@ -294,7 +306,7 @@ function ScanAnimation(props){
 const styles = StyleSheet.create({
     scan_msg: {
         textAlign: 'center',
-        fontSize: 14,
+        fontSize: 18,
         // position: 'absolute',
         // flexDirection: 'row',
         // flex: 1
@@ -316,4 +328,8 @@ const styles = StyleSheet.create({
     top_left_small: { top: 2, left: 2, transform: [{ rotate: '-90deg' }] },
     bottom_right_small: { bottom: 2, right: 2, transform: [{ rotate: '90deg' }] },
     bottom_left_small: { bottom: 2, left: 2, transform: [{ rotate: '180deg' }] },
+    top_right_scanner: { top: 12, right: 12 },
+    top_left_scanner: { top: 12, left: 12, transform: [{ rotate: '-90deg' }] },
+    bottom_right_scanner: { bottom: 12, right: 12, transform: [{ rotate: '90deg' }] },
+    bottom_left_scanner: { bottom: 12, left: 12, transform: [{ rotate: '180deg' }] },
 })
