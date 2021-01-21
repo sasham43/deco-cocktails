@@ -19,7 +19,10 @@
     "scheme": "crumpcocktails",
     "android": {
       "softwareKeyboardLayoutMode": "pan",
-      "permissions": [],
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE"
+      ],
       "package": "com.crumpcocktails",
       "versionCode": 12
     },
