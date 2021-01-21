@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, Image, StyleSheet, SafeAreaView } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import * as ImagePicker from 'expo-image-picker'
+import * as Permissions from 'expo-permissions';
 
 
 import AppText from './AppText'
@@ -91,7 +92,8 @@ function ImportImage(props){
             if (Platform.OS !== 'web') {
                 // says this function is undefined, not sure why it doesn't exist
                 //
-                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                // const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                const { status } = await Permissions.getAsync(Permissions.MEDIA_LIBRARY)
                 if (status !== 'granted') {
                     alert('Sorry, we need camera roll permissions to make this work!');
                 }
