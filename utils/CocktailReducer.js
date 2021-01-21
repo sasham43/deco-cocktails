@@ -15,9 +15,12 @@ const cocktailReducer = (state = INITIAL_STATE, action) => {
     switch (action.type){
         case 'ADD_COCKTAIL':
             const new_cocktail = action.payload
-            current.push(new_cocktail)
+            // current.push(new_cocktail)
+            const add_current = current.map(c=>c)
+            add_current.push(new_cocktail)
+            // const add_current = [...current, new_cocktail]
 
-            const newState = {current, selected}
+            const newState = {current: add_current, selected}
 
             return newState
         case 'UPDATE_COCKTAILS':
