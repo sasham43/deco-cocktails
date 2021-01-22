@@ -119,24 +119,30 @@ function Main(props){
                             backBehavior={"history"} 
                         >
                             <Stack.Screen         options={({ navigation, route }) => ({
+                                ...screen_options,
                                 header: props => <Menu {...props} route={route} />,
                                 })} name="CocktailList" style={styles.screen}
                             >
                                 {(props) => <CocktailList {...props} handleUrl={handleUrl} />}
                             </Stack.Screen>
                             <Stack.Screen         options={({ navigation, route }) => ({
+                                ...screen_options,
                                 header: props => <Menu {...props} route={route} />,
                                 })} name="About" style={styles.screen} component={About}></Stack.Screen>
                             <Stack.Screen         options={({ navigation, route }) => ({
+                                ...screen_options,
                                 header: props => <Menu {...props} route={route} />,
                                 })} name="Stock" style={styles.screen} component={Stock}></Stack.Screen>
                             <Stack.Screen         options={({ navigation, route }) => ({
+                                ...screen_options,
                                 header: props => <Menu {...props} route={route} />,
                                 })} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
                             <Stack.Screen         options={({ navigation, route }) => ({
+                                ...screen_options,
                                 header: props => <Menu {...props} route={route} />,
                                 })} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
                             <Stack.Screen         options={({ navigation, route }) => ({
+                                ...screen_options,
                                 header: props => <Menu {...props} route={route} />,
                                 })} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Stack.Screen>
                         </Stack.Navigator>

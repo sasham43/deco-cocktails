@@ -554,8 +554,8 @@ function Footer(props){
         )
     } else {
         return (
-            <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
-                <TouchableOpacity style={styles.function_button_container} onPress={() => props.toggleFunctionMenu()}>
+            <View style={[props.ui.default_styles.footerStyles,{alignItems: 'center'}, props.ui.current_theme, {backgroundColor: 'rgba(0,0,0,0)'}]}>
+                <TouchableOpacity style={[styles.function_button_container, {borderRadius: 55,backgroundColor: 'rgba(250,250,250,1)',paddingTop:5, width:85, height:85}]} onPress={() => props.toggleFunctionMenu()}>
                     <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
                 </TouchableOpacity>
             </View>
@@ -729,7 +729,11 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center',
         zIndex: 2,
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        shadowOffset: { width: 4, height: 4, },
+        marginBottom: 15,
+        shadowOpacity: 0.3,
+        elevation: 10 // for Android
     },
     panel_container: {
         flex: 1,
