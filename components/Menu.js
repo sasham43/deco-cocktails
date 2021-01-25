@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
         height: 50,
         // height: 45,
         // height: 100,
-        position: 'absolute',
+        // position: 'absolute',
         // top: 0,
         left: 0,
         width: windowWidth,
