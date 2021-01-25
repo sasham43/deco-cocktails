@@ -71,10 +71,6 @@ function ImportCocktail(props){
 const icon_distance = 2
 const styles = StyleSheet.create({
     small_share_modal: {
-        // maxHeight: 575,
-        // maxWidth: 400,
-        // minHeight: 500,
-        // minWidth: 350
         height: 550,
         width: 350
     },
