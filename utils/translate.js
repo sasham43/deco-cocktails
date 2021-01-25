@@ -6,7 +6,7 @@ function translateForImport(imported){
     }
     // var index = -1 // so we can increment to 0
     for (var prop in imported) {
-        console.log('prop', prop)
+        // console.log('prop', prop)
 
         if (prop == 'n') {
             new_cocktail['name'] = imported[prop]
@@ -32,7 +32,7 @@ function translateForImport(imported){
     })
     new_cocktail.id = generate()
     // setCocktail(new_cocktail)
-    console.log('new cocktail', new_cocktail)
+    // console.log('new cocktail', new_cocktail)
     return new_cocktail
 }
 
