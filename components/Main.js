@@ -27,14 +27,15 @@ import Menu from './Menu'
 import Add from './AddCocktail'
 import AddStock from './AddStock'
 import ViewCocktail from './ViewCocktail'
-import { navigationRef } from '../utils/RootNavigation'
+import { navigationRef, isReadyRef } from '../utils/RootNavigation'
 import Intro from './Intro'
 import ImportCocktail from './ImportCocktail'
 
 
 import CornerIcon from '../assets/corner.svg'
 
-const Tab = createBottomTabNavigator()
+// const Tab = createBottomTabNavigator()
+const Stack = createStackNavigator()
 
 const mapStateToProps = (state) => {
     const {  ui } = state
@@ -49,9 +50,9 @@ function Main(props){
     const [importCocktail, setImportCocktail] = useState({})
     Linking.addEventListener('url', handleUrl)
 
-    useEffect(()=>{
+    useEffect(() => {
         const url = Linking.getInitialURL()
-        if(url && url.url){
+        if (url && url.url) {
             console.log('url', url)
             handleUrl(url)
         }
@@ -63,73 +64,116 @@ function Main(props){
         setImportCocktail(queryParams)
         setImportModalVisible(true)
     }
-    function hideImportModal(){
+    function hideImportModal() {
         setImportModalVisible(false)
     }
-    var screen_options = {
-        headerShown: true, 
-        transitionSpec: {
-            open: TransitionSpecs.TransitionIOSSpec,
-            close: TransitionSpecs.TransitionIOSSpec,
-        },            
-        cardStyleInterpolator: ({ current, next, layouts }) => {
-            return {
-                cardStyle: {
-                    opacity: current.progress.interpolate({
-                        inputRange: [0,1],
-                        outputRange: [0,1]
-                    })
-                },
-                overlayStyle: {}
-            }
-        },
-        tabBarVisible: false,
-        // unmountOnBlur: false,
-        unmountOnBlur: true
-    }
-    
-    if(!props.ui.tutorial_complete){
-        return (
-            <Intro ui={props.ui} />
-        )
-    } else {
-        return (
-            <NavigationContainer ref={navigationRef}>
-                <View style={[styles.container, props.ui.current_theme]}>
-                    <StatusBar barStyle={props.ui.dark_mode ? "dark-content": "light-content"}></StatusBar>
-                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
-                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={60} height={60} />
-                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
-                    <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={60} height={60} />
-                    <Title></Title>
-                    <Tab.Navigator  tabBar={props=> <Menu {...props} />} backBehavior={"history"} >
-                        <Tab.Screen options={screen_options} name="CocktailList" style={styles.screen}>
-                            {(props)=><CocktailList {...props} handleUrl={handleUrl} />}
-                        </Tab.Screen>
-                        {/* <Tab.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Tab.Screen> */}
-                        <Tab.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Tab.Screen>
-                        <Tab.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Tab.Screen>
-                        <Tab.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Tab.Screen>
-                        <Tab.Screen options={screen_options} name="About" style={styles.screen} component={About}></Tab.Screen>
-                        <Tab.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Tab.Screen>
-                    </Tab.Navigator>
-                    <View>
-                        <Modal
-                            animationType="slide"
-                            visible={importModalVisible}
+        var screen_options = {
+            headerShown: false, 
+            transitionSpec: {
+                open: TransitionSpecs.TransitionIOSSpec,
+                close: TransitionSpecs.TransitionIOSSpec,
+            },            
+            cardStyleInterpolator: ({ current, next, layouts }) => {
+                return {
+                    cardStyle: {
+                        opacity: current.progress.interpolate({
+                            inputRange: [0,1],
+                            outputRange: [0,1]
+                        })
+                    },
+                    overlayStyle: {}
+                }
+            },
+            tabBarVisible: false,
+            unmountOnBlur: true,
+            // headerTitle: props => <Menu { ...props } />,
+            // headerShown: false,
+            // headerBackTitleVisible: false,
+            // headerLeft: null,
+            // header: props => <Menu {...props} />,
+        }
+        // const stack_options = {
+        //     // header: props => <Menu {...props} />,
+        //     // headerStyle: {height: 50}
+        // }
+        
+        if(!props.ui.tutorial_complete){
+            return (
+                <Intro ui={props.ui} />
+            )
+        } else {
+            return (
+                <NavigationContainer 
+                    ref={navigationRef} 
+                    onReady={() => {
+                        isReadyRef.current = true;
+                    }}
+                >
+                    <View style={[styles.container, props.ui.current_theme]}>
+                        <StatusBar barStyle={props.ui.dark_mode ? "dark-content": "light-content"}></StatusBar>
+                        <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
+                        <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={60} height={60} />
+                        <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
+                        <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={60} height={60} />
+                        <Title></Title>
+                        <Menu
+                            isReady={isReadyRef.current}
+                        ></Menu>
+                        <Stack.Navigator 
+                            // options={stack_options} 
+                            headerMode={"float"}  
+                            // headerMode={"screen"}  
+                            // tabBar={props=> <Menu {...props} />} 
+                            backBehavior={"history"} 
                         >
-                            <ImportCocktail hide={hideImportModal} cocktail={importCocktail} />
-                        </Modal>
+                            <Stack.Screen         options={({ navigation, route }) => ({
+                                // header: props => <Menu {...props} route={route} />,
+                                ...screen_options,
+                                headerShown: false,
+                                })} name="CocktailList" style={styles.screen}
+                            >
+                                {(props) => <CocktailList {...props} handleUrl={handleUrl} />}
+                            </Stack.Screen>
+                            <Stack.Screen         options={({ navigation, route }) => ({
+                                // header: props => <Menu {...props} route={route} />,
+                                ...screen_options,
+                                headerShown: false,
+                                })} name="About" style={styles.screen} component={About}></Stack.Screen>
+                            <Stack.Screen         options={({ navigation, route }) => ({
+                                // header: props => <Menu {...props} route={route} />,
+                                ...screen_options,
+                                headerShown: false,
+                                })} name="Stock" style={styles.screen} component={Stock}></Stack.Screen>
+                            <Stack.Screen         options={({ navigation, route }) => ({
+                                // header: props => <Menu {...props} route={route} />,
+                                ...screen_options,
+                                headerShown: false,
+                                })} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
+                            <Stack.Screen         options={({ navigation, route }) => ({
+                                // header: props => <Menu {...props} route={route} />,
+                                ...screen_options,
+                                headerShown: false,
+                                })} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
+                            <Stack.Screen         options={({ navigation, route }) => ({
+                                // header: props => <Menu {...props} route={route} />,
+                                ...screen_options,
+                                headerShown: false,
+                                })} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Stack.Screen>
+                        </Stack.Navigator>
+                        <View>
+                            <Modal
+                                animationType="slide"
+                                visible={importModalVisible}
+                            >
+                                <ImportCocktail hide={hideImportModal} cocktail={importCocktail} />
+                            </Modal>
+                        </View>
+                        {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
+                        <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}></View>
                     </View>
-                    {/* */}
-                    {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
-                    <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}>
-
-                    </View>
-                </View>
-            </NavigationContainer>
-        )
-    }
+                </NavigationContainer>
+                )
+            }
 }
 
 const styles = StyleSheet.create({
