@@ -26,14 +26,8 @@ export default function PhotoScan(props){
     }, [])
 
     const handleBarCodeScanned = async ({ type, data }) => {
-        setScanned(true);
-        // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-        // const parsed = Linking.parse(data)
-        // console.log(parsed)
-        // console.log('data', data)
-
-        // props.addCocktail(parsed)
-        // props.showImportModal(parsed)
+        setScanned(true)
+        
         if(data){
             setQrStatus('found')
             await wait(400)
