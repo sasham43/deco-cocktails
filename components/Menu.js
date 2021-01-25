@@ -10,6 +10,8 @@ import InStockIcon from '../assets/in-stock'
 import CornerIcon from '../assets/corner'
 // import HeaderIcon from './HeaderIcon'
 
+import * as navigation from '../utils/RootNavigation'
+
 const windowWidth = Dimensions.get('window').width
 
 const mapStateToProps = (state) => {
@@ -19,8 +21,52 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Menu)
 
 function Menu(props) {
-    const state = props.navigation.dangerouslyGetState()
-    const navigation = props.navigation
+    // const state = props.navigation.dangerouslyGetState()
+    // const navigation = props.navigation
+    // const navigation = RootNavi
+    const [routeName, setRouteName] = useState('')
+    // const route = {name: 'CocktailList'}
+    const [current, setCurrent] = useState(navigation.navigationRef.current)
+    // const current = navigation.navigationRef.current
+
+    const [currentPage, setCurrentPage] = useState(0)
+    // var currentPage
+
+    useEffect(()=>{
+        console.log('current', current)
+        if(props.isReady)
+        console.log('state.index', current.getCurrentRoute())
+        // if(navigation.isFocused()){
+            // console.log('route', route.name)
+            for(var i in menuItems){
+                if(menuItems[i].link == routeName){
+                    console.log('i', i)
+                    setCurrentPage(i)
+                }
+            }
+        // }
+        // console.log('currentPage', props.routes[props.routes.length-1].name)
+
+        // if(carousel)
+        // carousel.snapToItem(state.index)
+    }, [routeName])
+
+    useEffect(()=>{
+        setCurrent(navigation.navigationRef.current)
+
+        // add event listener
+        // current.addListener('focus', navEvent)
+        // current.addListener('blur', navEvent)
+        current?.addListener('state', navEvent)
+    }, [props.isReady])
+
+    function navEvent(data){
+        // console.log('events', data)
+        console.log('state change', current.getCurrentRoute())
+        setRouteName(current?.getCurrentRoute().name)
+    }
+
+    // console.log()
 
     const menuItems = [
         {
@@ -54,7 +100,8 @@ function Menu(props) {
     return (
             <AppMenu
                 style={styles.menu}
-                index={state.index}
+                index={currentPage}
+                // index={state.index}
                 items={menuItems}
                 sliderWidth={props.ui.default_styles.window.width - 20}
                 itemWidth={100}
@@ -82,8 +129,9 @@ const styles = StyleSheet.create({
         height: 50,
         // height: 45,
         // height: 100,
-        position: 'absolute',
-        top: 0,
+        // position: 'absolute',
+        // top: 0,
+        left: 0,
         width: windowWidth,
         borderColor: '#000', borderTopWidth: 0,
     },
