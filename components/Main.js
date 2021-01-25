@@ -27,7 +27,7 @@ import Menu from './Menu'
 import Add from './AddCocktail'
 import AddStock from './AddStock'
 import ViewCocktail from './ViewCocktail'
-import { navigationRef } from '../utils/RootNavigation'
+import { navigationRef, isReadyRef } from '../utils/RootNavigation'
 import Intro from './Intro'
 import ImportCocktail from './ImportCocktail'
 
@@ -68,7 +68,7 @@ function Main(props){
         setImportModalVisible(false)
     }
         var screen_options = {
-            headerShown: true, 
+            headerShown: false, 
             transitionSpec: {
                 open: TransitionSpecs.TransitionIOSSpec,
                 close: TransitionSpecs.TransitionIOSSpec,
@@ -103,7 +103,12 @@ function Main(props){
             )
         } else {
             return (
-                <NavigationContainer ref={navigationRef}>
+                <NavigationContainer 
+                    ref={navigationRef} 
+                    onReady={() => {
+                        isReadyRef.current = true;
+                    }}
+                >
                     <View style={[styles.container, props.ui.current_theme]}>
                         <StatusBar barStyle={props.ui.dark_mode ? "dark-content": "light-content"}></StatusBar>
                         <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
@@ -111,6 +116,9 @@ function Main(props){
                         <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
                         <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={60} height={60} />
                         <Title></Title>
+                        <Menu
+                            isReady={isReadyRef.current}
+                        ></Menu>
                         <Stack.Navigator 
                             // options={stack_options} 
                             headerMode={"float"}  
@@ -119,25 +127,37 @@ function Main(props){
                             backBehavior={"history"} 
                         >
                             <Stack.Screen         options={({ navigation, route }) => ({
-                                header: props => <Menu {...props} route={route} />,
+                                // header: props => <Menu {...props} route={route} />,
+                                ...screen_options,
+                                headerShown: false,
                                 })} name="CocktailList" style={styles.screen}
                             >
                                 {(props) => <CocktailList {...props} handleUrl={handleUrl} />}
                             </Stack.Screen>
                             <Stack.Screen         options={({ navigation, route }) => ({
-                                header: props => <Menu {...props} route={route} />,
+                                // header: props => <Menu {...props} route={route} />,
+                                ...screen_options,
+                                headerShown: false,
                                 })} name="About" style={styles.screen} component={About}></Stack.Screen>
                             <Stack.Screen         options={({ navigation, route }) => ({
-                                header: props => <Menu {...props} route={route} />,
+                                // header: props => <Menu {...props} route={route} />,
+                                ...screen_options,
+                                headerShown: false,
                                 })} name="Stock" style={styles.screen} component={Stock}></Stack.Screen>
                             <Stack.Screen         options={({ navigation, route }) => ({
-                                header: props => <Menu {...props} route={route} />,
+                                // header: props => <Menu {...props} route={route} />,
+                                ...screen_options,
+                                headerShown: false,
                                 })} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
                             <Stack.Screen         options={({ navigation, route }) => ({
-                                header: props => <Menu {...props} route={route} />,
+                                // header: props => <Menu {...props} route={route} />,
+                                ...screen_options,
+                                headerShown: false,
                                 })} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
                             <Stack.Screen         options={({ navigation, route }) => ({
-                                header: props => <Menu {...props} route={route} />,
+                                // header: props => <Menu {...props} route={route} />,
+                                ...screen_options,
+                                headerShown: false,
                                 })} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Stack.Screen>
                         </Stack.Navigator>
                         <View>

@@ -10,6 +10,8 @@ import InStockIcon from '../assets/in-stock'
 import CornerIcon from '../assets/corner'
 // import HeaderIcon from './HeaderIcon'
 
+import * as navigation from '../utils/RootNavigation'
+
 const windowWidth = Dimensions.get('window').width
 
 const mapStateToProps = (state) => {
@@ -19,18 +21,25 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Menu)
 
 function Menu(props) {
-    const state = props.navigation.dangerouslyGetState()
-    const navigation = props.navigation
+    // const state = props.navigation.dangerouslyGetState()
+    // const navigation = props.navigation
+    // const navigation = RootNavi
+    const [routeName, setRouteName] = useState('')
+    // const route = {name: 'CocktailList'}
+    const [current, setCurrent] = useState(navigation.navigationRef.current)
+    // const current = navigation.navigationRef.current
 
     const [currentPage, setCurrentPage] = useState(0)
     // var currentPage
 
     useEffect(()=>{
-        console.log('state.index', props.route, navigation.isFocused())
+        console.log('current', current)
+        if(props.isReady)
+        console.log('state.index', current.getCurrentRoute())
         // if(navigation.isFocused()){
-            console.log('props.route', props.route.name)
+            // console.log('route', route.name)
             for(var i in menuItems){
-                if(menuItems[i].link == props.route.name){
+                if(menuItems[i].link == routeName){
                     console.log('i', i)
                     setCurrentPage(i)
                 }
@@ -40,7 +49,22 @@ function Menu(props) {
 
         // if(carousel)
         // carousel.snapToItem(state.index)
-    }, [props.route.name])
+    }, [routeName])
+
+    useEffect(()=>{
+        setCurrent(navigation.navigationRef.current)
+
+        // add event listener
+        // current.addListener('focus', navEvent)
+        // current.addListener('blur', navEvent)
+        current?.addListener('state', navEvent)
+    }, [props.isReady])
+
+    function navEvent(data){
+        // console.log('events', data)
+        console.log('state change', current.getCurrentRoute())
+        setRouteName(current?.getCurrentRoute().name)
+    }
 
     // console.log()
 
