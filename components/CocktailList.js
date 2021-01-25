@@ -637,9 +637,9 @@ function FunctionMenu(props) {
                     />
                 </View>
 
-                <FunctionMenuButton theme={props.theme} label={"View Cocktail"} mode="select" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
-                <FunctionMenuButton theme={props.theme} label={"Change Cocktail"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
-                <FunctionMenuButton theme={props.theme} label={"Remove Cocktails"} mode="delete" switchMode={removeMode} currentMode={props.currentMode} hidePanel={hidePanel} />
+                <FunctionMenuButton theme={props.theme} label={"View"} mode="select" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
+                <FunctionMenuButton theme={props.theme} label={"Change"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
+                <FunctionMenuButton theme={props.theme} label={"Remove"} mode="delete" switchMode={removeMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 {/* <FunctionMenuButton theme={props.theme} label={"Create Cocktail"} mode="add" switchMode={navigateToAdd} currentMode={props.currentMode} /> */}
                 <FunctionMenuButton theme={props.theme} label={"Scan"} mode="scan" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Share Menu"} mode="share" switchMode={shareMode} currentMode={props.currentMode} hidePanel={hidePanel} />

@@ -21,69 +21,6 @@ export default connect(mapStateToProps)(Menu)
 function Menu(props) {
     const state = props.navigation.dangerouslyGetState()
     const navigation = props.navigation
-    var currentPage
-    // if(state.index == 0){
-    //     currentPage = 'CocktailList'
-    //     var leftAnim = useRef(new Animated.Value(1)).current;
-    //     var rightAnim = useRef(new Animated.Value(0)).current;
-    // } else if (state.index == 2){
-    //     currentPage = 'Stock'
-    //     var leftAnim = useRef(new Animated.Value(0)).current;
-    //     var rightAnim = useRef(new Animated.Value(1)).current;
-    // } else {
-    //     var leftAnim = useRef(new Animated.Value(1)).current;
-    //     var rightAnim = useRef(new Animated.Value(1)).current;
-    // }
-
-    // function handleFade(){
-    //     if (currentPage == 'CocktailList') {
-    //         fadeLeftIn()
-    //         fadeRightOut()
-    //     } else if (currentPage == 'Stock') {
-    //         fadeRightIn()
-    //         fadeLeftOut()
-    //     } else {
-    //         fadeLeftOut()
-    //         fadeRightOut()
-    //     }
-    // }
-        
-    // const fadeTime = 1000
-    // const fadeLeftIn = () => {
-    //     Animated.timing(leftAnim, {
-    //         toValue: 1,
-    //         duration: fadeTime,
-    //         useNativeDriver: true,
-    //     }).start()
-    // }
-    // const fadeRightIn = () => {
-    //     Animated.timing(rightAnim, {
-    //         toValue: 1,
-    //         duration: fadeTime,
-    //         useNativeDriver: true,
-    //     }).start()
-    // }
-    // const fadeLeftOut = () => {
-    //     Animated.timing(leftAnim, {
-    //         toValue: 0,
-    //         duration: fadeTime,
-    //         useNativeDriver: true,
-    //     }).start()
-    // }
-    // const fadeRightOut = () => {
-    //     Animated.timing(rightAnim, {
-    //         toValue: 0,
-    //         duration: fadeTime,
-    //         useNativeDriver: true,
-    //     }).start()
-    // }
-    // handleFade()
-
-    // useEffect(()=>{
-    //     // console.log('state.index', state.index)
-    //     if(carousel)
-    //     carousel.snapToItem(state.index)
-    // }, [state.index])
 
     const menuItems = [
         {
@@ -107,31 +44,11 @@ function Menu(props) {
             link: 'About'
         },
     ]
-
-    // function pressItem(carousel, props){
-    //     // console.log('press', props)
-    //     carousel.snapToItem(props.index)
-    // }
     function onSnap(carousel, index){
         // console.log('on snap', data)
         navigation.navigate(menuItems[index].link, {id:null})
     }
-
-    // const carouse
-    // const [carousel, setCarousel] = useState(null)
-    // const icon_size = 90
-
-    // function renderMenuItem(props){
-
-    //     return (
-    //         // <AppButton press={()=>pressItem(props)}>
-    //         //     {props.item.name}
-    //         // </AppButton>
-    //         <Pressable onPress={()=>pressItem(props)} style={{justifyContent: 'center', alignContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-    //             <AppText style={{fontSize: 20}}>{props.item.name}</AppText>
-    //         </Pressable>
-    //     )
-    // }
+    
     const icon_size = 15
 
     return (
