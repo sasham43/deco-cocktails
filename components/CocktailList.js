@@ -32,6 +32,7 @@ import CornerIcon from '../assets/corner'
 import { deleteCocktail, selectCocktail, deleteCocktails, unselectAllCocktails } from '../utils/CocktailActions'
 import { setShareMenuMax } from '../utils/UIActions'
 import PhotoScan from './PhotoScan'
+import FunctionButtonMask from './FunctionButtonIcon'
 
 import { useStock, useFunctionMenu } from '../utils/hooks'
 import { sortedIngredients } from '../utils/sort'
@@ -555,8 +556,9 @@ function Footer(props){
     } else {
         return (
             <View style={[props.ui.default_styles.footerStyles, props.ui.current_theme]}>
-                <TouchableOpacity style={styles.function_button_container} onPress={() => props.toggleFunctionMenu()}>
+                <TouchableOpacity style={[styles.function_button_container, {backgroundColor: 'red'}]} onPress={() => props.toggleFunctionMenu()}>
                     <FunctionButtonIcon fill={props.ui.current_theme.color} width={100} height={75} />
+                    <FunctionButtonMask />
                 </TouchableOpacity>
             </View>
         )
