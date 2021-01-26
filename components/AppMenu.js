@@ -72,7 +72,7 @@ function AppMenu(props){
                 containerCustomStyle={{ zIndex: 10, marginRight: 20, marginLeft: 20 }}
                 contentContainerCustomStyle={{marginLeft:-10}}
                 inactiveSlideScale={0.7}
-                // initialNumToRender={props.items.length}
+                initialNumToRender={props.items.length}
                 // removeClippedSubviews={false}
                 // initialScrollIndex={props.index}
                 // getItemLayout={getItemLayout}
