@@ -5,18 +5,11 @@ import {
     View,
     Modal
 } from 'react-native'
-// import { NativeRouter, Route, Link } from "react-router-native"
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator,TransitionSpecs } from '@react-navigation/stack'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-// import { Provider } from 'react-redux'
-import { createStore, combineReducers} from 'redux'
 import { connect} from 'react-redux'
 import * as Linking from 'expo-linking'
-
-// import stockReducer from '../utils/StockReducer'
-// import cocktailReducer from '../utils/CocktailReducer'
-// import uiReducer from '../utils/UIReducer'
+import * as SplashScreen from 'expo-splash-screen'
 
 import Title from './Title'
 import CocktailList from './CocktailList'
@@ -51,18 +44,26 @@ function Main(props){
     Linking.addEventListener('url', handleUrl)
 
     useEffect(() => {
-        const url = Linking.getInitialURL()
-        if (url && url.url) {
-            console.log('url', url)
-            handleUrl(url)
-        }
+        fetchUrl()
     }, [])
+
+    // can't stick async function in useEffect
+    async function fetchUrl(){
+        const url = await Linking.getInitialURL()
+        console.log('url', url)
+        if (url && url.url) {
+            handleUrl(url)
+        } else if (url.includes('?')){
+            handleUrl({url})
+        }
+    }
 
     function handleUrl(data) {
         let { path, queryParams } = Linking.parse(data.url)
         console.log('opening from url', path, queryParams)
         setImportCocktail(queryParams)
         setImportModalVisible(true)
+        SplashScreen.hideAsync()
     }
     function hideImportModal() {
         setImportModalVisible(false)
@@ -86,16 +87,7 @@ function Main(props){
             },
             tabBarVisible: false,
             unmountOnBlur: true,
-            // headerTitle: props => <Menu { ...props } />,
-            // headerShown: false,
-            // headerBackTitleVisible: false,
-            // headerLeft: null,
-            // header: props => <Menu {...props} />,
         }
-        // const stack_options = {
-        //     // header: props => <Menu {...props} />,
-        //     // headerStyle: {height: 50}
-        // }
         
         if(!props.ui.tutorial_complete){
             return (
@@ -172,8 +164,8 @@ function Main(props){
                         <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}></View>
                     </View>
                 </NavigationContainer>
-                )
-            }
+            )
+        }
 }
 
 const styles = StyleSheet.create({

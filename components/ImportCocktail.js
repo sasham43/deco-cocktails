@@ -33,8 +33,8 @@ function ImportCocktail(props){
     var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
     function importCocktail(){
         console.log('import')
-        props.addCocktail(cocktail)
         props.hide()
+        props.addCocktail(cocktail)
     }
     const icon_size = 40
     return (
