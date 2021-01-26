@@ -1,13 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { View, StyleSheet, Pressable, Animated, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
-import Carousel from 'react-native-snap-carousel'
+// import Carousel from 'react-native-snap-carousel'
 
-import AppText from './AppText'
+// import AppText from './AppText'
 import AppMenu from './AppMenu'
-import InStockIcon from '../assets/in-stock'
+// import InStockIcon from '../assets/in-stock'
 // import MenuSelectIcon from '../assets/menu-select'
-import CornerIcon from '../assets/corner'
+// import CornerIcon from '../assets/corner'
 // import HeaderIcon from './HeaderIcon'
 
 import * as navigation from '../utils/RootNavigation'
@@ -21,52 +21,29 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Menu)
 
 function Menu(props) {
-    // const state = props.navigation.dangerouslyGetState()
-    // const navigation = props.navigation
-    // const navigation = RootNavi
     const [routeName, setRouteName] = useState('')
-    // const route = {name: 'CocktailList'}
     const [current, setCurrent] = useState(navigation.navigationRef.current)
-    // const current = navigation.navigationRef.current
 
     const [currentPage, setCurrentPage] = useState(0)
-    // var currentPage
 
     useEffect(()=>{
-        console.log('current', current)
+        // console.log('current', current)
         if(props.isReady)
-        console.log('state.index', current.getCurrentRoute())
-        // if(navigation.isFocused()){
-            // console.log('route', route.name)
             for(var i in menuItems){
                 if(menuItems[i].link == routeName){
-                    console.log('i', i)
                     setCurrentPage(i)
                 }
             }
-        // }
-        // console.log('currentPage', props.routes[props.routes.length-1].name)
-
-        // if(carousel)
-        // carousel.snapToItem(state.index)
     }, [routeName])
 
     useEffect(()=>{
         setCurrent(navigation.navigationRef.current)
-
-        // add event listener
-        // current.addListener('focus', navEvent)
-        // current.addListener('blur', navEvent)
         current?.addListener('state', navEvent)
     }, [props.isReady])
 
     function navEvent(data){
-        // console.log('events', data)
-        console.log('state change', current.getCurrentRoute())
         setRouteName(current?.getCurrentRoute().name)
     }
-
-    // console.log()
 
     const menuItems = [
         {
