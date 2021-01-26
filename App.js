@@ -57,7 +57,10 @@ export default function App(props) {
   // console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nloading...', ui.tutorial_complete)
 
   if(!fontsLoaded){
-    return <AppLoading />
+    return <AppLoading
+      onFinish={() => console.log('finished loading AppLoading')}
+      onError={console.warn}
+    />
   } else {
     return (
       <Provider store={store}>
