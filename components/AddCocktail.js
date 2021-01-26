@@ -413,7 +413,7 @@ function Add(props){
     })
 
     function keyboardDidShow(){
-        setMarginBottom(100)
+        setMarginBottom(170)
     }
     function keyboardDidHide(){
         setMarginBottom(10)
@@ -513,38 +513,48 @@ function AddIngredientModal(props){
                         ingredient_values={props.ingredient_values} 
                         setParts={props.setParts}
                     />
-                    <TextInput 
-                        key={`newCocktailIngredientName`} 
-                        clearButtonMode={"always"}  
-                        value={props.newCocktailIngredientName} 
-                        onChangeText={text => props.setName(text)} 
-                        style={[styles.input, {marginBottom: props.marginBottom}, props.ui.current_theme]} 
-                        placeholder="Ingredient..." 
-                        placeholderTextColor={"grey"}
-                        autoCapitalize={"words"}
-                        maxLength={100}
-                    />
-                    <RNPickerSelect
-                        key={props.newCocktailIngredientParts}
-                        placeholder={placeholder}
-                        useNativeAndroidPickerStyle={false}
-                        style={{inputIOS: {...styles.inputIOS, color: props.ui.current_theme.color, borderColor: props.ui.border_color}}} 
-                        value={props.newCocktailIngredientParts}
-                        onValueChange={(val) => props.setParts(val)} 
-                        items={props.ingredient_values} 
-                    />
-                    
-                    <View>
-                        <AppButton disabled={!props.editIngredientId && props.addedCocktailIngredients.length >= 8} press={props.addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
-                            {props.editIngredientId ? "Save Ingredient" : "Add Ingredient"}
-                        </AppButton>
-                        {props.editIngredientId ? 
-                            <AppButton press={props.removeIngredientFromCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
-                                Remove Ingredient
-                            </AppButton>
-                            : null
-                        }
-                    </View>
+
+                <View style={{ flexDirection: 'row', marginTop: 10, marginBottom:props.marginBottom == 10 ? 10 : props.marginBottom - 160, borderBottomWidth: 1, borderBottomColor: props.ui.border_color }}>
+
+                        <View style={{ flex: 2 }}>
+
+                            <RNPickerSelect
+                                key={props.newCocktailIngredientParts}
+                                placeholder={placeholder}
+                                useNativeAndroidPickerStyle={false}
+                                style={{ inputIOS: { ...styles.inputIOS, color: props.ui.current_theme.color, borderColor: props.ui.border_color } }}
+                                value={props.newCocktailIngredientParts}
+                                onValueChange={(val) => props.setParts(val)}
+                                items={props.ingredient_values}
+                            />
+                        </View>
+                        <View style={{ flex: 6 }}>
+
+                            <TextInput
+                                key={`newCocktailIngredientName`}
+                                clearButtonMode={"always"}
+                                value={props.newCocktailIngredientName}
+                                onChangeText={text => props.setName(text)}
+                                style={[styles.input, { marginBottom: 0, borderBottomWidth: 0, paddingTop:12 }, props.ui.current_theme]}
+                                placeholder="Ingredient..."
+                                placeholderTextColor={"grey"}
+                                autoCapitalize={"words"}
+                                maxLength={100}
+                            />
+                        </View>
+                </View>
+
+                <View style={{ marginBottom: props.marginBottom}}>
+                    <AppButton disabled={!props.editIngredientId && props.addedCocktailIngredients.length >= 8} press={props.addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
+                        {props.editIngredientId ? "Save Ingredient" : "Add Ingredient"}
+                    </AppButton>
+                    {props.editIngredientId ?
+                        <AppButton press={props.removeIngredientFromCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
+                            Remove Ingredient
+                                </AppButton>
+                        : null
+                    }
+                </View>
 
                 </KeyboardAvoidingView>
         )
@@ -604,7 +614,7 @@ function Footer(props){
     )
 }
 
-var mb = 110
+var mb = 80
 if (windowHeight < 700){
     mb = 50
 }
