@@ -86,7 +86,7 @@ function Main(props){
                 }
             },
             tabBarVisible: false,
-            // unmountOnBlur: true,
+            unmountOnBlur: true,
         }
         
         if(!props.ui.tutorial_complete){
@@ -115,8 +115,7 @@ function Main(props){
                             headerMode={"float"}
                             backBehavior={"history"} 
                         >
-                            <Stack.Screen options={screen_options} name="CocktailList" style={styles.screen}
-                            >
+                            <Stack.Screen options={screen_options} name="CocktailList" style={styles.screen}>
                                 {(props) => <CocktailList {...props} handleUrl={handleUrl} />}
                             </Stack.Screen>
                             <Stack.Screen options={screen_options} name="About" style={styles.screen} component={About}></Stack.Screen>

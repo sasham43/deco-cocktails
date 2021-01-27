@@ -37,6 +37,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Add)
 
 function Add(props){
+    // console.log('props', props.route)
     const cocktails = props.cocktails.current
 
     const [newCocktailIngredientName, setNewCocktailIngredientName] = useState('')
@@ -146,7 +147,7 @@ function Add(props){
     // when cocktails load, check params and set
     useEffect(()=>{
         loadParams(route.params)
-    },[cocktails])
+    },[cocktails, route?.params?.id])
 
     var leftAnim = useRef(new Animated.Value(1)).current;
     var rightAnim = useRef(new Animated.Value(0)).current;
@@ -198,6 +199,7 @@ function Add(props){
     function loadParams(params){
         if(params && params.id){
             var cocktail = cocktails.find(c=>c.id == params.id)
+            // console.log('cocktail', cocktail.name)
             if(cocktail){
                 setNewCocktailName(cocktail.name)
                 setAddedCocktailIngredients(cocktail.ingredients)
@@ -514,7 +516,7 @@ function AddIngredientModal(props){
                         setParts={props.setParts}
                     />
 
-                <View style={{ flexDirection: 'row', marginTop: 10, marginBottom:props.marginBottom == 10 ? 10 : props.marginBottom - 160, borderBottomWidth: 1, borderBottomColor: props.ui.border_color }}>
+                    <View style={{ flexDirection: 'row', marginTop: 10, marginBottom:props.marginBottom == 10 ? 10 : props.marginBottom - 160, borderBottomWidth: 1, borderBottomColor: props.ui.border_color }}>
                         <View style={{ flex: 2 }}>
                             <RNPickerSelect
                                 key={props.newCocktailIngredientParts}
@@ -539,19 +541,19 @@ function AddIngredientModal(props){
                                 maxLength={100}
                             />
                         </View>
-                </View>
+                    </View>
 
-                <View style={{ marginBottom: props.marginBottom}}>
-                    <AppButton disabled={!props.editIngredientId && props.addedCocktailIngredients.length >= 8} press={props.addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
-                        {props.editIngredientId ? "Save Ingredient" : "Add Ingredient"}
-                    </AppButton>
-                    {props.editIngredientId ?
-                        <AppButton press={props.removeIngredientFromCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
-                            Remove Ingredient
-                                </AppButton>
-                        : null
-                    }
-                </View>
+                    <View style={{ marginBottom: props.marginBottom}}>
+                        <AppButton disabled={!props.editIngredientId && props.addedCocktailIngredients.length >= 8} press={props.addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
+                            {props.editIngredientId ? "Save Ingredient" : "Add Ingredient"}
+                        </AppButton>
+                        {props.editIngredientId ?
+                            <AppButton press={props.removeIngredientFromCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
+                                Remove Ingredient
+                            </AppButton>
+                            : null
+                        }
+                    </View>
 
                 </KeyboardAvoidingView>
         )
