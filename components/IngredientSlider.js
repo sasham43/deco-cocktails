@@ -2,10 +2,13 @@ import React, { useRef, useState, useEffect } from 'react'
 import {View, PanResponder, StyleSheet} from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+// import Slider from 'react-native-slider'
+import Slider from '@react-native-community/slider'
 
 // import AppText from './AppText'
 import { Part } from './Parts'
 import CornerIcon from '../assets/corner'
+const in_stock = require('../assets/in-stock.png')
 
 import { changeCocktailSlider } from '../utils/CocktailActions'
 
@@ -78,6 +81,16 @@ function IngredientSlider(props){
 
     return (
         <View>
+            <Slider
+                // style={{ width: 200, height: 40 }}
+                thumbImage={in_stock}
+                // thumbStyle={{width:40, height:40}}
+                // thumbTouchSize={{width:20, height:20}}
+                minimumValue={0}
+                maximumValue={1}
+                minimumTrackTintColor="#FFFFFF"
+                maximumTrackTintColor="#000000"
+            />
             <View
                 // {...panResponder.panHandlers}
                 style={{ height: 30, borderColor: 'grey', borderWidth: 0, padding: 10, marginTop:-15 }}

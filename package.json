@@ -12,13 +12,17 @@
     "@expo-google-fonts/poiret-one": "^0.1.0",
     "@react-native-async-storage/async-storage": "^1.13.2",
     "@react-native-community/masked-view": "0.1.10",
+    "@react-native-community/slider": "^3.0.3",
     "@react-native-picker/picker": "^1.9.4",
     "@react-navigation/bottom-tabs": "^5.11.2",
     "@react-navigation/native": "^5.8.10",
     "@react-navigation/stack": "^5.12.8",
     "expo": "^39.0.5",
+    "expo-barcode-scanner": "~9.0.0",
     "expo-font": "~8.3.0",
+    "expo-image-picker": "~9.1.1",
     "expo-linking": "^2.0.0",
+    "expo-permissions": "~9.3.0",
     "expo-screen-orientation": "~2.0.0",
     "expo-status-bar": "^1.0.3",
     "lodash": "^4.17.20",
@@ -35,6 +39,7 @@
     "react-native-safe-area-context": "3.1.4",
     "react-native-scalable-image": "^1.0.0",
     "react-native-screens": "~2.10.1",
+    "react-native-slider": "^0.11.0",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "12.1.0",
     "react-native-svg-transformer": "^0.14.3",
@@ -46,10 +51,7 @@
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
     "rn-sliding-up-panel": "^2.4.4",
-    "shortid": "^2.2.16",
-    "expo-barcode-scanner": "~9.0.0",
-    "expo-image-picker": "~9.1.1",
-    "expo-permissions": "~9.3.0"
+    "shortid": "^2.2.16"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
