@@ -515,9 +515,7 @@ function AddIngredientModal(props){
                     />
 
                 <View style={{ flexDirection: 'row', marginTop: 10, marginBottom:props.marginBottom == 10 ? 10 : props.marginBottom - 160, borderBottomWidth: 1, borderBottomColor: props.ui.border_color }}>
-
                         <View style={{ flex: 2 }}>
-
                             <RNPickerSelect
                                 key={props.newCocktailIngredientParts}
                                 placeholder={placeholder}
@@ -529,7 +527,6 @@ function AddIngredientModal(props){
                             />
                         </View>
                         <View style={{ flex: 6 }}>
-
                             <TextInput
                                 key={`newCocktailIngredientName`}
                                 clearButtonMode={"always"}
