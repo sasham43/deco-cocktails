@@ -86,7 +86,7 @@ function Main(props){
                 }
             },
             tabBarVisible: false,
-            unmountOnBlur: true,
+            // unmountOnBlur: true,
         }
         
         if(!props.ui.tutorial_complete){
