@@ -79,18 +79,28 @@ function IngredientSlider(props){
         }
     }, [props.parts])
 
+    function onSliderChange(val){
+        console.log('slider change', val, props.ingredient_values.length)
+        props.setParts(props.ingredient_values[Math.floor(val)].value)
+    }
+
     return (
         <View>
-            <Slider
-                // style={{ width: 200, height: 40 }}
-                thumbImage={in_stock}
-                // thumbStyle={{width:40, height:40}}
-                // thumbTouchSize={{width:20, height:20}}
-                minimumValue={0}
-                maximumValue={1}
-                minimumTrackTintColor="#FFFFFF"
-                maximumTrackTintColor="#000000"
-            />
+            <View style={{marginBottom:20}}>
+                <Slider
+                    // style={{ width: 200, height: 40 }}
+                    thumbImage={in_stock}
+                    // thumbStyle={{width:40, height:40}}
+                    // thumbTouchSize={{width:20, height:20}}
+                    // minimumValue={0}
+                    // maximumValue={1}
+                    minimumTrackTintColor="rgba(0,0,0,0)"
+                    maximumTrackTintColor="rgba(0,0,0,0)"
+                    minimumValue={0}
+                    maximumValue={props.ingredient_values.length-1}
+                    onValueChange={(val)=>onSliderChange(val)}
+                />
+            </View>
             <View
                 // {...panResponder.panHandlers}
                 style={{ height: 30, borderColor: 'grey', borderWidth: 0, padding: 10, marginTop:-15 }}

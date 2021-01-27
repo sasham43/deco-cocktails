@@ -515,6 +515,7 @@ function AddIngredientModal(props){
                         ingredient_values={props.ingredient_values} 
                         setParts={props.setParts}
                         ui={props.ui}
+                        onSliderChange={props.setParts}
                     />
 
                     <View style={{ flexDirection: 'row', marginTop: 10, marginBottom:props.marginBottom == 10 ? 10 : props.marginBottom - 160, borderBottomWidth: 1, borderBottomColor: props.ui.border_color }}>
