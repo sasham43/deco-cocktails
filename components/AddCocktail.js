@@ -536,7 +536,7 @@ function AddIngredientModal(props){
                                 onChangeText={text => props.setName(text)}
                                 style={[styles.input, { marginBottom: 0, borderBottomWidth: 0, paddingTop:12 }, props.ui.current_theme]}
                                 placeholder="Ingredient..."
-                                placeholderTextColor={"grey"}
+                                placeholderTextColor={"#aaa"}
                                 autoCapitalize={"words"}
                                 maxLength={100}
                             />
@@ -647,7 +647,7 @@ const styles = StyleSheet.create({
     inputIOS: {
         fontFamily: 'PoiretOne_400Regular',
         borderColor: '#aaa',
-        borderWidth: 1,
+        borderRightWidth: 1,
         paddingVertical: 12,
         paddingHorizontal: 10,
         fontSize: 18,
