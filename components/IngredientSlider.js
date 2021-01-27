@@ -1,10 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react'
-import {View, PanResponder} from 'react-native'
+import {View, PanResponder, StyleSheet} from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import AppText from './AppText'
+// import AppText from './AppText'
 import { Part } from './Parts'
+import CornerIcon from '../assets/corner'
+
 import { changeCocktailSlider } from '../utils/CocktailActions'
 
 const mapDispatchToProps = dispatch => (
@@ -78,8 +80,12 @@ function IngredientSlider(props){
         <View>
             <View
                 {...panResponder.panHandlers}
-                style={{ height: 30, borderColor: 'grey', borderWidth: 1, padding: 10, marginTop:-15 }}
+                style={{ height: 30, borderColor: 'grey', borderWidth: 0, padding: 10, marginTop:-15 }}
             >
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={12} height={12} />
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={12} height={12} />
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={12} height={12} />
+                <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={12} height={12} />
                 <SliderDisplay ingredient={ingredient}></SliderDisplay>
             </View> 
         </View>
@@ -102,3 +108,15 @@ function SliderDisplay(props) {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+
+    corner_icon: {
+        zIndex: 10,
+        position: 'absolute'
+    },
+    top_right: { top: 0, right: 0 },
+    top_left: { top: 0, left: 0, transform: [{ rotate: '-90deg' }] },
+    bottom_right: { bottom: 0, right: 0, transform: [{ rotate: '90deg' }] },
+    bottom_left: { bottom: 0, left: 0, transform: [{ rotate: '180deg' }] }
+})
