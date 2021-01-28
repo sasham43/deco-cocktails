@@ -230,6 +230,10 @@ function Add(props){
 
     const ingredient_values = [
         {
+            label: 'Parts...',
+            value: 0
+        },
+        {
             label: 'dash',
             value: 'dash'
         },

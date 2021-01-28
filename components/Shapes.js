@@ -102,7 +102,7 @@ export function OpacityShapeMap(props){
     var height = props.height ? props.height : 9
     var width = props.width ? props.width : 9
 
-    console.log('opacity', props.style, props.max, props.parts, shape_array)
+    // console.log('opacity', props.style, props.max, props.parts, shape_array)
     return shape_array.map((part, i)=>{
         var key = generate()
         // console.log('i',i, part, props.max)
