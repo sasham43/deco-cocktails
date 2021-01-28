@@ -2,7 +2,8 @@ import React, { useRef, useState, useEffect } from 'react'
 import {View, PanResponder, StyleSheet} from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Slider from 'react-native-custom-slider'
+import { Slider } from 'react-native-elements'
+// import Slider from 'react-native-custom-slider'
 // import Slider from 'react-native-slider'
 // import Slider from '@react-native-community/slider'
 
@@ -32,40 +33,6 @@ function IngredientSlider(props){
 
     const [sliderValue, setSliderValue] = useState(0)
     const [ingredient, setIngredient] = useState(null)
-    var slider_value = 0
-    // const panResponder = useRef(PanResponder.create({
-    //     onStartShouldSetPanResponder: (evt, gestureState) => true,
-    //     onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-    //     onMoveShouldSetPanResponder: (evt, gestureState) => true,
-    //     onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-    //     onPanResponderMove: (evt, gestureState) => {
-    //         var value = parseInt(gestureState.dx / 10)
-    //         var direction = gestureState.vx > 0 ? 'right' : 'left'
-    //         var slider_max = 1440
-    //         if((slider_value + value) > slider_max){
-    //             slider_value = slider_max
-    //         } else if ((slider_value - (value * -1)) < 0){
-    //             slider_value = 0
-    //         } else {
-    //             if(gestureState.vx > 0){
-    //                 slider_value = slider_value + value
-    //             } else {
-    //                 if(value.toString().includes("-")){
-    //                     slider_value += value
-    //                 } else {
-    //                     slider_value -= value
-    //                 }
-    //             }
-    //         }
-            
-    //         var constrained = constrain((slider_value / 30), 0, props.ingredient_values.length - 1)
-    //         setSliderValue(constrained)
-
-    //         const ingredient = props.ingredient_values[constrained]
-    //         setIngredient(ingredient)
-    //         props.setParts(ingredient.value)
-    //     },
-    // })).current
 
     // if outside value changes, set inside value to match
     useEffect(()=>{
@@ -82,40 +49,36 @@ function IngredientSlider(props){
                 value: 0
             })
         }
+
+
+        if(ingredient && ingredient.value){
+            for(var i in props.ingredient_values){
+                if(props.ingredient_values[i] && props.ingredient_values[i].value){
+                    // console.log('i',i)
+                    if(props.ingredient_values[i].value == ingredient.value){
+                        console.log('i',i)
+                        setSliderValue(Number(i))
+                    }
+                }
+            }
+        }
     }, [props.parts])
 
+    useEffect(()=>{
+        // props.setParts(props.ingredient_values[Math.floor(sliderValue)].value)
+    }, [sliderValue])
+
     function onSliderChange(val){
-        // console.log('slider change', val, props.ingredient_values.length)
+        console.log('slider change', val, props.ingredient_values.length)
         props.setParts(props.ingredient_values[Math.floor(val)].value)
+        // setSliderValue(val)
     }
 
     return (
         <View>
-            <View style={{marginBottom:20}}>
-                <Slider
-                    // style={{ width: 200, height: 40 }}
-                    // thumbImage={in_stock}
-                    customThumb={
-                        <View style={{marginTop:20}}>
-                            <InStock  transform={ [{ rotate: '45deg' }]} width={30} height={30}  fill={props.ui.current_theme.color} t />
-                        </View>
-                    }
-                    // thumbImage={InStock}
-                    // thumbStyle={{ top:20, left:0, transform:[{scaleX:0.5}],backgroundColor: 'rgba(0,0,0,0)'}}
-                    // thumbStyle={{width:40, height:40}}
-                    thumbTouchSize={{width:100, height:100}}
-                    // minimumValue={0}
-                    // maximumValue={1}
-                    minimumTrackTintColor="rgba(0,0,0,0)"
-                    maximumTrackTintColor="rgba(0,0,0,0)"
-                    minimumValue={0}
-                    maximumValue={props.ingredient_values.length-1}
-                    onValueChange={(val)=>onSliderChange(val)}
-                />
-            </View>
             <View
                 // {...panResponder.panHandlers}
-                style={{ height: 30, borderColor: 'grey', borderWidth: 0, padding: 10, marginTop:-15 }}
+                style={{ height: 30, borderColor: 'grey', borderWidth: 0, padding: 10, marginTop: -15 }}
             >
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={12} height={12} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={12} height={12} />
@@ -123,6 +86,39 @@ function IngredientSlider(props){
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={12} height={12} />
                 <SliderDisplay ingredient={ingredient}></SliderDisplay>
             </View> 
+            <View style={{marginBottom:20}}>
+                <Slider
+                    // style={{ width: 200, height: 40 }}
+                    // thumbImage={in_stock}
+                    // customThumb={
+                    //     <View style={{marginTop:20}}>
+                    //         <InStock  transform={ [{ rotate: '45deg' }]} width={30} height={30}  fill={props.ui.current_theme.color} t />
+                    //     </View>
+                    // }
+                    // thumbProps={{
+                    //     children: (
+                    //         <View style={{marginTop:20}}>
+                    //             <InStock  transform={ [{ rotate: '45deg' }]} width={30} height={30}  fill={props.ui.current_theme.color} t />
+                    //         </View>
+                    //     )
+                    // }}
+                    // thumbImage={InStock}
+                    // thumbStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+                    // thumbStyle={{ top:20, left:0, transform:[{scaleX:0.5}],backgroundColor: 'rgba(0,0,0,0)'}}
+                    // thumbStyle={{width:40, height:40}}
+                    thumbTouchSize={{width:100, height:100}}
+                    // minimumValue={0}
+                    // maximumValue={1}
+                    step={1}
+                    minimumTrackTintColor="rgba(0,0,0,0)"
+                    maximumTrackTintColor="rgba(0,0,0,0)"
+                    minimumValue={0}
+                    maximumValue={props.ingredient_values.length-1}
+                    // onValueChange={onSliderChange}
+                    onValueChange={(val)=>onSliderChange(val)}
+                    value={sliderValue}
+                />
+            </View>
         </View>
     )
 }
