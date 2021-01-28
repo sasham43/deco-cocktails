@@ -545,6 +545,7 @@ function AddIngredientModal(props){
                                 placeholderTextColor={"#aaa"}
                                 autoCapitalize={"words"}
                                 maxLength={100}
+                                onSubmitEditing={() => props.addIngredientToCocktail()}
                             />
                         </View>
                     </View>
