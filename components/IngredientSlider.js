@@ -2,13 +2,18 @@ import React, { useRef, useState, useEffect } from 'react'
 import {View, PanResponder, StyleSheet} from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import Slider from 'react-native-custom-slider'
 // import Slider from 'react-native-slider'
-import Slider from '@react-native-community/slider'
+// import Slider from '@react-native-community/slider'
 
 // import AppText from './AppText'
 import { Part, OpacityPart } from './Parts'
 import CornerIcon from '../assets/corner'
-const in_stock = require('../assets/in-stock.png')
+
+// import { SvgUri } from 'react-native-svg'
+// const in_stock = require('../assets/slider_icon.png')
+import InStock from '../assets/in-stock'
+
 
 import { changeCocktailSlider } from '../utils/CocktailActions'
 
@@ -89,9 +94,16 @@ function IngredientSlider(props){
             <View style={{marginBottom:20}}>
                 <Slider
                     // style={{ width: 200, height: 40 }}
-                    thumbImage={in_stock}
+                    // thumbImage={in_stock}
+                    customThumb={
+                        <View style={{marginTop:20}}>
+                            <InStock  transform={ [{ rotate: '45deg' }]} width={30} height={30}  fill={props.ui.current_theme.color} t />
+                        </View>
+                    }
+                    // thumbImage={InStock}
+                    // thumbStyle={{ top:20, left:0, transform:[{scaleX:0.5}],backgroundColor: 'rgba(0,0,0,0)'}}
                     // thumbStyle={{width:40, height:40}}
-                    // thumbTouchSize={{width:20, height:20}}
+                    thumbTouchSize={{width:100, height:100}}
                     // minimumValue={0}
                     // maximumValue={1}
                     minimumTrackTintColor="rgba(0,0,0,0)"
