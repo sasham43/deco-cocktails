@@ -399,6 +399,7 @@ function Add(props){
         },
     ]
     const [marginBottom, setMarginBottom] = useState(10)
+    const [pickerOpen, setPickerOpen] = useState(false)
 
     useEffect(() => {
         Keyboard.addListener("keyboardWillShow", keyboardDidShow);
@@ -421,13 +422,15 @@ function Add(props){
         setMarginBottom(10)
     }
     function onSwipeLeft(state){
-        props.navigation.navigate('ViewCocktail')
+        if(!pickerOpen)
+            props.navigation.navigate('ViewCocktail')
     }
     function onSwipeRight(state){
-        if(state.x0 < 150){
-            return props.navigation.goBack()
-        }
-        props.navigation.navigate('Stock')
+        // if(state.x0 < 150){
+        //     return props.navigation.goBack()
+        // }
+        if(!pickerOpen)
+            props.navigation.navigate('Stock')
     }
 
     function onCancel() {
@@ -488,6 +491,7 @@ function Add(props){
                     mode={contentMode}
                     marginBottom={marginBottom}
                     addedCocktailIngredients={addedCocktailIngredients}
+                    setPickerOpen={setPickerOpen}
                 />
             </View>
             <Footer 
@@ -508,6 +512,12 @@ function AddIngredientModal(props){
             label: 'Parts...',
             color: 'grey',
         };
+        function onPickerOpen(){
+            props.setPickerOpen(true)
+        }
+        function onPickerClose(){
+            props.setPickerOpen(false)
+        }
         return (
             <KeyboardAvoidingView behavior={"padding"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
                     <IngredientSlider
@@ -527,6 +537,8 @@ function AddIngredientModal(props){
                                 value={props.newCocktailIngredientParts}
                                 onValueChange={(val) => props.setParts(val)}
                                 items={props.ingredient_values}
+                                onOpen={onPickerOpen}
+                                onClose={onPickerClose}
                             />
                         </View>
                         <View style={{ flex: 6 }}>

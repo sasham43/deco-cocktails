@@ -68,7 +68,7 @@ function Menu(props) {
         },
     ]
     function onSnap(carousel, index){
-        // console.log('on snap', data)
+        console.log('on snap', index)
         navigation.navigate(menuItems[index].link, {id:null})
     }
     
