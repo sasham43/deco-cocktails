@@ -68,6 +68,13 @@ function Shape(props) {
             <Circle stroke={props.ui.current_theme.color} fill={props.ui.current_theme.color} width={props.width} height={props.height} />
         )
     }
+
+    // console.log('empty?', props.part, props.opacity)
+    if(props.part == 0 && props.opacity){
+        return (
+            <View style={{width:props.width, height: props.height, opacity: 0, borderWidth:1}}></View>
+        )
+    }
     
     return null
 }
@@ -79,16 +86,55 @@ export function ShapeMap(props) {
     return shape_array.map((part, i) => {
         var key = generate()
         return (
-            <View key={key} style={[styles.shape_container, getShapeMargin(part)]}>
+            <View key={key} style={[styles.shape_container, getShapeMargin(part), props.style]}>
                 <ConnectedShape height={height} width={width} part={part} />
             </View>
         )
     })
 }
+
 function getShapeMargin(part) {
     return 25
 }
 
+export function OpacityShapeMap(props){
+    var shape_array = buildPartArrayOpacity(props.max, props.parts)
+    var height = props.height ? props.height : 9
+    var width = props.width ? props.width : 9
+
+    console.log('opacity', props.style, props.max, props.parts, shape_array)
+    return shape_array.map((part, i)=>{
+        var key = generate()
+        // console.log('i',i, part, props.max)
+        return (
+            <View key={key} style={[styles.shape_container, {opacity: i < props.max ? 1 : 0}, getShapeMargin(part), props.style]}>
+                <ConnectedShape height={height} width={width} part={part} opacity={true} />
+            </View>
+        )
+    })
+}
+function buildPartArrayOpacity(parts, limit) {
+    var part_array = []
+
+    var remainder = parts.toString().split('.')[1]
+
+    if (parts >= 1) {
+        for (var i = 1; i <= parts; i++) {
+            part_array.push(1)
+        }
+    }
+    if (remainder != undefined) {
+        remainder = Number("." + remainder)
+        part_array.push(remainder)
+    }
+    for(var i = 1; i <= limit; i++){
+        if(!part_array[i]){
+            part_array.push(0)
+        }
+    }
+
+    return part_array
+}
 
 
 const styles = StyleSheet.create({

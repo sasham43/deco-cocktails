@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import Slider from '@react-native-community/slider'
 
 // import AppText from './AppText'
-import { Part } from './Parts'
+import { Part, OpacityPart } from './Parts'
 import CornerIcon from '../assets/corner'
 const in_stock = require('../assets/in-stock.png')
 
@@ -80,7 +80,7 @@ function IngredientSlider(props){
     }, [props.parts])
 
     function onSliderChange(val){
-        console.log('slider change', val, props.ingredient_values.length)
+        // console.log('slider change', val, props.ingredient_values.length)
         props.setParts(props.ingredient_values[Math.floor(val)].value)
     }
 
@@ -124,10 +124,13 @@ function constrain(num, min=0, max){
 
 function SliderDisplay(props) {
     if(!props.ingredient) return null
-
+    // console.log('ingredient', props.ingredient.value)
     return (
-        <View style={{padding: 0, paddingLeft: 15}}>
-            <Part style={{color:'blue'}} parts={props.ingredient.value} last={true} />
+        <View style={{ padding: 0, paddingLeft: 15,flex:1, 
+        // flexDirection: 'row', justifyContent: 'space-around'
+        }}
+        >
+            <OpacityPart style={{justifyContent: 'space-evenly', flexDirection:'row'}} parts={9.75} max={props.ingredient.value} last={true} shapeStyle={{justifyContent: 'space-between', flexDirection: 'row'}} />
         </View>
     )
 }
