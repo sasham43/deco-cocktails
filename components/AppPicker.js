@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { View, Animated, FlatList, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 
@@ -23,71 +23,114 @@ function AppPicker(props){
     }
     // const [scrolling, setScrolling] = useState(false)
     var snapInterval
+    const scrollY = useRef(new Animated.Value(0)).current
     // console.log('defaults', defaults.items)
+    const interpolators = []
 
-    function renderItem({item}){
+    const [scrollHandler, setScrollHandler] = useState(null)
+
+    useEffect(()=>{
+        // console.log('defaults.items.length', defaults.items.length)
+        for(var item in defaults.items){
+            // console.log('here we go adding stuff')
+            interpolators.push(new Animated.Value(1))
+        }
+        setAnimatedScrollHandler()
+    }, [])
+
+    function getAnimatedStyle(animatedValue){
+        if(!animatedValue) return
+        console.log('getting animated style')
+        return {
+            transform: [{
+                scale: animatedValue.interpolate({
+                    inputRange: [0,1],
+                    outputRange: [0,1]
+                })
+            }]
+        }
+    }
+
+    function renderItem({item, index}){
+        // console.log('renderItem', index, interpolators[index])
         // console.log('rendering', item.label)
+
+        const animatedStyle = getAnimatedStyle(interpolators[index])
+
         return (
-            <View style={{height: default_height, borderWidth:1, justifyContent: 'center'}} key={item.value}>
-                <AppText style={{textAlign: 'center'}}>{item.label}</AppText>
-            </View>
+            <Animated.View style={[{height: default_height, borderWidth:0, justifyContent: 'center'}, animatedStyle]} key={item.value}>
+                {/* <Animated.Text> */}
+
+                    <AppText style={{textAlign: 'center'}}>{item.label}</AppText>
+                {/* </Animated.Text> */}
+            </Animated.View>
         )
     }
 
-    // useEffect(()=>{
-    //     if(flatList){
-    //         // console.log('fl', flatList.getScrollResponder())
-    //     }
-    // }, [flatList])
+    function setAnimatedScrollHandler(){
+        var scrollPos = new Animated.Value(0)
+        const argMapping = [{
+            nativeEvent: { contentOffset: { y: scrollPos } }
+        }]
+
+        // animations
+        // return  Animated.event(argMapping, {
+        //     listener: scrollEventListener,
+        //     useNativeDriver: true
+        // })
+        setScrollHandler(Animated.event(argMapping, {
+            listener: scrollEventListener,
+            useNativeDriver: true
+        }))
+    }
 
     function onScroll({nativeEvent}){
-        // console.log('scrolling', nativeEvent.contentOffset.y)
-        // setScrolling(true)
-        // console.log('evt', Object.keys(event))
-        // console.log('contentOffset.y', nativeEvent.contentOffset.y)
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
-        // var index = Math.floor(offset / 15)
-        // console.log('selected', defaults.items[index]?.label)
         props.setParts(defaults.items[index]?.value)
-        // console.log('contentSize', nativeEvent.contentSize.height)
-        // console.log('zoomScale', nativeEvent.zoomScale)
-        // console.log('layoutMeasurement', nativeEvent.layoutMeasurement.height)
-        // console.log('contentInset', nativeEvent.contentInset.bottom, nativeEvent.contentInset.top)
+
+        // var scrollPos = new Animated.Value(0)
+        // const argMapping = [{
+        //     nativeEvent: {contentOffset: {y: scrollPos}}
+        // }]
+
+        // // animations
+        // // return 
+        // Animated.event(argMapping, {
+        //     listener: scrollEventListener,
+        //     useNativeDriver: true
+        // })
     }
 
-    function onScrollBeginDrag({nativeEvent}){
-        console.log('onScrollBeginDrag')
-        // setScrolling(true)
+    function scrollEventListener(event){
+        console.log('scrollEventListener', event)
     }
+
+    // function onScrollBeginDrag({nativeEvent}){
+    //     console.log('onScrollBeginDrag')
+    //     // setScrolling(true)
+    // }
 
     function snapScroll(index){
-        // set scroll
         flatList.scrollToIndex({
             index,
             viewPosition: 0.5
         })
-        // setScrolling(false)
+        // clearInterval(snapInterval)
     }
 
     function onScrollDragEnd({nativeEvent}){
-        console.log('scrollDragEnd', scrolling)
+        // console.log('scrollDragEnd')
         // if(scrolling) return
 
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
         props.setParts(defaults.items[index]?.value)
 
+        // store interval so we can cancel if it glides
         snapInterval = setTimeout(()=>{
             snapScroll(index)
         })
-
-        // // set scroll
-        // flatList.scrollToIndex({
-        //     index,
-        //     viewPosition: 0.5
-        // })
-        // setScrolling(false)
     }
 
     function onMomentumScrollBegin({nativeEvent}){
@@ -96,7 +139,7 @@ function AppPicker(props){
     }
 
     function onScrollMomentumEnd({nativeEvent}){
-        console.log('scrollMomentumEnd', scrolling)
+        console.log('scrollMomentumEnd')
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
         props.setParts(defaults.items[index]?.value)
@@ -105,11 +148,6 @@ function AppPicker(props){
 
         // set scroll
         snapScroll(index)
-        // flatList.scrollToIndex({
-        //     index,
-        //     viewPosition: 0.5
-        // })
-        // setScrolling(false)
     }
 
     function getIndex(offset){
@@ -129,28 +167,29 @@ function AppPicker(props){
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={12} height={12} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={12} height={12} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={12} height={12} />
-            <FlatList
+            <Animated.FlatList
                 data={defaults.items}
                 renderItem={renderItem}
                 initialNumToRender={defaults.numToRender}
-                onScroll={onScroll}
+                // onScroll={onScroll}
+                // onScroll={setScrollHandler()}
+                onScroll={Animated.event([{
+                    nativeEvent: { contentOffset: { y: scrollY } }
+                }],{
+                    listener: onScroll,
+                    // useNativeDriver: true
+                    useNativeDriver: false
+                })}
                 onMomentumScrollBegin={onMomentumScrollBegin}
                 onMomentumScrollEnd={onScrollMomentumEnd}
-                onScrollBeginDrag={onScrollBeginDrag}
+                // onScrollBeginDrag={onScrollBeginDrag}
                 onScrollEndDrag={onScrollDragEnd}
                 ListFooterComponent={<PickerFooter/>}
                 ListHeaderComponent={<PickerHeader/>}
                 showsVerticalScrollIndicator={false}
                 ref={f => setFlatList(f)}
+                keyExtractor={(item, index)=> `item${index}`}
             />
-            {/* <AppText>Picker</AppText> */}
-            {/* {defaults.items.map(item=>{
-                return (
-                    <View style={{borderWidth:1, backgroundColor:'red'}}>
-                        <AppText style={{color: props.ui.current_theme.color, fontSize: 10}}>{item.label}l</AppText>
-                    </View>
-                )
-            })} */}
         </View>
     )
 }
