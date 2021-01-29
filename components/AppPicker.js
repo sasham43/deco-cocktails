@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import AppText from './AppText'
 import CornerIcon from '../assets/corner'
+import InStockIcon from '../assets/in-stock'
 
 const default_height = 25
 
@@ -41,19 +42,9 @@ function AppPicker(props){
     // }, [flatList])
 
     function onScroll({nativeEvent}){
-        // console.log('scrolling', nativeEvent.contentOffset.y)
-        // setScrolling(true)
-        // console.log('evt', Object.keys(event))
-        // console.log('contentOffset.y', nativeEvent.contentOffset.y)
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
-        // var index = Math.floor(offset / 15)
-        // console.log('selected', defaults.items[index]?.label)
         props.setParts(defaults.items[index]?.value)
-        // console.log('contentSize', nativeEvent.contentSize.height)
-        // console.log('zoomScale', nativeEvent.zoomScale)
-        // console.log('layoutMeasurement', nativeEvent.layoutMeasurement.height)
-        // console.log('contentInset', nativeEvent.contentInset.bottom, nativeEvent.contentInset.top)
     }
 
     function onScrollBeginDrag({nativeEvent}){
@@ -130,11 +121,14 @@ function AppPicker(props){
 
 
     return (
-        <View style={[{ height: defaults.height, borderWidth:0, borderColor: props.ui.current_theme.color}]}>
+        <View style={[{ height: defaults.height, borderLeftWidth:1, borderRightWidth:1, borderColor: props.ui.border_color}]}>
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={12} height={12} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={12} height={12} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={12} height={12} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={12} height={12} />
+            <View style={{position: 'absolute', left:-6, top: (defaults.height / 2) - 6}}>
+                <InStockIcon transform={[{ rotate: '-45deg' }]}  fill={props.ui.current_theme.color} width={12} height={12} />
+            </View>
             <FlatList
                 data={defaults.items}
                 renderItem={renderItem}
@@ -150,14 +144,6 @@ function AppPicker(props){
                 keyExtractor={(item, index)=>`item-${index}`}
                 ref={f => setFlatList(f)}
             />
-            {/* <AppText>Picker</AppText> */}
-            {/* {defaults.items.map(item=>{
-                return (
-                    <View style={{borderWidth:1, backgroundColor:'red'}}>
-                        <AppText style={{color: props.ui.current_theme.color, fontSize: 10}}>{item.label}l</AppText>
-                    </View>
-                )
-            })} */}
         </View>
     )
 }
