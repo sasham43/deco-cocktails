@@ -21,14 +21,14 @@ function AppPicker(props){
         items: props.items ? props.items : [],
         numToRender: props.numToRender ? props.numToRender : 4
     }
-    // const [scrolling, setScrolling] = useState(false)
+    const [scrolling, setScrolling] = useState(false)
     var snapInterval
     // console.log('defaults', defaults.items)
 
     function renderItem({item}){
         // console.log('rendering', item.label)
         return (
-            <View style={{height: default_height, borderWidth:1, justifyContent: 'center'}} key={item.value}>
+            <View style={{height: default_height, borderWidth:0, justifyContent: 'center'}} key={item.value}>
                 <AppText style={{textAlign: 'center'}}>{item.label}</AppText>
             </View>
         )
@@ -67,11 +67,12 @@ function AppPicker(props){
             index,
             viewPosition: 0.5
         })
-        // setScrolling(false)
+        // clearInterval(snapInterval)
+        setScrolling(false)
     }
 
     function onScrollDragEnd({nativeEvent}){
-        console.log('scrollDragEnd', scrolling)
+        // console.log('scrollDragEnd', scrolling)
         // if(scrolling) return
 
         var offset = nativeEvent.contentOffset.y
@@ -92,19 +93,24 @@ function AppPicker(props){
 
     function onMomentumScrollBegin({nativeEvent}){
         console.log('momentumScrollBegin')
+        setScrolling(true)
         clearInterval(snapInterval)
     }
 
     function onScrollMomentumEnd({nativeEvent}){
-        console.log('scrollMomentumEnd', scrolling)
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
         props.setParts(defaults.items[index]?.value)
+        console.log('scrollMomentumEnd', offset, offset / default_height)
 
         // console.log('scrollEnd', index)
 
         // set scroll
-        snapScroll(index)
+        // snapScroll(index)
+        if(scrolling)
+        snapInterval = setTimeout(() => {
+            snapScroll(index)
+        })
         // flatList.scrollToIndex({
         //     index,
         //     viewPosition: 0.5
@@ -124,7 +130,7 @@ function AppPicker(props){
 
 
     return (
-        <View style={[{ height: defaults.height, borderWidth:1, borderColor: props.ui.current_theme.color}]}>
+        <View style={[{ height: defaults.height, borderWidth:0, borderColor: props.ui.current_theme.color}]}>
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={12} height={12} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={12} height={12} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={12} height={12} />
@@ -141,6 +147,7 @@ function AppPicker(props){
                 ListFooterComponent={<PickerFooter/>}
                 ListHeaderComponent={<PickerHeader/>}
                 showsVerticalScrollIndicator={false}
+                keyExtractor={(item, index)=>`item-${index}`}
                 ref={f => setFlatList(f)}
             />
             {/* <AppText>Picker</AppText> */}
