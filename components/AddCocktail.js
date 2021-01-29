@@ -10,6 +10,7 @@ import _ from 'lodash'
 
 import AppText from './AppText'
 import AppButton from './AppButton'
+import AppPicker from './AppPicker'
 import { Part } from './Parts'
 import { AddedIngredientMap } from './AddedIngredients'
 import IngredientSlider from './IngredientSlider'
@@ -529,7 +530,7 @@ function AddIngredientModal(props){
 
                     <View style={{ flexDirection: 'row', marginTop: 10, marginBottom:props.marginBottom == 10 ? 10 : props.marginBottom - 160, borderBottomWidth: 1, borderBottomColor: props.ui.border_color }}>
                         <View style={{ flex: 2 }}>
-                            <RNPickerSelect
+                            {/* <RNPickerSelect
                                 key={props.newCocktailIngredientParts}
                                 placeholder={placeholder}
                                 useNativeAndroidPickerStyle={false}
@@ -539,6 +540,10 @@ function AddIngredientModal(props){
                                 items={props.ingredient_values}
                                 onOpen={onPickerOpen}
                                 onClose={onPickerClose}
+                            /> */}
+                            <AppPicker
+                                items={props.ingredient_values}
+                                setParts={props.setParts}
                             />
                         </View>
                         <View style={{ flex: 6 }}>
