@@ -25,27 +25,44 @@ function AppPicker(props){
     var snapInterval
     const scrollY = useRef(new Animated.Value(0)).current
     // console.log('defaults', defaults.items)
-    const interpolators = []
+    // const interpolators = []
+    const [interpolators, setInterpolators] = useState([])
 
     const [scrollHandler, setScrollHandler] = useState(null)
 
     useEffect(()=>{
         // console.log('defaults.items.length', defaults.items.length)
-        for(var item in defaults.items){
+        for(var index in defaults.items){
+            let interpolator = getScrollInterpolator(index)
             // console.log('here we go adding stuff')
-            interpolators.push(new Animated.Value(1))
+            setInterpolators([...interpolators, scrollY.interpolate({
+                ...interpolator,
+                extrapolate: 'clamp'
+            })])
+            // setInterpolators([...interpolators, new Animated.Value(0)])
+            // interpolators.push(new Animated.Value(1))
         }
         setAnimatedScrollHandler()
     }, [])
 
+    function getScrollInterpolator(index){
+        const range = [3,2,1, 0, -1]
+        const inputRange = range.map(r=>{
+            return (index - r) * defaults.height
+        })
+        const outputRange = [0,1,0,1,0]
+
+        return {inputRange, outputRange}
+    }
+
     function getAnimatedStyle(animatedValue){
         if(!animatedValue) return
-        console.log('getting animated style')
+        console.log('getting animated style', animatedValue)
         return {
             transform: [{
                 scale: animatedValue.interpolate({
                     inputRange: [0,1],
-                    outputRange: [0,1]
+                    outputRange: [0.7,1]
                 })
             }]
         }
@@ -56,6 +73,7 @@ function AppPicker(props){
         // console.log('rendering', item.label)
 
         const animatedStyle = getAnimatedStyle(interpolators[index])
+        // console.log(animatedStyle, interpolators)
 
         return (
             <Animated.View style={[{height: default_height, borderWidth:0, justifyContent: 'center'}, animatedStyle]} key={item.value}>
@@ -85,6 +103,7 @@ function AppPicker(props){
     }
 
     function onScroll({nativeEvent}){
+        // console.log('onscroll')
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
         props.setParts(defaults.items[index]?.value)
@@ -177,8 +196,8 @@ function AppPicker(props){
                     nativeEvent: { contentOffset: { y: scrollY } }
                 }],{
                     listener: onScroll,
-                    // useNativeDriver: true
-                    useNativeDriver: false
+                    useNativeDriver: true
+                    // useNativeDriver: false
                 })}
                 onMomentumScrollBegin={onMomentumScrollBegin}
                 onMomentumScrollEnd={onScrollMomentumEnd}
