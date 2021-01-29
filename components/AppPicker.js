@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(AppPicker)
 // export default 
 function AppPicker(props){
-    // const [flatList, setFlatList] = useState()
+    const [flatList, setFlatList] = useState()
     const defaults = {
         height: props.height ? props.height : 45,
         width: props.width ? props.width : 100,
@@ -36,10 +36,11 @@ function AppPicker(props){
 
     function onScroll({nativeEvent}){
         // console.log('evt', Object.keys(event))
-        console.log('contentOffset.y', nativeEvent.contentOffset.y)
+        // console.log('contentOffset.y', nativeEvent.contentOffset.y)
         var offset = nativeEvent.contentOffset.y
-        var index = Math.floor(offset / 15)
-        console.log('selected', defaults.items[index]?.label)
+        var index = getIndex(offset)
+        // var index = Math.floor(offset / 15)
+        // console.log('selected', defaults.items[index]?.label)
         props.setParts(defaults.items[index]?.value)
         // console.log('contentSize', nativeEvent.contentSize.height)
         // console.log('zoomScale', nativeEvent.zoomScale)
@@ -49,8 +50,25 @@ function AppPicker(props){
 
     function onScrollEnd({nativeEvent}){
         var offset = nativeEvent.contentOffset.y
-        var index = Math.floor(offset / 15)
+        var index = getIndex(offset)
         props.setParts(defaults.items[index]?.value)
+
+        console.log('scrollEnd', index)
+
+        // set scroll
+        flatList.scrollToIndex({
+            index,
+            viewPosition: 0.5
+        })
+    }
+
+    function getIndex(offset){
+        var index = Math.round(offset / 15)
+        if(index < 0){
+            return 0
+        } else {
+            return index
+        }
     }
 
 
@@ -62,10 +80,12 @@ function AppPicker(props){
                 renderItem={renderItem}
                 initialNumToRender={defaults.numToRender}
                 onScroll={onScroll}
-                onScrollEndDrag={onScrollEnd}
+                onMomentumScrollEnd={onScrollEnd}
+                // onScrollEndDrag={onScrollEnd}
                 ListFooterComponent={<PickerFooter/>}
                 ListHeaderComponent={<PickerFooter/>}
-                // ref={f => setFlatList(f)}
+                showsVerticalScrollIndicator={false}
+                ref={f => setFlatList(f)}
             />
             {/* <AppText>Picker</AppText> */}
             {/* {defaults.items.map(item=>{
