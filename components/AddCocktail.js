@@ -416,11 +416,13 @@ function Add(props){
         }
     })
 
-    function keyboardDidShow(){
-        setMarginBottom(170)
+    function keyboardDidShow(e){
+        // console.log('keyboard did show', e)
+        setMarginBottom(e.endCoordinates.height)
+        // setMarginBottom(390)
     }
     function keyboardDidHide(){
-        setMarginBottom(10)
+        setMarginBottom(60)
     }
     function onSwipeLeft(state){
         if(!pickerOpen)
@@ -520,8 +522,8 @@ function AddIngredientModal(props){
             props.setPickerOpen(false)
         }
         return (
-            <View style={[styles.new_ingredient, props.ui.current_theme]}>                   
-                <View style={{marginBottom: props.marginBottom,borderWidth:1, borderColor: props.ui.border_color, flexDirection: 'row'}}>
+            <View style={[styles.new_ingredient, { marginBottom: props.marginBottom }, props.ui.current_theme]}>                   
+                <View style={{marginBottom: 10,borderWidth:1, borderColor: props.ui.border_color, flexDirection: 'row'}}>
                     <View style={{flex: 2}}>
                         <AppPicker
                             items={props.ingredient_values}
@@ -548,6 +550,7 @@ function AddIngredientModal(props){
                                 placeholderTextColor={"#aaa"}
                                 autoCapitalize={"words"}
                                 maxLength={100}
+                                onSubmitEditing={() => props.addIngredientToCocktail()}
                             />
                         </View>
                     </View>
@@ -581,7 +584,7 @@ function AddIngredientModal(props){
                         </View>
                     </View> */}
 
-                <View style={{ marginBottom: props.marginBottom}}>
+                <View style={{ marginBottom: 10}}>
                     <AppButton disabled={!props.editIngredientId && props.addedCocktailIngredients.length >= 8} press={props.addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
                         {props.editIngredientId ? "Save Ingredient" : "Add Ingredient"}
                     </AppButton>
@@ -703,7 +706,9 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         flexWrap: 'nowrap',
-        height: windowHeight - 180
+        marginTop: 10,
+        flex: 1
+        // height: windowHeight - 180
     },
     save_cocktail: {
         paddingLeft: 10,
