@@ -29,9 +29,12 @@ function AppPicker(props){
 
     function renderItem({item}){
         // console.log('rendering', item.label)
+        var split = item.label.split(' ')
         return (
-            <View style={{height: default_height, borderWidth:0, justifyContent: 'center'}} key={item.value}>
-                <AppText style={{textAlign: 'center'}}>{item.label}</AppText>
+            <View style={{height: default_height, borderWidth:0, justifyContent: 'center', flexDirection:'row', alignItems: 'center'}} key={item.value}>
+                <AppText style={{textAlign: 'center'}}>{split[0]}</AppText>
+                {split[1] ? <AppText style={{textAlign: 'center', marginLeft: 4, fontSize: 12}}>{split[1]}</AppText> : null}
+                {/* <AppText style={{textAlign: 'center'}}>{item.label}</AppText> */}
             </View>
         )
     }
