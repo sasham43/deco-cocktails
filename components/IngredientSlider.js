@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 // import AppText from './AppText'
-import { Part } from './Parts'
+import { Part, OpacityPart } from './Parts'
 import CornerIcon from '../assets/corner'
 
 import { changeCocktailSlider } from '../utils/CocktailActions'
@@ -80,7 +80,7 @@ function IngredientSlider(props){
         <View>
             <View
                 // {...panResponder.panHandlers}
-                style={{ height: 30, borderColor: 'grey', borderWidth: 0, padding: 10, marginTop:0 }}
+                style={{ height: 26, borderColor: 'grey', borderWidth: 0, padding: 8, marginTop:0 }}
             >
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={12} height={12} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={12} height={12} />
@@ -103,8 +103,8 @@ function SliderDisplay(props) {
     if(!props.ingredient) return null
 
     return (
-        <View style={{padding: 0, paddingLeft: 15}}>
-            <Part style={{color:'blue'}} parts={props.ingredient.value} last={true} />
+        <View style={{padding: 0, paddingLeft: 0, flex: 1}}>
+            <OpacityPart style={{ color: 'blue' }} parts={9.75} max={props.ingredient.value} last={true} style={{justifyContent: 'space-evenly', flexDirection: 'row'}} />
         </View>
     )
 }
