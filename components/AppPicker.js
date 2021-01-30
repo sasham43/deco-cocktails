@@ -23,7 +23,8 @@ function AppPicker(props){
         numToRender: props.numToRender ? props.numToRender : 4
     }
     const [scrolling, setScrolling] = useState(false)
-    var snapInterval
+    const [snapID, setSnapID] = useState(null)
+    // var snapInterval
     // console.log('defaults', defaults.items)
 
     function renderItem({item}){
@@ -53,6 +54,7 @@ function AppPicker(props){
     }
 
     function snapScroll(index){
+        console.log('snapping', index)
         // set scroll
         flatList.scrollToIndex({
             index,
@@ -70,9 +72,13 @@ function AppPicker(props){
         var index = getIndex(offset)
         props.setParts(defaults.items[index]?.value)
 
-        snapInterval = setTimeout(()=>{
+        // snapInterval = setTimeout(()=>{
+        //     snapScroll(index)
+        // },100)
+        setSnapID(setTimeout(()=>{
             snapScroll(index)
-        },100)
+        },100))
+        console.log('snapInterval', snapID)
 
         // // set scroll
         // flatList.scrollToIndex({
@@ -83,9 +89,10 @@ function AppPicker(props){
     }
 
     function onMomentumScrollBegin({nativeEvent}){
-        console.log('momentumScrollBegin')
+        console.log('momentumScrollBegin', snapID)
         setScrolling(true)
-        clearInterval(snapInterval)
+        clearTimeout(snapID)
+        // clearTimeout(snapInterval)
     }
 
     function onScrollMomentumEnd({nativeEvent}){
@@ -99,9 +106,12 @@ function AppPicker(props){
         // set scroll
         // snapScroll(index)
         if(scrolling)
-        snapInterval = setTimeout(() => {
+        setSnapID(setTimeout(() => {
             snapScroll(index)
-        })
+        }))
+        // snapInterval = setTimeout(() => {
+        //     snapScroll(index)
+        // })
         // flatList.scrollToIndex({
         //     index,
         //     viewPosition: 0.5
