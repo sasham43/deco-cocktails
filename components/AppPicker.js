@@ -39,12 +39,6 @@ function AppPicker(props){
         )
     }
 
-    // useEffect(()=>{
-    //     if(flatList){
-    //         // console.log('fl', flatList.getScrollResponder())
-    //     }
-    // }, [flatList])
-
     function onScroll({nativeEvent}){
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
@@ -52,74 +46,44 @@ function AppPicker(props){
     }
 
     function onScrollBeginDrag({nativeEvent}){
-        console.log('onScrollBeginDrag')
+        // console.log('onScrollBeginDrag')
         // setScrolling(true)
     }
 
     function snapScroll(index){
-        console.log('snapping', index)
         // set scroll
         flatList.scrollToIndex({
             index,
             viewPosition: 0.5
         })
-        // clearInterval(snapInterval)
         setScrolling(false)
     }
 
     function onScrollDragEnd({nativeEvent}){
-        console.log('scrollDragEnd', scrolling)
-        // if(scrolling) return
-
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
         props.setParts(defaults.items[index]?.value)
 
-        // snapInterval = setTimeout(()=>{
-        //     snapScroll(index)
-        // },100)
         setSnapID(setTimeout(()=>{
             snapScroll(index)
         },100))
-        console.log('snapInterval', snapID)
-
-        // // set scroll
-        // flatList.scrollToIndex({
-        //     index,
-        //     viewPosition: 0.5
-        // })
-        // setScrolling(false)
     }
 
     function onMomentumScrollBegin({nativeEvent}){
-        console.log('momentumScrollBegin', snapID)
         setScrolling(true)
         clearTimeout(snapID)
-        // clearTimeout(snapInterval)
     }
 
     function onScrollMomentumEnd({nativeEvent}){
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
         props.setParts(defaults.items[index]?.value)
-        console.log('scrollMomentumEnd', offset, offset / default_height)
-
-        // console.log('scrollEnd', index)
 
         // set scroll
-        // snapScroll(index)
         if(scrolling)
         setSnapID(setTimeout(() => {
             snapScroll(index)
         }))
-        // snapInterval = setTimeout(() => {
-        //     snapScroll(index)
-        // })
-        // flatList.scrollToIndex({
-        //     index,
-        //     viewPosition: 0.5
-        // })
-        // setScrolling(false)
     }
 
     function getIndex(offset){
