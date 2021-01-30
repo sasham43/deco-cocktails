@@ -520,8 +520,39 @@ function AddIngredientModal(props){
             props.setPickerOpen(false)
         }
         return (
-            <KeyboardAvoidingView behavior={"padding"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
-                    <IngredientSlider
+            <View style={[styles.new_ingredient, props.ui.current_theme]}>                   
+                <View style={{marginBottom: props.marginBottom,borderWidth:1, borderColor: props.ui.border_color, flexDirection: 'row'}}>
+                    <View style={{flex: 2}}>
+                        <AppPicker
+                            items={props.ingredient_values}
+                            setParts={props.setParts}
+                        />
+                    </View>
+                    <View style={{flex: 6, flexDirection: 'column', justifyContent: 'center'}}>
+                        <View style={{flex:1}}>
+                            <IngredientSlider
+                                parts={props.newCocktailIngredientParts}
+                                ingredient_values={props.ingredient_values}
+                                setParts={props.setParts}
+                                ui={props.ui}
+                            />
+                        </View>
+                        <View style={{flex:1}}>
+                            <TextInput
+                                key={`newCocktailIngredientName`}
+                                clearButtonMode={"always"}
+                                value={props.newCocktailIngredientName}
+                                onChangeText={text => props.setName(text)}
+                                style={[styles.input, { marginBottom: 0, borderBottomWidth: 0, paddingTop: 12 }, props.ui.current_theme]}
+                                placeholder="Ingredient..."
+                                placeholderTextColor={"#aaa"}
+                                autoCapitalize={"words"}
+                                maxLength={100}
+                            />
+                        </View>
+                    </View>
+                </View>
+                    {/* <IngredientSlider
                         parts={props.newCocktailIngredientParts}
                         ingredient_values={props.ingredient_values} 
                         setParts={props.setParts}
@@ -530,17 +561,6 @@ function AddIngredientModal(props){
 
                     <View style={{ flexDirection: 'row', marginTop: 10, marginBottom:props.marginBottom == 10 ? 10 : props.marginBottom - 160, borderBottomWidth: 1, borderBottomColor: props.ui.border_color }}>
                         <View style={{ flex: 2 }}>
-                            {/* <RNPickerSelect
-                                key={props.newCocktailIngredientParts}
-                                placeholder={placeholder}
-                                useNativeAndroidPickerStyle={false}
-                                style={{ inputIOS: { ...styles.inputIOS, color: props.ui.current_theme.color, borderColor: props.ui.border_color } }}
-                                value={props.newCocktailIngredientParts}
-                                onValueChange={(val) => props.setParts(val)}
-                                items={props.ingredient_values}
-                                onOpen={onPickerOpen}
-                                onClose={onPickerClose}
-                            /> */}
                             <AppPicker
                                 items={props.ingredient_values}
                                 setParts={props.setParts}
@@ -559,21 +579,20 @@ function AddIngredientModal(props){
                                 maxLength={100}
                             />
                         </View>
-                    </View>
+                    </View> */}
 
-                    <View style={{ marginBottom: props.marginBottom}}>
-                        <AppButton disabled={!props.editIngredientId && props.addedCocktailIngredients.length >= 8} press={props.addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
-                            {props.editIngredientId ? "Save Ingredient" : "Add Ingredient"}
+                <View style={{ marginBottom: props.marginBottom}}>
+                    <AppButton disabled={!props.editIngredientId && props.addedCocktailIngredients.length >= 8} press={props.addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
+                        {props.editIngredientId ? "Save Ingredient" : "Add Ingredient"}
+                    </AppButton>
+                    {props.editIngredientId ?
+                        <AppButton press={props.removeIngredientFromCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
+                            Remove Ingredient
                         </AppButton>
-                        {props.editIngredientId ?
-                            <AppButton press={props.removeIngredientFromCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
-                                Remove Ingredient
-                            </AppButton>
-                            : null
-                        }
-                    </View>
-
-                </KeyboardAvoidingView>
+                        : null
+                    }
+                </View>
+            </View>
         )
     } else {
         return null

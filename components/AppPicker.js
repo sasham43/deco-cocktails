@@ -63,7 +63,7 @@ function AppPicker(props){
     }
 
     function onScrollDragEnd({nativeEvent}){
-        // console.log('scrollDragEnd', scrolling)
+        console.log('scrollDragEnd', scrolling)
         // if(scrolling) return
 
         var offset = nativeEvent.contentOffset.y
@@ -72,7 +72,7 @@ function AppPicker(props){
 
         snapInterval = setTimeout(()=>{
             snapScroll(index)
-        })
+        },100)
 
         // // set scroll
         // flatList.scrollToIndex({
@@ -113,6 +113,8 @@ function AppPicker(props){
         var index = Math.round(offset / default_height)
         if(index < 0){
             return 0
+        } else if (index > (props.items.length - 1)){
+            return props.items.length - 1
         } else {
             return index
         }
@@ -121,7 +123,7 @@ function AppPicker(props){
 
 
     return (
-        <View style={[{ height: defaults.height, borderLeftWidth:1, borderRightWidth:1, borderColor: props.ui.border_color}]}>
+        <View style={[{ height: defaults.height, borderLeftWidth:0, borderRightWidth:1, borderColor: props.ui.border_color}]}>
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={12} height={12} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={12} height={12} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={12} height={12} />

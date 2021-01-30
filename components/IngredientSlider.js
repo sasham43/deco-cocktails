@@ -80,7 +80,7 @@ function IngredientSlider(props){
         <View>
             <View
                 // {...panResponder.panHandlers}
-                style={{ height: 30, borderColor: 'grey', borderWidth: 0, padding: 10, marginTop:-15 }}
+                style={{ height: 30, borderColor: 'grey', borderWidth: 0, padding: 10, marginTop:0 }}
             >
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={12} height={12} />
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={12} height={12} />
