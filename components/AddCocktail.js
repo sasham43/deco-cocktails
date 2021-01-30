@@ -231,6 +231,10 @@ function Add(props){
 
     const ingredient_values = [
         {
+            label: '',
+            value: 0
+        },  
+        {
             label: 'dash',
             value: 'dash'
         },
@@ -545,7 +549,7 @@ function AddIngredientModal(props){
                                 clearButtonMode={"always"}
                                 value={props.newCocktailIngredientName}
                                 onChangeText={text => props.setName(text)}
-                                style={[styles.input, { marginBottom: 0, borderBottomWidth: 0, paddingTop: 12 }, props.ui.current_theme]}
+                                style={[styles.input, { marginBottom: 2, borderBottomWidth: 0, paddingTop: 0, paddingBottom:0 }, props.ui.current_theme]}
                                 placeholder="Ingredient..."
                                 placeholderTextColor={"#aaa"}
                                 autoCapitalize={"words"}
@@ -555,34 +559,6 @@ function AddIngredientModal(props){
                         </View>
                     </View>
                 </View>
-                    {/* <IngredientSlider
-                        parts={props.newCocktailIngredientParts}
-                        ingredient_values={props.ingredient_values} 
-                        setParts={props.setParts}
-                        ui={props.ui}
-                    />
-
-                    <View style={{ flexDirection: 'row', marginTop: 10, marginBottom:props.marginBottom == 10 ? 10 : props.marginBottom - 160, borderBottomWidth: 1, borderBottomColor: props.ui.border_color }}>
-                        <View style={{ flex: 2 }}>
-                            <AppPicker
-                                items={props.ingredient_values}
-                                setParts={props.setParts}
-                            />
-                        </View>
-                        <View style={{ flex: 6 }}>
-                            <TextInput
-                                key={`newCocktailIngredientName`}
-                                clearButtonMode={"always"}
-                                value={props.newCocktailIngredientName}
-                                onChangeText={text => props.setName(text)}
-                                style={[styles.input, { marginBottom: 0, borderBottomWidth: 0, paddingTop:12 }, props.ui.current_theme]}
-                                placeholder="Ingredient..."
-                                placeholderTextColor={"#aaa"}
-                                autoCapitalize={"words"}
-                                maxLength={100}
-                            />
-                        </View>
-                    </View> */}
 
                 <View style={{ marginBottom: 10}}>
                     <AppButton disabled={!props.editIngredientId && props.addedCocktailIngredients.length >= 8} press={props.addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
