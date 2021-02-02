@@ -67,7 +67,7 @@ function AppPicker(props){
         var split = item.label.split(' ')
         return (
             <View style={{height: default_height, borderWidth:0, justifyContent: 'center', flexDirection:'row', alignItems: 'center'}} key={item.value}>
-                <AppText style={{textAlign: 'center'}}>{split[0]}</AppText>
+                <AppText style={{textAlign: 'center', color: split[0] == 'parts...' ? 'grey' : props.ui.current_theme.color}}>{split[0]}</AppText>
                 {split[1] ? <AppText style={{textAlign: 'center', marginLeft: 4, fontSize: 12}}>{split[1]}</AppText> : null}
                 {/* <AppText style={{textAlign: 'center'}}>{item.label}</AppText> */}
             </View>
