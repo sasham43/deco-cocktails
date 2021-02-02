@@ -105,6 +105,7 @@ function CocktailListMap(props) {
 
     useEffect(()=>{
         if(props.share == true){
+            console.log('setting margin bottom')
             setMarginBottom(10)
         }
     }, [])

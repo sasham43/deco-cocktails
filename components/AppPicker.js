@@ -34,11 +34,11 @@ function AppPicker(props){
         
         
         if (props.parts === 0) {
-            console.log('setting selected value to 0')
+            // console.log('setting selected value to 0')
             setSelectedValue(null)
         }
         
-        console.log('props.parts has changed:', props.parts, selectedValue, auto)
+        // console.log('props.parts has changed:', props.parts, selectedValue, auto)
         if(!auto && props.parts != selectedValue){
             for(var i in defaults.items){
                 if(defaults.items[i].value == props.parts){
@@ -46,7 +46,7 @@ function AppPicker(props){
                     // setAuto(true)
                     auto = true
                     setTimeout(()=>{
-                        console.log('auto snapping', auto, props.parts, index)
+                        // console.log('auto snapping', auto, props.parts, index)
                         snapScroll(index)
                     })
                 }
@@ -56,7 +56,7 @@ function AppPicker(props){
 
     useEffect(()=>{
         if(!selectedValue !== null){
-            console.log('selected value has changed:', selectedValue)
+            // console.log('selected value has changed:', selectedValue)
             props.setParts(selectedValue)
             // setSelectedValue(null)
         }
@@ -77,7 +77,7 @@ function AppPicker(props){
     function setParts(value){
         if(!auto){
             // props.setParts(value)
-            console.log('setting selected value', value, auto)
+            // console.log('setting selected value', value, auto)
             setSelectedValue(value)
         }
     }
@@ -96,7 +96,7 @@ function AppPicker(props){
 
     function snapScroll(index){
         if(!flatList) return 
-        console.log('snapping', auto, index)
+        // console.log('snapping', auto, index)
 
         setTimeout(()=>{
             // set scroll
@@ -107,7 +107,7 @@ function AppPicker(props){
             setScrolling(false)
             // setAuto(false)
             // auto = false
-            console.log('snapped', auto)
+            // console.log('snapped', auto)
         })
     }
 
