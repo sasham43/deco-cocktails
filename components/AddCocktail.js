@@ -231,7 +231,7 @@ function Add(props){
 
     const ingredient_values = [
         {
-            label: '',
+            label: 'parts...',
             value: 0
         },  
         {
@@ -532,6 +532,7 @@ function AddIngredientModal(props){
                         <AppPicker
                             items={props.ingredient_values}
                             setParts={props.setParts}
+                            parts={props.newCocktailIngredientParts}
                         />
                     </View>
                     <View style={{flex: 6, flexDirection: 'column', justifyContent: 'center'}}>

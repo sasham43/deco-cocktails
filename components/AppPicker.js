@@ -24,8 +24,43 @@ function AppPicker(props){
     }
     const [scrolling, setScrolling] = useState(false)
     const [snapID, setSnapID] = useState(null)
+    const [selectedValue, setSelectedValue] = useState(null)
+    // const [auto, setAuto] = useState(false)
     // var snapInterval
     // console.log('defaults', defaults.items)
+    var auto = false
+
+    useEffect(()=>{
+        
+        
+        if (props.parts === 0) {
+            console.log('setting selected value to 0')
+            setSelectedValue(null)
+        }
+        
+        console.log('props.parts has changed:', props.parts, selectedValue, auto)
+        if(!auto && props.parts != selectedValue){
+            for(var i in defaults.items){
+                if(defaults.items[i].value == props.parts){
+                    var index = i == 0 ? 0 : Number(i)// + 1
+                    // setAuto(true)
+                    auto = true
+                    setTimeout(()=>{
+                        console.log('auto snapping', auto, props.parts, index)
+                        snapScroll(index)
+                    })
+                }
+            }
+        }
+    }, [props.parts])
+
+    useEffect(()=>{
+        if(!selectedValue !== null){
+            console.log('selected value has changed:', selectedValue)
+            props.setParts(selectedValue)
+            // setSelectedValue(null)
+        }
+    }, [selectedValue])
 
     function renderItem({item}){
         // console.log('rendering', item.label)
@@ -39,10 +74,19 @@ function AppPicker(props){
         )
     }
 
+    function setParts(value){
+        if(!auto){
+            // props.setParts(value)
+            console.log('setting selected value', value, auto)
+            setSelectedValue(value)
+        }
+    }
+
     function onScroll({nativeEvent}){
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
-        props.setParts(defaults.items[index]?.value)
+        // props.setParts(defaults.items[index]?.value)
+        setParts(defaults.items[index]?.value)
     }
 
     function onScrollBeginDrag({nativeEvent}){
@@ -51,21 +95,33 @@ function AppPicker(props){
     }
 
     function snapScroll(index){
-        // set scroll
-        flatList.scrollToIndex({
-            index,
-            viewPosition: 0.5
+        if(!flatList) return 
+        console.log('snapping', auto, index)
+
+        setTimeout(()=>{
+            // set scroll
+            flatList.scrollToIndex({
+                index,
+                viewPosition: 0.5
+            })
+            setScrolling(false)
+            // setAuto(false)
+            // auto = false
+            console.log('snapped', auto)
         })
-        setScrolling(false)
     }
 
     function onScrollDragEnd({nativeEvent}){
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
-        props.setParts(defaults.items[index]?.value)
+        // props.setParts(defaults.items[index]?.value)
+        setParts(defaults.items[index]?.value)
 
         setSnapID(setTimeout(()=>{
             snapScroll(index)
+            if(!scrolling){
+                auto = false
+            }
         },100))
     }
 
@@ -77,12 +133,16 @@ function AppPicker(props){
     function onScrollMomentumEnd({nativeEvent}){
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
-        props.setParts(defaults.items[index]?.value)
+        // props.setParts(defaults.items[index]?.value)
+        setParts(defaults.items[index]?.value)
 
         // set scroll
         if(scrolling)
         setSnapID(setTimeout(() => {
             snapScroll(index)
+            if(!scrolling){
+                auto = false
+            }
         }))
     }
 
