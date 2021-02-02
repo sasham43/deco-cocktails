@@ -63,7 +63,7 @@ function Menu(props) {
             link: 'ViewCocktail'
         },
         {
-            name: 'About',
+            name: 'Style',
             link: 'About'
         },
     ]
