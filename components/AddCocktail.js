@@ -421,7 +421,7 @@ function Add(props){
     })
 
     function keyboardDidShow(e){
-        // console.log('keyboard did show', e)
+        console.log('keyboard did show', e.endCoordinates.height)
         setMarginBottom(e.endCoordinates.height)
         // setMarginBottom(390)
     }
@@ -439,6 +439,13 @@ function Add(props){
         if(!pickerOpen)
             props.navigation.navigate('Stock')
     }
+
+    useEffect(()=>{
+        // console.log('margin bottom is ', marginBottom)
+        if(marginBottom < 60){
+            setMarginBottom(60) // no idea why this is necessary but here you go
+        }
+    }, [marginBottom])
 
     function onCancel() {
         // props.navigation.navigate('CocktailList')
