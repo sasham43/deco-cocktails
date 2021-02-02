@@ -157,6 +157,10 @@ function AppPicker(props){
         }
     }
 
+    function onScrollToIndexFailed(e){
+        // console.log('scroll failed oh no', e, defaults.numToRender)
+    }
+
 
 
     return (
@@ -182,6 +186,7 @@ function AppPicker(props){
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item, index)=>`item-${index}`}
                 ref={f => setFlatList(f)}
+                onScrollToIndexFailed={onScrollToIndexFailed}
             />
         </View>
     )

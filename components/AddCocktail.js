@@ -540,6 +540,7 @@ function AddIngredientModal(props){
                             items={props.ingredient_values}
                             setParts={props.setParts}
                             parts={props.newCocktailIngredientParts}
+                            numToRender={props.ingredient_values.length}
                         />
                     </View>
                     <View style={{flex: 6, flexDirection: 'column', justifyContent: 'center'}}>
