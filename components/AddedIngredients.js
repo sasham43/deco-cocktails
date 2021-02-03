@@ -8,6 +8,9 @@ import { sortedIngredients } from '../utils/sort'
 
 
 function translateParts(parts) {
+    if(parts === null){
+        parts = ''
+    }
     var split = parts.toString().split('.')
     if (split[1]) {
         var fraction = ''
@@ -38,6 +41,7 @@ export function AddedIngredient(props) {
         fractions = '' // don't show a 0 for ingredients
     }
     const ingredient_height = typeof fractions == 'string' ? { height: 0 } : null
+    var split = fractions.split(' ')
 
     return (
         <TouchableOpacity 
@@ -54,10 +58,11 @@ export function AddedIngredient(props) {
             {props.compact ? <Compact fractions={fractions} parts={props.parts} in_stock={props.in_stock} theme={props.theme} ingredient_height={ingredient_height} ingredient_name={props.ingredient_name} name_style={props.name_style} /> : 
             <View>
                 <AppText style={[styles.ingredient_text, styles.ingredient_name, { color: props.in_stock ? props.theme.color : 'grey' }, props.name_style]}>{props.ingredient_name}</AppText>
-                {/* <View style={{flexDirection: 'row'}}> */}
-                    <AppText style={[styles.inset, styles.ingredient_text, props.name_style]}>{fractions}</AppText>
+                <View style={{flexDirection: 'row'}}>
+                    <AppText style={[styles.inset, styles.ingredient_text, props.name_style]}>{split[0]}</AppText>
+                    {split[1] ? <AppText style={[styles.inset, styles.ingredient_text, styles.fraction_text, props.name_style]}>{split[1]}</AppText> : null}
+                </View>
                     <Part style={[styles.inset, styles.added_parts, ingredient_height]} parts={props.parts} last={true} />
-                {/* </View> */}
             </View>
             }
         </TouchableOpacity>
@@ -65,11 +70,14 @@ export function AddedIngredient(props) {
 }
 function Compact(props){
     // console.log('font', props.name_style)
+    var split = props.fractions.split(' ')
     return (
         <View>
             <AppText style={[styles.ingredient_text, styles.ingredient_name, { color: props.in_stock ? props.theme.color : 'grey' }, props.name_style]}>{props.ingredient_name}</AppText>
             <View style={{ flexDirection: 'row' }}>
-                <AppText style={[styles.inset, styles.ingredient_text, props.name_style]}>{props.fractions}</AppText>
+                <AppText style={[styles.inset, styles.ingredient_text, props.name_style]}>{split[0]}</AppText>
+                {split[1] ? <AppText style={[styles.inset, styles.ingredient_text, {fontSize: props.name_style.fontSize-2}]}>{split[1]}</AppText> : null}
+                {/* <AppText style={[styles.inset, styles.ingredient_text, props.name_style]}>{props.fractions}</AppText> */}
                 <Part style={[styles.inset, styles.added_parts, props.ingredient_height]} parts={props.parts} last={true} />
             </View>
         </View>
@@ -119,6 +127,9 @@ const styles = StyleSheet.create({
     },
     ingredient_text: {
       fontSize: 17,
+    },
+    fraction_text:{
+        fontSize: 15
     },
     inset: {
         marginLeft: 7

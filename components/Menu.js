@@ -1,10 +1,16 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { View, StyleSheet, Pressable, Animated, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
+// import Carousel from 'react-native-snap-carousel'
 
-import AppText from './AppText'
-import InStockIcon from '../assets/in-stock'
-import HeaderIcon from './HeaderIcon'
+// import AppText from './AppText'
+import AppMenu from './AppMenu'
+// import InStockIcon from '../assets/in-stock'
+// import MenuSelectIcon from '../assets/menu-select'
+// import CornerIcon from '../assets/corner'
+// import HeaderIcon from './HeaderIcon'
+
+import * as navigation from '../utils/RootNavigation'
 
 const windowWidth = Dimensions.get('window').width
 
@@ -15,102 +21,96 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Menu)
 
 function Menu(props) {
-    const state = props.navigation.dangerouslyGetState()
-    const navigation = props.navigation
-    var currentPage
-    if(state.index == 0){
-        currentPage = 'CocktailList'
-        var leftAnim = useRef(new Animated.Value(1)).current;
-        var rightAnim = useRef(new Animated.Value(0)).current;
-    } else if (state.index == 2){
-        currentPage = 'Stock'
-        var leftAnim = useRef(new Animated.Value(0)).current;
-        var rightAnim = useRef(new Animated.Value(1)).current;
-    } else {
-        var leftAnim = useRef(new Animated.Value(1)).current;
-        var rightAnim = useRef(new Animated.Value(1)).current;
+    const [routeName, setRouteName] = useState('')
+    const [current, setCurrent] = useState(navigation.navigationRef.current)
+
+    const [currentPage, setCurrentPage] = useState(0)
+
+    useEffect(()=>{
+        // console.log('current', current)
+        if(props.isReady)
+            for(var i in menuItems){
+                if(menuItems[i].link == routeName){
+                    setCurrentPage(i)
+                }
+            }
+    }, [routeName])
+
+    useEffect(()=>{
+        setCurrent(navigation.navigationRef.current)
+        current?.addListener('state', navEvent)
+    }, [props.isReady])
+
+    function navEvent(data){
+        setRouteName(current?.getCurrentRoute().name)
     }
 
-    function handleFade(){
-        if (currentPage == 'CocktailList') {
-            fadeLeftIn()
-            fadeRightOut()
-        } else if (currentPage == 'Stock') {
-            fadeRightIn()
-            fadeLeftOut()
-        } else {
-            fadeLeftOut()
-            fadeRightOut()
-        }
+    const menuItems = [
+        {
+            name: 'Cocktails',
+            link: 'CocktailList'
+        },
+        {
+            name: 'Cabinet',
+            link: 'Stock'
+        },
+        {
+            name: 'Create',
+            link: 'AddCocktail'
+        },
+        {
+            name: 'View',
+            link: 'ViewCocktail'
+        },
+        {
+            name: 'Style',
+            link: 'About'
+        },
+    ]
+    function onSnap(carousel, index){
+        console.log('on snap', index)
+        navigation.navigate(menuItems[index].link, {id:null})
     }
-        
-    const fadeTime = 1000
-    const fadeLeftIn = () => {
-        Animated.timing(leftAnim, {
-            toValue: 1,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    const fadeRightIn = () => {
-        Animated.timing(rightAnim, {
-            toValue: 1,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    const fadeLeftOut = () => {
-        Animated.timing(leftAnim, {
-            toValue: 0,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    const fadeRightOut = () => {
-        Animated.timing(rightAnim, {
-            toValue: 0,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    handleFade()
+    
+    const icon_size = 15
 
     return (
-        <View style={[styles.menu, props.ui.current_theme]}>
-            <View style={styles.link_container}>
-                <Pressable style={styles.link} onPress={()=>navigation.navigate('CocktailList', {date: new Date().toString()})}>
-                    <AppText style={styles.link_text}>Cocktails</AppText>
-                    <HeaderIcon direction={'left'} anim={leftAnim} ui={props.ui} />
-                    {/* <Animated.View style={[{ paddingLeft: 10 }, { opacity: leftAnim }]}>
-                        <InStockIcon transform={[{ rotate: '135deg' }]} width={30} height={30} fill={props.ui.current_theme.color} />
-                    </Animated.View> */}
-                </Pressable>
-            </View>
-            <View style={styles.link_container}>
-                <Pressable style={styles.link} onPress={() => navigation.navigate('Stock', { date: new Date().toString() })}>
-                    <HeaderIcon direction={'right'} anim={rightAnim} ui={props.ui} />
-                    {/* <Animated.View style={[{ paddingRight: 10 }, { opacity: rightAnim }]}>
-                        <InStockIcon transform={[{ rotate: '-45deg' }]} width={30} height={30} fill={props.ui.current_theme.color} />
-                    </Animated.View> */}
-                    <AppText style={styles.link_text}>Cabinet</AppText>
-                </Pressable>
-            </View>
-        </View>
+            <AppMenu
+                style={styles.menu}
+                index={currentPage}
+                // index={state.index}
+                items={menuItems}
+                sliderWidth={props.ui.default_styles.window.width - 20}
+                itemWidth={100}
+                onSnap={onSnap}
+                icon_size={icon_size}
+                name={"Menu"}
+            />
     )
 }
 
+const icon_distance = -1
 const styles = StyleSheet.create({
     menu: {
         // flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignContent: 'flex-start',
-        paddingLeft: 50,
-        paddingRight: 50,
+        // paddingLeft: 50,
+        // paddingRight: 50,
+        paddingTop: 20,
+        // marginTop:10,
+        // paddingLeft: 10,
+        // marginLeft: 10,
+        // paddingTop: 10,
         height: 50,
-        position: 'absolute',
-        top: 0,
+        // height: 45,
+        // height: 100,
+        // position: 'absolute',
+        // top: 0,
+        left: 0,
         width: windowWidth,
+        borderColor: '#000', borderTopWidth: 0,
     },
     link_container: {
         paddingTop: 10,
@@ -128,5 +128,13 @@ const styles = StyleSheet.create({
     selected: {
         borderBottomWidth: 1,
         borderStyle: 'solid'
-    }
+    },
+    corner_icon: {
+        zIndex: 10,
+        position: 'absolute'
+    },
+    top_right: { top: icon_distance, right: icon_distance },
+    top_left: { top: icon_distance, left: icon_distance, transform: [{ rotate: '-90deg' }] },
+    bottom_right: { bottom: icon_distance, right: icon_distance, transform: [{ rotate: '90deg' }] },
+    bottom_left: { bottom: icon_distance, left: icon_distance, transform: [{ rotate: '180deg' }] }
 })

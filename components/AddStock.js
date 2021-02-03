@@ -83,7 +83,7 @@ function AddStock(props){
                 </View>
             </View>
             <View style={styles.add_container}>
-                <SaveButton editStockId={props.editStockId} press={addBottle} />
+                <SaveButton disabled={!newStockName} editStockId={props.editStockId} press={addBottle} />
             </View>
         </KeyboardAvoidingView>
     )
@@ -92,13 +92,13 @@ function AddStock(props){
 function SaveButton(props){
     if(props.editStockId){
         return (
-            <AppButton press={props.press}>
+            <AppButton disabled={props.disabled} press={props.press}>
                 Save Bottle To Cabinet
             </AppButton>
         )
     } else {
         return (
-            <AppButton press={props.press}>
+            <AppButton disabled={props.disabled} press={props.press}>
                 Add Bottle To Cabinet
             </AppButton>
         )

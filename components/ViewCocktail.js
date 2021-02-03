@@ -6,18 +6,22 @@ import { useNavigation, useIsFocused } from '@react-navigation/native'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import ViewShot from "react-native-view-shot"
 import SlidingUpPanel from 'rn-sliding-up-panel'
+import QRCode from 'react-native-qrcode-svg'
+import * as Linking from 'expo-linking'
 
 import AppText from './AppText'
-import { AddedIngredientMap } from './AddedIngredients'
+import AppMenu from './AppMenu'
+// import { AddedIngredientMap } from './AddedIngredients'
 import { deleteCocktail } from '../utils/CocktailActions'
 import AppButton from './AppButton'
-import {Directions} from './Directions'
-import HeaderIcon from './HeaderIcon'
-import CocktailListIndicator from './CocktailListIndicator'
+// import {Directions} from './Directions'
+// import HeaderIcon from './HeaderIcon'
+// import CocktailListIndicator from './CocktailListIndicator'
 import CornerIcon from '../assets/corner'
 import { useFunctionMenu } from '../utils/hooks'
 import FunctionButtonIcon from '../assets/function-button.svg'
 import TabIcon from '../assets/tab'
+import {CompactView, ShareAttribution} from './CompactView'
 
 const mapStateToProps = (state) => {
     const { cocktails, ui, stock } = state
@@ -36,7 +40,7 @@ function ViewCocktail(props){
     const navigation = useNavigation()
     const isFocused = useIsFocused()
     const [cocktail, setCocktail] = useState({})
-    const [contentMode, setContentMode] = useState('ingredients')
+    // const [contentMode, setContentMode] = useState('ingredients')
     const [sorted, setSorted] = useState([])
     const [currentIndex, setCurrentIndex] = useState(0)
     const [modalVisible, setModalVisible] = useState(false)
@@ -46,16 +50,21 @@ function ViewCocktail(props){
         currentMode,
         switchMode
     } = useFunctionMenu()
+    const [params, setParams] = useState(props.route.params ? props.route.params : {id:null})
+    const [shareIndex, setShareIndex] = useState(0)
 
     useEffect(()=>{
-        loadParams(props.route.params)
+        // console.log('view []')
+        loadParams(params)
     }, [])
     useEffect(()=>{
-        loadParams(props.route.params)
+        // console.log('view isFocused')
+        loadParams(params)
     }, [isFocused])
     useEffect(()=>{
-        loadParams(props.route.params)
-    }, [props.route.params.id])
+        // console.log('view params.id')
+        loadParams(params)
+    }, [params.id])
 
     useEffect(()=>{
         // console.log('ci', currentIndex)
@@ -65,13 +74,20 @@ function ViewCocktail(props){
     })
 
     function loadParams(params){
+        // console.log('loading params', params.id)
         if(params.id){
             var cocktail = props.cocktails.current.find(c=>c.id == params.id)
             setCocktail(cocktail)
 
             setSorted(props.cocktails.current.sort(sortCocktails))
-        }
+            // findCurrentIndex()
+        } else {
+            var cocktail = props.cocktails.current[0]
+            setCocktail(cocktail)
 
+            setSorted(props.cocktails.current.sort(sortCocktails))
+            // findCurrentIndex()
+        }
     }
     function findCurrentIndex(){
         for(var i in sorted){
@@ -102,34 +118,13 @@ function ViewCocktail(props){
         Alert.alert(title, msg, buttons)
     }
 
-    function changeContentMode(mode){
-        setContentMode(mode)
-    }
+    // function changeContentMode(mode){
+    //     setContentMode(mode)
+    // }
 
     function removeThisCocktail(){
         navigation.navigate('CocktailList')
         props.deleteCocktail(cocktail.id)
-    }
-    function findNextCocktail(id){
-        for (var i in sorted) {
-            var index = Number(i)
-            if (sorted[index].id == id) {
-                if (index == sorted.length - 1) return sorted[sorted.length - 1]
-                return sorted[index + 1]
-            }
-        }
-    }
-    function findPreviousCocktail(id){
-        // var sorted = props.cocktails.current.sort(sortCocktails)
-        for (var i in sorted) {
-            var index = Number(i)
-            // console.log('sorted item:', sorted[index])
-            if(sorted[index].id == id){
-                if(index == 0) return 0
-                // if(index == sorted.length-1) return sorted[sorted.length-1]
-                return sorted[index-1]
-            }
-        }
     }
     function sortCocktails(a, b) {
         if (a.name > b.name) {
@@ -140,69 +135,15 @@ function ViewCocktail(props){
             return 0
         }
     }
-
-    var leftAnim = useRef(new Animated.Value(1)).current;
-    var rightAnim = useRef(new Animated.Value(0)).current;
-
-    function handleFade() {
-        if (contentMode == 'ingredients') {
-            fadeLeftIn()
-            fadeRightOut()
-        } else if (contentMode == 'directions') {
-            fadeRightIn()
-            fadeLeftOut()
-        } else {
-            fadeLeftOut()
-            fadeRightOut()
-        }
-    }
-
-    const fadeTime = 1000
-    const fadeLeftIn = () => {
-        Animated.timing(leftAnim, {
-            toValue: 1,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    const fadeRightIn = () => {
-        Animated.timing(rightAnim, {
-            toValue: 1,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    const fadeLeftOut = () => {
-        Animated.timing(leftAnim, {
-            toValue: 0,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    const fadeRightOut = () => {
-        Animated.timing(rightAnim, {
-            toValue: 0,
-            duration: fadeTime,
-            useNativeDriver: true,
-        }).start()
-    }
-    handleFade()
-
     function onSwipeLeft(state) {
         // go forward
-        var nextCocktail = findNextCocktail(cocktail.id)
-        navigation.navigate('ViewCocktail', {
-            id: nextCocktail.id
-        })
+        navigation.navigate('About')
     }
     function onSwipeRight(state) {
         if(state.x0 < 150){
             return navigation.goBack()
         }
-        var previousCocktail = findPreviousCocktail(cocktail.id)
-        navigation.navigate('ViewCocktail', {
-            id: previousCocktail.id
-        })
+        navigation.navigate('AddCocktail')
     }
     function showShareModal(){
         setModalVisible(true)
@@ -230,33 +171,47 @@ function ViewCocktail(props){
         // console.log('toggle', showFunctionMenu)
     }
 
+    function onSnap(carousel, index){
+        var cocktail = sorted[index]
+        loadParams(cocktail)
+    }
+
+    const shareItems = [
+        {
+            name: 'Picture'
+        },
+        {
+            name: 'QR Code'
+        }
+    ]
+    function shareSnap(carousel, index){
+        setShareIndex(index)
+    }
+
+    // var small_screen = props.ui.default_styles.window.height < 700
+    // var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
+
     return (
         <GestureRecognizer 
             onSwipeLeft={()=>onSwipeLeft()}
             onSwipeRight={(state)=>onSwipeRight(state)}
-            style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 30}]}
+            style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 10}]}
         >
             <View style={styles.header}>
-                <CocktailListIndicator
-                    sorted={sorted}
-                    selected={currentIndex}
-                    theme={props.ui.current_theme}
+                <AppMenu 
+                    onSnap={onSnap}
+                    itemStyle={{width: 175, fontSize:16, textAlign: 'center', marginLeft:0, paddingTop:2, flexWrap: 'wrap'}}
+                    style={{height:52,  position: 'relative', flexDirection: 'row', paddingTop:20}}
+                    sliderWidth={props.ui.default_styles.window.width-50}
+                    itemWidth={175}
+                    index={currentIndex} 
+                    items={sorted} 
+                    icon_size={15}
+                    name={"View"}
                 />
-                <AppText style={styles.cocktail_title}>{cocktail.name}</AppText>
-                <View style={styles.header_buttons}>
-                    <Pressable onPress={()=>changeContentMode('ingredients')} style={[styles.category_title_container, {alignItems: 'center'}]}>
-                        <AppText style={styles.category_title}>Ingredients</AppText>
-                        <HeaderIcon style={{alignSelf: 'center'}} direction={'left'} ui={props.ui} anim={leftAnim} />
-                    </Pressable>
-                    <Pressable onPress={()=>changeContentMode('directions')} style={[styles.category_title_container, {alignItems: 'center'}]}>
-                        <HeaderIcon style={{ alignSelf: 'center' }} direction={'right'} ui={props.ui} anim={rightAnim} />
-                        <AppText style={styles.category_title}>Directions</AppText>
-                    </Pressable>
-                </View>
             </View>
-            <ScrollView>
-                <ScrollContent ui={props.ui} cocktail={cocktail} stock={props.stock} mode={contentMode} />
-                <View style={{ marginTop: 120, height: 20 }}></View>
+            <ScrollView style={{padding: 20}}>
+                <CompactView ui={props.ui} cocktail={cocktail} stock={props.stock.current} />
             </ScrollView>
             <FunctionMenu
                 showFunctionMenu={showFunctionMenu}
@@ -279,8 +234,22 @@ function ViewCocktail(props){
                 // transparent={true}
                 visible={modalVisible}
             >
-                <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15,  flex: 1 }}>
-                    <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} />
+                <View style={[{flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15,  flex: 1 }]}>
+                    <View>
+                        <AppMenu
+                            onSnap={shareSnap}
+                            itemStyle={{ width: 100, fontSize: 16, textAlign: 'center', marginLeft: 0, paddingTop: 2, flexWrap: 'wrap' }}
+                            itemWidth={100}
+                            style={{height:50, position: 'relative', flexDirection: 'row', paddingTop: 20, marginLeft: 20}}
+                            sliderWidth={props.ui.default_styles.window.width}
+                            items={shareItems}
+                            name={"Share"}
+                            icon_size={15}
+                            index={shareIndex}
+                        />
+                    </View>
+                    <ShareContainer index={shareIndex} setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} />
+                    {/* <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} /> */}
                     <View style={{ flexDirection: 'row'}}>
                         <View style={[styles.share_btn, { marginRight: 5, flex: 1 }]} >
                             <AppButton press={shareCocktail}>
@@ -296,6 +265,94 @@ function ViewCocktail(props){
                 </View>
             </Modal>
         </GestureRecognizer>
+    )
+}
+
+function ShareContainer(props){
+    console.log('share container', props.index)
+    if(props.index == 0){
+        return (
+            <ShareCocktail setShareUri={props.setShareUri} cocktail={props.cocktail} ui={props.ui} stock={props.stock} />
+        )
+    } else {
+        return (
+            <ShareQR setShareUri={props.setShareUri} cocktail={props.cocktail} ui={props.ui} />
+        )
+    }
+}
+
+function translateCocktail(cocktail){
+    var new_cocktail = {}
+    var include = [
+        'directions',
+        'name'
+    ]
+
+    for(var prop in cocktail){
+        if(prop == 'ingredients'){
+            for(var i in cocktail.ingredients){
+                new_cocktail[`${i}n`] = cocktail.ingredients[i].ingredient_name
+                new_cocktail[`${i}p`] = cocktail.ingredients[i].parts
+            }
+        } else if (include.includes(prop)) {
+            // new_cocktail[prop] = cocktail[prop]
+            switch(prop){
+                case 'name':
+                    new_cocktail['n'] = cocktail[prop]
+                    break;
+                case 'directions':
+                    new_cocktail['d'] = cocktail[prop]
+                    break;
+            }
+        } else {
+            console.log('not include?', prop, prop in include)
+        }
+    }
+
+    console.log('translated', new_cocktail)
+
+    return new_cocktail
+}
+
+function ShareQR(props){
+    function onCapture(uri){
+        props.setShareUri(uri)
+    }
+    var small_screen = Dimensions.get('window').height < 700
+    var fontSize = small_screen ? 14 : 16
+    // console.log('window', Dimensions.get('window').height, fontSize)
+    var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
+    const icon_size = 40
+
+    const link = Linking.makeUrl('', translateCocktail(props.cocktail))
+
+    return (
+        <ViewShot 
+            style = { [{ position: 'relative', backgroundColor: props.ui.current_theme.backgroundColor, margin: 10, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1, justifyContent: 'center', alignItems: 'center' }, modal_style]}
+            captureMode = "mount"
+            onCapture = { onCapture }
+        >
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+            <View style={[{ position: 'absolute', top: 25 }]}>
+                <AppText style={[styles.cocktail_title]}>{props.cocktail.name}</AppText>
+                <View style={{marginTop: 50, padding: 20}}>
+                    <AppText style={{ textAlign: 'center'}}>
+                        Scan this code to import {props.cocktail.name} into Crump Cocktails!
+                    </AppText>
+                </View>
+            </View>
+
+            <QRCode
+                value={link}
+                size={props.ui.default_styles.window.width - 200}
+            />
+            <View style={{position: 'absolute', bottom: 25, flex:1, flexDirection:'row', alignItems: 'center', left: (props.ui.default_styles.window.width / 2) - 40}} >
+                <ShareAttribution share={true} />
+            </View>
+        </ViewShot>
     )
 }
 
@@ -337,13 +394,13 @@ function FunctionMenu(props){
                 </View>
                 <View style={[ styles.button_container, props.ui.current_theme]}>
                     <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={props.editCocktail}>
-                        Change Cocktail
+                        Change
                     </AppButton>
                     <AppButton theme={props.ui.current_theme} border={props.ui.border_color} press={props.removeCocktail}>
-                        Remove Cocktail
+                        Remove
                     </AppButton>
                     <AppButton press={props.showShareModal}>
-                        Share Cocktail
+                        Share
                     </AppButton>
                 </View> 
             </View>
@@ -380,44 +437,23 @@ function ShareCocktail(props){
             <View>
                 <AppText style={styles.cocktail_title}>{props.cocktail.name}</AppText>
             </View>
-            <View style={{justifyContent: 'flex-start', flex: 1, paddingTop: 5}}>
-                <View>
-                    <View style={{justifyContent: 'center'}}>
-                        <AddedIngredientMap compact={true} name_style={{fontSize: fontSize}} theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={cocktail_stock} />
-                    </View>
-                </View>
-                <View>
-                    <Directions directions={props.cocktail.directions} style={{fontSize}} />
-                </View>
-                <View style={{ position: 'absolute', bottom: -15, flex: 1, justifyContent: 'center', flexDirection: 'row'}}>
-                    <View style={{flex: 1, alignItems: 'center'}}>
-                        <AppText style={{fontSize: 10, color: 'grey'}}>Crump Cocktails</AppText>
-                    </View>
-                </View>
-            </View>
+            <CompactView ui={props.ui} cocktail={props.cocktail} stock={cocktail_stock} share={true} />
         </ViewShot>
     )
 }
 
-function ScrollContent(props){
-    if(props.mode == 'ingredients'){
-        return (
-            <AddedIngredientMap theme={props.ui.current_theme} addedCocktailIngredients={props.cocktail.ingredients} stock={props.stock.current} />
-        )
-    } else {
-        // var test = 'Mix ingredients, stir, ice'
-        return (
-            <Directions directions={props.cocktail.directions} />
-        )
-    }
-}
+
 var icon_distance = 2
 const windowWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
+    header: {
+        marginTop: 20,
+        marginLeft: 10,
+    },
     header_buttons: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 10
+        marginTop: 10,
     },  
     cocktail_title: {
         // alignItems: 'center',
@@ -455,7 +491,7 @@ const styles = StyleSheet.create({
         // maxWidth: 400,
         // minHeight: 500,
         // minWidth: 350
-        height: 550,
+        height: 500,
         width: 350
     },
     large_share_modal: {

@@ -1,10 +1,10 @@
 import React from 'react'
-import { 
-    View, 
-    Text, 
-    StyleSheet, 
+import {
+    View,
+    Text,
+    StyleSheet,
     // Image, 
-    Dimensions 
+    Dimensions
 } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 import Image from 'react-native-scalable-image'
@@ -12,7 +12,16 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import AppText from './AppText'
+import AppButton from './AppButton'
+import FunctionButtonIcon from '../assets/function-button'
+import CornerIcon from '../assets/corner'
 import { setTutorialComplete } from '../utils/UIActions'
+
+const function_menu_button = require('../assets/screenshots/functionmenubutton.png')
+const about = require('../assets/screenshots/about.png')
+const add_cocktail = require('../assets/screenshots/addcocktail.png')
+const cabinet = require('../assets/screenshots/cabinet.png')
+
 
 const mapStateToProps = (state) => {
     const { cocktails, ui, stock } = state
@@ -20,75 +29,73 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        // deleteCocktail,
-        // selectCocktail,
-        // deleteCocktails,
-        // unselectAllCocktails,
-        // setShareMenuMax
         setTutorialComplete
     }, dispatch)
 )
 export default connect(mapStateToProps, mapDispatchToProps)(Intro)
 
-function renderIntro({ item }) {
+function renderIntro(props) {
+    // console.log('rendering', props.item)
+    
+    if(props.item.key == '0'){
+        return <Welcome ui={props.ui} />
+    }
+
     return (
-        <IntroSlide item={item} />
+        <IntroSlide item={props.item} />
     )
-    // if(item.key == 0){
-    //     return (
-    //         <Welcome item={item} />
-    //     )
-    // } else if (item.key == 1){
-    //     return (
-    //         <FunctionMenuButton item={item} />
-    //     )
-    // } else if(item.key == 2){
-    //     return (
-    //         <View>
-    //             <View>
-    //                 <Text>{item.title}</Text>
-    //             </View>
-    //             <View>
-    //                 <Text>{item.text}</Text>
-    //             </View>
-    //         </View>
-    //     )
-    // }
-
-
 }
 
-function doneButton() {
+function IntroButton(props){
+    const icon_size = 15
     return (
-        <View>
+        <View style={[styles.button, {borderColor: props.ui.current_theme.borderColor}]}>
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
+            <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
+            {/* <ButtonText pressed={pressed} theme={theme} style={disabled ? { color: 'grey' } : null}>{props.children}</ButtonText> */}
+            <AppText style={styles.button_text}>{props.children}</AppText>
+        </View>
+    )
+}
+
+function doneButton(props) {
+    // console.log('donebutton', props)
+    return (
+        <IntroButton ui={props.ui}>
             <AppText>Done</AppText>
-        </View>
+        </IntroButton>
     )
 }
-function skipButton() {
+function skipButton(props) {
+    // console.log('skipbutton', props)
     return (
-        <View>
+        <IntroButton ui={props.ui}>
             <AppText>Skip</AppText>
-        </View>
+        </IntroButton>
     )
 }
 
 // export default 
-function Intro(props){
+function Intro(props) {
+    // console.log('intro', props.ui)
+
 
     function onIntroDone() {
         // console.log('finished intro')
         props.setTutorialComplete(true)
     }
-/*
-  Intro
-  1. Welcome
-  2. Function Menu Button
-    2.5 Function Menu example ?
-  3. Add custom cocktails
-  4. Manage cabinet
-  5. About screen
-*/
+    /*
+      Intro
+      1. Welcome
+      2. Function Menu Button
+        2.5 Function Menu example ?
+      3. Add custom cocktails
+      4. Manage cabinet
+      5. About screen
+    */
+   
     const intro = [
         {
             key: "0",
@@ -101,7 +108,7 @@ function Intro(props){
             key: "1",
             title: 'Make your own cocktails',
             text: '',
-            image: require('../assets/screenshots/functionmenubutton.png'),
+            image: function_menu_button,
             backgroundColor: '#fff'
         },
         {
@@ -109,7 +116,7 @@ function Intro(props){
             title: 'Press Title',
             text: '',
             // image: '',
-            image: require('../assets/screenshots/about.png'),
+            image: about,
             backgroundColor: '#fff'
         },
         {
@@ -117,7 +124,7 @@ function Intro(props){
             title: 'Add custom cocktails!',
             text: '',
             // image: '',
-            image: require('../assets/screenshots/addcocktail.png'),
+            image: add_cocktail,
             backgroundColor: '#fff'
         },
         {
@@ -125,58 +132,64 @@ function Intro(props){
             title: 'Manage bar cabinet!',
             text: '',
             // image: '',
-            image: require('../assets/screenshots/cabinet.png'),
+            image: cabinet,
             backgroundColor: '#fff'
         },
     ]
     return (
         <AppIntroSlider
-            renderItem={renderIntro}
+            renderItem={(data)=>renderIntro({...data, ui: props.ui})}
+            // renderItem={renderIntro}
             data={intro}
             onDone={onIntroDone}
-            activeDotStyle={{ backgroundColor: '#000' }}
+            activeDotStyle={{ backgroundColor: props.ui.current_theme.color }}
             showSkipButton={true}
-            renderDoneButton={doneButton}
-            renderSkipButton={skipButton}
+            showNextButton={false}
+            showPrevButton={false}
+            renderDoneButton={(data)=>doneButton({...data, ui: props.ui})}
+            renderSkipButton={(data)=>skipButton({...data, ui: props.ui})}
         />
     )
 }
 
 
 
-function Welcome(){
+function Welcome(props) {
     return (
         <View style={styles.container}>
-            <View>
-                <AppText>
+            <View style={{alignItems: 'center', paddingTop: 200}}>
+                <AppText style={{fontSize: 30}}>
                     Welcome To Hotel Crump!
                 </AppText>
             </View>
-            <View>
-                <AppText>
-                    Home of the world famous Crump Cocktails!
+            <View style={{ alignItems: 'center', paddingTop: 50, paddingLeft: 15, paddingRight: 15}}>
+                <AppText style={{ fontSize: 20, textAlign: 'center' }}>
+                    Home of the world-famous Crump Cocktails!
                 </AppText>
+            </View>
+            <View style={{marginTop: 20}}>
+                <FunctionButtonIcon fill={props.ui.current_theme.color} width={200} height={175} />
             </View>
         </View>
     )
 }
 
-function IntroSlide({item}){
-    console.log('item.image', item.image)
-    if(item.image){
+function IntroSlide({ item }) {
+    // console.log('item.image', item.image)
+    if (item.image) {
         return (
             <View style={styles.container}>
                 <View style={[styles.image_container]}>
-                    <Image 
-                        height={windowHeight-150}
-                        resizeMode={'contain'} 
+                    <Image
+                        height={windowHeight - 150}
+                        resizeMode={'contain'}
                         // background={true}
-                        source={item.image} 
+                        source={item.image}
                     />
                 </View>
             </View>
         )
-    } 
+    }
 
     return (
         <View>
@@ -200,6 +213,7 @@ const windowWidth = Dimensions.get('window').width
 
 // console.log('windowHeight', windowHeight)
 // console.log('windowWidth', windowWidth)
+const icon_distance = -1
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
@@ -238,7 +252,7 @@ const styles = StyleSheet.create({
         // bottom: windowHeight,
         // top: windowHeight - (windowHeight / 2),
         // top: windowHeight - (375),
-        left: (windowWidth / 2)-150,
+        left: (windowWidth / 2) - 150,
         // left: 50,
         backgroundColor: '#fff',
         borderColor: '#000',
@@ -254,7 +268,7 @@ const styles = StyleSheet.create({
         overflow: "visible",
         width: 30,
         height: 25,
-        transform: [{scale: 2}]
+        transform: [{ scale: 2 }]
     },
     curvedTailArrowTriangle: {
         backgroundColor: "transparent",
@@ -290,4 +304,23 @@ const styles = StyleSheet.create({
         height: 20,
         transform: [{ rotate: "45deg" }],
     },
+    button_text: {
+        fontSize: 23,
+        textAlign: 'center'
+    },
+    button: {
+        marginTop: 5,
+        marginBottom: 5,
+        borderWidth: 1,
+        padding: 8,
+        alignItems: 'center'
+    },
+    corner_icon: {
+        zIndex: 10,
+        position: 'absolute'
+    },
+    top_right: { top: icon_distance, right: icon_distance },
+    top_left: { top: icon_distance, left: icon_distance, transform: [{ rotate: '-90deg' }] },
+    bottom_right: { bottom: icon_distance, right: icon_distance, transform: [{ rotate: '90deg' }] },
+    bottom_left: { bottom: icon_distance, left: icon_distance, transform: [{ rotate: '180deg' }] }
 })

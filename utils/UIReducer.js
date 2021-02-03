@@ -53,12 +53,12 @@ const INITIAL_STATE = {
             height: windowHeight
         },
         viewStyles: {
-            paddingTop: 10,
+            // paddingTop: 10,
             paddingLeft: 10,
             paddingRight: 40,
             // height: viewHeight,
             flex: 1,
-            marginTop: 50, // account for menu
+            // marginTop: 50, // account for menu
         },
         footerStyles: {
             width: windowWidth - 40,

@@ -1,11 +1,13 @@
-import React from 'react'
-import { StyleSheet, StatusBar, View, Dimensions } from 'react-native'
-// import { NativeRouter, Route, Link } from "react-router-native"
+import React, { useState, useEffect } from 'react'
+import {
+    StyleSheet, 
+    StatusBar, 
+    View,
+    Modal,
+    Dimensions
+} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator,TransitionSpecs } from '@react-navigation/stack'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-// import { Provider } from 'react-redux'
-import { createStore, combineReducers} from 'redux'
 import { connect} from 'react-redux'
 
 
@@ -15,6 +17,8 @@ import CurvedArrow from './Arrow'
 // import stockReducer from '../utils/StockReducer'
 // import cocktailReducer from '../utils/CocktailReducer'
 // import uiReducer from '../utils/UIReducer'
+import * as Linking from 'expo-linking'
+import * as SplashScreen from 'expo-splash-screen'
 
 import Title from './Title'
 import CocktailList from './CocktailList'
@@ -25,12 +29,15 @@ import Menu from './Menu'
 import Add from './AddCocktail'
 import AddStock from './AddStock'
 import ViewCocktail from './ViewCocktail'
-import { navigationRef } from '../utils/RootNavigation'
+import { navigationRef, isReadyRef } from '../utils/RootNavigation'
 import Intro from './Intro'
+import ImportCocktail from './ImportCocktail'
+
 
 import CornerIcon from '../assets/corner.svg'
 
-const Tab = createBottomTabNavigator()
+// const Tab = createBottomTabNavigator()
+const Stack = createStackNavigator()
 
 const mapStateToProps = (state) => {
     const {  ui } = state
@@ -38,9 +45,40 @@ const mapStateToProps = (state) => {
 }
 export default connect(mapStateToProps)(Main)
 
+
+
 function Main(props){
+    const [importModalVisible, setImportModalVisible] = useState(false) // handle links into app
+    const [importCocktail, setImportCocktail] = useState({})
+    Linking.addEventListener('url', handleUrl)
+
+    useEffect(() => {
+        fetchUrl()
+    }, [])
+
+    // can't stick async function in useEffect
+    async function fetchUrl(){
+        const url = await Linking.getInitialURL()
+        console.log('url', url)
+        if (url && url.url) {
+            handleUrl(url)
+        } else if (url.includes('?')){
+            handleUrl({url})
+        }
+    }
+
+    function handleUrl(data) {
+        let { path, queryParams } = Linking.parse(data.url)
+        console.log('opening from url', path, queryParams)
+        setImportCocktail(queryParams)
+        setImportModalVisible(true)
+        SplashScreen.hideAsync()
+    }
+    function hideImportModal() {
+        setImportModalVisible(false)
+    }
         var screen_options = {
-            headerShown: true, 
+            headerShown: false, 
             transitionSpec: {
                 open: TransitionSpecs.TransitionIOSSpec,
                 close: TransitionSpecs.TransitionIOSSpec,
@@ -57,7 +95,7 @@ function Main(props){
                 }
             },
             tabBarVisible: false,
-            unmountOnBlur: true
+            unmountOnBlur: true,
         }
 
 
@@ -66,7 +104,7 @@ function Main(props){
         return (
             <View style={{
                 position: 'absolute',
-                top: 90,
+                bottom: 100,
                 // bottom: windowHeight,
                 // top: windowHeight - (windowHeight / 2),
                 // top: windowHeight - (375),
@@ -84,46 +122,68 @@ function Main(props){
             }}>
                 <View>
                     <AppText>
-                        Press and hold on the title to switch to dark mode or change the title!
+                        Press this icon to search, share, edit, and more!
                     </AppText>
+                    {/* <AppText>
+                        Press and hold on the title to switch to dark mode or change the title!
+                    </AppText> */}
                 </View>
-                <CurvedArrow style={{ position: 'absolute', top: -30, right: 60, transform: [{ scaleY: -1 }] }} />
+                <CurvedArrow style={{ position: 'absolute', bottom: -24, right: 110, transform: [{ scaleY: 1 }] }} />
             </View>
         )
     }
         
         if(!props.ui.tutorial_complete){
             return (
-                <Intro />
+                <Intro ui={props.ui} />
             )
         } else {
             return (
-                <NavigationContainer ref={navigationRef}>
+                <NavigationContainer 
+                    ref={navigationRef} 
+                    onReady={() => {
+                        isReadyRef.current = true;
+                    }}
+                >
                     <View style={[styles.container, props.ui.current_theme]}>
-                        <InfoBox />
+                        {/* <InfoBox /> */}
                         <StatusBar barStyle={props.ui.dark_mode ? "dark-content": "light-content"}></StatusBar>
                         <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={60} height={60} />
                         <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={60} height={60} />
                         <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={60} height={60} />
                         <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={60} height={60} />
                         <Title></Title>
-                        <Tab.Navigator  tabBar={props=> <Menu {...props} />} backBehavior={"history"} >
-                            <Tab.Screen options={screen_options} name="CocktailList" style={styles.screen} component={CocktailList}></Tab.Screen>
-                            <Tab.Screen options={screen_options} name="About" style={styles.screen} component={About}></Tab.Screen>
-                            <Tab.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Tab.Screen>
-                            <Tab.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Tab.Screen>
-                            <Tab.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Tab.Screen>
-                            <Tab.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Tab.Screen>
-                        </Tab.Navigator>
-                        {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
-                        <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}>
-    
+                        <Menu
+                            isReady={isReadyRef.current}
+                        ></Menu>
+                        <Stack.Navigator 
+                            headerMode={"float"}
+                            backBehavior={"history"} 
+                        >
+                            <Stack.Screen options={screen_options} name="CocktailList" style={styles.screen}>
+                                {(props) => <CocktailList {...props} handleUrl={handleUrl} />}
+                            </Stack.Screen>
+                            <Stack.Screen options={screen_options} name="About" style={styles.screen} component={About}></Stack.Screen>
+                            <Stack.Screen options={screen_options} name="Stock" style={styles.screen} component={Stock}></Stack.Screen>
+                            <Stack.Screen options={screen_options} name="AddCocktail" style={styles.screen} component={Add}></Stack.Screen>
+                            <Stack.Screen options={screen_options} name="AddStock" style={styles.screen} component={AddStock}></Stack.Screen>
+                            <Stack.Screen options={screen_options} name="ViewCocktail" style={styles.screen} component={ViewCocktail}></Stack.Screen>
+                        </Stack.Navigator>
+                        <View>
+                            <Modal
+                                animationType="slide"
+                                visible={importModalVisible}
+                            >
+                                <ImportCocktail hide={hideImportModal} cocktail={importCocktail} />
+                            </Modal>
                         </View>
+                        {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
+                        <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}></View>
                     </View>
                 </NavigationContainer>
             )
         }
-    }
+}
 
 const styles = StyleSheet.create({
     container: {

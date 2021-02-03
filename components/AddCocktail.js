@@ -10,6 +10,7 @@ import _ from 'lodash'
 
 import AppText from './AppText'
 import AppButton from './AppButton'
+import AppPicker from './AppPicker'
 import { Part } from './Parts'
 import { AddedIngredientMap } from './AddedIngredients'
 import IngredientSlider from './IngredientSlider'
@@ -39,6 +40,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Add)
 
 function Add(props){
+    // console.log('props', props.route)
     const cocktails = props.cocktails.current
 
     const [newCocktailIngredientName, setNewCocktailIngredientName] = useState('')
@@ -148,7 +150,7 @@ function Add(props){
     // when cocktails load, check params and set
     useEffect(()=>{
         loadParams(route.params)
-    },[cocktails])
+    },[cocktails, route?.params?.id])
 
     var leftAnim = useRef(new Animated.Value(1)).current;
     var rightAnim = useRef(new Animated.Value(0)).current;
@@ -166,7 +168,7 @@ function Add(props){
         }
     }
 
-    const fadeTime = 1000
+    const fadeTime = 200
     const fadeLeftIn = () => {
         Animated.timing(leftAnim, {
             toValue: 1,
@@ -200,6 +202,7 @@ function Add(props){
     function loadParams(params){
         if(params && params.id){
             var cocktail = cocktails.find(c=>c.id == params.id)
+            // console.log('cocktail', cocktail.name)
             if(cocktail){
                 setNewCocktailName(cocktail.name)
                 setAddedCocktailIngredients(cocktail.ingredients)
@@ -229,6 +232,10 @@ function Add(props){
     }
 
     const ingredient_values = [
+        {
+            label: 'parts...',
+            value: 0
+        },  
         {
             label: 'dash',
             value: 'dash'
@@ -399,6 +406,7 @@ function Add(props){
         },
     ]
     const [marginBottom, setMarginBottom] = useState(10)
+    const [pickerOpen, setPickerOpen] = useState(false)
 
     useEffect(() => {
         Keyboard.addListener("keyboardWillShow", keyboardDidShow);
@@ -414,26 +422,36 @@ function Add(props){
         }
     })
 
-    function keyboardDidShow(){
-        setMarginBottom(100)
+    function keyboardDidShow(e){
+        console.log('keyboard did show', e.endCoordinates.height)
+        setMarginBottom(e.endCoordinates.height)
+        // setMarginBottom(390)
     }
     function keyboardDidHide(){
-        setMarginBottom(10)
+        setMarginBottom(60)
     }
     function onSwipeLeft(state){
-        // console.log('left', state)
-        setContentMode('directions')
+        if(!pickerOpen)
+            props.navigation.navigate('ViewCocktail')
     }
     function onSwipeRight(state){
-        // console.log('right', state)
-        // setContentMode('ingredients')
-        if(state.x0 < 150){
-            return props.navigation.goBack()
-        }
+        // if(state.x0 < 150){
+        //     return props.navigation.goBack()
+        // }
+        if(!pickerOpen)
+            props.navigation.navigate('Stock')
     }
 
+    useEffect(()=>{
+        // console.log('margin bottom is ', marginBottom)
+        if(marginBottom < 60){
+            setMarginBottom(60) // no idea why this is necessary but here you go
+        }
+    }, [marginBottom])
+
     function onCancel() {
-        props.navigation.navigate('CocktailList')
+        // props.navigation.navigate('CocktailList')
+        resetNewCocktail()
     }
 
 
@@ -476,7 +494,7 @@ function Add(props){
 
     return (
         <GestureRecognizer
-            // onSwipeLeft={(state) => onSwipeLeft(state)}
+            onSwipeLeft={(state) => onSwipeLeft(state)}
             onSwipeRight={(state) => onSwipeRight(state)}
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme, {paddingLeft: 40}]}
         >
@@ -490,7 +508,7 @@ function Add(props){
                     clearButtonMode={"always"}
                     placeholderTextColor={"grey"}
                     autoCapitalize={"words"}
-                    maxLength={100}
+                    maxLength={50}
                 />
                 <View style={styles.header_buttons}>
                     <Pressable onPress={() => setContentMode('ingredients')} style={styles.category_title_container}>
@@ -529,6 +547,7 @@ function Add(props){
                     mode={contentMode}
                     marginBottom={marginBottom}
                     addedCocktailIngredients={addedCocktailIngredients}
+                    setPickerOpen={setPickerOpen}
                 />
             </View>
             <Footer 
@@ -549,47 +568,61 @@ function AddIngredientModal(props){
             label: 'Parts...',
             color: 'grey',
         };
+        function onPickerOpen(){
+            props.setPickerOpen(true)
+        }
+        function onPickerClose(){
+            props.setPickerOpen(false)
+        }
         return (
-            <KeyboardAvoidingView behavior={"padding"} style={[styles.new_ingredient, props.ui.current_theme]}>                   
-                    <IngredientSlider
-                        parts={props.newCocktailIngredientParts}
-                        ingredient_values={props.ingredient_values} 
-                        setParts={props.setParts}
-                    />
-                    <TextInput 
-                        key={`newCocktailIngredientName`} 
-                        clearButtonMode={"always"}  
-                        value={props.newCocktailIngredientName} 
-                        onChangeText={text => props.setName(text)} 
-                        style={[styles.input, {marginBottom: props.marginBottom}, props.ui.current_theme]} 
-                        placeholder="Ingredient..." 
-                        placeholderTextColor={"grey"}
-                        autoCapitalize={"words"}
-                        maxLength={100}
-                    />
-                    <RNPickerSelect
-                        key={props.newCocktailIngredientParts}
-                        placeholder={placeholder}
-                        useNativeAndroidPickerStyle={false}
-                        style={{inputIOS: {...styles.inputIOS, color: props.ui.current_theme.color, borderColor: props.ui.border_color}}} 
-                        value={props.newCocktailIngredientParts}
-                        onValueChange={(val) => props.setParts(val)} 
-                        items={props.ingredient_values} 
-                    />
-                    
-                    <View>
-                        <AppButton disabled={!props.editIngredientId && props.addedCocktailIngredients.length >= 8} press={props.addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
-                            {props.editIngredientId ? "Save Ingredient" : "Add Ingredient"}
-                        </AppButton>
-                        {props.editIngredientId ? 
-                            <AppButton press={props.removeIngredientFromCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
-                                Remove Ingredient
-                            </AppButton>
-                            : null
-                        }
+            <View style={[styles.new_ingredient, { marginBottom: props.marginBottom }, props.ui.current_theme]}>                   
+                <View style={{marginBottom: 10,borderWidth:1, borderColor: props.ui.border_color, flexDirection: 'row'}}>
+                    <View style={{flex: 2}}>
+                        <AppPicker
+                            items={props.ingredient_values}
+                            setParts={props.setParts}
+                            parts={props.newCocktailIngredientParts}
+                            numToRender={props.ingredient_values.length}
+                        />
                     </View>
+                    <View style={{flex: 6, flexDirection: 'column', justifyContent: 'center'}}>
+                        <View style={{flex:1}}>
+                            <IngredientSlider
+                                parts={props.newCocktailIngredientParts}
+                                ingredient_values={props.ingredient_values}
+                                setParts={props.setParts}
+                                ui={props.ui}
+                            />
+                        </View>
+                        <View style={{flex:1}}>
+                            <TextInput
+                                key={`newCocktailIngredientName`}
+                                clearButtonMode={"always"}
+                                value={props.newCocktailIngredientName}
+                                onChangeText={text => props.setName(text)}
+                                style={[styles.input, { marginBottom: 2, borderBottomWidth: 0, paddingTop: 0, paddingBottom:0 }, props.ui.current_theme]}
+                                placeholder="Ingredient..."
+                                placeholderTextColor={"#aaa"}
+                                autoCapitalize={"words"}
+                                maxLength={100}
+                                onSubmitEditing={() => props.addIngredientToCocktail()}
+                            />
+                        </View>
+                    </View>
+                </View>
 
-                </KeyboardAvoidingView>
+                <View style={{ marginBottom: 10}}>
+                    <AppButton disabled={!props.editIngredientId && props.addedCocktailIngredients.length >= 8} press={props.addIngredientToCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
+                        {props.editIngredientId ? "Save Ingredient" : "Add Ingredient"}
+                    </AppButton>
+                    {props.editIngredientId ?
+                        <AppButton press={props.removeIngredientFromCocktail} theme={props.ui.current_theme} border={props.ui.border_color}>
+                            Remove Ingredient
+                        </AppButton>
+                        : null
+                    }
+                </View>
+            </View>
         )
     } else {
         return null
@@ -632,15 +665,22 @@ function Footer(props){
         )
     }
     return (
-        <View style={[props.ui.default_styles.footerStyles, styles.save_cocktail, props.ui.current_theme]}>
-            <AppButton disabled={props.addedCocktailIngredients.length == 0 || !props.newCocktailName} press={props.saveCocktailPress} theme={props.ui.current_theme} border={props.ui.border_color}>
-                Add Cocktail
-            </AppButton>
+        <View style={[props.ui.default_styles.footerStyles, styles.save_cocktail, {flexDirection: 'row'}, props.ui.current_theme]}>
+            <View style={{flex:1}}>
+                <AppButton disabled={props.addedCocktailIngredients.length == 0 || !props.newCocktailName} press={props.saveCocktailPress} theme={props.ui.current_theme} border={props.ui.border_color}>
+                    Create Cocktail
+                </AppButton>
+            </View>
+            <View style={{ flex: 1, marginLeft: 10 }}>
+                <AppButton press={props.onCancel}>
+                    Cancel
+                </AppButton>
+            </View>
         </View>
     )
 }
 
-var mb = 110
+var mb = 80
 if (windowHeight < 700){
     mb = 50
 }
@@ -674,7 +714,7 @@ const styles = StyleSheet.create({
     inputIOS: {
         fontFamily: 'PoiretOne_400Regular',
         borderColor: '#aaa',
-        borderWidth: 1,
+        borderRightWidth: 1,
         paddingVertical: 12,
         paddingHorizontal: 10,
         fontSize: 18,
@@ -693,7 +733,9 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         flexWrap: 'nowrap',
-        height: windowHeight - 180
+        marginTop: 10,
+        flex: 1
+        // height: windowHeight - 180
     },
     save_cocktail: {
         paddingLeft: 10,
@@ -726,6 +768,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 })
