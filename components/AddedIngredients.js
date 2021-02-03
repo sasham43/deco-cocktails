@@ -8,6 +8,9 @@ import { sortedIngredients } from '../utils/sort'
 
 
 function translateParts(parts) {
+    if (parts === null) {
+        parts = ''
+    }
     var split = parts.toString().split('.')
     if (split[1]) {
         var fraction = ''
