@@ -17,9 +17,13 @@ import FunctionButtonIcon from '../assets/function-button'
 import CornerIcon from '../assets/corner'
 import { setTutorialComplete } from '../utils/UIActions'
 
-const function_menu_button = require('../assets/screenshots/functionmenubutton.png')
-const about = require('../assets/screenshots/about.png')
-const add_cocktail = require('../assets/screenshots/addcocktail.png')
+// const function_menu_button = require('../assets/screenshots/functionmenubutton.png')
+// const about = require('../assets/screenshots/about.png')
+// const add_cocktail = require('../assets/screenshots/addcocktail.png')
+// const cabinet = require('../assets/screenshots/cabinet.png')
+const list = require('../assets/screenshots/list.png')
+const fmb = require('../assets/screenshots/fmb.png')
+const add = require('../assets/screenshots/add.png')
 const cabinet = require('../assets/screenshots/cabinet.png')
 
 
@@ -105,26 +109,34 @@ function Intro(props) {
             backgroundColor: '#fff'
         },
         {
-            key: "1",
-            title: 'Make your own cocktails',
+            key: '4',
+            title: 'List',
             text: '',
-            image: function_menu_button,
+            // image: '',
+            image: list,
             backgroundColor: '#fff'
         },
         {
-            key: '4',
-            title: 'Press Title',
+            key: "1",
+            title: 'Make your own cocktails',
             text: '',
-            // image: '',
-            image: about,
+            image: fmb,
             backgroundColor: '#fff'
         },
+        // {
+        //     key: '4',
+        //     title: 'Press Title',
+        //     text: '',
+        //     // image: '',
+        //     image: about,
+        //     backgroundColor: '#fff'
+        // },
         {
             key: "2",
             title: 'Add custom cocktails!',
             text: '',
             // image: '',
-            image: add_cocktail,
+            image: add,
             backgroundColor: '#fff'
         },
         {
