@@ -188,6 +188,40 @@ function ViewCocktail(props){
         setShareIndex(index)
     }
 
+
+    // testing screenshots for Intro
+    function InfoBox() {
+        return (
+            <View style={{
+                position: 'absolute',
+                // top: 120,
+                bottom: 240,
+                // bottom: windowHeight,
+                // top: windowHeight - (windowHeight / 2),
+                // top: windowHeight - (375),
+                // left: (windowWidth / 2) - 150,
+                right: 60,
+                // left: 50,
+                backgroundColor: '#fff',
+                borderColor: '#000',
+                borderWidth: 1,
+                shadowOffset: { width: -4, height: -4, },
+                shadowOpacity: 0.3,
+                elevation: 10, // for Android,
+                padding: 15,
+                width: 200,
+                zIndex: 99
+            }}>
+                <View>
+                    <AppText>
+                        Or share a QR code to easily scan recipes into Crump Cocktails!
+                    </AppText>
+                </View>
+                {/* <CurvedArrow style={{ position: 'absolute', bottom: -30, right: 60 }} /> */}
+            </View>
+        )
+    }
+
     // var small_screen = props.ui.default_styles.window.height < 700
     // var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
 
@@ -249,7 +283,10 @@ function ViewCocktail(props){
                         />
                     </View>
                     <ShareContainer index={shareIndex} setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} />
-                    {/* <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} /> */}
+                    
+                    <InfoBox />
+
+
                     <View style={{ flexDirection: 'row'}}>
                         <View style={[styles.share_btn, { marginRight: 5, flex: 1 }]} >
                             <AppButton press={shareCocktail}>
