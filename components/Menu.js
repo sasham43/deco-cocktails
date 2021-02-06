@@ -27,7 +27,16 @@ function Menu(props) {
     const [currentPage, setCurrentPage] = useState(0)
 
     useEffect(()=>{
-        // console.log('current', current)
+        // console.log('current', current, routeName)
+        // console.log('routeName', routeName)
+
+        // if(!routeName){
+        //     // console.log('routeName empty', current?.getCurrentRoute(), current, props.isReady)
+        //     setTimeout(()=>{
+        //         console.log('how about now', current)
+        //     },100)
+        // }
+
         if(props.isReady)
             for(var i in menuItems){
                 if(menuItems[i].link == routeName){
@@ -41,7 +50,16 @@ function Menu(props) {
         current?.addListener('state', navEvent)
     }, [props.isReady])
 
+    useEffect(()=>{
+        // console.log('current changed', current)
+        if(current){
+            current?.addListener('state', navEvent)
+            // setRouteName(current?.getCurrentRoute().name)
+        }
+    }, [current])
+
     function navEvent(data){
+        // console.log('navevent', current?.getCurrentRoute())
         setRouteName(current?.getCurrentRoute().name)
     }
 
@@ -70,6 +88,8 @@ function Menu(props) {
     function onSnap(carousel, index){
         console.log('on snap', index)
         navigation.navigate(menuItems[index].link, {id:null})
+
+        console.log('snapped', current?.getCurrentRoute())
     }
     
     const icon_size = 15
