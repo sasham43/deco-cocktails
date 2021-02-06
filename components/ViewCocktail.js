@@ -136,10 +136,14 @@ function ViewCocktail(props){
         }
     }
     function onSwipeLeft(state) {
+        if (modalVisible) return // don't change pages while modal is up
+        
         // go forward
         navigation.navigate('About')
     }
     function onSwipeRight(state) {
+        if (modalVisible) return // don't change pages while modal is up
+
         if(state.x0 < 150){
             return navigation.goBack()
         }
