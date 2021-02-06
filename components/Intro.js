@@ -25,6 +25,8 @@ const list = require('../assets/screenshots/list.png')
 const fmb = require('../assets/screenshots/fmb.png')
 const add = require('../assets/screenshots/add.png')
 const cabinet = require('../assets/screenshots/cabinet.png')
+const share = require('../assets/screenshots/share.png')
+const code = require('../assets/screenshots/code.png')
 
 
 const mapStateToProps = (state) => {
@@ -137,6 +139,22 @@ function Intro(props) {
             text: '',
             // image: '',
             image: add,
+            backgroundColor: '#fff'
+        },
+        {
+            key: "6",
+            title: 'Add custom cocktails!',
+            text: '',
+            // image: '',
+            image: share,
+            backgroundColor: '#fff'
+        },
+        {
+            key: "5",
+            title: 'Add custom cocktails!',
+            text: '',
+            // image: '',
+            image: code,
             backgroundColor: '#fff'
         },
         {
