@@ -91,7 +91,7 @@ function ViewCocktail(props){
     }
     function findCurrentIndex(){
         if(!cocktail) return
-        
+
         for(var i in sorted){
             var index = Number(i)
             if(sorted[index].id == cocktail.id){
@@ -454,7 +454,7 @@ const windowWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
     header: {
         marginTop: 20,
-        marginLeft: 10,
+        marginLeft: 5.5,
     },
     header_buttons: {
         flexDirection: 'row',
