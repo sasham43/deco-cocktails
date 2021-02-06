@@ -91,6 +91,8 @@ function Intro(props) {
     function onIntroDone() {
         // console.log('finished intro')
         props.setTutorialComplete(true)
+
+        // navigate?
     }
     /*
       Intro
