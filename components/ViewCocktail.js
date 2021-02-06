@@ -385,6 +385,9 @@ function FunctionMenu(props){
 
     var windowHeight = props.ui.default_styles.window.height
     var top_height = (windowHeight - 210) > 0 ? windowHeight - 210 : 0
+    if (windowHeight < 700) {
+        top_height = 510
+    }
     const border_style = (Platform.OS == 'android' && props.dark_mode) ? { borderColor: props.theme.color, borderWidth: 1 } : null // add a border for Android in dark mode
     return (
         <SlidingUpPanel 
