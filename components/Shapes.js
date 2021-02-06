@@ -13,6 +13,8 @@ import Circle from '../assets/circle.svg'
 import AppText from './AppText'
 
 function buildPartArray(parts) {
+    if(!parts) return []
+
     var part_array = []
 
     var remainder = parts.toString().split('.')[1]
