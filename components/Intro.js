@@ -1,9 +1,7 @@
 import React from 'react'
 import {
     View,
-    Text,
     StyleSheet,
-    // Image, 
     Dimensions
 } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
@@ -12,15 +10,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import AppText from './AppText'
-import AppButton from './AppButton'
 import FunctionButtonIcon from '../assets/function-button'
 import CornerIcon from '../assets/corner'
 import { setTutorialComplete } from '../utils/UIActions'
 
-// const function_menu_button = require('../assets/screenshots/functionmenubutton.png')
-// const about = require('../assets/screenshots/about.png')
-// const add_cocktail = require('../assets/screenshots/addcocktail.png')
-// const cabinet = require('../assets/screenshots/cabinet.png')
 const list = require('../assets/screenshots/list.png')
 const fmb = require('../assets/screenshots/fmb.png')
 const add = require('../assets/screenshots/add.png')
@@ -60,14 +53,12 @@ function IntroButton(props){
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_left]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
-            {/* <ButtonText pressed={pressed} theme={theme} style={disabled ? { color: 'grey' } : null}>{props.children}</ButtonText> */}
             <AppText style={styles.button_text}>{props.children}</AppText>
         </View>
     )
 }
 
 function doneButton(props) {
-    // console.log('donebutton', props)
     return (
         <IntroButton ui={props.ui}>
             <AppText>Done</AppText>
@@ -75,7 +66,6 @@ function doneButton(props) {
     )
 }
 function skipButton(props) {
-    // console.log('skipbutton', props)
     return (
         <IntroButton ui={props.ui}>
             <AppText>Skip</AppText>
@@ -83,26 +73,11 @@ function skipButton(props) {
     )
 }
 
-// export default 
+
 function Intro(props) {
-    // console.log('intro', props.ui)
-
-
     function onIntroDone() {
-        // console.log('finished intro')
         props.setTutorialComplete(true)
-
-        // navigate?
     }
-    /*
-      Intro
-      1. Welcome
-      2. Function Menu Button
-        2.5 Function Menu example ?
-      3. Add custom cocktails
-      4. Manage cabinet
-      5. About screen
-    */
    
     const intro = [
         {
@@ -231,14 +206,6 @@ function IntroSlide({ item }) {
         </View>
     )
 }
-const CurvedTailArrow = () => {
-    return (
-        <View style={styles.curvedTailArrow}>
-            <View style={styles.curvedTailArrowTail} />
-            <View style={styles.curvedTailArrowTriangle} />
-        </View>
-    );
-};
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
