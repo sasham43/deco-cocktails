@@ -90,6 +90,8 @@ function ViewCocktail(props){
         }
     }
     function findCurrentIndex(){
+        if(!cocktail) return
+        
         for(var i in sorted){
             var index = Number(i)
             if(sorted[index].id == cocktail.id){
