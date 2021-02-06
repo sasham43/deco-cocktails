@@ -1,14 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { View, StyleSheet, Pressable, Animated, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
-// import Carousel from 'react-native-snap-carousel'
-
-// import AppText from './AppText'
 import AppMenu from './AppMenu'
-// import InStockIcon from '../assets/in-stock'
-// import MenuSelectIcon from '../assets/menu-select'
-// import CornerIcon from '../assets/corner'
-// import HeaderIcon from './HeaderIcon'
 
 import * as navigation from '../utils/RootNavigation'
 
@@ -27,16 +20,6 @@ function Menu(props) {
     const [currentPage, setCurrentPage] = useState(0)
 
     useEffect(()=>{
-        // console.log('current', current, routeName)
-        // console.log('routeName', routeName)
-
-        // if(!routeName){
-        //     // console.log('routeName empty', current?.getCurrentRoute(), current, props.isReady)
-        //     setTimeout(()=>{
-        //         console.log('how about now', current)
-        //     },100)
-        // }
-
         if(props.isReady)
             for(var i in menuItems){
                 if(menuItems[i].link == routeName){
@@ -51,15 +34,12 @@ function Menu(props) {
     }, [props.isReady])
 
     useEffect(()=>{
-        // console.log('current changed', current)
         if(current){
             current?.addListener('state', navEvent)
-            // setRouteName(current?.getCurrentRoute().name)
         }
     }, [current])
 
     function navEvent(data){
-        // console.log('navevent', current?.getCurrentRoute())
         setRouteName(current?.getCurrentRoute().name)
     }
 
@@ -86,10 +66,8 @@ function Menu(props) {
         },
     ]
     function onSnap(carousel, index){
-        console.log('on snap', index)
+        // console.log('on snap', index)
         navigation.navigate(menuItems[index].link, {id:null})
-
-        console.log('snapped', current?.getCurrentRoute())
     }
     
     const icon_size = 15
@@ -98,7 +76,6 @@ function Menu(props) {
             <AppMenu
                 style={styles.menu}
                 index={currentPage}
-                // index={state.index}
                 items={menuItems}
                 sliderWidth={props.ui.default_styles.window.width - 20}
                 itemWidth={100}
@@ -112,22 +89,11 @@ function Menu(props) {
 const icon_distance = -1
 const styles = StyleSheet.create({
     menu: {
-        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignContent: 'flex-start',
-        // paddingLeft: 50,
-        // paddingRight: 50,
         paddingTop: 20,
-        // marginTop:10,
-        // paddingLeft: 10,
-        // marginLeft: 10,
-        // paddingTop: 10,
         height: 50,
-        // height: 45,
-        // height: 100,
-        // position: 'absolute',
-        // top: 0,
         left: 0,
         width: windowWidth,
         borderColor: '#000', borderTopWidth: 0,
