@@ -284,10 +284,14 @@ function CocktailList(props){
     }
 
     function onSwipeLeft(){
+        if(shareModalVisible || scanModalVisible) return // don't change pages while modals are up
+        
         // cabinet
         navigation.navigate('Stock')
     }
     function onSwipeRight(state){
+        if(shareModalVisible || scanModalVisible) return // don't change pages while modals are up
+        
         if(state.x0 < 150){
             return navigation.goBack()
         }
