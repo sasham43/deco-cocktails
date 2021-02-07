@@ -256,7 +256,7 @@ function ViewCocktail(props){
                         />
                     </View>
                     <ShareContainer index={shareIndex} setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} />
-                    {/* <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} /> */}
+                    
                     <View style={{ flexDirection: 'row'}}>
                         <View style={[styles.share_btn, { marginRight: 5, flex: 1 }]} >
                             <AppButton press={shareCocktail}>
@@ -276,7 +276,7 @@ function ViewCocktail(props){
 }
 
 function ShareContainer(props){
-    console.log('share container', props.index)
+    // console.log('share container', props.index)
     if(props.index == 0){
         return (
             <ShareCocktail setShareUri={props.setShareUri} cocktail={props.cocktail} ui={props.ui} stock={props.stock} />
@@ -312,7 +312,7 @@ function translateCocktail(cocktail){
                     break;
             }
         } else {
-            console.log('not include?', prop, prop in include)
+            // console.log('not include?', prop, prop in include)
         }
     }
 
@@ -457,7 +457,7 @@ var icon_distance = 2
 const windowWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
     header: {
-        marginTop: 20,
+        marginTop: 10,
         marginLeft: 5.5,
     },
     header_buttons: {
