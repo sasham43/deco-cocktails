@@ -156,6 +156,7 @@ function ViewCocktail(props){
     }
     function hideShareModal(){
         setModalVisible(false)
+        setShareIndex(0)
     }
     function shareCocktail(){
         // console.log('share')
@@ -315,7 +316,7 @@ function translateCocktail(cocktail){
         }
     }
 
-    console.log('translated', new_cocktail)
+    // console.log('translated', new_cocktail)
 
     return new_cocktail
 }
