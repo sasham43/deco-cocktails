@@ -53,6 +53,7 @@ function ViewCocktail(props){
     const [params, setParams] = useState(props.route.params ? props.route.params : {id:null})
     const [shareIndex, setShareIndex] = useState(0)
 
+
     useEffect(()=>{
         // console.log('view []')
         loadParams(params)
