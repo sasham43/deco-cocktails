@@ -177,7 +177,11 @@ function CocktailListMap(props) {
     return props.cocktails.sort(sortCocktails).map(cocktail =>
         
         (
-            <View onLayout={(evt)=>layout(evt, cocktail)} style={[styles.cocktail_container, {marginBottom: marginBottom, marginTop: 10}, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor, borderColor: props.theme.borderColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null]} key={cocktail.id}>
+        <View 
+            onLayout={(evt) => layout(evt, cocktail)} 
+            style={[styles.cocktail_container, { marginBottom: marginBottom, marginTop: 10 }, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor, borderColor: props.theme.backgroundColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null, pressFlag == cocktail.id ? { borderColor: props.theme.borderColor } : null]} 
+            key={cocktail.id}
+        >
                 <View style={[{flex: 1, position: 'absolute', left: -40}]}>
                     <CocktailToggle cocktail={cocktail} theme={props.theme} selectCocktail={selectCocktail} currentMode={props.currentMode} />
                 </View>
@@ -681,6 +685,7 @@ const styles = StyleSheet.create({
     },
     cocktail: {
         // marginBottom: 60,
+        // borderWidth: 1
     },
     cocktail_text: {
         fontSize: 20,
@@ -759,7 +764,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 10,
         marginBottom: 35,
-        marginLeft: 5
+        marginLeft: 5,
+        borderWidth: 1
     },
     selected_cocktail: {
         shadowOffset: { width: -4, height: -4, },
