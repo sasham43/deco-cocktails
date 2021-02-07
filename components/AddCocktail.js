@@ -522,15 +522,10 @@ function Add(props){
 
 function AddIngredientModal(props){
     if(props.mode == 'ingredients'){
-        const placeholder = {
-            label: 'Parts...',
-            color: 'grey',
-        };
-        function onPickerOpen(){
-            props.setPickerOpen(true)
-        }
-        function onPickerClose(){
-            props.setPickerOpen(false)
+        function onSubmitEditing(){
+            if (props.editIngredientId || props.addedCocktailIngredients.length < 8){
+                props.addIngredientToCocktail()
+            }
         }
         return (
             <View style={[styles.new_ingredient, { marginBottom: props.marginBottom }, props.ui.current_theme]}>                   
@@ -563,7 +558,7 @@ function AddIngredientModal(props){
                                 placeholderTextColor={"#aaa"}
                                 autoCapitalize={"words"}
                                 maxLength={100}
-                                onSubmitEditing={() => props.addIngredientToCocktail()}
+                                onSubmitEditing={onSubmitEditing}
                             />
                         </View>
                     </View>
