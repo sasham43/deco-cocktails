@@ -334,6 +334,13 @@ function ShareQR(props){
 
     const link = Linking.makeUrl('', translateCocktail(props.cocktail))
 
+    console.log('width', props.ui.default_styles.window.width)
+
+    const qr_size = props.ui.default_styles.window.width > 1000 ? 200 : props.ui.default_styles.window.width - 200
+
+    // const attribution_left = props.ui.default_styles.window.width > 1000 ? 175 : (props.ui.default_styles.window.width / 2) - 40
+    const attribution_left = 140
+
     return (
         <ViewShot 
             style = { [{ position: 'relative', backgroundColor: props.ui.current_theme.backgroundColor, margin: 10, padding: 25, borderColor: props.ui.current_theme.color, borderWidth: 1, justifyContent: 'center', alignItems: 'center' }, modal_style]}
@@ -355,9 +362,9 @@ function ShareQR(props){
 
             <QRCode
                 value={link}
-                size={props.ui.default_styles.window.width - 200}
+                size={qr_size}
             />
-            <View style={{position: 'absolute', bottom: 25, flex:1, flexDirection:'row', alignItems: 'center', left: (props.ui.default_styles.window.width / 2) - 40}} >
+            <View style={{position: 'absolute', bottom: 25, flex:1, flexDirection:'row', alignItems: 'center', left: attribution_left}} >
                 <ShareAttribution share={true} />
             </View>
         </ViewShot>
