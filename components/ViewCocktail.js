@@ -334,7 +334,7 @@ function ShareQR(props){
 
     const link = Linking.makeUrl('', translateCocktail(props.cocktail))
 
-    console.log('width', props.ui.default_styles.window.width)
+    // console.log('width', props.ui.default_styles.window.width)
 
     const qr_size = props.ui.default_styles.window.width > 1000 ? 200 : props.ui.default_styles.window.width - 200
 
