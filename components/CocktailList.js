@@ -105,7 +105,7 @@ function CocktailListMap(props) {
 
     useEffect(()=>{
         if(props.share == true){
-            console.log('setting margin bottom')
+            // console.log('setting margin bottom')
             setMarginBottom(10)
         }
     }, [])
@@ -501,7 +501,7 @@ function TitleText(props) {
         )
     } else {
         return (
-            <AppText style={[{fontSize: 30}]}>
+            <AppText style={[{fontSize: 30, textAlign: 'center'}]}>
                 {props.title ? props.title : ''}
             </AppText>
         )

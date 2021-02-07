@@ -55,6 +55,7 @@ function About (props){
         Alert.alert(title, msg, buttons)
     }
     const [menuTitle, setMenuTitle] = useState(props.ui.title ? props.ui.title : '')
+    const menuMax = props.ui.default_styles.window.width < 600 ? 20 : 22
 
     function save(){
         props.setTitle(menuTitle)
@@ -101,13 +102,13 @@ function About (props){
                                 style={[styles.input, props.ui.current_theme]}
                                 placeholder={"Menu Title..."}
                                 placeholderTextColor={"grey"}
-                                maxLength={22}
+                                maxLength={menuMax}
                                 autoCapitalize={"words"}
                             />
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', flex:1}}>
                             <AppText style={{color: 'grey'}}>
-                                {menuTitle.length} / 22 letters
+                                {menuTitle.length} / {menuMax} letters
                             </AppText>
                         </View>
                     </View>
