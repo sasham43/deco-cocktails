@@ -99,7 +99,7 @@ function defaultCocktails() {
                     parts: .5
                 },
             ],
-            directions: 'Stir Gin with Dry Vermouth with ice for 30 seconds.  Garnish with an olive.'
+            directions: 'Stir gin and dry vermouth with ice for 30 seconds.  Garnish with an olive.'
         },
         {
             id: generate(),
@@ -116,7 +116,7 @@ function defaultCocktails() {
                     parts: 2
                 },
             ],
-            directions: 'Stir Gin with ice in a rocks glass.  Add Tonic.  Garnish with a wedge of lime.'
+            directions: 'Stir gin with ice in a rocks glass.  Add tonic.  Garnish with a wedge of lime.'
         },
         {
             id: generate(),
@@ -138,7 +138,7 @@ function defaultCocktails() {
                     parts: 1
                 },
             ],
-            directions: 'Stir Gin, Sweet Vermouth, and Campari with ice for 30 seconds.  Strain into a coupe glass.'
+            directions: 'Stir gin, sweet vermouth, and campari with ice for 30 seconds.  Strain into a coupe glass.'
         },
         {
             id: generate(),
@@ -165,7 +165,7 @@ function defaultCocktails() {
                     parts: 'float'
                 },
             ],
-            directions: 'Shake Rye, Lemon Juice, and Simple Syrup with ice for 15 seconds.  Strain into a rocks glass.  Float the red wine over the back of a barspoon.'
+            directions: 'Shake rye, lemon juice, and simple syrup with ice for 15 seconds.  Strain into a rocks glass.  Float the red wine over the back of a barspoon.'
         },
         {
             id: generate(),
@@ -187,7 +187,7 @@ function defaultCocktails() {
                     parts: 1
                 },
             ],
-            directions: 'Stir Rye, Sweet Vermouth, and Campari with ice for 30 seconds.  Strain into a coupe glass.'
+            directions: 'Stir rye, sweet vermouth, and campari with ice for 30 seconds.  Strain into a coupe glass.'
         },
         {
             id: generate(),
@@ -209,7 +209,7 @@ function defaultCocktails() {
                     parts: 'dash'
                 },
             ],
-            directions: 'Stir Rye, Sweet Vermouth, and Angostura with ice for 30 seconds.  Strain into a rocks glass.  Garnish with a cherry.'
+            directions: 'Stir rye, sweet vermouth, and angostura with ice for 30 seconds.  Strain into a rocks glass.  Garnish with a cherry.'
         },
         {
             id: generate(),
@@ -236,7 +236,7 @@ function defaultCocktails() {
                     parts: 1
                 },
             ],
-            directions: 'Shake Gin, Lime Juice, Green Chartreuse and Maraschino Liquer with ice for 15 seconds.  Strain into a chilled coupe glass.'
+            directions: 'Shake gin, lime juice, green chartreuse and maraschino Liquer with ice for 15 seconds.  Strain into a chilled coupe glass.'
         },
         {
             id: generate(),
@@ -263,7 +263,7 @@ function defaultCocktails() {
                     parts: 1
                 },
             ],
-            directions: 'Shake Gin, Cocchi Americano, Lemon Juice, and Cointreau with ice for 15 seconds.  Strain into a chilled coupe glass.'
+            directions: 'Shake gin, cocchi americano, lemon juice, and cointreau with ice for 15 seconds.  Strain into a chilled coupe glass.'
         },
         {
             id: generate(),
@@ -285,7 +285,7 @@ function defaultCocktails() {
                     parts: .75
                 },
             ],
-            directions: 'Shake Brandy, Lemon Juice, and Cointreau with ice for 15 seconds.  Strain into a chilled coupe glass rimmed with sugar.'
+            directions: 'Shake brandy, lemon juice, and cointreau with ice for 15 seconds.  Strain into a chilled coupe glass rimmed with sugar.'
         },
         {
             id: generate(),
@@ -312,7 +312,7 @@ function defaultCocktails() {
                     parts: 3
                 },
             ],
-            directions: 'Shake Gin, Lemon Juice, and Simple Syrup with ice for 15 seconds.  Strain into a champagne glass, top with Champagne.'
+            directions: 'Shake gin, lemon juice, and simple syrup with ice for 15 seconds.  Strain into a champagne glass, top with Champagne.'
         },
         {
             id: generate(),
@@ -366,7 +366,7 @@ function defaultCocktails() {
                     parts: 'rinse'
                 },
             ],
-            directions: `Stir Rye, Brandy, Angostura, and Peychaud's with ice for 30 seconds.  Strain into a rocks glass rinsed with Absinthe.`
+            directions: `Stir rye, brandy, angostura, and peychaud's with ice for 30 seconds.  Strain into a rocks glass rinsed with Absinthe.`
         },
         {
             id: generate(),
@@ -393,7 +393,7 @@ function defaultCocktails() {
                     parts: .25
                 },
             ],
-            directions: 'Stir Rye, Sweet Vermouth, Brandy, and Benedictine with ice for 30 seconds.  Strain into a rocks glass.  Garnish with a cherry.'
+            directions: 'Stir rye, sweet vermouth, brandy, and benedictine with ice for 30 seconds.  Strain into a rocks glass.  Garnish with a cherry.'
         },
     ]
 
