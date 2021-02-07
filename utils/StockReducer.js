@@ -40,7 +40,7 @@ function defaultStock(){
         { id: generate(), label: 'Lemon Juice', in_stock: true },
         { id: generate(), label: 'Lime Juice', in_stock: true },
         { id: generate(), label: 'Maraschino Liquer', in_stock: true },
-        { id: generate(), label: 'Peychauds', in_stock: true },
+        { id: generate(), label: `Peychaud's`, in_stock: true },
         { id: generate(), label: 'Red Wine', in_stock: true },
         { id: generate(), label: 'Rye', in_stock: true },
         { id: generate(), label: 'Simple Syrup', in_stock: true },
