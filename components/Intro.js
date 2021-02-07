@@ -188,7 +188,7 @@ function IntroSlide({ item }) {
             <View style={styles.container}>
                 <View style={[styles.image_container]}>
                     <Image
-                        height={windowHeight - 150}
+                        height={windowHeight - 200}
                         resizeMode={'contain'}
                         // background={true}
                         source={item.image}
@@ -217,12 +217,19 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
+        // transform: [{scaleX: .9}]
+        // paddingLeft: 100,
+        // width: windowWidth-100,
+        // marginLeft: 20
+        // flex: 1
         // position: 'relative',
         // padding: 10,
         // height: windowHeight
     },
     image_container: {
         paddingTop: 50,
+        // paddingRight: 10,
+        // paddingLeft: 10,
         // flex: 1
         // width: windowWidth,
         // height: windowHeight,
