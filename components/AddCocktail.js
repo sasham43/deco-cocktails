@@ -421,7 +421,7 @@ function Add(props){
     })
 
     function keyboardDidShow(e){
-        console.log('keyboard did show', e.endCoordinates.height)
+        // console.log('keyboard did show', e.endCoordinates.height)
         setMarginBottom(e.endCoordinates.height)
         // setMarginBottom(390)
     }
