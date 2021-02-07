@@ -40,11 +40,11 @@ import { sortedIngredients } from '../utils/sort'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-const screenHeight = Dimensions.get('screen').height
+// const screenHeight = Dimensions.get('screen').height
 
 const titlePadding = 37 + 41 + 20
 const footerHeight = 25
-const viewHeight = windowHeight - (titlePadding + footerHeight)
+// const viewHeight = windowHeight - (titlePadding + footerHeight)
 
 
 const mapStateToProps = (state) => {
@@ -81,7 +81,7 @@ function NameMap(props) {
     function isInStock(name){
         return props.current_stock.includes(name.trim()) 
     }
-    // var fontSize = props.fontSize ? props.fontSize : null // ??
+    
     return (
         <View style={[styles.name_container, props.size == 'small' ? {marginTop: 6} : null]}>
             {props.ingredients.map((ingredient, i) => (
@@ -92,10 +92,6 @@ function NameMap(props) {
         </View>
     )
 }
-
-// function sortedIngredients(ingredients) {
-//     return _.orderBy(ingredients, 'parts', 'desc')
-// }
 
 
 function CocktailListMap(props) {
