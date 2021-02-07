@@ -2,7 +2,7 @@
   "expo": {
     "name": "Cocktails",
     "slug": "deco-cocktails",
-    "version": "1.0.18",
+    "version": "1.0.19",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -24,7 +24,7 @@
         "READ_EXTERNAL_STORAGE"
       ],
       "package": "com.crumpcocktails",
-      "versionCode": 18
+      "versionCode": 19
     },
     "ios": {
       "supportsTablet": true,
