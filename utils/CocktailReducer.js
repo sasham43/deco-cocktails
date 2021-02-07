@@ -312,7 +312,7 @@ function defaultCocktails() {
                     parts: 3
                 },
             ],
-            directions: 'Shake gin, lemon juice, and simple syrup with ice for 15 seconds.  Strain into a champagne glass, top with Champagne.'
+            directions: 'Shake gin, lemon juice, and simple syrup with ice for 15 seconds.  Strain into a champagne glass, top with champagne.'
         },
         {
             id: generate(),
@@ -366,7 +366,7 @@ function defaultCocktails() {
                     parts: 'rinse'
                 },
             ],
-            directions: `Stir rye, brandy, angostura, and peychaud's with ice for 30 seconds.  Strain into a rocks glass rinsed with Absinthe.`
+            directions: `Stir rye, brandy, angostura, and peychaud's with ice for 30 seconds.  Strain into a rocks glass rinsed with absinthe.`
         },
         {
             id: generate(),
