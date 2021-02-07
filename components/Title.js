@@ -31,9 +31,6 @@ function Title(props){
     return (
         <Pressable onPressIn={() => pressIn()} onPressOut={() => pressOut()} onLongPress={() => goToAbout()} style={[props.ui.current_theme, styles.title]}>
             <View style={{ borderColor: border, borderBottomWidth: 1 }}>
-                {/* <AppText style={[styles.text]}>
-                    {props.ui.title ? props.ui.title : ''}
-                </AppText> */}
                 <TitleText title={props.ui.title} theme={props.ui.current_theme} />
             </View>
         </Pressable>
@@ -65,7 +62,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     text: {
-        fontSize: 35
+        fontSize: 35,
+        textAlign: 'center'
     }
 })
 
