@@ -24,7 +24,7 @@
         "READ_EXTERNAL_STORAGE"
       ],
       "package": "com.crumpcocktails",
-      "versionCode": "1.1.0"
+      "versionCode": "110"
     },
     "ios": {
       "supportsTablet": true,
