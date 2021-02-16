@@ -7,7 +7,7 @@ import GestureRecognizer from 'react-native-swipe-gestures'
 import ViewShot from "react-native-view-shot"
 import SlidingUpPanel from 'rn-sliding-up-panel'
 import QRCode from 'react-native-qrcode-svg'
-import * as Linking from 'expo-linking'
+// import * as Linking from 'expo-linking'
 
 import AppText from './AppText'
 import AppMenu from './AppMenu'
@@ -326,7 +326,7 @@ function jsonToQuery(json){
     var str = '?'
 
     for (key in json) {
-        str += `${key}=${json[key]}&`
+        str += `${key}=${encodeURIComponent(json[key])}&`
     }
 
     return str
@@ -369,9 +369,9 @@ function ShareQR(props){
                     <AppText style={{ textAlign: 'center'}}>
                         Scan this code to import {props.cocktail.name} into Crump Cocktails!
                     </AppText>
-                    {/* <AppText>
-                        {link}
-                    </AppText> */}
+                    <AppText>
+                        {/* {link} */}
+                    </AppText>
                 </View>
             </View>
 
