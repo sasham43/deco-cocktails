@@ -319,7 +319,17 @@ function translateCocktail(cocktail){
 
     // console.log('translated', new_cocktail)
 
-    return new_cocktail
+    return jsonToQuery(new_cocktail)
+}
+
+function jsonToQuery(json){
+    var str = '?'
+
+    for (key in json) {
+        str += `${key}=${json[key]}&`
+    }
+
+    return str
 }
 
 function ShareQR(props){
@@ -332,7 +342,9 @@ function ShareQR(props){
     var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
     const icon_size = 40
 
-    const link = Linking.makeUrl('', translateCocktail(props.cocktail))
+    // const link = Linking.makeUrl('', translateCocktail(props.cocktail))
+    const link = 'crumpcocktails://' + translateCocktail(props.cocktail)
+    // const link = `crumpcocktails://${JSON.stringify(translateCocktail(props.cocktail))}`
 
     // console.log('width', props.ui.default_styles.window.width)
 
@@ -357,6 +369,9 @@ function ShareQR(props){
                     <AppText style={{ textAlign: 'center'}}>
                         Scan this code to import {props.cocktail.name} into Crump Cocktails!
                     </AppText>
+                    {/* <AppText>
+                        {link}
+                    </AppText> */}
                 </View>
             </View>
 
