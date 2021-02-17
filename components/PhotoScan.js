@@ -27,6 +27,8 @@ export default function PhotoScan(props){
 
     const handleBarCodeScanned = async ({ type, data }) => {
         setScanned(true)
+
+        // console.log('handling bar code scanned', type, data)
         
         if(data){
             setQrStatus('found')
@@ -83,7 +85,7 @@ function ImportImage(props){
 
     useEffect(() => {
         (async () => {
-            if (Platform.OS !== 'web') {
+            if (Platform.OS == 'android') {
                 // says this function is undefined, not sure why it doesn't exist
                 //
                 // const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -103,6 +105,8 @@ function ImportImage(props){
             quality: 1,
             base64: true
         });
+
+        // console.log('result', result)
 
         if (!result.cancelled) {
             setImage(result.uri);
@@ -127,7 +131,7 @@ function ImportImage(props){
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left_small]} width={15} height={15} />
 
                 <View style={{margin:5, borderWidth:0}}>
-                <ScanMsg status={props.status} />
+                    <ScanMsg status={props.status} />
                 </View>
             </View>
             <AppButton style={{flex:1}} press={pickImage}>Select Photo</AppButton>

@@ -53,7 +53,7 @@ function Main(props){
         // console.log('url', url)
         if (url && url.url) {
             handleUrl(url)
-        } else if (url.includes('?')){
+        } else if (url && url.includes('?')){
             handleUrl({url})
         }
     }
