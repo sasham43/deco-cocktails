@@ -3,7 +3,8 @@ import {
     StyleSheet, 
     StatusBar, 
     View,
-    Modal
+    Modal,
+    Platform
 } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator,TransitionSpecs } from '@react-navigation/stack'
@@ -68,25 +69,63 @@ function Main(props){
     function hideImportModal() {
         setImportModalVisible(false)
     }
-        var screen_options = {
-            headerShown: false, 
-            transitionSpec: {
-                open: TransitionSpecs.TransitionIOSSpec,
-                close: TransitionSpecs.TransitionIOSSpec,
-            },            
-            cardStyleInterpolator: ({ current, next, layouts }) => {
-                return {
-                    cardStyle: {
-                        opacity: current.progress.interpolate({
-                            inputRange: [0,1],
-                            outputRange: [0,1]
-                        })
-                    },
-                    overlayStyle: {}
+        // var screen_options = {
+        //     headerShown: false, 
+        //     transitionSpec: {
+        //         open: TransitionSpecs.FadeInFromBottomAndroidSpec,
+        //         close: TransitionSpecs.FadeOutToBottomAndroidSpec,
+        //     },            
+        //     // transitionSpec: {
+        //     //     open: TransitionSpecs.TransitionIOSSpec,
+        //     //     close: TransitionSpecs.TransitionIOSSpec,
+        //     // },            
+        //     // cardStyleInterpolator: ({ current, next, layouts }) => {
+        //     //     return {
+        //     //         cardStyle: {
+        //     //             opacity: current.progress.interpolate({
+        //     //                 inputRange: [0,1],
+        //     //                 outputRange: [0,1]
+        //     //             })
+        //     //         },
+        //     //         overlayStyle: {}
+        //     //     }
+        //     // },
+        //     tabBarVisible: false,
+        //     unmountOnBlur: true,
+        // }
+        var screen_options = getPlatformConfig(Platform.OS)
+
+        function getPlatformConfig(platform){
+            var base = {
+                headerShown: false,
+                tabBarVisible: false,
+                unmountOnBlur: true,
+            }
+
+            if(platform == 'ios'){
+                base.transitionSpec = {
+                    open: TransitionSpecs.TransitionIOSSpec,
+                    close: TransitionSpecs.TransitionIOSSpec,
                 }
-            },
-            tabBarVisible: false,
-            unmountOnBlur: true,
+                base.cardStyleInterpolator = ({ current, next, layouts }) => {
+                    return {
+                        cardStyle: {
+                            opacity: current.progress.interpolate({
+                                inputRange: [0,1],
+                                outputRange: [0,1]
+                            })
+                        },
+                        overlayStyle: {}
+                    }
+                }
+            } else if (platform == 'android'){
+                base.transitionSpec = {
+                    open: TransitionSpecs.FadeInFromBottomAndroidSpec,
+                    close: TransitionSpecs.FadeOutToBottomAndroidSpec,
+                }
+            }
+
+            return base
         }
         
         if(!props.ui.tutorial_complete){
