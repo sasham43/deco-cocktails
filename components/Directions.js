@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
         height: 150,
         flex: 1,
         alignItems: 'stretch',
+        textAlignVertical: 'top',
         fontSize: 17
     },
     directions: {
