@@ -373,7 +373,7 @@ function CocktailList(props){
             onSwipeRight={(state)=>onSwipeRight(state)}
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}
         > 
-            <ScrollView style={[styles.scroll_view, currentMode == 'delete' || currentMode == 'share' ? {paddingLeft: 0}:null]}>
+            <ScrollView style={[styles.scroll_view, currentMode == 'delete' || currentMode == 'share' ? {paddingLeft: 50}:null]}>
                 <CocktailListMap 
                     fontSize={styles.cocktail_text.fontSize} 
                     stock={props.stock.current} 
@@ -736,7 +736,6 @@ const styles = StyleSheet.create({
         // paddingLeft: 50,
         paddingLeft: 15,
         paddingRight: 10,
-        // borderWidth:1,
     },
     action_buttons: {
         fontSize: 22,
