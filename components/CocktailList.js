@@ -98,6 +98,8 @@ function CocktailListMap(props) {
     const navigation = useNavigation()
     const [maxHeight, setMaxHeight] = useState(0)
     const [marginBottom, setMarginBottom] = useState(35)
+    const [cocktailStyle, setCocktailStyle] = useState({})
+    const [toggleStyle, setToggleStyle] = useState({})
 
     useEffect(()=>{
         if(props.share == true){
@@ -116,6 +118,27 @@ function CocktailListMap(props) {
             return s.label
         }
     }).filter(s=>s) // remove nulls
+
+    useEffect(()=>{
+        if(Platform.OS == 'android'){
+            if(props.currentMode == 'share' || props.currentMode == 'delete'){
+                setCocktailStyle({
+                    marginLeft: 50
+                })
+                setToggleStyle({
+                    left: 0
+                })
+            } else {
+                setCocktailStyle({
+                    marginLeft: 0
+                })
+            }
+        } else if(Platform.OS == 'ios'){
+            setToggleStyle({
+                left: -40
+            })
+        }
+    }, [props.currentMode])
 
     function selectCocktail(cocktail, currentMode) {
         if(currentMode == 'select'){
@@ -178,12 +201,12 @@ function CocktailListMap(props) {
             style={[styles.cocktail_container, { marginBottom: marginBottom, marginTop: 10 }, props.theme, { position: 'relative', overflow: 'visible', shadowColor: props.theme.shadowColor, borderColor: props.theme.backgroundColor }, pressFlag == cocktail.id ? styles.selected_cocktail : null, pressFlag == cocktail.id ? { borderColor: props.theme.borderColor } : null]} 
             key={cocktail.id}
         >
-                <View style={[{flex: 1, position: 'absolute', left: -40}]}>
+                <View style={[{flex: 1, position: 'absolute'}, toggleStyle]}>
                     <CocktailToggle cocktail={cocktail} theme={props.theme} selectCocktail={selectCocktail} currentMode={props.currentMode} />
                 </View>
                 <Pressable 
                     onPress={() => selectCocktail(cocktail, props.currentMode)} 
-                    style={[styles.cocktail, {flex:8}]} 
+                    style={[styles.cocktail, cocktailStyle, {flex:8}]} 
                     onLongPress={()=>longPress(cocktail, props.currentMode)}
                     onPressOut={()=>pressOut(cocktail)}
                 >
@@ -207,9 +230,13 @@ function CocktailToggle(props){
     var size = 35
 
     if(props.currentMode == 'delete' || props.currentMode == 'share'){
+        // console.log('cocktail toggle', props.theme.color)
         return (
-            <Pressable onPress={() => props.selectCocktail(props.cocktail, props.currentMode)}>
+            // <Pressable onPress={() => props.selectCocktail(props.cocktail, props.currentMode)}>
+                //{/* </Pressable> */}
+            <Pressable style={{zIndex:10}} onPress={() => props.selectCocktail(props.cocktail, props.currentMode)}>
                 <AppText>{props.cocktail.selected}</AppText>
+                {/* <FunctionButtonIcon fill={props.theme.color} width={100} height={75}></FunctionButtonIcon> */}
                 <InStockIcon transform={[{ rotate: '-45deg' }]} width={size} height={size} fill={props.cocktail.selected ? props.theme.color : 'grey'} />
             </Pressable>
         )
@@ -346,7 +373,7 @@ function CocktailList(props){
             onSwipeRight={(state)=>onSwipeRight(state)}
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}
         > 
-            <ScrollView style={[styles.scroll_view, currentMode == 'delete' || currentMode == 'share' ? {paddingLeft: 50}:null]}>
+            <ScrollView style={[styles.scroll_view, currentMode == 'delete' || currentMode == 'share' ? {paddingLeft: 0}:null]}>
                 <CocktailListMap 
                     fontSize={styles.cocktail_text.fontSize} 
                     stock={props.stock.current} 
@@ -709,6 +736,7 @@ const styles = StyleSheet.create({
         // paddingLeft: 50,
         paddingLeft: 15,
         paddingRight: 10,
+        // borderWidth:1,
     },
     action_buttons: {
         fontSize: 22,
