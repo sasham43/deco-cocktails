@@ -260,6 +260,7 @@ function CocktailList(props){
     const [cocktailSearch, setCocktailSearch] = useState('')
     const [filteredCocktails, setFilteredCocktails] = useState([])
     const [showFunctionMenu, setShowFunctionMenu] = useState(false)
+    const [scrollViewStyle, setScrollViewStyle] = useState({})
 
     const navigation = useNavigation()
 
@@ -283,6 +284,21 @@ function CocktailList(props){
     useEffect(()=>{
         if(currentMode == 'scan'){
             showScanModal()
+        }
+        if(Platform.OS == 'android'){
+            setScrollViewStyle({
+                paddingLeft: 0
+            })
+        } else if (Platform.OS == 'ios'){
+            if(currentMode == 'share' || currentMode == 'delete'){
+                setScrollViewStyle({
+                    paddingLeft: 50
+                })
+            } else {
+                setScrolLViewStyle({
+                    paddingLeft: 0
+                })
+            }
         }
     }, [currentMode])
   
@@ -373,7 +389,7 @@ function CocktailList(props){
             onSwipeRight={(state)=>onSwipeRight(state)}
             style={[props.ui.default_styles.viewStyles, props.ui.current_theme]}
         > 
-            <ScrollView style={[styles.scroll_view, currentMode == 'delete' || currentMode == 'share' ? {paddingLeft: 50}:null]}>
+            <ScrollView style={[styles.scroll_view, scrollViewStyle]}>
                 <CocktailListMap 
                     fontSize={styles.cocktail_text.fontSize} 
                     stock={props.stock.current} 
