@@ -421,9 +421,7 @@ function Add(props){
     })
 
     function keyboardDidShow(e){
-        // console.log('keyboard did show', e.endCoordinates.height)
         setMarginBottom(e.endCoordinates.height)
-        // setMarginBottom(390)
     }
     function keyboardDidHide(){
         setMarginBottom(60)
@@ -433,22 +431,17 @@ function Add(props){
             props.navigation.navigate('ViewCocktail')
     }
     function onSwipeRight(state){
-        // if(state.x0 < 150){
-        //     return props.navigation.goBack()
-        // }
         if(!pickerOpen)
             props.navigation.navigate('Stock')
     }
 
     useEffect(()=>{
-        // console.log('margin bottom is ', marginBottom)
         if(marginBottom < 60){
-            setMarginBottom(60) // no idea why this is necessary but here you go
+            setMarginBottom(60)
         }
     }, [marginBottom])
 
     function onCancel() {
-        // props.navigation.navigate('CocktailList')
         resetNewCocktail()
     }
     return (

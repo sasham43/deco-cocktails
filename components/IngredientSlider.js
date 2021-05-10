@@ -1,10 +1,9 @@
-import React, { useRef, useState, useEffect } from 'react'
-import {View, PanResponder, StyleSheet} from 'react-native'
+import React, { useState, useEffect } from 'react'
+import {View, StyleSheet} from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-// import AppText from './AppText'
-import { Part, OpacityPart } from './Parts'
+import { OpacityPart } from './Parts'
 import CornerIcon from '../assets/corner'
 
 import { changeCocktailSlider } from '../utils/CocktailActions'
@@ -21,43 +20,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, mapDispatchToProps)(IngredientSlider)
 
 function IngredientSlider(props){
-
-    const [sliderValue, setSliderValue] = useState(0)
     const [ingredient, setIngredient] = useState(null)
-    var slider_value = 0
-    // const panResponder = useRef(PanResponder.create({
-    //     onStartShouldSetPanResponder: (evt, gestureState) => true,
-    //     onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-    //     onMoveShouldSetPanResponder: (evt, gestureState) => true,
-    //     onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-    //     onPanResponderMove: (evt, gestureState) => {
-    //         var value = parseInt(gestureState.dx / 10)
-    //         var direction = gestureState.vx > 0 ? 'right' : 'left'
-    //         var slider_max = 1440
-    //         if((slider_value + value) > slider_max){
-    //             slider_value = slider_max
-    //         } else if ((slider_value - (value * -1)) < 0){
-    //             slider_value = 0
-    //         } else {
-    //             if(gestureState.vx > 0){
-    //                 slider_value = slider_value + value
-    //             } else {
-    //                 if(value.toString().includes("-")){
-    //                     slider_value += value
-    //                 } else {
-    //                     slider_value -= value
-    //                 }
-    //             }
-    //         }
-            
-    //         var constrained = constrain((slider_value / 30), 0, props.ingredient_values.length - 1)
-    //         setSliderValue(constrained)
-
-    //         const ingredient = props.ingredient_values[constrained]
-    //         setIngredient(ingredient)
-    //         props.setParts(ingredient.value)
-    //     },
-    // })).current
 
     // if outside value changes, set inside value to match
     useEffect(()=>{
@@ -79,7 +42,6 @@ function IngredientSlider(props){
     return (
         <View>
             <View
-                // {...panResponder.panHandlers}
                 style={{ height: 26, borderColor: 'grey', borderWidth: 0, padding: 8, marginTop:0 }}
             >
                 <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.top_right]} width={12} height={12} />
@@ -90,13 +52,6 @@ function IngredientSlider(props){
             </View> 
         </View>
     )
-}
-
-function constrain(num, min=0, max){
-    var floor = Math.max(min, num)
-    var ceiling = Math.min(floor, max)
-
-    return parseInt(ceiling)
 }
 
 function SliderDisplay(props) {

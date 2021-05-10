@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
     return { ui }
 }
 export default connect(mapStateToProps)(AppPicker)
-// export default 
+
 function AppPicker(props){
     const [flatList, setFlatList] = useState()
     const defaults = {
@@ -25,28 +25,19 @@ function AppPicker(props){
     const [scrolling, setScrolling] = useState(false)
     const [snapID, setSnapID] = useState(null)
     const [selectedValue, setSelectedValue] = useState(null)
-    // const [auto, setAuto] = useState(false)
-    // var snapInterval
-    // console.log('defaults', defaults.items)
     var auto = false
 
     useEffect(()=>{
-        
-        
         if (props.parts === 0) {
-            // console.log('setting selected value to 0')
             setSelectedValue(null)
         }
-        
-        // console.log('props.parts has changed:', props.parts, selectedValue, auto)
+
         if(!auto && props.parts != selectedValue){
             for(var i in defaults.items){
                 if(defaults.items[i].value == props.parts){
-                    var index = i == 0 ? 0 : Number(i)// + 1
-                    // setAuto(true)
+                    var index = i == 0 ? 0 : Number(i)
                     auto = true
                     setTimeout(()=>{
-                        // console.log('auto snapping', auto, props.parts, index)
                         snapScroll(index)
                     })
                 }
@@ -56,28 +47,22 @@ function AppPicker(props){
 
     useEffect(()=>{
         if(!selectedValue !== null){
-            // console.log('selected value has changed:', selectedValue)
             props.setParts(selectedValue)
-            // setSelectedValue(null)
         }
     }, [selectedValue])
 
     function renderItem({item}){
-        // console.log('rendering', item.label)
         var split = item.label.split(' ')
         return (
             <View style={{height: default_height, borderWidth:0, justifyContent: 'center', flexDirection:'row', alignItems: 'center'}} key={item.value}>
                 <AppText style={{textAlign: 'center', color: split[0] == 'parts...' ? 'grey' : props.ui.current_theme.color}}>{split[0]}</AppText>
                 {split[1] ? <AppText style={{textAlign: 'center', marginLeft: 4, fontSize: 12}}>{split[1]}</AppText> : null}
-                {/* <AppText style={{textAlign: 'center'}}>{item.label}</AppText> */}
             </View>
         )
     }
 
     function setParts(value){
         if(!auto){
-            // props.setParts(value)
-            // console.log('setting selected value', value, auto)
             setSelectedValue(value)
         }
     }
@@ -85,7 +70,6 @@ function AppPicker(props){
     function onScroll({nativeEvent}){
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
-        // props.setParts(defaults.items[index]?.value)
         setParts(defaults.items[index]?.value)
     }
 
@@ -96,7 +80,6 @@ function AppPicker(props){
 
     function snapScroll(index){
         if(!flatList) return 
-        // console.log('snapping', auto, index)
 
         setTimeout(()=>{
             // set scroll
@@ -105,16 +88,12 @@ function AppPicker(props){
                 viewPosition: 0.5
             })
             setScrolling(false)
-            // setAuto(false)
-            // auto = false
-            // console.log('snapped', auto)
         })
     }
 
     function onScrollDragEnd({nativeEvent}){
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
-        // props.setParts(defaults.items[index]?.value)
         setParts(defaults.items[index]?.value)
 
         setSnapID(setTimeout(()=>{
@@ -133,7 +112,6 @@ function AppPicker(props){
     function onScrollMomentumEnd({nativeEvent}){
         var offset = nativeEvent.contentOffset.y
         var index = getIndex(offset)
-        // props.setParts(defaults.items[index]?.value)
         setParts(defaults.items[index]?.value)
 
         // set scroll
