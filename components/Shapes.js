@@ -96,10 +96,8 @@ export function OpacityShapeMap(props) {
     var height = props.height ? props.height : 9
     var width = props.width ? props.width : 9
 
-    // console.log('opacity', props.style, props.max, props.parts, shape_array)
     return shape_array.map((part, i) => {
         var key = generate()
-        // console.log('i',i, part, props.max)
         return (
             <View key={key} style={[styles.shape_container, { opacity: i < props.max ? 1 : 0 },{marginRight: 0}, getShapeMargin(part), props.style]}>
                 <ConnectedShape height={height} width={width} part={part} opacity={true} />
