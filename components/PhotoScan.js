@@ -8,13 +8,11 @@ import * as Permissions from 'expo-permissions';
 import AppText from './AppText'
 import AppButton from './AppButton'
 import CornerIcon from '../assets/corner'
-// import {translateForImport} from '../utils/translate'
 
 
 export default function PhotoScan(props){
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
-    // const [currentIndex, setCurrentIndex] = useState(0)
 
     const [qrStatus, setQrStatus] = useState('scanning')
 
@@ -84,9 +82,6 @@ function ImportImage(props){
     useEffect(() => {
         (async () => {
             if (Platform.OS !== 'web') {
-                // says this function is undefined, not sure why it doesn't exist
-                //
-                // const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
                 const { status } = await Permissions.getAsync(Permissions.MEDIA_LIBRARY)
                 if (status !== 'granted') {
                     alert('Sorry, we need camera roll permissions to make this work!');
@@ -106,7 +101,6 @@ function ImportImage(props){
 
         if (!result.cancelled) {
             setImage(result.uri);
-            console.log('image:', image)
             const qr = await BarCodeScanner.scanFromURLAsync(result.uri)
 
             if(qr.length > 0){
@@ -172,9 +166,6 @@ const styles = StyleSheet.create({
     scan_msg: {
         textAlign: 'center',
         fontSize: 18,
-        // position: 'absolute',
-        // flexDirection: 'row',
-        // flex: 1
     },
     header: {
         marginTop: -20,

@@ -41,7 +41,6 @@ function About (props){
             var msg = 'This will remove all new bottles from your cabinet and cannot be undone'
         }
         
-        // var msg = ''
         var buttons = [
             {
                 text: 'Cancel',
@@ -72,7 +71,6 @@ function About (props){
         <GestureRecognizer
             style={[props.ui.default_styles.viewStyles, styles.about, props.ui.current_theme]}
             onSwipeRight={(state)=>swipeRight(state)}
-            // onSwipeLeft={(state)=>swipeLeft(state)}
         >
             <KeyboardAwareScrollView>
                 <View style={styles.about_content}>

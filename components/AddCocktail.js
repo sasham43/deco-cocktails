@@ -3,7 +3,6 @@ import { View, StyleSheet, TextInput, Pressable, Dimensions, KeyboardAvoidingVie
 import { generate } from 'shortid'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import RNPickerSelect from 'react-native-picker-select'
 import { useIsFocused } from '@react-navigation/native'
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 import _ from 'lodash'
@@ -200,7 +199,6 @@ function Add(props){
     function loadParams(params){
         if(params && params.id){
             var cocktail = cocktails.find(c=>c.id == params.id)
-            // console.log('cocktail', cocktail.name)
             if(cocktail){
                 setNewCocktailName(cocktail.name)
                 setAddedCocktailIngredients(cocktail.ingredients)
@@ -225,8 +223,6 @@ function Add(props){
     async function saveCocktailPress() {
         saveCocktail()
         resetNewCocktail()
-
-        // navigation.navigate('AddCocktail', {})
     }
 
     const ingredient_values = [

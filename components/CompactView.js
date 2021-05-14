@@ -8,7 +8,6 @@ import {Directions} from './Directions'
 export function CompactView(props) {
     var small_screen = Dimensions.get('window').height < 700
     var fontSize = small_screen ? 14 : 16
-    // console.log('fjfkdls', props.stock)
     if(!props.cocktail){
         return null
     } else {

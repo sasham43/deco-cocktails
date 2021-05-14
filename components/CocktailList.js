@@ -392,7 +392,6 @@ function CocktailList(props){
                     visible={scanModalVisible}
                 >
                     <PhotoScan hideModal={hideScanModal} handleUrl={props.handleUrl} ui={props.ui} />
-                    {/* <ImportCocktail hide={hideScanModal} cocktail={importCocktail} /> */}
                 </Modal>
             </View>
 
@@ -401,7 +400,6 @@ function CocktailList(props){
                 visible={shareModalVisible}
             >
                 <View style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15, flex: 1 }}>
-                    {/* <ShareCocktail setShareUri={setShareUri} cocktail={cocktail} ui={props.ui} stock={props.stock} /> */}
                     <ShareMenu ui={props.ui} setShareUri={setShareUri} cocktails={cocktails} title={props.ui.title} />
                     <View style={{ flexDirection: 'row' }}>
                         <View style={[styles.share_btn, { marginRight: 5, flex: 1 }]} >
@@ -423,20 +421,14 @@ function CocktailList(props){
 
 function getShareStyle(ui, length){
     var width = ui.default_styles.window.width
-    // var height = ui.default_styles.window.height
     const style = {}
 
 
     // small, e.g. iPhone 8
     if(width < 700){
-
         style.menu_width = 350
     } else if (width > 1000){
-        // style.fontSize = small_font
         style.menu_width = 700
-    } else {
-        // style.fontSize = small_font
-        // style.size = 'small'
     }
 
     return style
@@ -457,7 +449,6 @@ function ShareMenu(props){
         })
     })
     function onCapture(uri){
-        // console.log('captured menu uri', uri)
         props.setShareUri(uri)
     }
     var icon_size = 50 // generate this below?
@@ -473,7 +464,6 @@ function ShareMenu(props){
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_right]} width={icon_size} height={icon_size} />
             <CornerIcon fill={props.ui.current_theme.color} style={[styles.corner_icon, styles.bottom_left]} width={icon_size} height={icon_size} />
             <View style={{flexDirection: 'row', alignSelf: 'center'}}>
-                {/* <AppText style={{fontSize: 30}}>{props.title}</AppText> */}
                 <TitleText title={props.title} theme={props.ui.current_theme} />
             </View>
             <View style={{justifyContent: 'space-around', flexDirection: 'column', flex:1}}>
@@ -505,7 +495,6 @@ function TitleText(props) {
 }
 
 function Footer(props){
-    // console.log('Footer', props.currentMode)
     if(props.currentMode == 'delete'){
         function remove(){
             props.deleteCocktails()
@@ -526,7 +515,6 @@ function Footer(props){
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
                 <AppText style={styles.footer_button_text}>
                     Change Cocktail
-                    {/* Change A Cocktail */}
                 </AppText>
                 <AppButton press={() => props.switchMode('')}>
                     Cancel
@@ -538,7 +526,6 @@ function Footer(props){
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
                 <AppText style={styles.footer_button_text}>
                     View Cocktail
-                    {/* View A Cocktail */}
                 </AppText>
                 <AppButton press={()=>props.switchMode('')}>
                     Cancel
@@ -546,10 +533,8 @@ function Footer(props){
             </View>
         )
     } else if (props.currentMode == 'share'){
-        // console.log('sharefooter')
         function share(){
             props.shareMenu()
-            // props.switchMode('')
         }
         return (
             <View style={[props.ui.default_styles.footerStyles, styles.delete_footer, props.ui.current_theme]}>
@@ -616,7 +601,6 @@ function FunctionMenu(props) {
     if(windowHeight < 700){
         top_height = 510
     }
-    // console.log('windowHeight', windowHeight, top_height)
     
     return (
         <SlidingUpPanel 
@@ -649,7 +633,6 @@ function FunctionMenu(props) {
                 <FunctionMenuButton theme={props.theme} label={"View"} mode="select" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Change"} mode="edit" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Remove"} mode="delete" switchMode={removeMode} currentMode={props.currentMode} hidePanel={hidePanel} />
-                {/* <FunctionMenuButton theme={props.theme} label={"Create Cocktail"} mode="add" switchMode={navigateToAdd} currentMode={props.currentMode} /> */}
                 <FunctionMenuButton theme={props.theme} label={"Scan"} mode="scan" switchMode={props.switchMode} currentMode={props.currentMode} hidePanel={hidePanel} />
                 <FunctionMenuButton theme={props.theme} label={"Share Menu"} mode="share" switchMode={shareMode} currentMode={props.currentMode} hidePanel={hidePanel} />
             </View>

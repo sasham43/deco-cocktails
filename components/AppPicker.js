@@ -73,11 +73,6 @@ function AppPicker(props){
         setParts(defaults.items[index]?.value)
     }
 
-    function onScrollBeginDrag({nativeEvent}){
-        // console.log('onScrollBeginDrag')
-        // setScrolling(true)
-    }
-
     function snapScroll(index){
         if(!flatList) return 
 
@@ -135,10 +130,6 @@ function AppPicker(props){
         }
     }
 
-    function onScrollToIndexFailed(e){
-        // console.log('scroll failed oh no', e, defaults.numToRender)
-    }
-
 
 
     return (
@@ -157,14 +148,12 @@ function AppPicker(props){
                 onScroll={onScroll}
                 onMomentumScrollBegin={onMomentumScrollBegin}
                 onMomentumScrollEnd={onScrollMomentumEnd}
-                onScrollBeginDrag={onScrollBeginDrag}
                 onScrollEndDrag={onScrollDragEnd}
                 ListFooterComponent={<PickerFooter/>}
                 ListHeaderComponent={<PickerHeader/>}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item, index)=>`item-${index}`}
                 ref={f => setFlatList(f)}
-                onScrollToIndexFailed={onScrollToIndexFailed}
             />
         </View>
     )

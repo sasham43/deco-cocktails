@@ -11,12 +11,8 @@ import * as Linking from 'expo-linking'
 
 import AppText from './AppText'
 import AppMenu from './AppMenu'
-// import { AddedIngredientMap } from './AddedIngredients'
 import { deleteCocktail } from '../utils/CocktailActions'
 import AppButton from './AppButton'
-// import {Directions} from './Directions'
-// import HeaderIcon from './HeaderIcon'
-// import CocktailListIndicator from './CocktailListIndicator'
 import CornerIcon from '../assets/corner'
 import { useFunctionMenu } from '../utils/hooks'
 import FunctionButtonIcon from '../assets/function-button.svg'
@@ -35,12 +31,10 @@ const mapDispatchToProps = dispatch => (
 )
 export default connect(mapStateToProps, mapDispatchToProps)(ViewCocktail)
 
-// export default 
 function ViewCocktail(props){
     const navigation = useNavigation()
     const isFocused = useIsFocused()
     const [cocktail, setCocktail] = useState({})
-    // const [contentMode, setContentMode] = useState('ingredients')
     const [sorted, setSorted] = useState([])
     const [currentIndex, setCurrentIndex] = useState(0)
     const [modalVisible, setModalVisible] = useState(false)
@@ -55,39 +49,32 @@ function ViewCocktail(props){
 
 
     useEffect(()=>{
-        // console.log('view []')
         loadParams(params)
     }, [])
     useEffect(()=>{
-        // console.log('view isFocused')
         loadParams(params)
     }, [isFocused])
     useEffect(()=>{
-        // console.log('view params.id')
         loadParams(params)
     }, [params.id])
 
     useEffect(()=>{
-        // console.log('ci', currentIndex)
     }, [currentIndex])
     useEffect(()=>{
         findCurrentIndex()
     })
 
     function loadParams(params){
-        // console.log('loading params', params.id)
         if(params.id){
             var cocktail = props.cocktails.current.find(c=>c.id == params.id)
             setCocktail(cocktail)
 
             setSorted(props.cocktails.current.sort(sortCocktails))
-            // findCurrentIndex()
         } else {
             var cocktail = props.cocktails.current[0]
             setCocktail(cocktail)
 
             setSorted(props.cocktails.current.sort(sortCocktails))
-            // findCurrentIndex()
         }
     }
     function findCurrentIndex(){
@@ -120,10 +107,6 @@ function ViewCocktail(props){
         ]
         Alert.alert(title, msg, buttons)
     }
-
-    // function changeContentMode(mode){
-    //     setContentMode(mode)
-    // }
 
     function removeThisCocktail(){
         navigation.navigate('CocktailList')
@@ -160,23 +143,19 @@ function ViewCocktail(props){
         setShareIndex(0)
     }
     function shareCocktail(){
-        // console.log('share')
         Share.share({
             message: `${cocktail.name} by Crump Cocktails`,
             url: shareUri
         })
         .then((res) => {
-            // console.log(res);
             hideShareModal()
         })
         .catch((err) => {
-            // err && console.log(err);
             hideShareModal()
         })
     }
     function toggleFunctionMenu() {
         setShowFunctionMenu(!showFunctionMenu)
-        // console.log('toggle', showFunctionMenu)
     }
 
     function onSnap(carousel, index){
@@ -195,9 +174,6 @@ function ViewCocktail(props){
     function shareSnap(carousel, index){
         setShareIndex(index)
     }
-
-    // var small_screen = props.ui.default_styles.window.height < 700
-    // var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
 
     return (
         <GestureRecognizer 
@@ -239,7 +215,6 @@ function ViewCocktail(props){
             </View>
             <Modal
                 animationType="slide"
-                // transparent={true}
                 visible={modalVisible}
             >
                 <View style={[{flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: props.ui.current_theme.backgroundColor, paddingTop: 30, paddingLeft: 15, paddingRight: 15, paddingBottom: 15,  flex: 1 }]}>
@@ -277,7 +252,6 @@ function ViewCocktail(props){
 }
 
 function ShareContainer(props){
-    // console.log('share container', props.index)
     if(props.index == 0){
         return (
             <ShareCocktail setShareUri={props.setShareUri} cocktail={props.cocktail} ui={props.ui} stock={props.stock} />
@@ -303,7 +277,6 @@ function translateCocktail(cocktail){
                 new_cocktail[`${i}p`] = cocktail.ingredients[i].parts
             }
         } else if (include.includes(prop)) {
-            // new_cocktail[prop] = cocktail[prop]
             switch(prop){
                 case 'name':
                     new_cocktail['n'] = cocktail[prop]
@@ -312,12 +285,8 @@ function translateCocktail(cocktail){
                     new_cocktail['d'] = cocktail[prop]
                     break;
             }
-        } else {
-            // console.log('not include?', prop, prop in include)
         }
     }
-
-    // console.log('translated', new_cocktail)
 
     return new_cocktail
 }
@@ -328,17 +297,12 @@ function ShareQR(props){
     }
     var small_screen = Dimensions.get('window').height < 700
     var fontSize = small_screen ? 14 : 16
-    // console.log('window', Dimensions.get('window').height, fontSize)
     var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
     const icon_size = 40
 
     const link = Linking.makeUrl('', translateCocktail(props.cocktail))
 
-    // console.log('width', props.ui.default_styles.window.width)
-
     const qr_size = props.ui.default_styles.window.width > 1000 ? 200 : props.ui.default_styles.window.width - 200
-
-    // const attribution_left = props.ui.default_styles.window.width > 1000 ? 175 : (props.ui.default_styles.window.width / 2) - 40
     const attribution_left = 140
 
     return (
@@ -428,7 +392,6 @@ function FunctionMenu(props){
 
 function ShareCocktail(props){
     function onCapture(uri){
-        // console.log('captured', uri)
         props.setShareUri(uri)
     }
     var icon_size = 40
@@ -440,7 +403,6 @@ function ShareCocktail(props){
     })
     var small_screen = Dimensions.get('window').height < 700
     var fontSize = small_screen ? 14 : 16
-    // console.log('window', Dimensions.get('window').height, fontSize)
     var modal_style = small_screen ? styles.small_share_modal : styles.large_share_modal
     return (
         <ViewShot 
@@ -474,10 +436,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },  
     cocktail_title: {
-        // alignItems: 'center',
         textAlign: 'center',
         fontSize: 22,
-        // flex: 2,
     },
     category_title: { 
         fontSize: 19 
@@ -493,7 +453,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     button_container: {
-        // height: 120,
         padding: 8
     },
     corner_icon: {
@@ -505,10 +464,6 @@ const styles = StyleSheet.create({
     bottom_right: { bottom: icon_distance, right: icon_distance, transform: [{ rotate: '90deg' }] },
     bottom_left: { bottom: icon_distance, left: icon_distance, transform: [{ rotate: '180deg' }] },
     small_share_modal: {
-        // maxHeight: 575,
-        // maxWidth: 400,
-        // minHeight: 500,
-        // minWidth: 350
         height: 500,
         width: 350
     },

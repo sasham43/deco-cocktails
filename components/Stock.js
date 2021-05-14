@@ -296,7 +296,6 @@ function FunctionMenu(props) {
             if (panel)
                 panel.hide() 
         }
-        // console.log('hideinfunctionmenu',props.showFunctionMenu, bottom_height, props.editStockId)
     }, [props.showFunctionMenu])
 
     function hidePanel() {
@@ -365,7 +364,6 @@ function FunctionMenu(props) {
                     mode={'edit'} 
                     switchMode={props.switchMode} 
                     hidePanel={hidePanel} 
-                    // selectBottlesInStock={props.selectBottlesInStock}
                     preSwitch={props.selectBottlesInStock}
                     disabled={props.currentMode == 'name'}
                 >Change Bottles</FunctionMenuButton>
@@ -385,7 +383,6 @@ function FunctionMenuButton(props){
     function changeMode() {
         if(props.mode == 'edit' || props.mode == 'delete'){
             props.preSwitch()
-            // props.selectBottlesInStock()
         }
         
         props.switchMode(props.mode)
@@ -401,7 +398,6 @@ function FunctionMenuButton(props){
 
 const styles = StyleSheet.create({
     stock: {
-        // paddingLeft: 40
         paddingLeft: 10
     },
     scroll_view: {
@@ -411,7 +407,6 @@ const styles = StyleSheet.create({
     stock_bottle: {
         flexDirection: 'row',
         marginBottom: 10,
-        // borderBottomWidth: 1
     },  
     label_container: {
         alignSelf: 'center',
@@ -445,7 +440,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         height: 75
-        // paddingBottom: 25
     }, 
     footer_button_text: {
         marginTop: 10,

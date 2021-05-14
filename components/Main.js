@@ -27,7 +27,6 @@ import ImportCocktail from './ImportCocktail'
 
 import CornerIcon from '../assets/corner.svg'
 
-// const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
 
 const mapStateToProps = (state) => {
@@ -50,7 +49,6 @@ function Main(props){
     // can't stick async function in useEffect
     async function fetchUrl(){
         const url = await Linking.getInitialURL()
-        // console.log('url', url)
         if (url && url.url) {
             handleUrl(url)
         } else if (url.includes('?')){
@@ -60,7 +58,6 @@ function Main(props){
 
     function handleUrl(data) {
         let { path, queryParams } = Linking.parse(data.url)
-        // console.log('opening from url', path, queryParams)
         setImportCocktail(queryParams)
         setImportModalVisible(true)
         SplashScreen.hideAsync()
@@ -132,7 +129,6 @@ function Main(props){
                                 <ImportCocktail hide={hideImportModal} cocktail={importCocktail} />
                             </Modal>
                         </View>
-                        {/* <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:'rgba(0,0,0,0)'}}> */}
                         <View style={{width:props.ui.default_styles.window.width, bottom: 0, position: 'absolute', height: 20, zIndex:1, backgroundColor:props.ui.current_theme.backgroundColor}}></View>
                     </View>
                 </NavigationContainer>

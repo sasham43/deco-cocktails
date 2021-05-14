@@ -69,7 +69,6 @@ export function AddedIngredient(props) {
     )
 }
 function Compact(props){
-    // console.log('font', props.name_style)
     var split = props.fractions.split(' ')
     return (
         <View>

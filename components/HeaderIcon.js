@@ -1,7 +1,6 @@
 import React from 'react'
 import { Animated, View } from 'react-native'
 
-// import AppText from './AppText'
 import InStockIcon from '../assets/in-stock'
 
 export default function HeaderIcon(props){

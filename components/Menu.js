@@ -66,7 +66,6 @@ function Menu(props) {
         },
     ]
     function onSnap(carousel, index){
-        // console.log('on snap', index)
         navigation.navigate(menuItems[index].link, {id:null})
     }
     
@@ -103,7 +102,6 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         paddingBottom: 10,
-        // marginRight: 10
     },
     link: {
         flexDirection: 'row',

@@ -75,7 +75,6 @@ function IndicatorMap(props){
         })
     }
     return props.sorted.map((c, i) => {
-        // console.log
         return (
             <Pressable onPress={()=>{goToCocktail(c.id)}} key={i}>
                 <InStockIcon transform={[{ rotate: '-135deg' }]} width={15} height={15} fill={i==props.selected ? props.theme.color : 'grey'} />
@@ -90,9 +89,7 @@ function splitSorted(sorted, current, chunk_size){
         space_left: false,
         space_right: false
     }
-    for(var i = 0; i < sorted.length; i+=chunk_size){
-        // console.log('chunks', i, current)
-        
+    for(var i = 0; i < sorted.length; i+=chunk_size){        
         if(current >= i && current < i+chunk_size){
             if (i >= chunk_size) {
                 data.space_left = true
@@ -101,7 +98,6 @@ function splitSorted(sorted, current, chunk_size){
                 data.space_right = true
             }
             data.split = sorted.slice(i, i + chunk_size)
-            // console.log('split', i, chunk_size, (sorted.length - 1) - chunk_size )
         }
     }
 

@@ -33,9 +33,7 @@ const mapDispatchToProps = dispatch => (
 )
 export default connect(mapStateToProps, mapDispatchToProps)(Intro)
 
-function renderIntro(props) {
-    // console.log('rendering', props.item)
-    
+function renderIntro(props) {    
     if(props.item.key == '0'){
         return <Welcome ui={props.ui} />
     }
@@ -91,7 +89,6 @@ function Intro(props) {
             key: '4',
             title: 'List',
             text: '',
-            // image: '',
             image: list,
             backgroundColor: '#fff'
         },
@@ -102,14 +99,6 @@ function Intro(props) {
             image: fmb,
             backgroundColor: '#fff'
         },
-        // {
-        //     key: '4',
-        //     title: 'Press Title',
-        //     text: '',
-        //     // image: '',
-        //     image: about,
-        //     backgroundColor: '#fff'
-        // },
         {
             key: "2",
             title: 'Add custom cocktails!',
@@ -122,7 +111,6 @@ function Intro(props) {
             key: "6",
             title: 'Add custom cocktails!',
             text: '',
-            // image: '',
             image: share,
             backgroundColor: '#fff'
         },
@@ -130,7 +118,6 @@ function Intro(props) {
             key: "5",
             title: 'Add custom cocktails!',
             text: '',
-            // image: '',
             image: code,
             backgroundColor: '#fff'
         },
@@ -138,7 +125,6 @@ function Intro(props) {
             key: '3',
             title: 'Manage bar cabinet!',
             text: '',
-            // image: '',
             image: cabinet,
             backgroundColor: '#fff'
         },
@@ -146,7 +132,6 @@ function Intro(props) {
     return (
         <AppIntroSlider
             renderItem={(data)=>renderIntro({...data, ui: props.ui})}
-            // renderItem={renderIntro}
             data={intro}
             onDone={onIntroDone}
             activeDotStyle={{ backgroundColor: props.ui.current_theme.color }}
@@ -182,7 +167,6 @@ function Welcome(props) {
 }
 
 function IntroSlide({ item }) {
-    // console.log('item.image', item.image)
     if (item.image) {
         return (
             <View style={styles.container}>
@@ -210,56 +194,26 @@ function IntroSlide({ item }) {
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
 
-// console.log('windowHeight', windowHeight)
-// console.log('windowWidth', windowWidth)
 const icon_distance = -1
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        // transform: [{scaleX: .9}]
-        // paddingLeft: 100,
-        // width: windowWidth-100,
-        // marginLeft: 20
-        // flex: 1
-        // position: 'relative',
-        // padding: 10,
-        // height: windowHeight
     },
     image_container: {
         paddingTop: 50,
-        // paddingRight: 10,
-        // paddingLeft: 10,
-        // flex: 1
-        // width: windowWidth,
-        // height: windowHeight,
-        // paddingBottom: 300
         paddingBottom: 200,
-        // paddingBottom: 150
     },
     image: {
-        // width: null,
-        // height: null,
-        // flex: 1,
-        // resizeMode: 'contain'
-        // height: 100,
-        // width: 100,
         height: windowHeight,
-        // transform: [{scale: .9}],
         width: windowWidth,
         position: 'absolute',
         top: -100,
-
-        // aspectRatio: 1
     },
     info_box: {
         position: 'absolute',
         bottom: 300,
-        // bottom: windowHeight,
-        // top: windowHeight - (windowHeight / 2),
-        // top: windowHeight - (375),
         left: (windowWidth / 2) - 150,
-        // left: 50,
         backgroundColor: '#fff',
         borderColor: '#000',
         borderWidth: 1,

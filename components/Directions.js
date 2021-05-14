@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         borderWidth: 1,
-        // flexDirection: 'column',
         height: 150,
         flex: 1,
         alignItems: 'stretch',

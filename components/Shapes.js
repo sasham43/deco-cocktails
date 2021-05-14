@@ -10,8 +10,6 @@ import ThreeQuarterCircle from '../assets/three-quarter-circle.svg'
 import ThreeQuarterCircleLight from '../assets/three-quarter-circle-light.svg'
 import Circle from '../assets/circle.svg'
 
-import AppText from './AppText'
-
 function buildPartArray(parts) {
     if(!parts) return []
 
