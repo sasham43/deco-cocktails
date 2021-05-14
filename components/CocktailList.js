@@ -40,11 +40,6 @@ import { sortedIngredients } from '../utils/sort'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-// const screenHeight = Dimensions.get('screen').height
-
-const titlePadding = 37 + 41 + 20
-const footerHeight = 25
-// const viewHeight = windowHeight - (titlePadding + footerHeight)
 
 
 const mapStateToProps = (state) => {
@@ -101,7 +96,6 @@ function CocktailListMap(props) {
 
     useEffect(()=>{
         if(props.share == true){
-            // console.log('setting margin bottom')
             setMarginBottom(10)
         }
     }, [])
@@ -203,7 +197,6 @@ function CocktailListMap(props) {
 }
 
 function CocktailToggle(props){
-    // console.log('CocktailToggle', props.disabled)
     var size = 35
 
     if(props.currentMode == 'delete' || props.currentMode == 'share'){
@@ -304,20 +297,16 @@ function CocktailList(props){
         setShareModalVisible(true)
     }
     function hideShareModal(){
-        // console.log('hideShareModal')
         setShareModalVisible(false)
     }
     function showScanModal(){
         setScanModalVisible(true)
     }
     function hideScanModal(){
-        // console.log('hideScanModal')
         setScanModalVisible(false)
         switchMode('')
     }
     function shareMenu(){
-            // console.log('share')
-        // var title = props.ui.title == 'Crump Cocktails' ? 'Menu by Crump Cocktails' : 
         var title
         switch(props.ui.title){
             case 'Crump Cocktails':
@@ -689,7 +678,6 @@ const styles = StyleSheet.create({
     },
     scroll_view: {
         marginBottom: 25,
-        // paddingLeft: 50,
         paddingLeft: 15,
         paddingRight: 10,
     },
